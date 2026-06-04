@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" role="img" aria-label="Civil contracting construction site">
+  <rect width="700" height="420" fill="#dcecff"/>
+  <rect y="290" width="700" height="130" fill="#d5dbe2"/>
+  <g stroke="#c46f21" stroke-width="6" stroke-linecap="round">
+    <path d="M90 98h310M144 98v220M344 98v220"/>
+    <path d="M110 98l116 74 174-74"/>
+  </g>
+  <rect x="394" y="118" width="170" height="200" fill="#17375f"/>
+  <rect x="420" y="148" width="32" height="42" fill="#a8dcff"/>
+  <rect x="476" y="148" width="32" height="42" fill="#a8dcff"/>
+  <rect x="420" y="218" width="32" height="42" fill="#a8dcff"/>
+  <rect x="476" y="218" width="32" height="42" fill="#a8dcff"/>
+  <path d="M80 342h540" stroke="#8793a1" stroke-width="10" stroke-linecap="round"/>
+</svg>

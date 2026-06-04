@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" role="img" aria-label="Authority approval documents">
+  <rect width="700" height="420" fill="#edf5ff"/>
+  <rect x="170" y="46" width="360" height="326" rx="12" fill="#fff" stroke="#bac7d5" stroke-width="4"/>
+  <rect x="220" y="94" width="220" height="18" rx="9" fill="#0b1f3a"/>
+  <rect x="220" y="150" width="270" height="12" rx="6" fill="#91a4b9"/>
+  <rect x="220" y="188" width="230" height="12" rx="6" fill="#91a4b9"/>
+  <rect x="220" y="226" width="262" height="12" rx="6" fill="#91a4b9"/>
+  <circle cx="350" cy="298" r="48" fill="#0b3d91"/>
+  <path d="M326 298l18 18 36-48" stroke="#fff" stroke-width="11" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

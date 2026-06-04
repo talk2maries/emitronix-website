@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="MEP fit-out works">
+  <rect width="720" height="420" fill="#f2f6fa"/>
+  <path d="M80 108h560v210H80z" fill="#fff" stroke="#c8d2dd" stroke-width="5"/>
+  <path d="M80 108l86-54h388l86 54" fill="#dfeaf4"/>
+  <path d="M128 156h464M128 210h464M128 264h464" stroke="#8291a3" stroke-width="13" stroke-linecap="round"/>
+  <path d="M178 140v160M290 140v160M402 140v160M514 140v160" stroke="#0b3d91" stroke-width="7" stroke-linecap="round"/>
+  <path d="M112 346h496" stroke="#1f8fff" stroke-width="12" stroke-linecap="round" opacity=".45"/>
+</svg>

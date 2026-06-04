@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" role="img" aria-label="MEP engineering ceiling services">
+  <rect width="700" height="420" fill="#edf5ff"/>
+  <rect y="300" width="700" height="120" fill="#d7dde4"/>
+  <path d="M64 114h572M64 172h572M64 230h572" stroke="#8092a8" stroke-width="18" stroke-linecap="round"/>
+  <path d="M110 112v168M242 112v168M374 112v168M506 112v168" stroke="#0b3d91" stroke-width="8" stroke-linecap="round"/>
+  <path d="M64 142h572M64 202h572" stroke="#1f8fff" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="190" cy="278" r="26" fill="#0b3d91"/>
+  <circle cx="476" cy="278" r="26" fill="#0b3d91"/>
+</svg>

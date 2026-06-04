@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Villa and building construction project">
+  <defs>
+    <linearGradient id="villaSky" x1="0" x2="0" y1="0" y2="1">
+      <stop stop-color="#dff1ff"/>
+      <stop offset="1" stop-color="#ffffff"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="420" fill="url(#villaSky)"/>
+  <rect y="304" width="720" height="116" fill="#d9e2ec"/>
+  <path d="M110 304V156l138-86 140 86v148z" fill="#f9fbfd" stroke="#8091a3" stroke-width="4"/>
+  <path d="M388 304V132h214v172z" fill="#eef3f8" stroke="#8091a3" stroke-width="4"/>
+  <path d="M86 158l162-100 166 100M388 132h236" stroke="#0b3d91" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="158" y="190" width="66" height="114" fill="#17375f"/>
+  <rect x="272" y="190" width="66" height="70" fill="#99d8ff"/>
+  <rect x="442" y="178" width="54" height="76" fill="#99d8ff"/>
+  <rect x="526" y="178" width="54" height="76" fill="#99d8ff"/>
+  <path d="M104 344h512" stroke="#748292" stroke-width="12" stroke-linecap="round"/>
+</svg>

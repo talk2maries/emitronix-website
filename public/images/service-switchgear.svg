@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" role="img" aria-label="LV switchgear electrical panels">
+  <rect width="700" height="420" fill="#eef5fb"/>
+  <rect x="96" y="56" width="508" height="308" rx="8" fill="#d9e1ea" stroke="#7d8da0" stroke-width="4"/>
+  <g fill="#ffffff" stroke="#8393a5" stroke-width="3">
+    <rect x="122" y="88" width="86" height="244"/>
+    <rect x="224" y="88" width="86" height="244"/>
+    <rect x="326" y="88" width="86" height="244"/>
+    <rect x="428" y="88" width="86" height="244"/>
+    <rect x="530" y="88" width="48" height="244"/>
+  </g>
+  <g fill="#0b3d91">
+    <circle cx="166" cy="140" r="16"/><circle cx="268" cy="140" r="16"/><circle cx="370" cy="140" r="16"/><circle cx="472" cy="140" r="16"/>
+  </g>
+  <g stroke="#1f8fff" stroke-width="7" stroke-linecap="round">
+    <path d="M144 208h44M246 208h44M348 208h44M450 208h44"/>
+    <path d="M144 252h44M246 252h44M348 252h44M450 252h44"/>
+  </g>
+</svg>

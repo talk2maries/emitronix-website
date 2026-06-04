@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 420" role="img" aria-label="Modern interior fit-out">
+  <rect width="700" height="420" fill="#eff5fb"/>
+  <path d="M80 310h540V120H80z" fill="#ffffff" stroke="#c7d2de" stroke-width="4"/>
+  <path d="M80 120h540L520 68H180z" fill="#dbe8f3"/>
+  <path d="M134 162h118v86H134zM446 162h118v86H446z" fill="#b7dfff"/>
+  <path d="M292 150h116v160H292z" fill="#0b3d91"/>
+  <path d="M132 310h436" stroke="#aeb9c5" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="350" cy="230" r="34" fill="#1f8fff" opacity=".8"/>
+</svg>

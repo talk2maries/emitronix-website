@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="Substation and power upgrade works">
+  <rect width="720" height="420" fill="#dcecff"/>
+  <rect y="282" width="720" height="138" fill="#cfd8e2"/>
+  <g stroke="#66788b" stroke-width="8" stroke-linecap="round" fill="none">
+    <path d="M86 282V112h98v170M116 112h38M96 164h78M96 220h78"/>
+    <path d="M260 282V88h118v194M286 88h66M276 150h88M276 214h88"/>
+    <path d="M456 282V132h118v150M480 132h70M470 188h92M470 242h92"/>
+  </g>
+  <path d="M136 112h182l202 20" stroke="#0b3d91" stroke-width="6" fill="none"/>
+  <path d="M122 336h486" stroke="#1f8fff" stroke-width="12" stroke-linecap="round" opacity=".5"/>
+</svg>

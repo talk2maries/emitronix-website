@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-label="Authority approval documentation visual">
+  <defs>
+    <linearGradient id="approval-bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#06111f"/>
+      <stop offset="1" stop-color="#0a2545"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#approval-bg)"/>
+  <g opacity=".13" stroke="#54d6ff">
+    <path d="M0 100h960M0 200h960M0 300h960M0 400h960M0 500h960"/>
+    <path d="M120 0v600M240 0v600M360 0v600M480 0v600M600 0v600M720 0v600M840 0v600"/>
+  </g>
+  <rect x="218" y="82" width="524" height="436" rx="12" fill="#eef6ff" opacity=".96"/>
+  <rect x="258" y="132" width="240" height="20" rx="10" fill="#071a33"/>
+  <rect x="258" y="184" width="444" height="12" rx="6" fill="#8ea5bd"/>
+  <rect x="258" y="218" width="386" height="12" rx="6" fill="#8ea5bd"/>
+  <rect x="258" y="252" width="420" height="12" rx="6" fill="#8ea5bd"/>
+  <rect x="258" y="312" width="148" height="120" rx="8" fill="#071a33"/>
+  <path d="M292 374l32 32 54-72" stroke="#54d6ff" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <rect x="450" y="322" width="210" height="14" rx="7" fill="#1ea7ff"/>
+  <rect x="450" y="362" width="166" height="14" rx="7" fill="#8ea5bd"/>
+  <rect x="450" y="402" width="196" height="14" rx="7" fill="#8ea5bd"/>
+  <circle cx="714" cy="432" r="72" fill="#1ea7ff" opacity=".18"/>
+  <path d="M680 432l24 24 48-62" stroke="#1ea7ff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>

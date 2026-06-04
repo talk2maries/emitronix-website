@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" role="img" aria-label="Commercial MEP project visual">
+  <defs>
+    <linearGradient id="commercial-bg" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#071a33"/>
+      <stop offset="1" stop-color="#06111f"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="600" fill="url(#commercial-bg)"/>
+  <g opacity=".12" stroke="#54d6ff">
+    <path d="M0 92h960M0 184h960M0 276h960M0 368h960M0 460h960M0 552h960"/>
+    <path d="M96 0v600M192 0v600M288 0v600M384 0v600M480 0v600M576 0v600M672 0v600M768 0v600M864 0v600"/>
+  </g>
+  <rect x="118" y="136" width="724" height="332" rx="12" fill="#0a2545" stroke="#1ea7ff" stroke-opacity=".45" stroke-width="3"/>
+  <path d="M170 394h620" stroke="#8ea5bd" stroke-opacity=".35" stroke-width="12" stroke-linecap="round"/>
+  <path d="M182 206h240c70 0 70 84 140 84h220" stroke="#54d6ff" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M182 266h176c58 0 68 88 132 88h292" stroke="#1ea7ff" stroke-width="10" stroke-linecap="round" fill="none" opacity=".82"/>
+  <path d="M214 326h152c46 0 58-48 102-48h248" stroke="#eef6ff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".5"/>
+  <g fill="#54d6ff">
+    <circle cx="182" cy="206" r="18"/>
+    <circle cx="782" cy="290" r="18"/>
+    <circle cx="182" cy="266" r="12"/>
+    <circle cx="782" cy="354" r="12"/>
+  </g>
+  <rect x="250" y="430" width="460" height="22" rx="11" fill="#1ea7ff" opacity=".4"/>
+</svg>
