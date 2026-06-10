@@ -10,7 +10,7 @@ export function Footer() {
           <div>
             <h2 className="text-3xl font-black tracking-tight">Planning a Project in Dubai?</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-white/80">
-              Let Emitronix handle construction, MEP, switchgear and approvals from start to finish.
+              Let Emitronix handle civil construction, fit-out and approvals from start to finish.
             </p>
           </div>
           <Link
@@ -33,7 +33,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="mt-5 max-w-sm text-sm leading-6 text-white/70">
-              Leading construction, MEP, switchgear and authority approval company in Dubai, delivering quality solutions since 2009.
+              Leading civil construction, interior fit-out and authority approval company in Dubai, delivering quality solutions since 2009.
             </p>
           </div>
 

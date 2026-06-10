@@ -8,8 +8,8 @@ import { absoluteUrl, projects, services } from "@/data/site";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Explore Emitronix project capabilities across substations, warehouses, villas, MEP fit-out and LV panel manufacturing in Dubai.",
-  keywords: ["Dubai construction projects", "MEP fit-out projects", "LV panel manufacturing Dubai", "warehouse contractor UAE"],
+    "Explore Emitronix project capabilities across civil infrastructure, warehouses, villas, interior fit-out and authority approvals in Dubai.",
+  keywords: ["Dubai construction projects", "civil contractor Dubai", "warehouse contractor UAE", "villa construction Dubai"],
   alternates: {
     canonical: absoluteUrl("/projects"),
   },
@@ -25,7 +25,7 @@ export default function ProjectsPage() {
             Delivering excellence across Dubai.
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Representative project categories across infrastructure, civil contracting, MEP fit-out and switchgear manufacturing.
+            Representative project categories across civil infrastructure, building construction, interior fit-out and authority approval coordination.
           </p>
         </div>
       </section>
@@ -43,7 +43,7 @@ export default function ProjectsPage() {
       <section className="navy-grid section-pad">
         <div className="container-pad">
           <SectionHeading eyebrow="Project Types" title="Integrated scopes supported by one team." align="center" light />
-          <div className="mt-10 grid gap-4 md:grid-cols-3 lg:grid-cols-5">
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
             {services.map((service) => {
               const Icon = service.icon;
               return (

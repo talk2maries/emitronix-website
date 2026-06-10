@@ -1,9 +1,7 @@
 import {
   BadgeCheck,
   Building2,
-  Cable,
   Clock,
-  Cpu,
   Facebook,
   FileCheck2,
   Flame,
@@ -25,13 +23,13 @@ import {
 export const site = {
   name: "Emitronix",
   legalName: "Emitronix Contracting LLC",
-  title: "Emitronix Contracting LLC | Dubai Civil, MEP, Switchgear and Authority Approvals",
+  title: "Emitronix Contracting LLC | Dubai Civil Construction Contractor",
   description:
-    "Emitronix Contracting LLC delivers civil contracting, interior fit-out, MEP works, LV switchgear manufacturing and Dubai authority approvals across the UAE.",
+    "Emitronix Contracting LLC delivers civil construction, building contracting, villa, warehouse, interior fit-out and Dubai authority approval support across the UAE.",
   url: "https://emitronix.ae",
   location: "Dubai Investment Park 02, Dubai, UAE",
   email: "info@emitronix.ae",
-  phone: "+971 4 824 0002",
+  phone: "+971559828492",
   hours: "Mon - Sat 8:00 AM - 6:00 PM",
 };
 
@@ -49,8 +47,6 @@ export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Civil", href: "/civil" },
   { label: "Interior", href: "/interior" },
-  { label: "MEP", href: "/mep" },
-  { label: "Switchgear", href: "/switchgear" },
   { label: "Approval", href: "/approval" },
   { label: "Projects", href: "/projects" },
   { label: "Resources", href: "/resources" },
@@ -99,32 +95,6 @@ export const services: Service[] = [
     keywords: ["Dubai civil contracting", "G+4 building contractor", "warehouse construction UAE"],
   },
   {
-    title: "MEP Works",
-    shortTitle: "MEP",
-    slug: "mep-works",
-    href: "/mep",
-    description: "Electrical, plumbing, HVAC, fire alarm, ELV and complete MEP execution.",
-    details:
-      "End-to-end MEP contracting including electrical systems, plumbing, HVAC, fire alarm, ELV and coordinated site execution.",
-    image: "/images/service-mep.svg",
-    icon: Cable,
-    highlights: ["Electrical and plumbing", "HVAC and fire alarm", "ELV and complete MEP"],
-    keywords: ["MEP contractor Dubai", "HVAC Dubai", "electrical plumbing contractor UAE"],
-  },
-  {
-    title: "Switchgear Solutions",
-    shortTitle: "Switchgear",
-    slug: "switchgear-solutions",
-    href: "/switchgear",
-    description: "LV panels, MDB, SMDB, DB, MCC, capacitor banks and custom panels.",
-    details:
-      "LV switchgear manufacturing and assembly for MDB, SMDB, DB, MCC, capacitor banks and custom engineered panels.",
-    image: "/images/service-switchgear.svg",
-    icon: Cpu,
-    highlights: ["LV panels", "MDB, SMDB, DB and MCC", "Capacitor banks and custom panels"],
-    keywords: ["LV switchgear Dubai", "MDB panel UAE", "SMDB DB MCC manufacturer"],
-  },
-  {
     title: "Authority Approvals",
     shortTitle: "Approval",
     slug: "authority-approvals",
@@ -162,18 +132,18 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "Substation & Power Upgrade Works",
-    category: "Infrastructure",
+    title: "Site Preparation & Infrastructure Works",
+    category: "Civil Infrastructure",
     location: "Dubai, UAE",
-    image: "/images/project-substation.svg",
-    summary: "Power infrastructure and authority-coordinated upgrade works for high-demand facilities.",
+    image: "/images/project-commercial.svg",
+    summary: "Civil site preparation, enabling works and project coordination for Dubai developments.",
   },
   {
-    title: "Warehouse Projects",
+    title: "Warehouse & Industrial Projects",
     category: "Civil Contracting",
     location: "JAFZA and Dubai South",
     image: "/images/project-warehouse.svg",
-    summary: "Industrial warehouse construction with civil, MEP and approval coordination.",
+    summary: "Warehouse and industrial construction with civil works, authority coordination and handover support.",
   },
   {
     title: "Villa & Building Construction",
@@ -183,27 +153,27 @@ export const projects: Project[] = [
     summary: "Villa and building construction with structural, finishing and authority delivery control.",
   },
   {
-    title: "MEP Fit-Out Works",
-    category: "MEP Works",
-    location: "Commercial Sites",
-    image: "/images/project-mep-fitout.svg",
-    summary: "Electrical, plumbing, HVAC, fire alarm and ELV fit-out for occupied and new-build spaces.",
+    title: "Commercial Interior Fit-Out",
+    category: "Interior Fit-Out",
+    location: "Dubai, UAE",
+    image: "/images/service-interior.svg",
+    summary: "Commercial, retail and office fit-out delivery with clean finishing and project coordination.",
   },
   {
-    title: "LV Panel Manufacturing",
-    category: "Switchgear",
+    title: "Authority Approval Projects",
+    category: "Approvals",
     location: "Dubai, UAE",
-    image: "/images/project-lv-panel.svg",
-    summary: "Custom LV panels, MDB, SMDB, DB, MCC and capacitor bank assemblies.",
+    image: "/images/project-approvals.svg",
+    summary: "Dubai authority approval support for civil construction, renovation and fit-out projects.",
   },
 ];
 
 export const heroBadges = [
   { title: "G+4", label: "Building Contracting", icon: Building2 },
-  { title: "DEWA", label: "Approved Contractor", icon: BadgeCheck },
-  { title: "MEP", label: "Infrastructure Works", icon: Gauge },
-  { title: "LV", label: "Switchgear Manufacturing", icon: Cpu },
+  { title: "Villas", label: "Residential Construction", icon: HardHat },
+  { title: "Warehouses", label: "Industrial Projects", icon: Landmark },
   { title: "Authority", label: "Approval Specialists", icon: ShieldCheck },
+  { title: "Interior", label: "Fit-Out Works", icon: Sparkles },
 ];
 
 export const stats = [
@@ -236,4 +206,32 @@ export const trustPillars = [
   "On-time Delivery",
   "Quality Assurance",
   "Competitive Pricing",
+];
+
+export const approvalServices = [
+  {
+    title: "DEWA Approvals",
+    slug: "dewa-approvals",
+    description: "DEWA approvals for electrical connections, load upgrades and authority coordination.",
+  },
+  {
+    title: "DCD Approvals",
+    slug: "dcd-approvals",
+    description: "Dubai Civil Defence approval coordination for fire and life safety requirements.",
+  },
+  {
+    title: "DDA Approvals",
+    slug: "dda-approvals",
+    description: "Dubai Development Authority approval support for projects and modifications.",
+  },
+  {
+    title: "DM Approvals",
+    slug: "dm-approvals",
+    description: "Dubai Municipality approval support for building permits and related submissions.",
+  },
+  {
+    title: "Authority Approvals",
+    slug: "authority-approvals",
+    description: "End-to-end authority approval coordination across Dubai authorities.",
+  },
 ];

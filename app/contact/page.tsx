@@ -6,8 +6,8 @@ import { absoluteUrl, contactItems } from "@/data/site";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Contact Emitronix Contracting LLC in Dubai for civil contracting, MEP works, LV switchgear, authority approvals and interior fit-out enquiries.",
-  keywords: ["contact Emitronix Dubai", "Dubai contracting quote", "MEP contractor contact", "DEWA approval contractor Dubai"],
+    "Contact Emitronix Contracting LLC in Dubai for civil contracting, villa construction, warehouse projects, authority approvals and interior fit-out enquiries.",
+  keywords: ["contact Emitronix Dubai", "Dubai contracting quote", "civil contractor contact", "Dubai Municipality approval contractor"],
   alternates: {
     canonical: absoluteUrl("/contact"),
   },
@@ -23,7 +23,7 @@ export default function ContactPage() {
             Get a free consultation for your Dubai project.
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Share your civil, MEP, switchgear, fit-out or authority approval requirements. Our team will guide the next step.
+            Share your civil construction, fit-out, renovation or authority approval requirements. Our team will guide the next step.
           </p>
         </div>
       </section>

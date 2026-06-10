@@ -23,8 +23,8 @@ export const metadata: Metadata = {
     "Emitronix Contracting LLC",
     "Dubai civil contracting",
     "G+4 building contractor Dubai",
-    "MEP contractor UAE",
-    "LV switchgear manufacturing Dubai",
+    "building contractor Dubai",
+    "warehouse contractor UAE",
     "DEWA approvals",
     "Dubai Municipality approvals",
     "Dubai Civil Defence approvals",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: absoluteUrl("/images/hero-construction.svg"),
+        url: absoluteUrl("/images/emitronix-hero-modern.jpg"),
         width: 1200,
         height: 700,
         alt: "Emitronix UAE construction and engineering visual",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
-    images: [absoluteUrl("/images/hero-construction.svg")],
+    images: [absoluteUrl("/images/emitronix-hero-modern.jpg")],
   },
   icons: {
     icon: "/favicon.svg",
@@ -75,7 +75,7 @@ export default function RootLayout({
     name: site.legalName,
     alternateName: site.name,
     url: site.url,
-    image: absoluteUrl("/images/hero-construction.svg"),
+    image: absoluteUrl("/images/emitronix-hero-modern.jpg"),
     email: site.email,
     telephone: site.phone,
     address: {

@@ -7,7 +7,7 @@ import { absoluteUrl, services } from "@/data/site";
 export const metadata: Metadata = {
   title: "Services",
   description:
-    "Explore Emitronix civil contracting, MEP works, LV switchgear, authority approvals and interior fit-out services in Dubai, UAE.",
+    "Explore Emitronix civil contracting, villa construction, warehouse projects, authority approvals and interior fit-out services in Dubai, UAE.",
   alternates: {
     canonical: absoluteUrl("/services"),
   },
@@ -20,7 +20,7 @@ export default function ServicesPage() {
         <div className="container-pad py-16 lg:py-20">
           <p className="text-xs font-black uppercase tracking-[0.22em] text-royal">Services</p>
           <h1 className="mt-4 max-w-5xl text-balance text-4xl font-black tracking-tight text-navy sm:text-6xl">
-            End-to-end construction, MEP, switchgear and approval solutions.
+            End-to-end civil construction, fit-out and approval solutions.
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
             Emitronix delivers integrated contracting support for Dubai projects, combining field execution with authority coordination and engineering discipline.
@@ -31,7 +31,7 @@ export default function ServicesPage() {
       <section className="navy-grid section-pad">
         <div className="container-pad">
           <SectionHeading eyebrow="Our Core Services" title="Complete project support under one roof." align="center" light />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}

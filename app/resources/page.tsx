@@ -7,7 +7,7 @@ import { absoluteUrl, authorities, services } from "@/data/site";
 export const metadata: Metadata = {
   title: "Resources",
   description:
-    "Dubai construction, MEP, switchgear and authority approval resources from Emitronix Contracting LLC.",
+    "Dubai civil construction, fit-out and authority approval resources from Emitronix Contracting LLC.",
   alternates: { canonical: absoluteUrl("/resources") },
 };
 
@@ -21,7 +21,7 @@ export default function ResourcesPage() {
             Practical guides for Dubai construction and approvals.
           </h1>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
-            Reference topics for clients planning civil, MEP, switchgear, fit-out and authority approval work in Dubai.
+            Reference topics for clients planning civil construction, fit-out, renovation and authority approval work in Dubai.
           </p>
         </div>
       </section>
@@ -32,9 +32,9 @@ export default function ResourcesPage() {
           <div className="mt-10 grid gap-5 md:grid-cols-3">
             {[
               "Authority approval checklist for Dubai projects",
-              "When to involve MEP engineering in a fit-out",
-              "LV panel documentation required for submissions",
               "Civil contracting scope review before tender",
+              "Villa and warehouse project readiness checklist",
+              "Renovation approval planning in Dubai",
               "Interior fit-out delivery sequence",
               "Warehouse project readiness checklist",
             ].map((topic) => (

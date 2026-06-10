@@ -11,7 +11,7 @@ export function CTA() {
         <div>
           <h2 className="text-3xl font-black tracking-tight">Planning a Project in Dubai?</h2>
           <p className="mt-2 max-w-lg text-sm leading-6 text-white/78">
-            Let Emitronix handle construction, MEP, switchgear and approvals from start to finish.
+            Let Emitronix handle civil construction, fit-out and approvals from start to finish.
           </p>
         </div>
         <div className="grid gap-3 sm:grid-cols-4">

@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" role="img" aria-label="LV panel manufacturing project">
-  <rect width="720" height="420" fill="#eef4fa"/>
-  <rect x="98" y="60" width="524" height="300" rx="8" fill="#d9e1ea" stroke="#8492a1" stroke-width="4"/>
-  <g fill="#fff" stroke="#7d8b9a" stroke-width="3">
-    <rect x="130" y="92" width="102" height="236"/><rect x="248" y="92" width="102" height="236"/><rect x="366" y="92" width="102" height="236"/><rect x="484" y="92" width="102" height="236"/>
-  </g>
-  <g fill="#0b3d91"><circle cx="181" cy="152" r="16"/><circle cx="299" cy="152" r="16"/><circle cx="417" cy="152" r="16"/><circle cx="535" cy="152" r="16"/></g>
-  <g stroke="#1f8fff" stroke-width="7" stroke-linecap="round"><path d="M158 218h46M276 218h46M394 218h46M512 218h46"/><path d="M158 270h46M276 270h46M394 270h46M512 270h46"/></g>
-</svg>

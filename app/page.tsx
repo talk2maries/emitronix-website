@@ -11,17 +11,17 @@ export default function Home() {
   return (
     <>
       <section className="relative overflow-hidden bg-white">
-        <div className="absolute inset-0 lg:left-[42%]">
+        <div className="absolute inset-0">
           <Image
-            src="/images/hero-construction.svg"
-            alt="Dubai skyline construction site with Emitronix engineers"
+            src="/images/emitronix-hero-modern.jpg?v=20260607"
+            alt="Modern Dubai civil construction skyline with Burj Khalifa and cranes"
             fill
             priority
+            unoptimized
             sizes="100vw"
             className="object-cover object-center"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/92 to-white/10" />
         <div className="container-pad relative grid min-h-[620px] content-center py-16 lg:py-20">
           <div className="max-w-2xl">
             <p className="text-sm font-black uppercase tracking-[0.22em] text-navy">
@@ -31,7 +31,7 @@ export default function Home() {
               DELIVERED WITH EXCELLENCE.
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-8 text-slate-700">
-              End-to-end construction, MEP, switchgear and authority approval solutions across Dubai & UAE.
+              Civil construction, villa, warehouse, interior fit-out and authority approval solutions across Dubai & UAE.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -84,7 +84,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="About Emitronix"
               title="Building Dubai with Engineering Excellence Since 2009"
-              description="Emitronix Contracting LLC delivers complete construction, MEP, infrastructure, switchgear and authority approval solutions across Dubai and UAE. Our commitment to quality, safety and innovation makes us a trusted partner for public and private sector projects."
+              description="Emitronix Contracting LLC delivers civil construction, building contracting, warehouse projects, interior fit-out and authority approval support across Dubai and UAE. Our commitment to quality, safety and innovation makes us a trusted partner for private and commercial projects."
             />
             <div className="mt-8 grid gap-5 sm:grid-cols-4">
               {stats.map((stat) => {
@@ -107,8 +107,8 @@ export default function Home() {
 
       <section className="section-pad navy-grid">
         <div className="container-pad">
-          <SectionHeading eyebrow="Our Core Services" title="End-to-End Solutions Under One Roof" align="center" light />
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-5">
+          <SectionHeading eyebrow="Our Core Services" title="Civil construction solutions under one roof." align="center" light />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}

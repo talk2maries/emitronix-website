@@ -7,8 +7,8 @@ import { absoluteUrl, stats, whyChoose } from "@/data/site";
 export const metadata: Metadata = {
   title: "About Emitronix",
   description:
-    "Emitronix Contracting LLC is a Dubai contracting company delivering civil, MEP, switchgear, authority approval and interior fit-out services since 2009.",
-  keywords: ["Emitronix Dubai", "Dubai contracting company", "construction company UAE", "MEP switchgear approvals Dubai"],
+    "Emitronix Contracting LLC is a Dubai contracting company delivering civil construction, authority approval and interior fit-out services since 2009.",
+  keywords: ["Emitronix Dubai", "Dubai contracting company", "civil construction company UAE", "authority approvals Dubai"],
   alternates: {
     canonical: absoluteUrl("/about"),
   },
@@ -25,7 +25,7 @@ export default function AboutPage() {
               Building Dubai with engineering excellence since 2009.
             </h1>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              Emitronix Contracting LLC brings together civil contracting, MEP execution, switchgear manufacturing, interior fit-out and authority approval coordination for clients across Dubai and the UAE.
+              Emitronix Contracting LLC brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.
             </p>
           </div>
           <Image src="/images/about-building.svg" alt="Modern Dubai building facade" width={900} height={620} className="rounded-md shadow-panel" priority />
