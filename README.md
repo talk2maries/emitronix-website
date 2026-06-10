@@ -16,8 +16,6 @@ Premium corporate website for Emitronix Contracting LLC in Dubai, UAE.
 - Services
 - Civil
 - Interior
-- MEP
-- Switchgear
 - Approval
 - Projects
 - Resources
@@ -28,7 +26,7 @@ Premium corporate website for Emitronix Contracting LLC in Dubai, UAE.
 - White, dark navy and royal blue corporate design
 - Dubai construction skyline hero
 - Lead-generation contact form UI
-- Civil, MEP, switchgear, approval and interior content
+- Civil construction, approval and interior fit-out content
 - Authority approval trust cards
 - Project showcase
 - Dynamic sitemap at `/sitemap.xml`
@@ -42,6 +40,14 @@ Premium corporate website for Emitronix Contracting LLC in Dubai, UAE.
 npm install
 npm run dev
 ```
+
+On Windows PowerShell with strict execution policy restrictions, use:
+
+```bash
+npm.cmd run dev
+```
+
+You can also double-click `start-dev.cmd` from the project folder to launch the local dev server.
 
 ## Build
 
