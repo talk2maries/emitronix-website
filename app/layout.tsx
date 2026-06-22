@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MessageCircle, Phone } from "lucide-react";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
@@ -140,9 +141,16 @@ export default function RootLayout({
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat with Emitronix on WhatsApp"
-          className="fixed bottom-4 left-4 z-[99999] inline-flex items-center rounded-md bg-[#25D366] px-4 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-900/25"
+          className="fixed bottom-5 left-5 z-[99999] flex items-center gap-3"
         >
-          WhatsApp
+          <span className="relative grid h-20 w-20 place-items-center rounded-full bg-[#25D366] text-white shadow-2xl shadow-emerald-950/25">
+            <span className="absolute inset-3 rounded-full border-[5px] border-white" />
+            <MessageCircle size={48} strokeWidth={2.6} className="relative -left-1 top-1 fill-[#25D366]" />
+            <Phone size={25} strokeWidth={4} className="absolute left-[29px] top-[25px] rotate-[18deg]" />
+          </span>
+          <span className="rounded-lg bg-white px-5 py-3 text-lg font-black text-black shadow-xl shadow-slate-900/15">
+            Need Help?
+          </span>
         </a>
         <script
           type="application/ld+json"
