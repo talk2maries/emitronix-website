@@ -31,6 +31,7 @@ export const site = {
   email: "info@emitronix.ae",
   phone: "+971559828492",
   hours: "Mon - Sat 8:00 AM - 6:00 PM",
+  serviceArea: ["Dubai", "United Arab Emirates"],
 };
 
 export const absoluteUrl = (path: string) => {
@@ -89,7 +90,7 @@ export const services: Service[] = [
     description: "G+4 buildings, villas, warehouses, commercial and industrial projects.",
     details:
       "Complete civil contracting for G+4 buildings, villas, warehouses, commercial and industrial developments across Dubai and the UAE.",
-    image: "/images/service-civil.svg",
+    image: "/images/service-civil.webp",
     icon: Building2,
     highlights: ["G+4 buildings", "Villas and warehouses", "Commercial and industrial works"],
     keywords: ["Dubai civil contracting", "G+4 building contractor", "warehouse construction UAE"],
@@ -102,7 +103,7 @@ export const services: Service[] = [
     description: "DEWA, DM, DCD, RTA, Trakhees, DDA, Dubai South, JAFZA and more.",
     details:
       "Authority approval coordination for DEWA, Dubai Municipality, Dubai Civil Defence, RTA, Trakhees, DDA, Dubai South, JAFZA and more.",
-    image: "/images/service-approval.svg",
+    image: "/images/service-approval.webp",
     icon: FileCheck2,
     highlights: ["DEWA and DM", "DCD, RTA and Trakhees", "DDA, Dubai South and JAFZA"],
     keywords: ["DEWA approvals Dubai", "Dubai Municipality approvals", "DCD approval contractor"],
@@ -115,7 +116,7 @@ export const services: Service[] = [
     description: "Complete interior fit-out solutions for commercial, retail and residential projects.",
     details:
       "Premium interior fit-out solutions for offices, retail spaces, restaurants, villas and residential developments.",
-    image: "/images/service-interior.svg",
+    image: "/images/service-interior.webp",
     icon: Sparkles,
     highlights: ["Commercial fit-out", "Retail and hospitality", "Residential interiors"],
     keywords: ["interior fit-out Dubai", "commercial fit-out UAE", "villa interior contractor"],
@@ -135,35 +136,35 @@ export const projects: Project[] = [
     title: "Site Preparation & Infrastructure Works",
     category: "Civil Infrastructure",
     location: "Dubai, UAE",
-    image: "/images/project-commercial.svg",
+    image: "/images/project-commercial.webp",
     summary: "Civil site preparation, enabling works and project coordination for Dubai developments.",
   },
   {
     title: "Warehouse & Industrial Projects",
     category: "Civil Contracting",
     location: "JAFZA and Dubai South",
-    image: "/images/project-warehouse.svg",
+    image: "/images/project-warehouse.webp",
     summary: "Warehouse and industrial construction with civil works, authority coordination and handover support.",
   },
   {
     title: "Villa & Building Construction",
     category: "G+4 Contracting",
     location: "Dubai, UAE",
-    image: "/images/project-villa.svg",
+    image: "/images/project-villa.webp",
     summary: "Villa and building construction with structural, finishing and authority delivery control.",
   },
   {
     title: "Commercial Interior Fit-Out",
     category: "Interior Fit-Out",
     location: "Dubai, UAE",
-    image: "/images/service-interior.svg",
+    image: "/images/service-interior.webp",
     summary: "Commercial, retail and office fit-out delivery with clean finishing and project coordination.",
   },
   {
     title: "Authority Approval Projects",
     category: "Approvals",
     location: "Dubai, UAE",
-    image: "/images/project-approvals.svg",
+    image: "/images/project-approvals.webp",
     summary: "Dubai authority approval support for civil construction, renovation and fit-out projects.",
   },
 ];
@@ -206,6 +207,29 @@ export const trustPillars = [
   "On-time Delivery",
   "Quality Assurance",
   "Competitive Pricing",
+];
+
+export const homeFaqs = [
+  {
+    question: "What type of construction projects does Emitronix handle in Dubai?",
+    answer:
+      "Emitronix Contracting LLC supports civil contracting, G+4 buildings, villas, warehouses, interior fit-out and authority approval coordination for Dubai and UAE projects.",
+  },
+  {
+    question: "Can Emitronix support Dubai authority approvals?",
+    answer:
+      "Yes. Emitronix coordinates approval workflows with authorities such as DEWA, Dubai Municipality, Dubai Civil Defence, RTA, Trakhees and Dubai Development Authority.",
+  },
+  {
+    question: "How can I request a construction quote in Dubai?",
+    answer:
+      "You can contact Emitronix through the website contact form, phone or email with your project location, scope, service required and enquiry details.",
+  },
+  {
+    question: "Does Emitronix provide interior fit-out services?",
+    answer:
+      "Yes. Emitronix provides interior fit-out support for commercial, retail, office, villa and residential projects in Dubai and the UAE.",
+  },
 ];
 
 export const approvalServices = [

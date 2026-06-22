@@ -6,7 +6,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { absoluteUrl, projects, services } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Civil Construction Projects Dubai",
   description:
     "Explore Emitronix project capabilities across civil infrastructure, warehouses, villas, interior fit-out and authority approvals in Dubai.",
   keywords: ["Dubai construction projects", "civil contractor Dubai", "warehouse contractor UAE", "villa construction Dubai"],

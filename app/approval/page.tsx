@@ -5,7 +5,7 @@ import { absoluteUrl, services } from "@/data/site";
 const service = services.find((item) => item.href === "/approval")!;
 
 export const metadata: Metadata = {
-  title: "Authority Approvals",
+  title: "Authority Approval Services Dubai",
   description: "DEWA, Dubai Municipality, DCD, RTA, Trakhees, DDA, Dubai South and JAFZA approval coordination in Dubai.",
   keywords: service.keywords,
   alternates: { canonical: absoluteUrl("/approval") },

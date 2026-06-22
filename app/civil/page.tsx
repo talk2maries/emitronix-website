@@ -5,8 +5,8 @@ import { absoluteUrl, services } from "@/data/site";
 const service = services.find((item) => item.href === "/civil")!;
 
 export const metadata: Metadata = {
-  title: "Civil Contracting",
-  description: "Civil contracting for G+4 buildings, villas, warehouses, commercial and industrial projects in Dubai and UAE.",
+  title: "Civil Contracting Dubai",
+  description: "Civil contracting in Dubai for G+4 buildings, villas, warehouses, commercial and industrial projects across the UAE.",
   keywords: service.keywords,
   alternates: { canonical: absoluteUrl("/civil") },
 };

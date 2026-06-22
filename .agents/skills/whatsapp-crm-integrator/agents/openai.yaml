@@ -1,0 +1,7 @@
+interface:
+  display_name: "WhatsApp CRM Integrator"
+  short_description: "Connect leads to WhatsApp and CRM"
+  default_prompt: "Use $whatsapp-crm-integrator to plan a secure lead integration."
+
+policy:
+  allow_implicit_invocation: true

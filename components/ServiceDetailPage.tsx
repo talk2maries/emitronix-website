@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { SectionHeading } from "@/components/SectionHeading";
-import type { Service } from "@/data/site";
+import { absoluteUrl, site, type Service } from "@/data/site";
 
 type ServiceDetailPageProps = {
   service: Service;
@@ -11,6 +11,51 @@ type ServiceDetailPageProps = {
 
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const Icon = service.icon;
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: `${service.title} in Dubai`,
+    description: service.details,
+    url: absoluteUrl(service.href),
+    image: absoluteUrl(service.image),
+    areaServed: site.serviceArea.map((name) => ({
+      "@type": name === "Dubai" ? "City" : "Country",
+      name,
+    })),
+    provider: {
+      "@id": absoluteUrl("/#localbusiness"),
+      name: site.legalName,
+      telephone: site.phone,
+      email: site.email,
+      url: site.url,
+    },
+    serviceType: service.title,
+    keywords: service.keywords.join(", "),
+  };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Services",
+        item: absoluteUrl("/services"),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: service.title,
+        item: absoluteUrl(service.href),
+      },
+    ],
+  };
 
   return (
     <>
@@ -77,6 +122,14 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       </section>
 
       <CTA />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
     </>
   );
 }

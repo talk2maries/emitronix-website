@@ -1,0 +1,7 @@
+interface:
+  display_name: "AI Chatbot Builder"
+  short_description: "Build secure website chatbots"
+  default_prompt: "Use $ai-chatbot-builder to design a secure lead chatbot."
+
+policy:
+  allow_implicit_invocation: true

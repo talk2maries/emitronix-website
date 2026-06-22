@@ -5,7 +5,7 @@ import { CTA } from "@/components/CTA";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
-import { authorities, heroBadges, projects, services, stats, whyChoose } from "@/data/site";
+import { absoluteUrl, authorities, heroBadges, homeFaqs, projects, services, stats, whyChoose } from "@/data/site";
 
 export default function Home() {
   return (
@@ -13,7 +13,7 @@ export default function Home() {
       <section className="relative overflow-hidden bg-white">
         <div className="absolute inset-0">
           <Image
-            src="/images/emitronix-hero-modern.jpg?v=20260607"
+            src="/images/emitronix-hero-modern.webp?v=20260622"
             alt="Modern Dubai civil construction skyline with Burj Khalifa and cranes"
             fill
             priority
@@ -70,7 +70,7 @@ export default function Home() {
       <section className="section-pad bg-white">
         <div className="container-pad grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
           <div className="relative overflow-hidden rounded-md">
-            <Image src="/images/about-building.svg" alt="Modern Dubai building delivered by Emitronix" width={900} height={620} className="h-auto w-full" />
+            <Image src="/images/about-building.webp" alt="Modern Dubai building delivered by Emitronix" width={900} height={620} className="h-auto w-full" />
             <div className="absolute bottom-4 left-4 rounded-sm bg-royal p-5 text-white shadow-blue">
               <p className="text-4xl font-black">15+</p>
               <p className="mt-1 text-sm font-semibold">Years of Excellence</p>
@@ -173,7 +173,55 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section-pad bg-white">
+        <div className="container-pad">
+          <SectionHeading eyebrow="FAQ" title="Dubai construction questions, answered." align="center" />
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {homeFaqs.map((faq) => (
+              <article key={faq.question} className="rounded-md border border-slate-200 bg-slate-50 p-6">
+                <h2 className="text-lg font-black text-navy">{faq.question}</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{faq.answer}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <CTA />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: homeFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: absoluteUrl("/"),
+              },
+            ],
+          }),
+        }}
+      />
     </>
   );
 }

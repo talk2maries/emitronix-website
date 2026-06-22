@@ -5,9 +5,10 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { absoluteUrl, authorities, services } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "Resources",
+  title: "Dubai Construction Resources",
   description:
     "Dubai civil construction, fit-out and authority approval resources from Emitronix Contracting LLC.",
+  keywords: ["Dubai construction guide", "authority approval checklist Dubai", "civil contractor Dubai resources", "fit-out approval Dubai"],
   alternates: { canonical: absoluteUrl("/resources") },
 };
 

@@ -24,7 +24,10 @@ export const metadata: Metadata = {
     "Dubai civil contracting",
     "G+4 building contractor Dubai",
     "building contractor Dubai",
+    "civil contractor Dubai",
+    "Dubai contracting company",
     "warehouse contractor UAE",
+    "renovation contractor Dubai",
     "DEWA approvals",
     "Dubai Municipality approvals",
     "Dubai Civil Defence approvals",
@@ -46,9 +49,9 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: absoluteUrl("/images/emitronix-hero-modern.jpg"),
-        width: 1200,
-        height: 700,
+        url: absoluteUrl("/images/emitronix-hero-modern.webp"),
+        width: 1915,
+        height: 821,
         alt: "Emitronix UAE construction and engineering visual",
       },
     ],
@@ -57,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
-    images: [absoluteUrl("/images/emitronix-hero-modern.jpg")],
+    images: [absoluteUrl("/images/emitronix-hero-modern.webp")],
   },
   icons: {
     icon: "/favicon.svg",
@@ -71,11 +74,14 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
+    "@type": ["LocalBusiness", "GeneralContractor"],
+    "@id": absoluteUrl("/#localbusiness"),
     name: site.legalName,
     alternateName: site.name,
     url: site.url,
-    image: absoluteUrl("/images/emitronix-hero-modern.jpg"),
+    logo: absoluteUrl("/brand-emblem.svg"),
+    image: absoluteUrl("/images/emitronix-hero-modern.webp"),
+    description: site.description,
     email: site.email,
     telephone: site.phone,
     address: {
@@ -84,18 +90,43 @@ export default function RootLayout({
       addressLocality: "Dubai",
       addressCountry: "AE",
     },
-    areaServed: {
-      "@type": "Country",
-      name: "United Arab Emirates",
-    },
-    makesOffer: services.map((service) => ({
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: service.title,
-        description: service.description,
-      },
+    areaServed: site.serviceArea.map((name) => ({
+      "@type": name === "Dubai" ? "City" : "Country",
+      name,
     })),
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        opens: "08:00",
+        closes: "18:00",
+      },
+    ],
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: site.phone,
+      email: site.email,
+      contactType: "customer service",
+      areaServed: "AE",
+      availableLanguage: ["English"],
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Dubai contracting and approval services",
+      itemListElement: services.map((service) => ({
+        "@type": "Offer",
+        url: absoluteUrl(service.href),
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+          description: service.description,
+          areaServed: "Dubai, United Arab Emirates",
+          provider: {
+            "@id": absoluteUrl("/#localbusiness"),
+          },
+        },
+      })),
+    },
   };
 
   return (

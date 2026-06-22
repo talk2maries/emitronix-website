@@ -5,9 +5,10 @@ import { ServiceCard } from "@/components/ServiceCard";
 import { absoluteUrl, services } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Civil Construction Services Dubai",
   description:
     "Explore Emitronix civil contracting, villa construction, warehouse projects, authority approvals and interior fit-out services in Dubai, UAE.",
+  keywords: ["civil construction services Dubai", "building contractor Dubai", "authority approval Dubai", "interior fit-out Dubai"],
   alternates: {
     canonical: absoluteUrl("/services"),
   },

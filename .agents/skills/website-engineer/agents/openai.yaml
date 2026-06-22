@@ -1,0 +1,7 @@
+interface:
+  display_name: "Website Engineer"
+  short_description: "Build and improve this website safely"
+  default_prompt: "Use $website-engineer to improve the Emitronix website."
+
+policy:
+  allow_implicit_invocation: true

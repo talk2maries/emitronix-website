@@ -5,7 +5,7 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { absoluteUrl, stats, whyChoose } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "About Emitronix",
+  title: "About Emitronix Contracting LLC Dubai",
   description:
     "Emitronix Contracting LLC is a Dubai contracting company delivering civil construction, authority approval and interior fit-out services since 2009.",
   keywords: ["Emitronix Dubai", "Dubai contracting company", "civil construction company UAE", "authority approvals Dubai"],
@@ -28,7 +28,7 @@ export default function AboutPage() {
               Emitronix Contracting LLC brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.
             </p>
           </div>
-          <Image src="/images/about-building.svg" alt="Modern Dubai building facade" width={900} height={620} className="rounded-md shadow-panel" priority />
+          <Image src="/images/about-building.webp" alt="Modern Dubai building facade in Dubai" width={900} height={620} className="rounded-md shadow-panel" priority />
         </div>
       </section>
 
