@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { absoluteUrl, services, site } from "@/data/site";
+import { absoluteUrl, services, site, whatsappUrl } from "@/data/site";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -135,6 +135,15 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with Emitronix on WhatsApp"
+          className="fixed bottom-4 left-4 z-[99999] inline-flex items-center rounded-md bg-[#25D366] px-4 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-900/25"
+        >
+          WhatsApp
+        </a>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

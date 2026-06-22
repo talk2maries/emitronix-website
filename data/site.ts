@@ -34,6 +34,8 @@ export const site = {
   serviceArea: ["Dubai", "United Arab Emirates"],
 };
 
+export const whatsappUrl = `https://wa.me/${site.phone.replace(/\D/g, "")}`;
+
 export const absoluteUrl = (path: string) => {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
   return `${site.url}${cleanPath}`;
