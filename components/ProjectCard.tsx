@@ -12,8 +12,10 @@ export function ProjectCard({ project, compact = false }: ProjectCardProps) {
       <div className={compact ? "relative h-36 overflow-hidden" : "relative h-56 overflow-hidden"}>
         <Image
           src={project.image}
-          alt={`${project.title} project`}
+          alt={project.imageAlt}
+          title={project.imageTitle}
           fill
+          loading="lazy"
           sizes="(min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
           className="object-cover transition duration-500 group-hover:scale-105"
         />

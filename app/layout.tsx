@@ -49,10 +49,10 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: absoluteUrl("/images/emitronix-hero-modern.webp"),
-        width: 1915,
-        height: 821,
-        alt: "Emitronix UAE construction and engineering visual",
+        url: absoluteUrl("/images/dubai-building-contracting-company.webp"),
+        width: 1920,
+        height: 900,
+        alt: "Building Contractor Dubai construction skyline by Emitronix",
       },
     ],
   },
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
-    images: [absoluteUrl("/images/emitronix-hero-modern.webp")],
+    images: [absoluteUrl("/images/dubai-building-contracting-company.webp")],
   },
   icons: {
     icon: "/favicon.svg",
@@ -80,7 +80,7 @@ export default function RootLayout({
     alternateName: site.name,
     url: site.url,
     logo: absoluteUrl("/brand-emblem.svg"),
-    image: absoluteUrl("/images/emitronix-hero-modern.webp"),
+    image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
     description: site.description,
     email: site.email,
     telephone: site.phone,

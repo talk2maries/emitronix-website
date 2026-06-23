@@ -13,24 +13,24 @@ export default function Home() {
       <section className="relative overflow-hidden bg-white">
         <div className="absolute inset-0">
           <Image
-            src="/images/emitronix-hero-modern.webp?v=20260622"
-            alt="Modern Dubai civil construction skyline with Burj Khalifa and cranes"
+            src="/images/dubai-building-contracting-company.webp"
+            alt="Building Contractor Dubai skyline construction project by Emitronix"
+            title="Building Contractor Dubai - Emitronix construction company"
             fill
             priority
-            unoptimized
             sizes="100vw"
             className="object-cover object-center"
           />
         </div>
         <div className="container-pad relative grid min-h-[620px] content-center py-16 lg:py-20">
-          <div className="max-w-2xl">
+          <div className="max-w-[22rem] sm:max-w-2xl">
             <p className="text-sm font-black uppercase tracking-[0.22em] text-navy">
               Built on <span className="text-royal">Trust.</span>
             </p>
-            <h1 className="mt-3 text-balance text-5xl font-black leading-[0.95] tracking-tight text-black sm:text-6xl lg:text-7xl">
+            <h1 className="mt-3 text-balance text-4xl font-black leading-[0.95] tracking-tight text-black sm:text-6xl lg:text-7xl">
               DELIVERED WITH EXCELLENCE.
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-700">
+            <p className="mt-6 max-w-[21rem] text-base leading-7 text-slate-700 sm:max-w-xl sm:text-lg sm:leading-8">
               Civil construction, villa, warehouse, interior fit-out and authority approval solutions across Dubai & UAE.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -70,7 +70,15 @@ export default function Home() {
       <section className="section-pad bg-white">
         <div className="container-pad grid items-center gap-12 lg:grid-cols-[1fr_1fr]">
           <div className="relative overflow-hidden rounded-md">
-            <Image src="/images/about-building.webp" alt="Modern Dubai building delivered by Emitronix" width={900} height={620} className="h-auto w-full" />
+            <Image
+              src="/images/building-contractor-dubai-construction-site.webp"
+              alt="Construction Company Dubai engineers supervising building contracting works"
+              title="Construction Company Dubai - Emitronix building contracting team"
+              width={900}
+              height={620}
+              className="h-auto w-full"
+              loading="lazy"
+            />
             <div className="absolute bottom-4 left-4 rounded-sm bg-royal p-5 text-white shadow-blue">
               <p className="text-4xl font-black">15+</p>
               <p className="mt-1 text-sm font-semibold">Years of Excellence</p>
@@ -136,7 +144,7 @@ export default function Home() {
       <section className="bg-slate-50 py-12">
         <div className="container-pad">
           <SectionHeading eyebrow="Projects Showcase" title="Delivering Excellence Across Dubai" align="center" />
-          <div className="mt-8 grid gap-5 md:grid-cols-3 lg:grid-cols-5">
+          <div className="mt-8 grid gap-5 md:grid-cols-3 xl:grid-cols-6">
             {projects.map((project) => (
               <ProjectCard key={project.title} project={project} compact />
             ))}

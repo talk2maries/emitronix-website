@@ -14,8 +14,10 @@ export function ServiceCard({ service }: ServiceCardProps) {
       <div className="relative h-40 overflow-hidden">
         <Image
           src={service.image}
-          alt={`${service.title} visual`}
+          alt={service.imageAlt}
+          title={service.imageTitle}
           fill
+          loading="lazy"
           sizes="(min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
           className="object-cover transition duration-500 group-hover:scale-105"
         />

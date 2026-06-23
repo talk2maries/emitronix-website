@@ -73,7 +73,15 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             </Link>
           </div>
           <div className="relative overflow-hidden rounded-md shadow-panel">
-            <Image src={service.image} alt={`${service.title} service`} width={700} height={420} className="h-auto w-full" priority />
+            <Image
+              src={service.image}
+              alt={service.imageAlt}
+              title={service.imageTitle}
+              width={700}
+              height={420}
+              className="h-auto w-full"
+              priority
+            />
           </div>
         </div>
       </section>

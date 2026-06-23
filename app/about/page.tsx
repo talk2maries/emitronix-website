@@ -28,7 +28,15 @@ export default function AboutPage() {
               Emitronix Contracting LLC brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.
             </p>
           </div>
-          <Image src="/images/about-building.webp" alt="Modern Dubai building facade in Dubai" width={900} height={620} className="rounded-md shadow-panel" priority />
+          <Image
+            src="/images/building-contractor-dubai-construction-site.webp"
+            alt="Building Contractor Dubai engineers on a professional construction site"
+            title="Building Contractor Dubai - Emitronix construction site team"
+            width={900}
+            height={620}
+            className="rounded-md shadow-panel"
+            priority
+          />
         </div>
       </section>
 
