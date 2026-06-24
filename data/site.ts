@@ -50,7 +50,7 @@ export const navItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Civil", href: "/civil" },
   { label: "Interior", href: "/interior" },
-  { label: "Approval", href: "/approval" },
+  { label: "Approvals", href: "/approval" },
   { label: "Projects", href: "/projects" },
   { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },
@@ -240,6 +240,72 @@ export const trustPillars = [
   "Competitive Pricing",
 ];
 
+export const localSeoBlocks = [
+  {
+    title: "Building contracting in Dubai",
+    description:
+      "Emitronix supports civil construction, structural coordination, finishing works and handover planning for villas, commercial units and warehouse projects across Dubai.",
+    href: "/civil",
+    linkLabel: "Explore civil contracting",
+  },
+  {
+    title: "Authority approvals in Dubai",
+    description:
+      "Our team coordinates authority approval workflows for DM, DCD, DEWA, Trakhees and DDA requirements, helping owners and consultants keep submissions organized.",
+    href: "/approval",
+    linkLabel: "View approval services",
+  },
+  {
+    title: "MEP contracting Dubai coordination",
+    description:
+      "For construction and fit-out scopes, Emitronix helps align civil works with MEP interfaces, site service requirements, inspection readiness and completion documentation.",
+    href: "/projects",
+    linkLabel: "See project types",
+  },
+  {
+    title: "Villa renovation Dubai support",
+    description:
+      "From layout changes and civil modifications to finishing and authority coordination, we support villa renovation projects with practical Dubai construction experience.",
+    href: "/interior",
+    linkLabel: "Review fit-out support",
+  },
+  {
+    title: "Warehouse fit-out Dubai delivery",
+    description:
+      "Emitronix assists warehouse and industrial projects with civil works, interior upgrades, approval coordination and handover support in Dubai logistics zones.",
+    href: "/projects",
+    linkLabel: "View warehouse projects",
+  },
+  {
+    title: "Dubai Municipality approval planning",
+    description:
+      "For building permits, modifications and completion workflows, our approval coordination keeps DM requirements visible from early planning to close-out.",
+    href: "/dubai-municipality-approval",
+    linkLabel: "Dubai Municipality approvals",
+  },
+];
+
+export const localSeoNotes = [
+  {
+    label: "Project planning note",
+    title: "For commercial fit-outs",
+    description:
+      "Early coordination between civil, MEP and approval teams helps reduce rework during commercial fit-out projects in Dubai business districts.",
+  },
+  {
+    label: "Authority note",
+    title: "For DCD and DEWA stages",
+    description:
+      "Fire and utility requirements often affect drawings, inspections and handover timing, so DCD and DEWA touchpoints are planned before site execution.",
+  },
+  {
+    label: "Construction note",
+    title: "For villas and warehouses",
+    description:
+      "Villa renovation Dubai and warehouse construction Dubai projects benefit from clear scope control, authority visibility and practical site supervision.",
+  },
+];
+
 export const homeFaqs = [
   {
     question: "What type of construction projects does Emitronix handle in Dubai?",
@@ -261,32 +327,20 @@ export const homeFaqs = [
     answer:
       "Yes. Emitronix provides interior fit-out support for commercial, retail, office, villa and residential projects in Dubai and the UAE.",
   },
+  {
+    question: "Does Emitronix support MEP contracting coordination in Dubai?",
+    answer:
+      "Emitronix coordinates MEP-related site interfaces, inspection readiness and documentation alongside civil construction and interior fit-out project scopes in Dubai.",
+  },
+  {
+    question: "Can Emitronix help with villa renovation approvals in Dubai?",
+    answer:
+      "Yes. Emitronix supports villa renovation Dubai projects with civil works, fit-out coordination and authority approval planning where required.",
+  },
+  {
+    question: "Do warehouse fit-out projects need authority approvals in Dubai?",
+    answer:
+      "Many warehouse fit-out Dubai projects require authority coordination depending on location, usage, fire safety, utilities and civil modifications. Emitronix helps organize the approval path.",
+  },
 ];
 
-export const approvalServices = [
-  {
-    title: "DEWA Approvals",
-    slug: "dewa-approvals",
-    description: "DEWA approvals for electrical connections, load upgrades and authority coordination.",
-  },
-  {
-    title: "DCD Approvals",
-    slug: "dcd-approvals",
-    description: "Dubai Civil Defence approval coordination for fire and life safety requirements.",
-  },
-  {
-    title: "DDA Approvals",
-    slug: "dda-approvals",
-    description: "Dubai Development Authority approval support for projects and modifications.",
-  },
-  {
-    title: "DM Approvals",
-    slug: "dm-approvals",
-    description: "Dubai Municipality approval support for building permits and related submissions.",
-  },
-  {
-    title: "Authority Approvals",
-    slug: "authority-approvals",
-    description: "End-to-end authority approval coordination across Dubai authorities.",
-  },
-];

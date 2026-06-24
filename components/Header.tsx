@@ -1,15 +1,18 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { approvalServices } from "@/data/approvals";
 import { contactItems, navItems, site, socialLinks } from "@/data/site";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+  const approvalPaths = ["/approval", ...approvalServices.map((item) => item.href)];
+  const approvalActive = approvalPaths.includes(pathname);
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
@@ -46,24 +49,54 @@ export function Header() {
 
       <div className="container-pad">
         <div className="flex h-[76px] items-center justify-between gap-4">
-          <Link href="/" className="flex min-w-0 items-center gap-3 focus-ring rounded-md" aria-label="Emitronix home">
-            <Image src="/brand-emblem.svg" alt="" width={48} height={48} priority />
-            <span className="min-w-0">
-              <span className="block text-2xl font-black tracking-[0.18em] text-navy">EMITRONIX</span>
-              <span className="block text-xs font-semibold uppercase tracking-[0.24em] text-royal">Contracting LLC</span>
-            </span>
+          <Link href="/" className="flex min-w-0 items-center focus-ring rounded-md" aria-label="Emitronix home">
+            <Image
+              src="/images/emitronix-logo-horizontal.svg"
+              alt="Emitronix Building the Future logo"
+              width={230}
+              height={51}
+              className="h-14 w-auto object-contain sm:h-16"
+              priority
+            />
           </Link>
 
           <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary navigation">
             {navItems.map((item) => {
-              const active = pathname === item.href;
+              const isApproval = item.href === "/approval";
+              const active = isApproval ? approvalActive : pathname === item.href;
+              const linkClassName = `inline-flex items-center gap-1 rounded-sm border-b-2 px-3 py-7 text-[11px] font-bold uppercase tracking-wide transition focus-ring ${
+                active ? "border-royal text-royal" : "border-transparent text-navy hover:border-royal/45 hover:text-royal"
+              }`;
+
+              if (isApproval) {
+                return (
+                  <div key={item.href} className="group relative">
+                    <Link href={item.href} className={linkClassName}>
+                      {item.label}
+                      <ChevronDown size={14} strokeWidth={2.2} />
+                    </Link>
+                    <div className="invisible absolute left-0 top-full z-50 w-80 translate-y-2 rounded-md border border-slate-200 bg-white p-2 opacity-0 shadow-panel transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                      {approvalServices.map((service) => (
+                        <Link
+                          key={service.slug}
+                          href={service.href}
+                          className={`block rounded-sm px-4 py-3 text-xs font-bold uppercase tracking-wide transition ${
+                            pathname === service.href ? "bg-blue-50 text-royal" : "text-navy hover:bg-slate-50 hover:text-royal"
+                          }`}
+                        >
+                          {service.menuLabel}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-sm border-b-2 px-3 py-7 text-[11px] font-bold uppercase tracking-wide transition focus-ring ${
-                    active ? "border-royal text-royal" : "border-transparent text-navy hover:border-royal/45 hover:text-royal"
-                  }`}
+                  className={linkClassName}
                 >
                   {item.label}
                 </Link>
@@ -93,18 +126,41 @@ export function Header() {
       {open ? (
         <div className="border-t border-slate-200 bg-white xl:hidden">
           <nav className="container-pad grid gap-1 py-4" aria-label="Mobile navigation">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={`rounded-sm px-4 py-3 text-sm font-bold uppercase tracking-wide ${
-                  pathname === item.href ? "bg-royal text-white" : "text-navy hover:bg-slate-50"
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              const isApproval = item.href === "/approval";
+              const active = isApproval ? approvalActive : pathname === item.href;
+
+              return (
+                <div key={item.href}>
+                  <Link
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className={`flex items-center justify-between rounded-sm px-4 py-3 text-sm font-bold uppercase tracking-wide ${
+                      active ? "bg-royal text-white" : "text-navy hover:bg-slate-50"
+                    }`}
+                  >
+                    {item.label}
+                    {isApproval ? <ChevronDown size={16} /> : null}
+                  </Link>
+                  {isApproval ? (
+                    <div className="mt-1 grid gap-1 border-l-2 border-royal/20 pl-3">
+                      {approvalServices.map((service) => (
+                        <Link
+                          key={service.slug}
+                          href={service.href}
+                          onClick={() => setOpen(false)}
+                          className={`rounded-sm px-4 py-2 text-xs font-bold uppercase tracking-wide ${
+                            pathname === service.href ? "bg-blue-50 text-royal" : "text-slate-600 hover:bg-slate-50 hover:text-royal"
+                          }`}
+                        >
+                          {service.menuLabel}
+                        </Link>
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+              );
+            })}
             <Link
               href="/contact"
               onClick={() => setOpen(false)}

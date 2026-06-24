@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { ArrowRight, PlayCircle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,7 +6,55 @@ import { CTA } from "@/components/CTA";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
-import { absoluteUrl, authorities, heroBadges, homeFaqs, projects, services, stats, whyChoose } from "@/data/site";
+import {
+  absoluteUrl,
+  authorities,
+  heroBadges,
+  homeFaqs,
+  localSeoBlocks,
+  localSeoNotes,
+  projects,
+  services,
+  site,
+  stats,
+  whyChoose,
+} from "@/data/site";
+
+export const metadata: Metadata = {
+  title: "Building Contractor Dubai | Authority Approvals & Civil Contracting",
+  description:
+    "Emitronix Contracting LLC is a Dubai building contracting company for civil works, authority approvals, villa renovation, warehouse fit-out and MEP coordination.",
+  keywords: [
+    "building contracting in Dubai",
+    "building contractor Dubai",
+    "authority approvals in Dubai",
+    "MEP contracting Dubai",
+    "villa renovation Dubai",
+    "warehouse fit-out Dubai",
+    "DM approvals",
+    "DCD approvals",
+    "DEWA approvals",
+    "Trakhees approvals",
+    "DDA approvals",
+  ],
+  alternates: {
+    canonical: absoluteUrl("/"),
+  },
+  openGraph: {
+    title: "Building Contractor Dubai | Emitronix Contracting LLC",
+    description:
+      "Dubai civil construction, villa renovation, warehouse fit-out, MEP coordination and authority approval support by Emitronix Contracting LLC.",
+    url: site.url,
+    images: [
+      {
+        url: absoluteUrl("/images/dubai-building-contracting-company.webp"),
+        width: 1920,
+        height: 900,
+        alt: "Building Contractor Dubai skyline construction project by Emitronix",
+      },
+    ],
+  },
+};
 
 export default function Home() {
   return (
@@ -183,6 +232,42 @@ export default function Home() {
 
       <section className="section-pad bg-white">
         <div className="container-pad">
+          <SectionHeading
+            eyebrow="Dubai Local Expertise"
+            title="Built around Dubai contracting, approvals and project delivery realities."
+            description="Emitronix plans construction work with authority requirements, site access, consultant coordination and handover documentation in mind from the first discussion."
+            align="center"
+          />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            {localSeoBlocks.map((block) => (
+              <article key={block.title} className="rounded-md border border-slate-200 bg-slate-50 p-6 transition hover:-translate-y-1 hover:bg-white hover:shadow-panel">
+                <h2 className="text-xl font-black text-navy">{block.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{block.description}</p>
+                <Link href={block.href} className="mt-5 inline-flex items-center gap-2 text-sm font-black text-royal hover:text-navy">
+                  {block.linkLabel} <ArrowRight size={16} />
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-slate-50 py-14">
+        <div className="container-pad">
+          <div className="grid gap-5 lg:grid-cols-3">
+            {localSeoNotes.map((note) => (
+              <article key={note.title} className="rounded-md border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-royal">{note.label}</p>
+                <h2 className="mt-3 text-2xl font-black text-navy">{note.title}</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-600">{note.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad bg-white">
+        <div className="container-pad">
           <SectionHeading eyebrow="FAQ" title="Dubai construction questions, answered." align="center" />
           <div className="mt-10 grid gap-5 md:grid-cols-2">
             {homeFaqs.map((faq) => (
@@ -227,6 +312,28 @@ export default function Home() {
                 item: absoluteUrl("/"),
               },
             ],
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            name: "Building Contractor Dubai | Emitronix Contracting LLC",
+            url: absoluteUrl("/"),
+            description:
+              "Dubai building contracting, authority approval, villa renovation, warehouse fit-out and MEP coordination support by Emitronix Contracting LLC.",
+            about: localSeoBlocks.map((block) => ({
+              "@type": "Thing",
+              name: block.title,
+              description: block.description,
+            })),
+            provider: {
+              "@id": absoluteUrl("/#localbusiness"),
+              name: site.legalName,
+            },
           }),
         }}
       />

@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { approvalServices } from "@/data/approvals";
 import { absoluteUrl } from "@/data/site";
 
 const routes = [
@@ -11,6 +12,7 @@ const routes = [
   "/projects",
   "/resources",
   "/contact",
+  ...approvalServices.map((service) => service.href),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

@@ -5,23 +5,6 @@ import { contactItems, navItems, services, site, socialLinks } from "@/data/site
 export function Footer() {
   return (
     <footer className="bg-navy text-white">
-      <div className="border-b border-white/10 bg-gradient-to-r from-royal to-navy">
-        <div className="container-pad grid gap-6 py-8 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div>
-            <h2 className="text-3xl font-black tracking-tight">Planning a Project in Dubai?</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-white/80">
-              Let Emitronix handle civil construction, fit-out and approvals from start to finish.
-            </p>
-          </div>
-          <Link
-            href="/contact"
-            className="inline-flex w-fit rounded-sm bg-white px-7 py-4 text-sm font-bold uppercase tracking-wide text-royal shadow-lg transition hover:bg-platinum focus-ring"
-          >
-            Request a Quote
-          </Link>
-        </div>
-      </div>
-
       <div className="container-pad py-12">
         <div className="grid gap-10 lg:grid-cols-[1.25fr_0.75fr_0.9fr_1fr_0.7fr]">
           <div>
