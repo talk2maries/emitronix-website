@@ -158,7 +158,7 @@ export function HeaderClient({
               alt="Emitronix Building the Future logo"
               width={230}
               height={51}
-              className="h-12 w-auto object-contain sm:h-14"
+              className="h-14 w-auto object-contain sm:h-16"
               priority
             />
           </Link>
