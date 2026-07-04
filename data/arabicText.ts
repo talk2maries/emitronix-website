@@ -267,6 +267,12 @@ const commonText: Record<string, string> = {
   "Your name": "اكتب اسمك",
   "Company name": "اسم الشركة",
   "name@example.com": "name@example.com",
+  "Dubai, JAFZA, Dubai South, villa community...": "دبي، جافزا، دبي الجنوب، مجتمع فلل...",
+  "Share drawings available, authority status, site condition, timeline, budget stage and any consultant or landlord comments.":
+    "شارك الرسومات المتاحة، حالة الموافقات، حالة الموقع، الجدول الزمني، مرحلة الميزانية وأي تعليقات من الاستشاري أو المالك.",
+  "Share your location, drawings, authority status and project scope.":
+    "شارك الموقع والرسومات وحالة الموافقات ونطاق المشروع.",
+  "Search approvals, warehouses, civil works...": "ابحث عن الموافقات أو المستودعات أو الأعمال المدنية...",
   "Close enquiry form": "إغلاق نموذج الاستفسار",
   "Close cookie preferences": "إغلاق تفضيلات ملفات تعريف الارتباط",
   "Accept All Cookies": "قبول جميع ملفات تعريف الارتباط",
