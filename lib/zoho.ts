@@ -1,4 +1,5 @@
 import { createHash } from "crypto";
+import { request as httpsRequest } from "https";
 
 export type WebsiteLead = {
   name: string;
@@ -36,6 +37,18 @@ type ZohoRecordResponse = {
       id?: string;
     };
   }>;
+};
+
+type HttpRequestInit = {
+  method?: string;
+  headers?: Record<string, string>;
+  body?: string | URLSearchParams;
+};
+
+type HttpResponse = {
+  status: number;
+  ok: boolean;
+  body: string;
 };
 
 export class ZohoConfigError extends Error {
@@ -113,13 +126,62 @@ function wait(ms: number) {
   });
 }
 
-async function fetchWithRetry(url: string, init: RequestInit, retries = 2) {
-  let lastResponse: Response | null = null;
+async function httpsRequestOnce(url: string, init: HttpRequestInit) {
+  const parsedUrl = new URL(url);
+  const requestBody = init.body instanceof URLSearchParams ? init.body.toString() : init.body;
+
+  return new Promise<HttpResponse>((resolve, reject) => {
+    const headers = { ...(init.headers || {}) };
+
+    if (requestBody) {
+      headers["Content-Length"] = Buffer.byteLength(requestBody).toString();
+    }
+
+    const request = httpsRequest(
+      parsedUrl,
+      {
+        method: init.method || "GET",
+        headers,
+      },
+      (response) => {
+        const chunks: Buffer[] = [];
+
+        response.on("data", (chunk: Buffer) => {
+          chunks.push(chunk);
+        });
+
+        response.on("end", () => {
+          const status = response.statusCode || 0;
+
+          resolve({
+            status,
+            ok: status >= 200 && status < 300,
+            body: Buffer.concat(chunks).toString("utf8"),
+          });
+        });
+      },
+    );
+
+    request.on("error", reject);
+    request.setTimeout(12_000, () => {
+      request.destroy(new Error("Zoho request timed out"));
+    });
+
+    if (requestBody) {
+      request.write(requestBody);
+    }
+
+    request.end();
+  });
+}
+
+async function requestWithRetry(url: string, init: HttpRequestInit, retries = 2) {
+  let lastResponse: HttpResponse | null = null;
   let lastError: unknown = null;
 
   for (let attempt = 0; attempt <= retries; attempt += 1) {
     try {
-      const response = await fetch(url, init);
+      const response = await httpsRequestOnce(url, init);
       lastResponse = response;
 
       if (response.status !== 429 && response.status < 500) {
@@ -141,9 +203,9 @@ async function fetchWithRetry(url: string, init: RequestInit, retries = 2) {
   throw new ZohoApiError(lastError instanceof Error ? lastError.message : "Zoho request failed before receiving a response");
 }
 
-async function readJson<T>(response: Response) {
+async function readJson<T>(response: HttpResponse) {
   try {
-    return (await response.json()) as T;
+    return JSON.parse(response.body || "{}") as T;
   } catch {
     return {} as T;
   }
@@ -156,15 +218,19 @@ async function getZohoAccessToken() {
     return cachedAccessToken;
   }
 
-  const body = new FormData();
-  body.set("grant_type", "refresh_token");
-  body.set("client_id", requiredEnv("ZOHO_CLIENT_ID"));
-  body.set("client_secret", requiredEnv("ZOHO_CLIENT_SECRET"));
-  body.set("refresh_token", requiredEnv("ZOHO_REFRESH_TOKEN"));
+  const body = new URLSearchParams({
+    grant_type: "refresh_token",
+    client_id: requiredEnv("ZOHO_CLIENT_ID"),
+    client_secret: requiredEnv("ZOHO_CLIENT_SECRET"),
+    refresh_token: requiredEnv("ZOHO_REFRESH_TOKEN"),
+  });
 
   const accountsUrl = trimTrailingSlash(optionalEnv("ZOHO_ACCOUNTS_URL", DEFAULT_ACCOUNTS_URL));
-  const response = await fetchWithRetry(`${accountsUrl}/oauth/v2/token`, {
+  const response = await requestWithRetry(`${accountsUrl}/oauth/v2/token`, {
     method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
     body,
   });
 
@@ -223,7 +289,7 @@ export async function createZohoLead(lead: WebsiteLead) {
     record.Mobile = phone;
   }
 
-  const response = await fetchWithRetry(`${accessToken.apiDomain}/crm/v8/${crmModule}`, {
+  const response = await requestWithRetry(`${accessToken.apiDomain}/crm/v8/${crmModule}`, {
     method: "POST",
     headers: {
       Authorization: `Zoho-oauthtoken ${accessToken.token}`,

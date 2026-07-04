@@ -154,6 +154,7 @@ export async function POST(request: NextRequest) {
     if (error instanceof ZohoApiError) {
       console.error("Zoho CRM sync failed", {
         fingerprint: fingerprint.slice(0, 12),
+        message: error.message,
         status: error.status || null,
         code: error.code || null,
       });
