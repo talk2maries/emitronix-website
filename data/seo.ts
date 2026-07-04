@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl, site } from "@/data/site";
+import { toArabicPath } from "@/lib/i18n";
 
 type PageMetadataInput = {
   title: string;
@@ -23,6 +24,7 @@ export function createPageMetadata({
 }: PageMetadataInput): Metadata {
   const resolvedTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
   const url = absoluteUrl(path);
+  const arabicUrl = absoluteUrl(toArabicPath(path));
   const imageUrl = absoluteUrl(image);
 
   return {
@@ -33,6 +35,10 @@ export function createPageMetadata({
     keywords,
     alternates: {
       canonical: url,
+      languages: {
+        "en-AE": url,
+        "ar-AE": arabicUrl,
+      },
     },
     openGraph: {
       type: "website",

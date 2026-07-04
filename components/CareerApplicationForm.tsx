@@ -21,6 +21,18 @@ const positions = [
   "Other Construction Role",
 ];
 
+const arabicPositions = [
+  "مهندس مدني",
+  "مهندس موقع",
+  "مشرف موقع",
+  "منسق مشروع",
+  "حاسب كميات",
+  "منسق تشطيبات داخلية",
+  "منسق موافقات الجهات",
+  "مسؤول سلامة",
+  "وظيفة إنشاءات أخرى",
+];
+
 const requiredFields = [
   "fullName",
   "email",
@@ -35,9 +47,80 @@ const requiredFields = [
 
 type CareerApplicationFormProps = {
   email: string;
+  language?: "en" | "ar";
 };
 
-export function CareerApplicationForm({ email }: CareerApplicationFormProps) {
+export function CareerApplicationForm({ email, language = "en" }: CareerApplicationFormProps) {
+  const isArabic = language === "ar";
+  const text = isArabic
+    ? {
+        eyebrow: "طلب وظيفة",
+        title: "التقديم إلى Emitronix",
+        description: "شارك ملفك لفرص الهندسة، التنفيذ، تنسيق المشاريع، الإشراف أو التشطيبات في دبي.",
+        fullName: "الاسم الكامل",
+        email: "البريد الإلكتروني",
+        mobile: "رقم الهاتف",
+        position: "الوظيفة المطلوبة",
+        selectPosition: "اختر الوظيفة",
+        experience: "سنوات الخبرة",
+        location: "الموقع الحالي",
+        expectedSalary: "الراتب المتوقع",
+        noticePeriod: "فترة الإشعار",
+        resume: "تحميل السيرة الذاتية",
+        fileNote: "الحد الأقصى لحجم الملف: 8 ميجابايت.",
+        message: "رسالة قصيرة / خطاب تعريفي",
+        submitting: "جاري إرسال الطلب",
+        submit: "إرسال الطلب",
+        reviewNote: "تتم مراجعة الطلبات حسب متطلبات المشاريع والأدوار المناسبة.",
+        missing: "يرجى إكمال جميع الحقول المطلوبة وتحميل السيرة الذاتية قبل الإرسال.",
+        invalidFile: "يرجى تحميل السيرة الذاتية بصيغة PDF أو DOC أو DOCX.",
+        largeFile: "يرجى تحميل سيرة ذاتية أصغر من 8 ميجابايت.",
+        success: "تم تجهيز بيانات طلبك. أرفق السيرة الذاتية في نافذة البريد عند الحاجة ثم أرسل الطلب لإكمال التقديم.",
+        placeholders: {
+          name: "اكتب الاسم الكامل",
+          email: "name@example.com",
+          mobile: "+971 55 000 0000",
+          experience: "مثال: 5 سنوات",
+          location: "دبي، الإمارات",
+          expectedSalary: "الراتب الشهري المتوقع",
+          noticePeriod: "فوري / 30 يوما / 60 يوما",
+          message: "اكتب نبذة عن خبرتك في البناء أو الهندسة أو الإشراف أو إدارة المشاريع في دبي.",
+        },
+      }
+    : {
+        eyebrow: "Career Application",
+        title: "Apply to Emitronix",
+        description: "Share your profile for construction, engineering, project coordination, site supervision, or fit-out opportunities in Dubai.",
+        fullName: "Full Name",
+        email: "Email Address",
+        mobile: "Mobile Number",
+        position: "Position Applying For",
+        selectPosition: "Select a position",
+        experience: "Years of Experience",
+        location: "Current Location",
+        expectedSalary: "Expected Salary",
+        noticePeriod: "Notice Period",
+        resume: "Upload CV / Resume",
+        fileNote: "Maximum file size: 8 MB.",
+        message: "Short Message / Cover Letter",
+        submitting: "Submitting Application",
+        submit: "Submit Application",
+        reviewNote: "Applications are reviewed against active project requirements and suitable role matches.",
+        missing: "Please complete all required fields and upload your CV before submitting.",
+        invalidFile: "Please upload your CV in PDF, DOC, or DOCX format.",
+        largeFile: "Please upload a CV smaller than 8 MB.",
+        success: "Your application details have been prepared. Attach your CV in the email window if required, then send it to complete the application.",
+        placeholders: {
+          name: "Enter your full name",
+          email: "name@example.com",
+          mobile: "+971 55 000 0000",
+          experience: "Example: 5 years",
+          location: "Dubai, UAE",
+          expectedSalary: "Expected monthly salary",
+          noticePeriod: "Immediate / 30 days / 60 days",
+          message: "Tell us about your Dubai construction, engineering, site supervision, or project management experience.",
+        },
+      };
   const formId = useId();
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -55,7 +138,7 @@ export function CareerApplicationForm({ email }: CareerApplicationFormProps) {
     setSuccess(false);
 
     if (missingRequired || !file) {
-      setError("Please complete all required fields and upload your CV before submitting.");
+      setError(text.missing);
       return;
     }
 
@@ -64,12 +147,12 @@ export function CareerApplicationForm({ email }: CareerApplicationFormProps) {
     const validFile = allowedExtensions.some((extension) => fileName.endsWith(extension));
 
     if (!validFile) {
-      setError("Please upload your CV in PDF, DOC, or DOCX format.");
+      setError(text.invalidFile);
       return;
     }
 
     if (file.size > 8 * 1024 * 1024) {
-      setError("Please upload a CV smaller than 8 MB.");
+      setError(text.largeFile);
       return;
     }
 
@@ -104,15 +187,16 @@ export function CareerApplicationForm({ email }: CareerApplicationFormProps) {
     <form
       noValidate
       onSubmit={handleSubmit}
+      dir={isArabic ? "rtl" : "ltr"}
       className="rounded-[2rem] border border-brand/[0.15] bg-white/[0.9] p-5 shadow-luxe backdrop-blur-2xl sm:p-7 lg:p-8"
       aria-describedby={`${formId}-status`}
     >
       <div className="flex flex-col gap-4 border-b border-brand/[0.12] pb-6 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="premium-kicker">Career Application</p>
-          <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">Apply to Emitronix</h2>
+          <p className="premium-kicker">{text.eyebrow}</p>
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">{text.title}</h2>
           <p className="mt-3 max-w-2xl text-sm leading-7 text-steel">
-            Share your profile for construction, engineering, project coordination, site supervision, or fit-out opportunities in Dubai.
+            {text.description}
           </p>
         </div>
         <span className="inline-flex w-fit items-center gap-2 rounded-full border border-brand/[0.15] bg-brand-soft px-4 py-2 text-xs font-black uppercase tracking-wide text-brand">
@@ -123,24 +207,24 @@ export function CareerApplicationForm({ email }: CareerApplicationFormProps) {
 
       <div className="mt-7 grid gap-5 md:grid-cols-2">
         <label className="grid gap-2 text-sm font-black text-charcoal">
-          Full Name
-          <input name="fullName" autoComplete="name" className={fieldClass} placeholder="Enter your full name" />
+          {text.fullName}
+          <input name="fullName" autoComplete="name" className={fieldClass} placeholder={text.placeholders.name} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
-          Email Address
-          <input name="email" type="email" autoComplete="email" className={fieldClass} placeholder="name@example.com" />
+          {text.email}
+          <input name="email" type="email" autoComplete="email" className={fieldClass} placeholder={text.placeholders.email} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
-          Mobile Number
-          <input name="mobile" type="tel" autoComplete="tel" className={fieldClass} placeholder="+971 55 000 0000" />
+          {text.mobile}
+          <input name="mobile" type="tel" autoComplete="tel" className={fieldClass} placeholder={text.placeholders.mobile} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
-          Position Applying For
+          {text.position}
           <select name="position" className={fieldClass} defaultValue="">
             <option value="" disabled>
-              Select a position
+              {text.selectPosition}
             </option>
-            {positions.map((position) => (
+            {(isArabic ? arabicPositions : positions).map((position) => (
               <option key={position} value={position}>
                 {position}
               </option>
@@ -148,38 +232,38 @@ export function CareerApplicationForm({ email }: CareerApplicationFormProps) {
           </select>
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
-          Years of Experience
-          <input name="experience" inputMode="decimal" className={fieldClass} placeholder="Example: 5 years" />
+          {text.experience}
+          <input name="experience" inputMode="decimal" className={fieldClass} placeholder={text.placeholders.experience} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
-          Current Location
-          <input name="location" autoComplete="address-level2" className={fieldClass} placeholder="Dubai, UAE" />
+          {text.location}
+          <input name="location" autoComplete="address-level2" className={fieldClass} placeholder={text.placeholders.location} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
-          Expected Salary
-          <input name="expectedSalary" className={fieldClass} placeholder="Expected monthly salary" />
+          {text.expectedSalary}
+          <input name="expectedSalary" className={fieldClass} placeholder={text.placeholders.expectedSalary} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
-          Notice Period
-          <input name="noticePeriod" className={fieldClass} placeholder="Immediate / 30 days / 60 days" />
+          {text.noticePeriod}
+          <input name="noticePeriod" className={fieldClass} placeholder={text.placeholders.noticePeriod} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal md:col-span-2">
-          Upload CV / Resume
+          {text.resume}
           <input
             name="resume"
             type="file"
             accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             className={fileClass}
           />
-          <span className="text-xs font-bold leading-5 text-steel">Maximum file size: 8 MB.</span>
+          <span className="text-xs font-bold leading-5 text-steel">{text.fileNote}</span>
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal md:col-span-2">
-          Short Message / Cover Letter
+          {text.message}
           <textarea
             name="message"
             rows={6}
             className={`${fieldClass} resize-none leading-7`}
-            placeholder="Tell us about your Dubai construction, engineering, site supervision, or project management experience."
+            placeholder={text.placeholders.message}
           />
         </label>
       </div>
@@ -187,10 +271,10 @@ export function CareerApplicationForm({ email }: CareerApplicationFormProps) {
       <div className="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
         <button type="submit" disabled={submitting} className="premium-button w-full disabled:cursor-wait disabled:opacity-70 sm:w-auto">
           {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-          {submitting ? "Submitting Application" : "Submit Application"}
+          {submitting ? text.submitting : text.submit}
         </button>
         <p className="text-xs font-bold leading-6 text-steel">
-          Applications are reviewed against active project requirements and suitable role matches.
+          {text.reviewNote}
         </p>
       </div>
 
@@ -202,7 +286,7 @@ export function CareerApplicationForm({ email }: CareerApplicationFormProps) {
         ) : null}
         {success ? (
           <p className="rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm font-bold leading-6 text-brand-deep">
-            Your application details have been prepared. Attach your CV in the email window if required, then send it to complete the application.
+            {text.success}
           </p>
         ) : null}
       </div>

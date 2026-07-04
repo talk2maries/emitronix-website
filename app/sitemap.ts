@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
 import { absoluteUrl, services } from "@/data/site";
+import { toArabicPath } from "@/lib/i18n";
 
 const routes = [
   "",
@@ -27,7 +28,10 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const uniqueRoutes = Array.from(new Set(routes));
+  const uniqueRoutes = Array.from(new Set([
+    ...routes,
+    ...routes.map((route) => toArabicPath(route || "/")),
+  ]));
 
   return uniqueRoutes.map((route) => ({
     url: absoluteUrl(route || "/"),

@@ -22,10 +22,58 @@ const fallbackServices = [
 export function BlogEnquiryPopup({
   articleTitle,
   serviceOptions = fallbackServices,
+  language = "en",
 }: {
   articleTitle: string;
   serviceOptions?: string[];
+  language?: "en" | "ar";
 }) {
+  const isArabic = language === "ar";
+  const text = isArabic
+    ? {
+        label: "استفسار مشروع",
+        title: "ناقش مشروعك في دبي.",
+        close: "إغلاق نموذج الاستفسار",
+        name: "الاسم",
+        mobile: "رقم الهاتف",
+        email: "البريد الإلكتروني",
+        service: "الخدمة المطلوبة",
+        selectService: "اختر الخدمة",
+        other: "نطاق إنشاءات آخر",
+        message: "الرسالة",
+        submit: "إرسال الاستفسار",
+        submitting: "جاري الإرسال",
+        success: "شكرا لك. تم إرسال الاستفسار.",
+        error: "فشل الإرسال. يرجى المحاولة مرة أخرى أو التواصل معنا مباشرة.",
+        placeholders: {
+          name: "اسمك",
+          mobile: "+971",
+          email: "name@example.com",
+          message: "شارك الموقع والرسومات وحالة الموافقات ونطاق المشروع.",
+        },
+      }
+    : {
+        label: "Project enquiry",
+        title: "Discuss your Dubai project.",
+        close: "Close enquiry form",
+        name: "Name",
+        mobile: "Mobile",
+        email: "Email",
+        service: "Service Required",
+        selectService: "Select service",
+        other: "Other Construction Scope",
+        message: "Message",
+        submit: "Submit Enquiry",
+        submitting: "Submitting",
+        success: "Thank you. Your enquiry has been submitted.",
+        error: "Submission failed. Please try again or contact us directly.",
+        placeholders: {
+          name: "Your name",
+          mobile: "+971",
+          email: "name@example.com",
+          message: "Share your location, drawings, authority status and project scope.",
+        },
+      };
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [sending, setSending] = useState(false);
@@ -115,18 +163,19 @@ export function BlogEnquiryPopup({
     <aside
       role="dialog"
       aria-label="Project enquiry form"
+      dir={isArabic ? "rtl" : "ltr"}
       className="fixed bottom-24 left-4 right-4 z-[99998] max-h-[calc(100vh-7rem)] overflow-auto rounded-[1.5rem] border border-brand/[0.16] bg-white/[0.96] p-4 text-charcoal shadow-luxe backdrop-blur-2xl sm:left-auto sm:right-6 sm:w-[430px] sm:p-5"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
-          <p className="premium-kicker">Project enquiry</p>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal">Discuss your Dubai project.</h2>
+          <p className="premium-kicker">{text.label}</p>
+          <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal">{text.title}</h2>
         </div>
         <button
           type="button"
           onClick={closePopup}
           className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-brand/15 bg-brand-soft text-brand transition hover:bg-brand hover:text-white focus-ring"
-          aria-label="Close enquiry form"
+          aria-label={text.close}
         >
           <X className="h-5 w-5" />
         </button>
@@ -134,47 +183,47 @@ export function BlogEnquiryPopup({
 
       <form onSubmit={handleSubmit} className="mt-5 grid gap-3">
         <label className="grid gap-1.5 text-sm font-black text-charcoal">
-          Name
-          <input required name="name" autoComplete="name" className={inputClass} placeholder="Your name" />
+          {text.name}
+          <input required name="name" autoComplete="name" className={inputClass} placeholder={text.placeholders.name} />
         </label>
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="grid gap-1.5 text-sm font-black text-charcoal">
-            Mobile
-            <input required type="tel" name="mobile" autoComplete="tel" className={inputClass} placeholder="+971" />
+            {text.mobile}
+            <input required type="tel" name="mobile" autoComplete="tel" className={inputClass} placeholder={text.placeholders.mobile} />
           </label>
           <label className="grid gap-1.5 text-sm font-black text-charcoal">
-            Email
-            <input required type="email" name="email" autoComplete="email" className={inputClass} placeholder="name@example.com" />
+            {text.email}
+            <input required type="email" name="email" autoComplete="email" className={inputClass} placeholder={text.placeholders.email} />
           </label>
         </div>
         <label className="grid gap-1.5 text-sm font-black text-charcoal">
-          Service Required
+          {text.service}
           <select required name="serviceRequired" defaultValue="" className={inputClass}>
             <option value="" disabled>
-              Select service
+              {text.selectService}
             </option>
             {serviceOptions.map((service) => (
               <option key={service} value={service}>
                 {service}
               </option>
             ))}
-            <option value="Other Construction Scope">Other Construction Scope</option>
+            <option value={text.other}>{text.other}</option>
           </select>
         </label>
         <label className="grid gap-1.5 text-sm font-black text-charcoal">
-          Message
+          {text.message}
           <textarea
             required
             name="message"
             rows={4}
             className={`${inputClass} resize-none`}
-            placeholder="Share your location, drawings, authority status and project scope."
+            placeholder={text.placeholders.message}
           />
         </label>
 
         <button type="submit" disabled={sending} className="premium-button w-full disabled:cursor-wait disabled:opacity-70">
           {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-          {sending ? "Submitting" : "Submit Enquiry"}
+          {sending ? text.submitting : text.submit}
         </button>
 
         {status !== "idle" ? (
@@ -183,7 +232,7 @@ export function BlogEnquiryPopup({
             aria-live="polite"
             className="rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm font-bold leading-6 text-brand-deep"
           >
-            {status === "success" ? "Thank you. Your enquiry has been submitted." : "Submission failed. Please try again or contact us directly."}
+            {status === "success" ? text.success : text.error}
           </p>
         ) : null}
       </form>

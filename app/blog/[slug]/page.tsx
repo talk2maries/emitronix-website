@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
 import { blogAuthor, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
 import { absoluteUrl, services, site } from "@/data/site";
+import { toArabicPath } from "@/lib/i18n";
 
 type BlogArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -44,6 +45,10 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
     keywords: post.targetKeywords,
     alternates: {
       canonical: url,
+      languages: {
+        "en-AE": url,
+        "ar-AE": absoluteUrl(toArabicPath(`/blog/${post.slug}`)),
+      },
     },
     authors: [{ name: post.author }],
     openGraph: {
