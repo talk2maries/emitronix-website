@@ -210,6 +210,50 @@ select {
   animation: premium-fade-scale 0.7s ease both;
 }
 
+.arabic-page {
+  direction: rtl;
+  text-align: right;
+}
+
+.arabic-page .text-left {
+  text-align: right;
+}
+
+.arabic-page table {
+  text-align: right;
+}
+
+.arabic-page [class*="tracking-"] {
+  letter-spacing: 0;
+}
+
+.arabic-page [class*="left-"] .premium-kicker,
+.arabic-page .premium-kicker {
+  letter-spacing: 0;
+}
+
+.arabic-page .sm\:text-right,
+.arabic-page .lg\:text-left {
+  text-align: right;
+}
+
+.arabic-page ul,
+.arabic-page ol {
+  padding-right: 1.25rem;
+  padding-left: 0;
+}
+
+.arabic-page input,
+.arabic-page textarea,
+.arabic-page select {
+  direction: rtl;
+  text-align: right;
+}
+
+.arabic-page [data-ar-localized="true"] {
+  direction: rtl;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
