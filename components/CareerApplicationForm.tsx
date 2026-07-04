@@ -46,11 +46,12 @@ const requiredFields = [
 ];
 
 type CareerApplicationFormProps = {
-  email: string;
+  /** Kept for backwards compatibility with existing callers; submissions now go to /api/careers. */
+  email?: string;
   language?: "en" | "ar";
 };
 
-export function CareerApplicationForm({ email, language = "en" }: CareerApplicationFormProps) {
+export function CareerApplicationForm({ language = "en" }: CareerApplicationFormProps) {
   const isArabic = language === "ar";
   const text = isArabic
     ? {
@@ -75,7 +76,8 @@ export function CareerApplicationForm({ email, language = "en" }: CareerApplicat
         missing: "يرجى إكمال جميع الحقول المطلوبة وتحميل السيرة الذاتية قبل الإرسال.",
         invalidFile: "يرجى تحميل السيرة الذاتية بصيغة PDF أو DOC أو DOCX.",
         largeFile: "يرجى تحميل سيرة ذاتية أصغر من 8 ميجابايت.",
-        success: "تم تجهيز بيانات طلبك. أرفق السيرة الذاتية في نافذة البريد عند الحاجة ثم أرسل الطلب لإكمال التقديم.",
+        failed: "تعذر إرسال الطلب الآن. يرجى المحاولة مرة أخرى أو مراسلة Emitronix مباشرة.",
+        success: "تم استلام طلبك بنجاح مع السيرة الذاتية. سيراجع فريق Emitronix ملفك ويتواصل معك إذا توفر دور مناسب.",
         placeholders: {
           name: "اكتب الاسم الكامل",
           email: "name@example.com",
@@ -109,7 +111,8 @@ export function CareerApplicationForm({ email, language = "en" }: CareerApplicat
         missing: "Please complete all required fields and upload your CV before submitting.",
         invalidFile: "Please upload your CV in PDF, DOC, or DOCX format.",
         largeFile: "Please upload a CV smaller than 8 MB.",
-        success: "Your application details have been prepared. Attach your CV in the email window if required, then send it to complete the application.",
+        failed: "We could not submit the application right now. Please try again or email Emitronix directly.",
+        success: "Your application and CV have been received. The Emitronix team will review your profile and contact you if a suitable role matches.",
         placeholders: {
           name: "Enter your full name",
           email: "name@example.com",
@@ -126,7 +129,7 @@ export function CareerApplicationForm({ email, language = "en" }: CareerApplicat
   const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -156,31 +159,31 @@ export function CareerApplicationForm({ email, language = "en" }: CareerApplicat
       return;
     }
 
-    const subject = `Career Application - ${String(formData.get("position") || "Emitronix")}`;
-    const body = [
-      `Full Name: ${formData.get("fullName")}`,
-      `Email Address: ${formData.get("email")}`,
-      `Mobile Number: ${formData.get("mobile")}`,
-      `Position Applying For: ${formData.get("position")}`,
-      `Years of Experience: ${formData.get("experience")}`,
-      `Current Location: ${formData.get("location")}`,
-      `Expected Salary: ${formData.get("expectedSalary")}`,
-      `Notice Period: ${formData.get("noticePeriod")}`,
-      `CV / Resume File Selected: ${file.name}`,
-      "",
-      "Short Message / Cover Letter:",
-      String(formData.get("message") || ""),
-    ].join("\n");
+    formData.set("language", isArabic ? "ar" : "en");
+    formData.set("pageUrl", window.location.href);
 
     setError("");
     setSubmitting(true);
 
-    window.setTimeout(() => {
-      setSubmitting(false);
+    try {
+      const response = await fetch("/api/careers", {
+        method: "POST",
+        body: formData,
+      });
+      const result = (await response.json().catch(() => null)) as { ok?: boolean; message?: string } | null;
+
+      if (!response.ok || !result?.ok) {
+        setError(result?.message || text.failed);
+        return;
+      }
+
       setSuccess(true);
       form.reset();
-      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }, 850);
+    } catch {
+      setError(text.failed);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -204,6 +207,8 @@ export function CareerApplicationForm({ email, language = "en" }: CareerApplicat
           PDF / DOC / DOCX
         </span>
       </div>
+
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
 
       <div className="mt-7 grid gap-5 md:grid-cols-2">
         <label className="grid gap-2 text-sm font-black text-charcoal">

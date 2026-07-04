@@ -2,6 +2,7 @@ import { approvalServices } from "@/data/approvals";
 import { blogPosts, type BlogPost } from "@/data/blog";
 import { portfolioProjects, projectFilters } from "@/data/projects";
 import { arabicApprovalTitle, arabicBlogTitle, arabicPathLabel, arabicServiceTitle, type ArabicPageData } from "@/data/arabic";
+import { arabicPageStaticText } from "@/data/arabicPageText";
 import {
   authorities,
   complianceHighlights,
@@ -315,6 +316,14 @@ const allowedLatin = [
   "Microsoft",
   "Cloudflare",
   "Hotjar",
+  "CRM",
+  "GDPR",
+  "PDPL",
+  "HVAC",
+  "DM",
+  "Concordia",
+  "info@emitronix.ae",
+  "emitronix.ae",
 ];
 
 function collapse(value: string) {
@@ -546,6 +555,37 @@ function makeTextMap() {
       map[item.question] = `ما الذي يجب معرفته عن ${title} في دبي؟`;
       map[item.answer] = blogFaqAnswer({ ...blogPosts[0], title } as BlogPost, index);
     });
+
+    // Page-template strings rendered by ServiceDetailPage with the service
+    // name interpolated. Keys must match the rendered English exactly.
+    const lower = service.title.toLowerCase();
+    const lowerShort = service.shortTitle.toLowerCase();
+    map[`A premium ${lower} workflow for Dubai projects.`] = `منهجية عمل احترافية لخدمة ${title} في مشاريع دبي.`;
+    map[
+      `This page is structured for buyers evaluating ${service.searchIntent}. It explains the scope, decision points, Dubai authority considerations, timeline variables, cost factors and practical mistakes to avoid.`
+    ] = `صممت هذه الصفحة لمن يقيم خدمة ${title} في دبي، وهي تشرح النطاق ونقاط القرار واعتبارات الجهات في دبي ومتغيرات الجدول الزمني وعوامل التكلفة والأخطاء العملية التي ينبغي تجنبها.`;
+    map[`Need ${lower} in Dubai?`] = `هل تحتاج ${title} في دبي؟`;
+    map[`${service.title} in Dubai, explained for owners and consultants.`] = `${title} في دبي: شرح عملي للملاك والاستشاريين.`;
+    map[`${service.title} process designed for Dubai decision clarity.`] = `منهجية ${title} مصممة لوضوح القرار في دبي.`;
+    map[`How Emitronix approaches ${service.shortTitle}.`] = `كيف تتعامل Emitronix مع ${title}.`;
+    map[`${service.title} across Dubai project environments.`] = `${title} عبر مختلف بيئات المشاريع في دبي.`;
+    map[
+      `${service.title} support for project owners who need clear scope, construction planning, authority visibility and premium communication before site commitments are made.`
+    ] = `دعم ${title} لملاك المشاريع الذين يحتاجون وضوح النطاق وتخطيط الإنشاءات ورؤية الموافقات وتواصلا احترافيا قبل الالتزام بأعمال الموقع.`;
+    map[`${service.title} with authority-ready control.`] = `${title} مع ضبط جاهز لمتطلبات الجهات.`;
+    map[`${service.title} support for owners, consultants and commercial teams.`] = `دعم ${title} للملاك والاستشاريين والفرق التجارية.`;
+    map[
+      `Emitronix Contracting LLC supports ${lower} enquiries across Dubai and the UAE with practical engineering coordination, clear communication and documented project controls.`
+    ] = `تدعم Emitronix Contracting LLC استفسارات ${title} في دبي والإمارات من خلال تنسيق هندسي عملي وتواصل واضح وضوابط مشاريع موثقة.`;
+    map[`${service.title} planning variables buyers should understand.`] = `متغيرات التخطيط في ${title} التي ينبغي للعملاء فهمها.`;
+    map[`Common ${lower} mistakes in Dubai.`] = `أخطاء شائعة في ${title} داخل دبي.`;
+    map[`Representative project profiles for ${lower}.`] = `ملفات مشاريع تمثيلية لخدمة ${title}.`;
+    map[`Plan ${lower} with the right supporting scopes.`] = `خطط لخدمة ${title} مع النطاقات المساندة المناسبة.`;
+    map[`Request ${lowerShort} consultation.`] = `اطلب استشارة حول ${title}.`;
+    map[
+      `Share your project location, drawings status, authority comments and timeline. Emitronix will review the ${lower} enquiry and respond with the practical next step.`
+    ] = `شارك موقع المشروع وحالة الرسومات وتعليقات الجهات والجدول الزمني، وسيراجع فريق Emitronix استفسار ${title} ويرد عليك بالخطوة العملية التالية.`;
+    map[`${service.title} Dubai FAQ.`] = `الأسئلة الشائعة حول ${title} في دبي.`;
   }
 
   for (const approval of approvalServices) {
@@ -572,6 +612,20 @@ function makeTextMap() {
     approval.keywords.forEach((item) => {
       map[item] = title;
     });
+
+    // Page-template strings rendered by ApprovalServicePage.
+    map[`Need ${approval.menuLabel} support in Dubai?`] = `هل تحتاج دعم ${title} في دبي؟`;
+    map[`${approval.menuLabel} planning before submission pressure builds.`] = `التخطيط لمسار ${title} قبل أن يشتد ضغط التقديم.`;
+    map[
+      `The ${approval.menuLabel} route starts by confirming the authority path, project category, location and stakeholders involved.`
+    ] = `يبدأ مسار ${title} بتأكيد جهة الاختصاص وفئة المشروع والموقع والأطراف المعنية.`;
+    map[`Request ${approval.menuLabel} support.`] = `اطلب دعم ${title}.`;
+    map[`${approval.menuLabel} FAQ.`] = `الأسئلة الشائعة حول ${title}.`;
+    map[`When is ${approval.menuLabel} support useful?`] = `متى يكون دعم ${title} مفيدا؟`;
+    map[
+      `${approval.menuLabel} support is useful when a Dubai project needs clearer document coordination, authority comment follow-up, inspection readiness or connection between approval work and construction execution.`
+    ] = `يكون دعم ${title} مفيدا عندما يحتاج مشروع في دبي إلى تنسيق أوضح للمستندات ومتابعة تعليقات الجهة وجاهزية التفتيش وربط أعمال الموافقة بالتنفيذ الإنشائي.`;
+    map[`What information helps start ${approval.menuLabel}?`] = `ما المعلومات التي تساعد على بدء ${title}؟`;
   }
 
   for (const post of blogPosts) {
@@ -608,6 +662,7 @@ function makeTextMap() {
     post.internalLinks.forEach((link) => {
       map[link.label] = arabicPathLabel(link.href.startsWith("/ar") ? link.href : `/ar${link.href === "/" ? "" : link.href}`);
     });
+    map[`Who should read ${post.title}?`] = `لمن يوجه مقال «${title}»؟`;
   }
 
   for (const project of portfolioProjects) {
@@ -637,6 +692,9 @@ function makeTextMap() {
     map[project.imageTitle] = map[project.title];
   }
 
+  // Hand-written page copy translations take precedence over generated entries.
+  Object.assign(map, arabicPageStaticText);
+
   return map;
 }
 
@@ -657,26 +715,32 @@ function hasUntranslatedLatin(value: string) {
   return /[A-Za-z]{3,}/.test(cleaned);
 }
 
-function contextualFallback(context: ArabicTextContext, tagName?: string) {
-  const isHeading = tagName === "H1" || tagName === "H2" || tagName === "H3";
-  if (tagName === "H1") return context.title;
-  if (tagName === "H2") return "تنسيق واضح للموقع والنطاق والموافقات والتسليم.";
-  if (tagName === "H3") return "نقطة تنفيذ عملية";
-  if (isHeading) return "محور عمل منظم";
+const arabicMonths: Record<string, string> = {
+  Jan: "يناير",
+  Feb: "فبراير",
+  Mar: "مارس",
+  Apr: "أبريل",
+  May: "مايو",
+  Jun: "يونيو",
+  Jul: "يوليو",
+  Aug: "أغسطس",
+  Sep: "سبتمبر",
+  Oct: "أكتوبر",
+  Nov: "نوفمبر",
+  Dec: "ديسمبر",
+};
 
-  if (context.kind === "blog-post") {
-    return "يركز هذا الجزء على النقاط العملية التي تساعد ملاك المشاريع والاستشاريين على فهم النطاق والجهات والتسليم في دبي قبل اتخاذ القرار.";
-  }
+function patternTranslate(value: string): string | null {
+  const date = value.match(/^(\d{1,2}) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (\d{4})$/);
+  if (date) return `${date[1]} ${arabicMonths[date[2]]} ${date[3]}`;
 
-  if (context.kind === "service") {
-    return "تدعم الشركة هذا النطاق في دبي عبر مراجعة الموقع والرسومات وحالة الموافقات وتنسيق الأعمال المرتبطة حتى يصل المشروع إلى مسار تنفيذ أوضح.";
-  }
+  const readTime = value.match(/^(\d+) min read$/);
+  if (readTime) return `قراءة ${readTime[1]} دقائق`;
 
-  if (context.kind === "approval") {
-    return "تتم مراجعة المستندات والتعليقات وجاهزية التفتيش كجزء من مسار واحد يربط الموافقات بالتنفيذ والتسليم في دبي.";
-  }
+  const articleCount = value.match(/^(\d+) construction articles$/);
+  if (articleCount) return `${articleCount[1]} مقالا في البناء`;
 
-  return "تقدم الشركة محتوى عربيا كاملا يوضح النطاق والخطوات والصور والروابط المطلوبة لمشاريع المقاولات والموافقات في دبي والإمارات.";
+  return null;
 }
 
 function applyTermReplacements(value: string) {
@@ -723,6 +787,8 @@ function applyTermReplacements(value: string) {
 }
 
 export function translateArabicText(input: string, context: ArabicTextContext, tagName?: string) {
+  void context;
+  void tagName;
   const trimmed = collapse(input);
   if (!trimmed || !/[A-Za-z]/.test(trimmed)) return input;
 
@@ -734,12 +800,13 @@ export function translateArabicText(input: string, context: ArabicTextContext, t
     return preserveSpacing(input, `${textMap[withoutColon]}${trimmed.endsWith(":") ? ":" : ""}`);
   }
 
+  const pattern = patternTranslate(trimmed);
+  if (pattern) return preserveSpacing(input, pattern);
+
   const replaced = applyTermReplacements(trimmed);
   if (!hasUntranslatedLatin(replaced)) return preserveSpacing(input, replaced);
 
-  if (trimmed.length < 18 && !["H1", "H2", "H3"].includes(tagName ?? "")) {
-    return preserveSpacing(input, replaced);
-  }
-
-  return preserveSpacing(input, contextualFallback(context, tagName));
+  // No confident translation: keep the original text rather than substituting
+  // generic filler that would repeat across the page.
+  return input;
 }
