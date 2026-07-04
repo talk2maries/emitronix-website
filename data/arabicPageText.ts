@@ -29,6 +29,7 @@ export const arabicPageStaticText: Record<string, string> = {
   "Retail Fit-Out": "تشطيبات التجزئة",
   "Warehouse & Logistics": "المستودعات واللوجستيات",
   "Retail & Hospitality": "التجزئة والضيافة",
+  "Sector focus": "تركيز القطاعات",
   "MEP coordination": "تنسيق MEP",
   "MEP Coordination": "تنسيق MEP",
   "Project delivery": "تسليم المشاريع",
