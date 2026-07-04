@@ -2,79 +2,138 @@ import type { Metadata } from "next";
 import { ArrowRight, FileCheck2 } from "lucide-react";
 import Link from "next/link";
 import { approvalServices } from "@/data/approvals";
-import { absoluteUrl } from "@/data/site";
+import { CTA } from "@/components/CTA";
+import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
+import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { authorities, stats } from "@/data/site";
+import { createPageMetadata } from "@/data/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Authority Approval Services in Dubai",
   description:
     "Dubai authority approval services for Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA approvals.",
-  keywords: [
-    "approval services in Dubai",
-    "authority approvals Dubai",
-    "Dubai Municipality approval",
-    "DEWA approval",
-    "DCD approval",
-    "RTA approval",
-  ],
-  alternates: { canonical: absoluteUrl("/approval") },
-};
+  path: "/approval",
+  keywords: ["approval services in Dubai", "authority approvals Dubai", "Dubai Municipality approval", "DEWA approval", "DCD approval", "RTA approval"],
+  image: "/images/emitronix-2026-dubai-coverage.webp",
+});
+
+const approvalProcess = [
+  "Confirm the project location, authority jurisdiction, asset type, proposed works and consultant responsibility.",
+  "Review available drawings, NOCs, tenancy or plot documents, existing permits and authority comments.",
+  "Prepare the submission route and coordinate updates between owner, consultant, contractor and authority requirements.",
+  "Support response tracking, inspection readiness, close-out documents and handover visibility.",
+];
+
+const approvalFaqs = [
+  {
+    question: "Which Dubai approvals can Emitronix coordinate?",
+    answer:
+      "Emitronix supports approval coordination for Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA workflows depending on project location and scope.",
+  },
+  {
+    question: "Are approval requirements the same for every project?",
+    answer:
+      "No. Approval requirements depend on location, building type, intended use, civil modifications, fit-out scope, fire safety, utilities, landlord rules and consultant responsibilities.",
+  },
+  {
+    question: "What documents are usually needed to start?",
+    answer:
+      "Useful starting documents include drawings, site or unit details, owner or tenant authorization, trade license, NOCs, previous approvals, authority comments and consultant details where applicable.",
+  },
+  {
+    question: "Can approval work be connected to construction execution?",
+    answer:
+      "Yes. Emitronix keeps approval coordination connected to drawings, site sequencing, inspection readiness and handover documentation so authority work supports the construction path.",
+  },
+];
 
 export default function ApprovalPage() {
   return (
     <>
-      <section className="bg-slate-50">
-        <div className="container-pad grid gap-10 py-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-20">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-royal">Authority Approval Services</p>
-            <h1 className="mt-4 text-balance text-4xl font-black tracking-tight text-navy sm:text-6xl">
-              Dubai Approval Services for Civil Construction Projects
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-600">
-              Emitronix Contracting LLC supports Dubai project owners, consultants and tenants with structured approval coordination across key authorities.
-            </p>
-            <Link
-              href="/contact"
-              className="mt-8 inline-flex items-center gap-2 rounded-sm bg-royal px-7 py-4 text-sm font-bold uppercase tracking-wide text-white shadow-blue transition hover:bg-navy focus-ring"
-            >
-              Request Approval Support <ArrowRight size={18} />
-            </Link>
-          </div>
-          <div className="rounded-md border border-slate-200 bg-white p-6 shadow-panel">
-            <FileCheck2 className="h-12 w-12 text-royal" />
-            <h2 className="mt-5 text-3xl font-black text-navy">One team. Multiple Dubai authorities.</h2>
-            <p className="mt-4 text-base leading-7 text-slate-600">
-              From document checks and submission support to authority comments and inspection readiness, our workflow keeps approval tasks organized and visible.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Authority approval services"
+        title="Dubai approval services for construction projects."
+        description="Emitronix supports owners, consultants and tenants with structured document coordination, authority comment response and inspection readiness across key Dubai approval workflows."
+        image="/images/emitronix-2026-dubai-coverage.webp"
+        imageAlt="Dubai authority approval coordination map and modern construction planning"
+        primaryCta={{ label: "Request Approval Support", href: "/contact" }}
+        secondaryCta={{ label: "View Services", href: "/services" }}
+        metrics={stats}
+      />
 
       <section className="section-pad bg-white">
         <div className="container-pad">
-          <div className="max-w-3xl">
-            <p className="text-xs font-black uppercase tracking-[0.22em] text-royal">Approval Menu</p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-navy sm:text-4xl">
-              Choose the authority approval support you need.
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <PremiumSectionHeading
+            eyebrow="Approval menu"
+            title="Choose the authority workflow you need."
+            description="Each page includes the process, documents commonly requested, related approvals and a Dubai-focused enquiry path."
+            align="center"
+          />
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {approvalServices.map((service) => (
-              <Link
-                key={service.slug}
-                href={service.href}
-                className="group rounded-md border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-1 hover:border-royal/40 hover:bg-white hover:shadow-panel"
-              >
-                <p className="text-xs font-black uppercase tracking-[0.18em] text-royal">Approval Service</p>
-                <h3 className="mt-3 text-xl font-black leading-6 text-navy">{service.menuLabel}</h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600">{service.metaDescription}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black text-royal">
-                  Learn more <ArrowRight size={16} className="transition group-hover:translate-x-1" />
+              <Link key={service.slug} href={service.href} className="luxury-card rounded-[1.5rem] p-6">
+                <FileCheck2 className="h-8 w-8 text-brand" />
+                <p className="mt-5 text-xs font-black uppercase tracking-[0.22em] text-brand">Approval Service</p>
+                <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{service.menuLabel}</h2>
+                <p className="mt-3 text-sm leading-7 text-steel">{service.metaDescription}</p>
+                <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+                  Learn more <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
             ))}
           </div>
         </div>
       </section>
+
+      <section className="blue-grid section-pad text-charcoal">
+        <div className="container-pad grid gap-12 lg:grid-cols-[0.7fr_1.3fr]">
+          <PremiumSectionHeading
+            eyebrow="Authority ecosystem"
+            title="Planning approval requirements before they affect site execution."
+            description="Dubai authority work is shaped by location, project type, consultant scope, tenant requirements and inspection milestones."
+            light
+          />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {authorities.map((authority) => {
+              const Icon = authority.icon;
+              return (
+                <article key={authority.name} className="rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-6 backdrop-blur-xl">
+                  <Icon className="h-8 w-8 text-brand" />
+                  <h2 className="mt-5 text-xl font-black tracking-tight">{authority.name}</h2>
+                  <p className="mt-3 text-sm leading-7 text-steel">{authority.description}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <ProcessRail
+        eyebrow="Approval process"
+        title="A structured approval path for Dubai construction and fit-out projects."
+        description="The best approval support starts by clarifying jurisdiction, documents and authority exposure before project teams commit to site timelines."
+        steps={approvalProcess}
+      />
+
+      <TrustBar
+        eyebrow="Approval trust"
+        title="Authority coordination connected to construction-side reality."
+        points={[
+          "Document gap checks before submission",
+          "Authority comment response coordination",
+          "Inspection and close-out readiness",
+          "Internal links to every authority page",
+        ]}
+      />
+
+      <FAQSection
+        title="Dubai authority approvals FAQ."
+        description="Common questions from owners, tenants and consultants preparing approval-connected construction work in Dubai."
+        faqs={approvalFaqs}
+        schema
+      />
+
+      <CTA />
     </>
   );
 }

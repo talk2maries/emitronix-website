@@ -1,14 +1,19 @@
 import type { Metadata } from "next";
 import { ServiceDetailPage } from "@/components/ServiceDetailPage";
-import { absoluteUrl, services } from "@/data/site";
+import { services } from "@/data/site";
+import { createPageMetadata } from "@/data/seo";
 
 const service = services.find((item) => item.href === "/interior")!;
 
 export const metadata: Metadata = {
-  title: "Interior Fit-Out Contractor Dubai",
-  description: "Complete interior fit-out solutions for commercial, retail and residential projects in Dubai and UAE.",
-  keywords: service.keywords,
-  alternates: { canonical: absoluteUrl("/interior") },
+  ...createPageMetadata({
+    title: "Interior Fit-Out Contractor Dubai",
+    description: "Complete interior fit-out solutions for commercial, retail and residential projects in Dubai and UAE.",
+    path: "/interior",
+    keywords: service.keywords,
+    image: service.image,
+    imageAlt: service.imageAlt,
+  }),
 };
 
 export default function InteriorPage() {

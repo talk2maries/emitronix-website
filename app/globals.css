@@ -5,7 +5,19 @@
 :root {
   color-scheme: light;
   --background: #ffffff;
-  --foreground: #07162b;
+  --foreground: #1e293b;
+  --muted: #64748b;
+  --brand-blue: #194991;
+  --brand-blue-deep: #123a73;
+  --brand-blue-dark: #0b1f3a;
+  --brand-blue-bright: #1ea7ff;
+  --brand-blue-sky: #54d6ff;
+  --brand-blue-soft: #eaf5ff;
+  --brand-blue-pale: #f8fbff;
+  --brand-blue-border: #d6e9ff;
+  --accent: #0ea5e9;
+  --surface: rgba(255, 255, 255, 0.86);
+  --hairline: rgba(214, 233, 255, 0.72);
 }
 
 * {
@@ -18,14 +30,18 @@ html {
 
 body {
   margin: 0;
-  background: var(--background);
+  background:
+    linear-gradient(135deg, rgba(234, 245, 255, 0.86) 0%, transparent 28%),
+    linear-gradient(225deg, rgba(248, 251, 255, 0.92) 0%, transparent 30%),
+    linear-gradient(180deg, #ffffff 0%, #f8fbff 48%, #ffffff 100%);
   color: var(--foreground);
-  font-family: Arial, sans-serif;
+  font-family: var(--font-inter), Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background: rgba(11, 79, 179, 0.18);
-  color: #07162b;
+  background: rgba(25, 73, 145, 0.18);
+  color: #1e293b;
 }
 
 a {
@@ -41,27 +57,118 @@ select {
 }
 
 .container-pad {
-  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  @apply mx-auto w-full max-w-[1520px] px-4 sm:px-6 lg:px-8;
 }
 
 .focus-ring {
-  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-royal focus-visible:ring-offset-2 focus-visible:ring-offset-white;
+  @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-white;
 }
 
 .section-pad {
-  @apply py-14 lg:py-20;
+  @apply py-16 lg:py-24;
+}
+
+.soft-section {
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
 }
 
 .text-balance {
   text-wrap: balance;
 }
 
+.blue-grid,
 .navy-grid {
   background:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    #07162b;
-  background-size: 38px 38px;
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(234, 245, 255, 0.78) 54%, #ffffff 100%),
+    linear-gradient(215deg, rgba(30, 167, 255, 0.1) 0%, transparent 38%),
+    linear-gradient(rgba(25, 73, 145, 0.052) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 73, 145, 0.045) 1px, transparent 1px);
+  background-size: auto, 44px 44px, 44px 44px, auto;
+}
+
+.luxury-surface {
+  @apply border border-brand/[0.15] bg-white/[0.88] shadow-panel backdrop-blur-2xl;
+}
+
+.luxury-card {
+  @apply border border-brand/10 bg-white shadow-panel transition duration-500 hover:-translate-y-1 hover:border-brand/25 hover:bg-pearl hover:shadow-luxe;
+}
+
+.premium-kicker {
+  @apply text-xs font-black uppercase tracking-[0.28em] text-brand;
+}
+
+.premium-button {
+  @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand px-6 py-3.5 text-sm font-black uppercase tracking-wide text-white shadow-blue transition duration-300 hover:-translate-y-0.5 hover:bg-brand-deep hover:shadow-glow focus-ring;
+}
+
+.premium-button-light {
+  @apply inline-flex items-center justify-center gap-2 rounded-full border border-brand/25 bg-white/[0.88] px-6 py-3.5 text-sm font-black uppercase tracking-wide text-brand shadow-sm backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:border-brand hover:bg-brand hover:text-white hover:shadow-blue focus-ring;
+}
+
+.premium-menu-panel {
+  @apply rounded-[2rem] border border-brand/[0.15] bg-white/[0.92] p-4 shadow-luxe backdrop-blur-2xl;
+  animation: premium-menu-in 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.premium-menu-link {
+  @apply flex items-center justify-between gap-4 rounded-2xl border border-brand/[0.10] bg-white px-4 py-3 text-sm font-black text-charcoal shadow-sm transition duration-300 hover:-translate-y-0.5 hover:border-brand/25 hover:bg-brand-soft hover:text-brand hover:shadow-panel focus-ring;
+}
+
+.premium-grid {
+  background-image:
+    linear-gradient(128deg, rgba(234, 245, 255, 0.82), transparent 35%),
+    linear-gradient(216deg, rgba(30, 167, 255, 0.07), transparent 42%),
+    linear-gradient(rgba(25, 73, 145, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(25, 73, 145, 0.04) 1px, transparent 1px);
+  background-size: auto, auto, 44px 44px, 44px 44px;
+}
+
+.hero-mask {
+  mask-image: linear-gradient(90deg, black 58%, transparent 100%);
+}
+
+.text-gradient-brand {
+  background: linear-gradient(135deg, #1e293b 0%, #194991 84%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.architectural-light {
+  background:
+    linear-gradient(115deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.94) 38%, rgba(255,255,255,0.2) 66%, transparent 100%),
+    linear-gradient(180deg, rgba(255,255,255,0.86) 0%, rgba(255,255,255,0.22) 55%, rgba(255,255,255,0.96) 100%);
+}
+
+.route-line {
+  position: absolute;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(214, 233, 255, 0.88) 18%, rgba(25, 73, 145, 0.58) 50%, rgba(30, 167, 255, 0.18) 100%);
+}
+
+.route-line::after {
+  content: "";
+  position: absolute;
+  right: 20%;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #194991;
+  box-shadow: 0 0 0 5px rgba(25, 73, 145, 0.14);
+  transform: translateY(-50%);
+}
+
+@keyframes premium-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes premium-reveal-up {
@@ -72,6 +179,17 @@ select {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes premium-fade-scale {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -88,12 +206,8 @@ select {
   animation: premium-float 7s ease-in-out infinite;
 }
 
-@supports (animation-timeline: view()) {
-  main > section:not(:first-child) {
-    animation: premium-reveal-up both;
-    animation-timeline: view();
-    animation-range: entry 0% cover 24%;
-  }
+.premium-reveal {
+  animation: premium-fade-scale 0.7s ease both;
 }
 
 @media (prefers-reduced-motion: reduce) {

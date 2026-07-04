@@ -1,22 +1,29 @@
 import type { MetadataRoute } from "next";
 import { approvalServices } from "@/data/approvals";
-import { absoluteUrl } from "@/data/site";
+import { blogPosts } from "@/data/blog";
+import { absoluteUrl, services } from "@/data/site";
 
 const routes = [
   "",
   "/about",
   "/services",
-  "/civil",
-  "/interior",
   "/approval",
   "/projects",
+  "/industries",
+  "/careers",
+  "/blog",
   "/resources",
+  "/html-sitemap",
   "/contact",
+  ...services.map((service) => service.href),
+  ...blogPosts.map((post) => `/blog/${post.slug}`),
   ...approvalServices.map((service) => service.href),
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
+  const uniqueRoutes = Array.from(new Set(routes));
+
+  return uniqueRoutes.map((route) => ({
     url: absoluteUrl(route || "/"),
     lastModified: new Date(),
     changeFrequency: route === "" ? "weekly" : "monthly",

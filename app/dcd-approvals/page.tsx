@@ -1,22 +1,18 @@
 import type { Metadata } from "next";
 import { ApprovalServicePage } from "@/components/ApprovalServicePage";
 import { getApprovalService } from "@/data/approvals";
-import { absoluteUrl } from "@/data/site";
+import { createPageMetadata } from "@/data/seo";
 
 const service = getApprovalService("dcd-approvals")!;
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: service.seoTitle,
   description: service.metaDescription,
+  path: service.href,
   keywords: service.keywords,
-  alternates: { canonical: absoluteUrl(service.href) },
-  openGraph: {
-    title: service.seoTitle,
-    description: service.metaDescription,
-    url: absoluteUrl(service.href),
-    images: [absoluteUrl("/images/dubai-authority-approval-contractor.webp")],
-  },
-};
+  image: "/images/emitronix-2026-dubai-coverage.webp",
+  imageAlt: `${service.menuLabel} coordination for Dubai construction projects`,
+});
 
 export default function DcdApprovalsPage() {
   return <ApprovalServicePage service={service} />;

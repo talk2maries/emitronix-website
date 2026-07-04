@@ -1,66 +1,62 @@
 "use client";
 
-import { Send } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import { FormEvent, useState } from "react";
-import { services } from "@/data/site";
+import { services, site } from "@/data/site";
+
+const inputClass =
+  "focus-ring rounded-2xl border border-brand/[0.15] bg-white/[0.88] px-4 py-4 text-charcoal shadow-sm outline-none transition placeholder:text-steel/70 hover:border-brand/30 focus:border-brand";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const body = [
+      `Name: ${formData.get("name") || ""}`,
+      `Company: ${formData.get("company") || ""}`,
+      `Email: ${formData.get("email") || ""}`,
+      `Phone: ${formData.get("phone") || ""}`,
+      `Service: ${formData.get("service") || ""}`,
+      "",
+      "Project details:",
+      `${formData.get("message") || ""}`,
+    ].join("\n");
+
+    setSubmitted(false);
+    setSending(true);
+    window.setTimeout(() => {
+      setSending(false);
+      setSubmitted(true);
+      window.location.href = `mailto:${site.email}?subject=${encodeURIComponent("Emitronix project enquiry")}&body=${encodeURIComponent(body)}`;
+    }, 700);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-md border border-slate-200 bg-white p-5 shadow-panel sm:p-7">
+    <form onSubmit={handleSubmit} className="luxury-surface rounded-[2rem] p-5 sm:p-7">
       <div className="grid gap-5 sm:grid-cols-2">
-        <label className="grid gap-2 text-sm font-bold text-navy">
+        <label className="grid gap-2 text-sm font-black text-charcoal">
           Full name
-          <input
-            required
-            name="name"
-            autoComplete="name"
-            className="focus-ring rounded-sm border border-slate-200 bg-slate-50 px-4 py-3 text-navy placeholder:text-slate-400"
-            placeholder="Your name"
-          />
+          <input required name="name" autoComplete="name" className={inputClass} placeholder="Your name" />
         </label>
-        <label className="grid gap-2 text-sm font-bold text-navy">
+        <label className="grid gap-2 text-sm font-black text-charcoal">
           Company
-          <input
-            name="company"
-            autoComplete="organization"
-            className="focus-ring rounded-sm border border-slate-200 bg-slate-50 px-4 py-3 text-navy placeholder:text-slate-400"
-            placeholder="Company name"
-          />
+          <input name="company" autoComplete="organization" className={inputClass} placeholder="Company name" />
         </label>
-        <label className="grid gap-2 text-sm font-bold text-navy">
+        <label className="grid gap-2 text-sm font-black text-charcoal">
           Email
-          <input
-            required
-            type="email"
-            name="email"
-            autoComplete="email"
-            className="focus-ring rounded-sm border border-slate-200 bg-slate-50 px-4 py-3 text-navy placeholder:text-slate-400"
-            placeholder="name@example.com"
-          />
+          <input required type="email" name="email" autoComplete="email" className={inputClass} placeholder="name@example.com" />
         </label>
-        <label className="grid gap-2 text-sm font-bold text-navy">
+        <label className="grid gap-2 text-sm font-black text-charcoal">
           Phone
-          <input
-            name="phone"
-            autoComplete="tel"
-            className="focus-ring rounded-sm border border-slate-200 bg-slate-50 px-4 py-3 text-navy placeholder:text-slate-400"
-            placeholder="+971"
-          />
+          <input name="phone" autoComplete="tel" className={inputClass} placeholder="+971" />
         </label>
-        <label className="grid gap-2 text-sm font-bold text-navy sm:col-span-2">
+        <label className="grid gap-2 text-sm font-black text-charcoal sm:col-span-2">
           Service
-          <select
-            name="service"
-            className="focus-ring rounded-sm border border-slate-200 bg-slate-50 px-4 py-3 text-navy"
-            defaultValue=""
-          >
+          <select name="service" className={inputClass} defaultValue="">
             <option value="" disabled>
               Select a service
             </option>
@@ -71,28 +67,30 @@ export function ContactForm() {
             ))}
           </select>
         </label>
-        <label className="grid gap-2 text-sm font-bold text-navy sm:col-span-2">
+        <label className="grid gap-2 text-sm font-black text-charcoal sm:col-span-2">
           Project details
           <textarea
             required
             name="message"
             rows={6}
-            className="focus-ring resize-none rounded-sm border border-slate-200 bg-slate-50 px-4 py-3 text-navy placeholder:text-slate-400"
-            placeholder="Tell us about the location, scope, timeline and approvals required."
+            className={`${inputClass} resize-none`}
+            placeholder="Share location, scope, authority status, drawings available and intended timeline."
           />
         </label>
       </div>
 
       <button
         type="submit"
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-royal px-6 py-4 text-sm font-bold uppercase tracking-wide text-white shadow-blue transition hover:bg-navy focus-ring sm:w-auto"
+        disabled={sending}
+        className="premium-button mt-6 w-full disabled:cursor-wait disabled:opacity-70 sm:w-auto"
       >
-        Send Enquiry <Send size={18} />
+        {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send size={18} />}
+        {sending ? "Preparing Enquiry" : "Send Enquiry"}
       </button>
 
       {submitted ? (
-        <p className="mt-4 rounded-sm border border-royal/20 bg-blue-50 px-4 py-3 text-sm font-semibold text-royal">
-          Thank you. Your enquiry has been received and the Emitronix team will review the project details.
+        <p className="mt-5 rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm font-bold leading-6 text-brand-deep">
+          Your enquiry has been prepared for email. For urgent project requirements, call or email Emitronix directly.
         </p>
       ) : null}
     </form>

@@ -1,0 +1,285 @@
+"use client";
+
+import { ArrowRight, CalendarDays, Clock3, Mail, Search, Tag } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import type { BlogPost } from "@/data/blog";
+
+type BlogKnowledgeHubProps = {
+  posts: BlogPost[];
+  categories: string[];
+};
+
+function formatDate(value: string) {
+  return new Intl.DateTimeFormat("en-AE", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  }).format(new Date(value));
+}
+
+function postHref(post: BlogPost) {
+  return `/blog/${post.slug}`;
+}
+
+export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
+  const [query, setQuery] = useState("");
+  const [activeCategory, setActiveCategory] = useState("All");
+  const featured = posts.find((post) => post.featured) ?? posts[0];
+  const featuredCards = posts.filter((post) => post.slug !== featured.slug).slice(0, 3);
+  const recentPosts = [...posts].sort((a, b) => b.publishedDate.localeCompare(a.publishedDate)).slice(0, 4);
+  const popularPosts = posts.filter((post) => post.popular).slice(0, 4);
+
+  const filteredPosts = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    return posts.filter((post) => {
+      const categoryMatch = activeCategory === "All" || post.categories.includes(activeCategory);
+      const queryMatch =
+        normalizedQuery.length === 0 ||
+        [post.title, post.excerpt, post.category, ...post.categories, ...post.targetKeywords]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalizedQuery);
+      return categoryMatch && queryMatch;
+    });
+  }, [activeCategory, posts, query]);
+
+  return (
+    <>
+      <section className="premium-grid bg-white pb-16 pt-10 lg:pb-24 lg:pt-14">
+        <div className="container-pad">
+          <nav className="mb-8 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label="Breadcrumb">
+            <Link href="/" className="transition hover:text-brand">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-charcoal">Blog</span>
+          </nav>
+
+          <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-end">
+            <div>
+              <p className="premium-kicker">Emitronix Knowledge Center</p>
+              <h1 className="mt-4 max-w-5xl text-balance text-5xl font-black leading-[0.98] tracking-tight text-charcoal sm:text-7xl">
+                Dubai construction insights for better project decisions.
+              </h1>
+              <p className="mt-6 max-w-3xl text-lg leading-8 text-steel">
+                Expert guidance on civil construction, building contracting, warehouse delivery, interior fit-out and Dubai authority approvals for owners, consultants and commercial teams.
+              </p>
+            </div>
+
+            <form className="luxury-surface rounded-[2rem] p-4" role="search" onSubmit={(event) => event.preventDefault()}>
+              <label htmlFor="blog-search" className="sr-only">Search construction articles</label>
+              <div className="flex items-center gap-3 rounded-[1.5rem] border border-brand/[0.12] bg-white px-4 py-3 shadow-sm">
+                <Search className="h-5 w-5 shrink-0 text-brand" />
+                <input
+                  id="blog-search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Search approvals, warehouses, civil works..."
+                  className="min-w-0 flex-1 bg-transparent text-sm font-bold text-charcoal outline-none placeholder:text-steel/70"
+                />
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pb-16 lg:pb-24">
+        <div className="container-pad grid gap-10 xl:grid-cols-[280px_1fr]">
+          <aside className="xl:sticky xl:top-28 xl:self-start">
+            <div className="luxury-surface rounded-[1.75rem] p-5 xl:max-h-[calc(100vh-18rem)] xl:overflow-auto">
+              <p className="text-xs font-black uppercase tracking-[0.24em] text-brand">Categories</p>
+              <div className="mt-5 flex gap-2 overflow-x-auto pb-2 xl:grid xl:overflow-visible xl:pb-0">
+                {["All", ...categories].map((category) => (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() => setActiveCategory(category)}
+                    className={`flex shrink-0 items-center justify-between gap-5 rounded-2xl px-4 py-3 text-left text-sm font-black transition xl:w-full ${
+                      activeCategory === category
+                        ? "bg-brand text-white shadow-blue"
+                        : "bg-white text-charcoal hover:bg-brand-soft hover:text-brand"
+                    }`}
+                  >
+                    <span>{category}</span>
+                    <span className={activeCategory === category ? "text-white/80" : "text-steel"}>
+                      {category === "All" ? posts.length : posts.filter((post) => post.categories.includes(category)).length}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </aside>
+
+          <div className="grid gap-10">
+            <article className="grid overflow-hidden rounded-[2rem] border border-brand/[0.12] bg-white shadow-luxe lg:grid-cols-[1.05fr_0.95fr]">
+              <div className="relative h-[320px] lg:h-auto lg:min-h-[430px]">
+                <Image
+                  src={featured.image}
+                  alt={featured.imageAlt}
+                  title={featured.imageTitle}
+                  fill
+                  priority
+                  sizes="(min-width: 1280px) 42vw, 100vw"
+                  quality={65}
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-white/85 via-white/10 to-transparent lg:hidden" />
+              </div>
+              <div className="flex flex-col justify-center p-6 sm:p-8 lg:p-10">
+                <p className="premium-kicker">Featured guide</p>
+                <h2 className="mt-4 text-balance text-4xl font-black leading-tight tracking-tight text-charcoal">
+                  {featured.title}
+                </h2>
+                <p className="mt-5 text-base leading-8 text-steel">{featured.excerpt}</p>
+                <div className="mt-6 flex flex-wrap gap-3 text-xs font-black uppercase tracking-wide text-steel">
+                  <span className="inline-flex items-center gap-2"><CalendarDays className="h-4 w-4 text-brand" />{formatDate(featured.publishedDate)}</span>
+                  <span className="inline-flex items-center gap-2"><Clock3 className="h-4 w-4 text-brand" />{featured.readTime}</span>
+                  <span className="inline-flex items-center gap-2"><Tag className="h-4 w-4 text-brand" />{featured.category}</span>
+                </div>
+                <Link href={postHref(featured)} className="premium-button mt-8 w-fit">
+                  Read guide <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </article>
+
+            <div className="grid gap-5 lg:grid-cols-3">
+              {featuredCards.map((post) => (
+                <Link key={post.slug} href={postHref(post)} className="group overflow-hidden rounded-[1.6rem] border border-brand/[0.10] bg-white shadow-panel transition duration-300 hover:-translate-y-1 hover:border-brand/[0.25] hover:shadow-luxe">
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    <Image
+                      src={post.image}
+                      alt={post.imageAlt}
+                      title={post.imageTitle}
+                      fill
+                      loading="lazy"
+                      sizes="(min-width: 1024px) 24vw, 100vw"
+                      quality={65}
+                      className="object-cover transition duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <p className="text-xs font-black uppercase tracking-[0.22em] text-brand">{post.category}</p>
+                    <h3 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{post.title}</h3>
+                    <p className="mt-3 text-sm leading-7 text-steel">{post.excerpt}</p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+                      Read article <ArrowRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+            <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
+              <div>
+                <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+                  <div>
+                    <p className="premium-kicker">Article library</p>
+                    <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
+                      {filteredPosts.length} construction articles
+                    </h2>
+                  </div>
+                  <Link href="/resources" className="premium-button-light w-fit">
+                    Resources <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
+
+                <div className="mt-8 grid gap-5">
+                  {filteredPosts.map((post) => (
+                    <Link key={post.slug} href={postHref(post)} className="luxury-card grid gap-5 rounded-[1.5rem] p-4 sm:grid-cols-[180px_1fr]">
+                      <div className="relative h-[180px] overflow-hidden rounded-[1.2rem] bg-brand-soft sm:h-auto sm:min-h-[190px]">
+                        <Image
+                          src={post.image}
+                          alt={post.imageAlt}
+                          fill
+                          loading="lazy"
+                          sizes="(min-width: 768px) 180px, 100vw"
+                          quality={65}
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="py-1">
+                        <div className="flex flex-wrap gap-3 text-xs font-black uppercase tracking-wide text-steel">
+                          <span>{post.category}</span>
+                          <span>{post.readTime}</span>
+                          <span>{formatDate(post.publishedDate)}</span>
+                        </div>
+                        <h3 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{post.title}</h3>
+                        <p className="mt-3 text-sm leading-7 text-steel">{post.excerpt}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+              <aside className="grid gap-5 self-start">
+                <div className="luxury-surface rounded-[1.75rem] p-5">
+                  <p className="premium-kicker">Recent posts</p>
+                  <div className="mt-5 grid gap-4">
+                    {recentPosts.map((post) => (
+                      <Link key={post.slug} href={postHref(post)} className="border-b border-brand/[0.10] pb-4 last:border-b-0 last:pb-0">
+                        <span className="text-xs font-bold uppercase tracking-wide text-steel">{formatDate(post.publishedDate)}</span>
+                        <span className="mt-1 block text-sm font-black leading-6 text-charcoal transition hover:text-brand">{post.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="luxury-surface rounded-[1.75rem] p-5">
+                  <p className="premium-kicker">Popular posts</p>
+                  <div className="mt-5 grid gap-3">
+                    {popularPosts.map((post, index) => (
+                      <Link key={post.slug} href={postHref(post)} className="flex gap-3 rounded-2xl bg-white p-3 shadow-sm transition hover:bg-brand-soft">
+                        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand text-xs font-black text-white">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-sm font-black leading-6 text-charcoal">{post.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <form action="/contact" className="rounded-[1.75rem] border border-brand/[0.15] bg-[linear-gradient(135deg,#ffffff_0%,#f8fbff_100%)] p-5 shadow-panel">
+                  <Mail className="h-7 w-7 text-brand" />
+                  <h2 className="mt-4 text-2xl font-black tracking-tight text-charcoal">Get Dubai project insights.</h2>
+                  <p className="mt-3 text-sm leading-7 text-steel">
+                    Send your email through the contact form and the team can follow up with construction and approval guidance.
+                  </p>
+                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
+                  <input
+                    id="newsletter-email"
+                    name="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    className="mt-5 w-full rounded-2xl border border-brand/[0.15] bg-white px-4 py-3 text-sm font-bold text-charcoal outline-none transition placeholder:text-steel/70 focus:border-brand"
+                  />
+                  <button className="premium-button mt-4 w-full" type="submit">
+                    Request insights <ArrowRight className="h-4 w-4" />
+                  </button>
+                </form>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="soft-section py-16 lg:py-24">
+        <div className="container-pad">
+          <div className="grid gap-8 rounded-[2rem] border border-brand/[0.15] bg-white/[0.88] p-6 shadow-luxe backdrop-blur-xl lg:grid-cols-[1fr_auto] lg:items-center lg:p-10">
+            <div>
+              <p className="premium-kicker">Project support</p>
+              <h2 className="mt-4 max-w-3xl text-4xl font-black tracking-tight text-charcoal">
+                Need a construction, fit-out or authority approval route for Dubai?
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-8 text-steel">
+                Share your location, drawings, approval status and timeline. Emitronix can help clarify the practical next step.
+              </p>
+            </div>
+            <Link href="/contact" className="premium-button">
+              Request Free Consultation <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
