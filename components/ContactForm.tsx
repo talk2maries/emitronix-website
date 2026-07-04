@@ -4,16 +4,59 @@ import { Send } from "lucide-react";
 import { FormEvent, useState } from "react";
 import { services } from "@/data/site";
 
-export function ContactForm() {
-  const [submitted, setSubmitted] = useState(false);
+type FormStatus = "idle" | "submitting" | "success" | "error";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+export function ContactForm() {
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [message, setMessage] = useState("");
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSubmitted(true);
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setStatus("submitting");
+    setMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          company: formData.get("company"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+          service: formData.get("service"),
+          projectLocation: formData.get("projectLocation"),
+          message: formData.get("message"),
+          consent: formData.get("consent") === "on",
+          website: formData.get("website"),
+          pageUrl: window.location.href,
+        }),
+      });
+
+      const result = (await response.json()) as { ok?: boolean; message?: string };
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.message || "We could not submit the enquiry right now.");
+      }
+
+      form.reset();
+      setStatus("success");
+      setMessage("Thank you. Your enquiry has been received and the Emitronix team will review the project details.");
+    } catch (error) {
+      setStatus("error");
+      setMessage(error instanceof Error ? error.message : "We could not submit the enquiry right now.");
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} className="rounded-md border border-slate-200 bg-white p-5 shadow-panel sm:p-7">
+      <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-bold text-navy">
           Full name
@@ -46,7 +89,7 @@ export function ContactForm() {
           />
         </label>
         <label className="grid gap-2 text-sm font-bold text-navy">
-          Phone
+          Mobile
           <input
             name="phone"
             autoComplete="tel"
@@ -60,6 +103,7 @@ export function ContactForm() {
             name="service"
             className="focus-ring rounded-sm border border-slate-200 bg-slate-50 px-4 py-3 text-navy"
             defaultValue=""
+            required
           >
             <option value="" disabled>
               Select a service
@@ -72,6 +116,15 @@ export function ContactForm() {
           </select>
         </label>
         <label className="grid gap-2 text-sm font-bold text-navy sm:col-span-2">
+          Project location
+          <input
+            name="projectLocation"
+            autoComplete="street-address"
+            className="focus-ring rounded-sm border border-slate-200 bg-slate-50 px-4 py-3 text-navy placeholder:text-slate-400"
+            placeholder="Dubai Investment Park, JAFZA, Dubai South, villa community..."
+          />
+        </label>
+        <label className="grid gap-2 text-sm font-bold text-navy sm:col-span-2">
           Project details
           <textarea
             required
@@ -81,18 +134,29 @@ export function ContactForm() {
             placeholder="Tell us about the location, scope, timeline and approvals required."
           />
         </label>
+        <label className="flex items-start gap-3 rounded-sm border border-slate-200 bg-slate-50 p-4 text-sm font-semibold leading-6 text-slate-700 sm:col-span-2">
+          <input name="consent" type="checkbox" required className="mt-1 h-4 w-4 rounded border-slate-300 text-royal focus-ring" />
+          I agree that Emitronix may use my enquiry details to contact me and create a CRM lead for follow-up.
+        </label>
       </div>
 
       <button
         type="submit"
+        disabled={status === "submitting"}
         className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-sm bg-royal px-6 py-4 text-sm font-bold uppercase tracking-wide text-white shadow-blue transition hover:bg-navy focus-ring sm:w-auto"
       >
-        Send Enquiry <Send size={18} />
+        {status === "submitting" ? "Submitting..." : "Send Enquiry"} <Send size={18} />
       </button>
 
-      {submitted ? (
-        <p className="mt-4 rounded-sm border border-royal/20 bg-blue-50 px-4 py-3 text-sm font-semibold text-royal">
-          Thank you. Your enquiry has been received and the Emitronix team will review the project details.
+      {message ? (
+        <p
+          className={`mt-4 rounded-sm border px-4 py-3 text-sm font-semibold ${
+            status === "error" ? "border-red-200 bg-red-50 text-red-700" : "border-royal/20 bg-blue-50 text-royal"
+          }`}
+          role="status"
+          aria-live="polite"
+        >
+          {message}
         </p>
       ) : null}
     </form>
