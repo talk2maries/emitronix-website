@@ -39,8 +39,6 @@ function localizeInternalHref(rawHref: string) {
 }
 
 function localizeElement(root: HTMLElement, page: ArabicPageLocalizerProps["page"]) {
-  root.querySelectorAll('script[type="application/ld+json"]').forEach((script) => script.remove());
-
   root.querySelectorAll<HTMLElement>("a[href]").forEach((link) => {
     const href = link.getAttribute("href");
     if (href) link.setAttribute("href", localizeInternalHref(href));
