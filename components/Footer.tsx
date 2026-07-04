@@ -1,6 +1,7 @@
 import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { CookieSettingsFooterButton } from "@/components/CookieConsentManager";
 import { approvalServices } from "@/data/approvals";
 import { navItems, services, site, whatsappUrl } from "@/data/site";
 
@@ -63,6 +64,24 @@ export function Footer() {
                   <Link href="/html-sitemap" className="transition hover:text-brand">
                     HTML Sitemap
                   </Link>
+                </li>
+                <li>
+                  <Link href="/cookie-policy" className="transition hover:text-brand">
+                    Cookie Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy-policy" className="transition hover:text-brand">
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/terms-and-conditions" className="transition hover:text-brand">
+                    Terms &amp; Conditions
+                  </Link>
+                </li>
+                <li>
+                  <CookieSettingsFooterButton />
                 </li>
               </ul>
             </div>

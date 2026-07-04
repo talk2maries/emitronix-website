@@ -1,4 +1,4 @@
-export type ProjectCategory = "Civil Works" | "MEP Works" | "Renovation" | "Maintenance" | "Authority Approvals";
+export type ProjectCategory = "Civil Works" | "MEP Works" | "Interior Fit-Out" | "Commercial Renovation" | "Maintenance" | "Authority Approvals";
 export type ProjectFilter = "All" | ProjectCategory;
 
 export type PortfolioProject = {
@@ -17,7 +17,8 @@ export const projectFilters: ProjectFilter[] = [
   "All",
   "Civil Works",
   "MEP Works",
-  "Renovation",
+  "Interior Fit-Out",
+  "Commercial Renovation",
   "Maintenance",
   "Authority Approvals",
 ];
@@ -26,37 +27,37 @@ export const portfolioProjects: PortfolioProject[] = [
   {
     title: "Villa Renovation Works - Dubai",
     location: "Dubai",
-    category: "Renovation",
+    category: "Commercial Renovation",
     scope: "Villa renovation, civil alterations, finishing upgrades, wet-area works and MEP interface coordination.",
     status: "Representative profile",
     description:
       "A premium residential renovation profile for owners upgrading layouts, finishes, services and authority-sensitive modifications with disciplined site control.",
-    image: "/images/villa-construction-contractor-dubai.webp",
-    imageAlt: "Villa renovation and construction works in Dubai",
-    imageTitle: "Villa Renovation Works Dubai - representative portfolio profile",
+    image: "/images/project-villa-building-works-dubai-modern.webp",
+    imageAlt: "Modern villa and building works under construction for a Dubai residential renovation profile",
+    imageTitle: "Villa and Building Works Dubai - representative portfolio profile",
   },
   {
-    title: "Warehouse Civil & MEP Upgrade - DIP",
-    location: "Dubai Investment Park",
+    title: "Warehouse Civil & MEP Upgrade - Dubai",
+    location: "Dubai industrial area",
     category: "MEP Works",
     scope: "Warehouse civil repairs, drainage coordination, electrical upgrade sequencing and mechanical-service alignment.",
     status: "Representative profile",
     description:
-      "A logistics facility upgrade profile for DIP operators needing civil works, MEP coordination and practical handover planning inside an active industrial environment.",
-    image: "/images/warehouse-construction-dubai.webp",
-    imageAlt: "Warehouse civil and MEP upgrade works in Dubai Investment Park",
-    imageTitle: "Warehouse Civil and MEP Upgrade DIP - representative portfolio profile",
+      "A logistics facility upgrade profile for Dubai industrial operators needing civil works, MEP coordination and practical handover planning inside an active warehouse environment.",
+    image: "/images/project-warehouse-industrial-dubai.webp",
+    imageAlt: "Warehouse racking and industrial interior for Dubai civil and MEP upgrade works",
+    imageTitle: "Warehouse Civil and MEP Upgrade Dubai - representative portfolio profile",
   },
   {
     title: "Office Fit-Out Works - Business Bay",
     location: "Business Bay",
-    category: "Renovation",
+    category: "Interior Fit-Out",
     scope: "Office partitions, ceilings, finishes, joinery coordination, MEP interfaces and landlord close-out support.",
     status: "Representative profile",
     description:
       "A commercial office fit-out profile shaped for Dubai business districts where programme control, finish quality and approvals coordination matter.",
-    image: "/images/commercial-fit-out-contractor-dubai.webp",
-    imageAlt: "Commercial office fit-out contractor works in Dubai",
+    image: "/images/project-office-fit-out-dubai.webp",
+    imageAlt: "Commercial office fit-out coordination in a partially renovated interior space in Dubai",
     imageTitle: "Office Fit-Out Works Business Bay - representative portfolio profile",
   },
   {
@@ -67,8 +68,8 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Representative profile",
     description:
       "A maintenance profile for commercial and light-industrial properties that need fast diagnosis, clean execution and clear close-out communication.",
-    image: "/images/building-contractor-dubai-construction-site.webp",
-    imageAlt: "Building maintenance and contractor site works in Dubai",
+    image: "/images/project-building-maintenance-dubai.webp",
+    imageAlt: "Construction worker in safety gear for Dubai building maintenance and repair works",
     imageTitle: "Building Maintenance Works Al Quoz - representative portfolio profile",
   },
   {
@@ -79,20 +80,20 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Representative profile",
     description:
       "An authority coordination profile for projects where utility requirements, submission clarity and contractor readiness must stay aligned.",
-    image: "/images/dubai-authority-approval-contractor.webp",
-    imageAlt: "Dubai authority approval contractor and DEWA coordination works",
+    image: "/images/project-authority-approvals-dubai.webp",
+    imageAlt: "Architectural drawings and authority approval documentation for Dubai construction coordination",
     imageTitle: "DEWA Approval Support Works Dubai - representative portfolio profile",
   },
   {
     title: "Commercial Shop Renovation - Jumeirah",
     location: "Jumeirah",
-    category: "Renovation",
+    category: "Commercial Renovation",
     scope: "Retail renovation, facade interface review, interior finishes, MEP adjustments and handover support.",
     status: "Representative profile",
     description:
       "A retail renovation profile for tenant and landlord teams improving customer-facing space while protecting working hours, finishes and authority visibility.",
-    image: "/images/commercial-fit-out-contractor-dubai.webp",
-    imageAlt: "Commercial shop renovation and fit-out works in Jumeirah Dubai",
+    image: "/images/project-commercial-renovation-dubai.webp",
+    imageAlt: "Interior renovation space with tools and materials for a Dubai commercial renovation profile",
     imageTitle: "Commercial Shop Renovation Jumeirah - representative portfolio profile",
   },
   {
@@ -103,8 +104,8 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Representative profile",
     description:
       "An industrial modification profile for free-zone facilities where operational continuity, safety and civil execution need a controlled delivery rhythm.",
-    image: "/images/mep-civil-contracting-dubai.webp",
-    imageAlt: "Industrial facility civil modification works in JAFZA Dubai",
+    image: "/images/project-warehouse-industrial-dubai.webp",
+    imageAlt: "Industrial warehouse interior for JAFZA civil modification and facility upgrade works",
     imageTitle: "Industrial Facility Modification JAFZA - representative portfolio profile",
   },
   {
@@ -115,8 +116,8 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Representative profile",
     description:
       "A Dubai South coordination profile for projects that need MEP decisions connected early with drawings, civil works, ceiling zones and close-out evidence.",
-    image: "/images/mep-civil-contracting-dubai.webp",
-    imageAlt: "MEP coordination works for civil and fit-out projects in Dubai South",
+    image: "/images/project-mep-coordination-dubai.webp",
+    imageAlt: "Engineer reviewing drawings inside a shell space for Dubai MEP coordination works",
     imageTitle: "MEP Coordination Works Dubai South - representative portfolio profile",
   },
   {
@@ -127,21 +128,21 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Representative profile",
     description:
       "An approvals profile for owners and consultants who need documentation, comments, inspections and construction readiness managed in one clear track.",
-    image: "/images/dubai-authority-approval-contractor.webp",
-    imageAlt: "Authority approval and NOC support for Dubai construction projects",
+    image: "/images/about-construction-coordination-dubai.webp",
+    imageAlt: "Construction drawings reviewed on site for Dubai authority approval and NOC support",
     imageTitle: "Authority Approval and NOC Support Dubai - representative portfolio profile",
   },
   {
-    title: "Civil Repair & Maintenance Works - DIP",
-    location: "Dubai Investment Park",
+    title: "Civil Repair & Maintenance Works - Dubai",
+    location: "Dubai",
     category: "Maintenance",
     scope: "Concrete repairs, masonry, drainage, waterproofing, minor civil works and maintenance documentation.",
     status: "Representative profile",
     description:
-      "A DIP repair profile for warehouses and commercial assets needing reliable civil maintenance with practical scheduling and site housekeeping.",
-    image: "/images/dubai-civil-works-construction-site.webp",
-    imageAlt: "Civil repair and maintenance works in Dubai Investment Park",
-    imageTitle: "Civil Repair and Maintenance Works DIP - representative portfolio profile",
+      "A Dubai repair profile for warehouses and commercial assets needing reliable civil maintenance with practical scheduling and site housekeeping.",
+    image: "/images/project-civil-works-dubai.webp",
+    imageAlt: "Workers fixing steel reinforcement for Dubai civil repair and maintenance works",
+    imageTitle: "Civil Repair and Maintenance Works Dubai - representative portfolio profile",
   },
 ];
 
@@ -174,18 +175,18 @@ export const beforeAfterProjects = [
     location: "Dubai",
     beforeLabel: "Before: existing layout constraints",
     afterLabel: "After: refreshed villa living flow",
-    beforeImage: "/images/dubai-civil-works-construction-site.webp",
-    afterImage: "/images/villa-construction-contractor-dubai.webp",
+    beforeImage: "/images/project-civil-works-dubai.webp",
+    afterImage: "/images/project-villa-building-works-dubai-modern.webp",
     description:
       "Representative renovation planning for villas where demolition, civil changes, finishes and MEP interfaces must be sequenced cleanly.",
   },
   {
     title: "Warehouse Upgrade Transformation",
-    location: "Dubai Investment Park",
+    location: "Dubai industrial area",
     beforeLabel: "Before: operational repair requirements",
     afterLabel: "After: authority-aware upgrade path",
-    beforeImage: "/images/civil-contractor-dubai-construction-site.webp",
-    afterImage: "/images/warehouse-construction-dubai.webp",
+    beforeImage: "/images/project-civil-works-dubai.webp",
+    afterImage: "/images/project-warehouse-industrial-dubai.webp",
     description:
       "Representative warehouse upgrade planning for slab, drainage, MEP and operational handover needs in active logistics environments.",
   },
@@ -194,19 +195,19 @@ export const beforeAfterProjects = [
     location: "Business Bay",
     beforeLabel: "Before: shell and services coordination",
     afterLabel: "After: fit-out ready handover",
-    beforeImage: "/images/building-contractor-dubai-construction-site.webp",
-    afterImage: "/images/commercial-fit-out-contractor-dubai.webp",
+    beforeImage: "/images/project-commercial-renovation-dubai.webp",
+    afterImage: "/images/project-office-fit-out-dubai.webp",
     description:
       "Representative fit-out coordination for offices and retail spaces where finishes, services, landlord comments and handover must align.",
   },
 ];
 
 export const featuredProject = {
-  title: "Warehouse Civil & MEP Upgrade - DIP",
-  location: "Dubai Investment Park",
+  title: "Warehouse Civil & MEP Upgrade - Dubai",
+  location: "Dubai industrial area",
   category: "Featured representative project",
-  image: "/images/warehouse-construction-dubai.webp",
-  imageAlt: "Featured warehouse construction and MEP upgrade profile in Dubai Investment Park",
+  image: "/images/project-warehouse-industrial-dubai.webp",
+  imageAlt: "Featured Dubai warehouse industrial interior for civil and MEP upgrade coordination",
   description:
     "A premium logistics-facility profile showing how Emitronix structures warehouse upgrades around civil repairs, MEP interfaces, authority awareness, site access and handover readiness.",
   details: [
@@ -220,43 +221,43 @@ export const projectGallery = [
   {
     title: "Civil works coordination",
     location: "Dubai",
-    image: "/images/dubai-civil-works-construction-site.webp",
-    imageAlt: "Civil works coordination for Dubai construction projects",
+    image: "/images/project-civil-works-dubai.webp",
+    imageAlt: "Civil works coordination with steel reinforcement for Dubai construction projects",
     heightClass: "h-72",
   },
   {
     title: "Warehouse construction planning",
-    location: "DIP / JAFZA",
-    image: "/images/warehouse-construction-dubai.webp",
-    imageAlt: "Warehouse construction planning in Dubai industrial zones",
+    location: "Dubai logistics zones",
+    image: "/images/project-warehouse-industrial-dubai.webp",
+    imageAlt: "Warehouse construction planning for Dubai logistics and industrial zones",
     heightClass: "h-96",
   },
   {
     title: "Commercial fit-out delivery",
     location: "Business Bay",
-    image: "/images/commercial-fit-out-contractor-dubai.webp",
-    imageAlt: "Commercial fit-out delivery for Dubai offices and retail spaces",
+    image: "/images/project-office-fit-out-dubai.webp",
+    imageAlt: "Commercial fit-out delivery coordination for Dubai offices and retail spaces",
     heightClass: "h-80",
   },
   {
     title: "Villa construction and renovation",
     location: "Dubai",
-    image: "/images/villa-construction-contractor-dubai.webp",
-    imageAlt: "Villa construction and renovation contractor in Dubai",
+    image: "/images/project-villa-building-works-dubai-modern.webp",
+    imageAlt: "Modern villa construction and renovation works for Dubai residential projects",
     heightClass: "h-[28rem]",
   },
   {
     title: "Authority approval support",
     location: "Dubai authorities",
-    image: "/images/dubai-authority-approval-contractor.webp",
-    imageAlt: "Dubai authority approval support for construction and fit-out works",
+    image: "/images/project-authority-approvals-dubai.webp",
+    imageAlt: "Dubai authority approval documentation and construction drawing coordination",
     heightClass: "h-72",
   },
   {
     title: "MEP and civil interfaces",
     location: "Dubai South",
-    image: "/images/mep-civil-contracting-dubai.webp",
-    imageAlt: "MEP and civil contracting coordination in Dubai",
+    image: "/images/project-mep-coordination-dubai.webp",
+    imageAlt: "MEP and civil contracting coordination with drawings inside a Dubai shell space",
     heightClass: "h-96",
   },
 ];
@@ -321,7 +322,7 @@ export const projectFaqs = [
   {
     question: "Which Dubai locations does this portfolio content cover?",
     answer:
-      "The representative profiles cover common Dubai project environments including Dubai Investment Park, JAFZA, Dubai South, Business Bay, Jumeirah and Al Quoz.",
+      "The representative profiles cover common Dubai project environments including JAFZA, Dubai South, Business Bay, Jumeirah, Al Quoz and industrial or logistics zones.",
   },
   {
     question: "Does Emitronix handle before and after renovation work?",

@@ -1,5 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Emitronix icon">
-  <rect width="64" height="64" rx="12" fill="#06111f"/>
-  <path d="M14 46V18h36v8H24v5h21v8H24v7h26v8H14z" fill="#1ea7ff"/>
-  <path d="M24 26h26v8H24z" fill="#54d6ff" opacity=".72"/>
+  <defs>
+    <linearGradient id="emitronix-favicon" x1="8" x2="56" y1="8" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#1EA7FF"/>
+      <stop offset="1" stop-color="#194991"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#fff"/>
+  <rect x="6" y="6" width="52" height="52" rx="13" fill="url(#emitronix-favicon)"/>
+  <path d="M18 44V20h30v7H28v5h17v6H28v6h21v7H18z" fill="#fff"/>
+  <path d="M48 14H28v6H18V14z" fill="#54D6FF"/>
 </svg>

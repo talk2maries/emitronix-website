@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { authorities, services, stats } from "@/data/site";
+import { absoluteUrl, authorities, services, stats } from "@/data/site";
 import { createPageMetadata } from "@/data/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -66,6 +66,15 @@ const resourceFaqs = [
       "Yes. Use the contact page with project location, documents, authority status and the service or resource topic most relevant to your enquiry.",
   },
 ];
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+    { "@type": "ListItem", position: 2, name: "Resources", item: absoluteUrl("/resources") },
+  ],
+};
 
 export default function ResourcesPage() {
   return (
@@ -159,6 +168,7 @@ export default function ResourcesPage() {
       />
 
       <CTA />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
     </>
   );
 }

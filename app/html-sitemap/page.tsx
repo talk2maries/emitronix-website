@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
-import { PremiumSectionHeading } from "@/components/Premium";
+import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
 import { createPageMetadata } from "@/data/seo";
-import { absoluteUrl, navItems, services } from "@/data/site";
+import { absoluteUrl, navItems, services, stats } from "@/data/site";
 
 export const metadata: Metadata = createPageMetadata({
   title: "HTML Sitemap",
@@ -22,6 +22,12 @@ const pageGroups = [
       ...navItems,
       { label: "Resources", href: "/resources" },
       { label: "HTML Sitemap", href: "/html-sitemap" },
+      { label: "Cookie Policy", href: "/cookie-policy" },
+      { label: "Privacy Policy", href: "/privacy-policy" },
+      { label: "Terms & Conditions", href: "/terms-and-conditions" },
+      { label: "سياسة ملفات الارتباط", href: "/ar/cookie-policy" },
+      { label: "سياسة الخصوصية", href: "/ar/privacy-policy" },
+      { label: "الشروط والأحكام", href: "/ar/terms-and-conditions" },
     ],
   },
   {
@@ -56,19 +62,16 @@ const breadcrumbJsonLd = {
 export default function HtmlSitemapPage() {
   return (
     <>
-      <section className="premium-grid bg-white pb-20 pt-28 text-charcoal">
-        <div className="container-pad">
-          <div className="max-w-5xl">
-            <p className="premium-kicker">Sitemap</p>
-            <h1 className="mt-5 text-balance text-5xl font-black leading-[0.98] tracking-tight text-charcoal sm:text-7xl">
-              Browse Emitronix construction resources.
-            </h1>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-steel">
-              A clean index of Emitronix Contracting LLC pages for Dubai construction services, authority approvals, project resources and civil construction articles.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Sitemap"
+        title="Browse Emitronix construction resources."
+        description="A clean index of Emitronix Contracting LLC pages for Dubai construction services, authority approvals, project resources and civil construction articles."
+        image="/images/dubai-building-contracting-company.webp"
+        imageAlt="Emitronix Dubai construction website sitemap and resource index"
+        primaryCta={{ label: "View Services", href: "/services" }}
+        secondaryCta={{ label: "Contact Emitronix", href: "/contact" }}
+        metrics={stats}
+      />
 
       <section className="section-pad soft-section">
         <div className="container-pad">

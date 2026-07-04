@@ -3,7 +3,7 @@ import { BadgeCheck, Building2, ClipboardCheck, FileCheck2, ShieldCheck, Users }
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { site, stats, whyChoose } from "@/data/site";
+import { absoluteUrl, site, stats, whyChoose } from "@/data/site";
 import { createPageMetadata } from "@/data/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -12,7 +12,7 @@ export const metadata: Metadata = createPageMetadata({
     "Learn about Emitronix Contracting LLC, a Dubai contracting company supporting civil construction, authority approvals, interior fit-out, villa, warehouse and commercial projects.",
   path: "/about",
   keywords: ["Emitronix Dubai", "Dubai contracting company", "civil construction company UAE", "authority approvals Dubai"],
-  image: "/images/civil-contractor-dubai-construction-site.webp",
+  image: "/images/about-construction-coordination-dubai.webp",
 });
 
 const operatingPrinciples = [
@@ -67,6 +67,15 @@ const aboutFaqs = [
   },
 ];
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+    { "@type": "ListItem", position: 2, name: "About", item: absoluteUrl("/about") },
+  ],
+};
+
 export default function AboutPage() {
   return (
     <>
@@ -74,8 +83,8 @@ export default function AboutPage() {
         eyebrow="About Emitronix"
         title="A premium Dubai contractor built around clarity."
         description={`${site.legalName} brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.`}
-        image="/images/civil-contractor-dubai-construction-site.webp"
-        imageAlt="Emitronix Contracting LLC Dubai construction site coordination"
+        image="/images/about-construction-coordination-dubai.webp"
+        imageAlt="Construction team reviewing drawings for Dubai civil works and authority approval coordination"
         primaryCta={{ label: "Talk to Emitronix", href: "/contact" }}
         secondaryCta={{ label: "Explore Services", href: "/services" }}
         metrics={stats}
@@ -102,10 +111,10 @@ export default function AboutPage() {
             </div>
           </div>
           <ImagePanel
-            src="/images/villa-construction-contractor-dubai.webp"
-            alt="Villa construction contractor Dubai residential works by Emitronix Contracting LLC"
-            label="Premium residential"
-            title="Villas, buildings and authority-ready delivery."
+            src="/images/about-civil-works-dubai.webp"
+            alt="Dubai civil works engineer using a tablet for site coordination and project delivery"
+            label="Site coordination"
+            title="Civil works, fit-out and approval-ready delivery."
           />
         </div>
       </section>
@@ -170,6 +179,7 @@ export default function AboutPage() {
       />
 
       <CTA />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
     </>
   );
 }

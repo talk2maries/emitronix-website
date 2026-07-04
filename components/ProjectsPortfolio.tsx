@@ -38,7 +38,8 @@ const filterIcons: Record<ProjectFilter, LucideIcon> = {
   All: Filter,
   "Civil Works": Hammer,
   "MEP Works": Zap,
-  Renovation: Sparkles,
+  "Interior Fit-Out": Landmark,
+  "Commercial Renovation": Sparkles,
   Maintenance: Wrench,
   "Authority Approvals": BadgeCheck,
 };
@@ -46,14 +47,15 @@ const filterIcons: Record<ProjectFilter, LucideIcon> = {
 const projectIcons: Record<ProjectCategory, LucideIcon> = {
   "Civil Works": Factory,
   "MEP Works": Gauge,
-  Renovation: Home,
+  "Interior Fit-Out": Landmark,
+  "Commercial Renovation": Sparkles,
   Maintenance: Wrench,
   "Authority Approvals": ShieldCheck,
 };
 
 const projectSpecificIcons: Record<string, LucideIcon> = {
   "Villa Renovation Works - Dubai": Home,
-  "Warehouse Civil & MEP Upgrade - DIP": Warehouse,
+  "Warehouse Civil & MEP Upgrade - Dubai": Warehouse,
   "Office Fit-Out Works - Business Bay": Landmark,
   "Building Maintenance Works - Al Quoz": Wrench,
   "DEWA Approval Support Works - Dubai": FileCheck2,
@@ -61,7 +63,7 @@ const projectSpecificIcons: Record<string, LucideIcon> = {
   "Industrial Facility Modification - JAFZA": Factory,
   "MEP Coordination Works - Dubai South": Gauge,
   "Authority Approval & NOC Support - Dubai": ShieldCheck,
-  "Civil Repair & Maintenance Works - DIP": HardHat,
+  "Civil Repair & Maintenance Works - Dubai": HardHat,
 };
 
 export function ProjectsPortfolio() {
@@ -82,7 +84,7 @@ export function ProjectsPortfolio() {
               Representative Dubai project profiles.
             </h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-steel">
-              Explore civil works, MEP works, renovation, maintenance and authority approval profiles with a publication-safe portfolio view. Public case studies are added only after client approval.
+              Explore civil works, MEP works, interior fit-out, commercial renovation, maintenance and authority approval profiles with a publication-safe portfolio view. Public case studies are added only after client approval.
             </p>
           </div>
           <div className="flex flex-wrap gap-3 lg:justify-end" aria-label="Filter projects by category">
@@ -213,7 +215,7 @@ export function ProjectTestimonials() {
             </p>
           </div>
 
-          <div className="relative overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-white/82 p-6 shadow-luxe backdrop-blur-2xl sm:p-8">
+          <div className="relative overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-white/[0.82] p-6 shadow-luxe backdrop-blur-2xl sm:p-8">
             <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand via-brand-bright to-brand-sky" />
             <div className="grid gap-6 md:grid-cols-[auto_1fr] md:items-start">
               <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand text-white shadow-blue">

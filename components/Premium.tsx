@@ -80,7 +80,6 @@ export function PageHero({
   primaryCta,
   secondaryCta,
   metrics = [],
-  dark = false,
 }: {
   eyebrow: string;
   title: string;
@@ -90,52 +89,71 @@ export function PageHero({
   primaryCta?: Cta;
   secondaryCta?: Cta;
   metrics?: Metric[];
-  dark?: boolean;
 }) {
   return (
-    <section className={`relative overflow-hidden ${dark ? "blue-grid text-charcoal" : "premium-grid bg-white text-charcoal"}`}>
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-0 top-28 h-px w-2/3 bg-gradient-to-r from-transparent via-brand/[0.35] to-transparent" />
-        <div className="absolute bottom-20 right-0 h-px w-1/2 bg-gradient-to-r from-transparent via-brand/[0.15] to-transparent" />
-        <div className="absolute right-[14%] top-0 h-full w-px bg-gradient-to-b from-transparent via-brand/10 to-transparent" />
+    <section className="relative isolate overflow-hidden bg-brand-dark text-white">
+      <Image
+        src={image}
+        alt={imageAlt}
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 z-0 object-cover"
+      />
+      <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(11,31,58,0.94)_0%,rgba(18,58,115,0.78)_47%,rgba(25,73,145,0.34)_100%)]" />
+      <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(11,31,58,0.16)_0%,rgba(11,31,58,0.70)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 z-20 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:48px_48px]" />
+      <div className="pointer-events-none absolute inset-0 z-20">
+        <div className="absolute left-0 top-32 h-px w-2/3 bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+        <div className="absolute bottom-24 right-0 h-px w-1/2 bg-gradient-to-r from-transparent via-brand-sky/25 to-transparent" />
+        <div className="absolute right-[14%] top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-white/20 to-transparent lg:block" />
       </div>
-      <div className="container-pad relative grid min-h-[680px] gap-10 pt-28 lg:grid-cols-[0.88fr_1.12fr] lg:items-center lg:pt-32">
-        <div className="z-10 max-w-4xl pb-10">
-          <p className="premium-kicker">{eyebrow}</p>
-          <h1 className="mt-5 text-balance text-5xl font-black leading-[0.96] tracking-tight text-charcoal sm:text-7xl lg:text-8xl">
+      <div className="container-pad relative z-30 grid min-h-[720px] gap-10 pt-32 lg:grid-cols-[0.94fr_0.72fr] lg:items-end lg:pb-24 lg:pt-40">
+        <div className="z-10 max-w-5xl pb-12 lg:pb-0">
+          <p className="text-xs font-black uppercase tracking-[0.32em] text-brand-sky">{eyebrow}</p>
+          <h1 className="mt-6 text-balance text-5xl font-black leading-[0.96] tracking-tight text-white sm:text-7xl lg:text-8xl">
             {title}
           </h1>
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-steel sm:text-xl sm:leading-9">
+          <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/[0.86] sm:text-xl sm:leading-9">
             {description}
           </p>
           {(primaryCta || secondaryCta) ? (
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               {primaryCta ? <PremiumLink href={primaryCta.href} variant="primary">{primaryCta.label}</PremiumLink> : null}
-              {secondaryCta ? <PremiumLink href={secondaryCta.href} variant="light">{secondaryCta.label}</PremiumLink> : null}
+              {secondaryCta ? (
+                <Link
+                  href={secondaryCta.href}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/15 px-6 py-3.5 text-sm font-black uppercase tracking-wide text-white shadow-sm backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-brand focus-ring"
+                >
+                  {secondaryCta.label}
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              ) : null}
             </div>
           ) : null}
         </div>
 
-        <div className="relative min-h-[420px] overflow-hidden rounded-[2.25rem] border border-brand/[0.15] bg-white shadow-luxe lg:min-h-[560px]">
-          <Image
-            src={image}
-            alt={imageAlt}
-            fill
-            priority
-            sizes="(min-width: 1024px) 56vw, 100vw"
-            className="object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-tr from-white/80 via-white/20 to-transparent" />
-          <div className="route-line bottom-28 left-[-18%] w-[72%]" />
-          <div className="absolute bottom-5 left-5 right-5 rounded-[1.5rem] border border-white/60 bg-white/75 p-5 shadow-panel backdrop-blur-2xl">
-            <p className="premium-kicker">Dubai delivery intelligence</p>
-            <p className="mt-2 text-2xl font-black tracking-tight text-charcoal">Civil, approvals and fit-out aligned before site execution.</p>
+        <div className="relative z-10 hidden pb-12 lg:block">
+          <div className="rounded-[2rem] border border-white/25 bg-white/[0.12] p-5 shadow-luxe backdrop-blur-2xl">
+            <div className="rounded-[1.5rem] border border-white/20 bg-white/[0.82] p-5 text-charcoal shadow-panel">
+              <p className="premium-kicker">Dubai delivery intelligence</p>
+              <p className="mt-3 text-2xl font-black tracking-tight text-charcoal">
+                Civil, MEP, approvals and fit-out decisions aligned before site execution.
+              </p>
+              <div className="mt-5 grid gap-2">
+                {["Authority-aware planning", "Premium scope control", "Handover-ready coordination"].map((item) => (
+                  <span key={item} className="rounded-2xl border border-brand/[0.12] bg-brand-soft px-4 py-3 text-sm font-black text-charcoal">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       {metrics.length > 0 ? (
-        <div className="container-pad relative -mt-8 pb-12">
+        <div className="container-pad relative z-30 -mt-16 pb-12">
           <MetricRibbon metrics={metrics} />
         </div>
       ) : null}

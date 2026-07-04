@@ -370,7 +370,7 @@ export const blogPosts: BlogPost[] = [
     metaDescription:
       "Plan warehouse construction in Dubai with guidance on site selection, design, civil works, fire safety, utilities, authority approvals and cost optimization.",
     excerpt:
-      "A warehouse construction guide for logistics, industrial and factory-related projects in Dubai, JAFZA, Dubai South, DIP and the wider UAE.",
+      "A warehouse construction guide for logistics, industrial and factory-related projects across Dubai industrial districts and the wider UAE.",
     category: "Warehouse Construction",
     categories: ["Warehouse Construction", "Commercial Buildings", "DCD Approvals", "DEWA Approvals", "Project Management"],
     targetKeywords: [

@@ -1,10 +1,12 @@
-import { ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, MessageCircle, PhoneCall } from "lucide-react";
+import { ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, MapPin, MessageCircle, PhoneCall } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
+import { portfolioProjects, type PortfolioProject } from "@/data/projects";
 import { absoluteUrl, services as allServices, site, type Service, whatsappUrl } from "@/data/site";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
@@ -16,6 +18,24 @@ type ServiceDetailPageProps = {
 function labelFromHref(href: string) {
   if (href === "/approval") return "Authority Approvals";
   return href.replace("/", "").replace(/-/g, " ");
+}
+
+function getRelatedProjectProfiles(service: Service): PortfolioProject[] {
+  const text = `${service.title} ${service.shortTitle} ${service.keywords.join(" ")}`.toLowerCase();
+  const categoryPriority = text.includes("approval") || text.includes("dewa") || text.includes("municipality")
+    ? ["Authority Approvals", "MEP Works", "Civil Works"]
+    : text.includes("mep") || text.includes("warehouse") || text.includes("industrial")
+      ? ["MEP Works", "Civil Works", "Maintenance"]
+      : text.includes("renovation") || text.includes("fit-out") || text.includes("interior") || text.includes("villa")
+        ? ["Renovation", "Maintenance", "Authority Approvals"]
+        : ["Civil Works", "Renovation", "MEP Works"];
+
+  const ordered = [
+    ...portfolioProjects.filter((project) => categoryPriority.includes(project.category)),
+    ...portfolioProjects.filter((project) => !categoryPriority.includes(project.category)),
+  ];
+
+  return ordered.slice(0, 3);
 }
 
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
@@ -84,6 +104,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       icon: CheckCircle2,
     },
   ];
+  const relatedProjectProfiles = getRelatedProjectProfiles(service);
   const serviceJsonLd = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -397,6 +418,53 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           "Responsive enquiry and handover focus",
         ]}
       />
+
+      <section className="section-pad soft-section">
+        <div className="container-pad">
+          <PremiumSectionHeading
+            eyebrow="Related projects"
+            title={`Representative project profiles for ${service.title.toLowerCase()}.`}
+            description="These publication-safe profiles show the types of Dubai scopes connected to this service. Client names, dates and private site details are shared only after approval."
+            align="center"
+          />
+          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+            {relatedProjectProfiles.map((project) => (
+              <Link
+                key={`${service.slug}-${project.title}`}
+                href="/projects"
+                className="group overflow-hidden rounded-[1.5rem] border border-brand/10 bg-white/[0.88] shadow-panel backdrop-blur-xl transition duration-500 hover:-translate-y-2 hover:border-brand/30 hover:shadow-luxe"
+              >
+                <div className="relative h-60 overflow-hidden bg-brand-soft">
+                  <Image
+                    src={project.image}
+                    alt={project.imageAlt}
+                    title={project.imageTitle}
+                    fill
+                    loading="lazy"
+                    sizes="(min-width: 1024px) 31vw, 100vw"
+                    className="object-cover transition duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/72 via-brand-dark/10 to-transparent" />
+                  <span className="absolute bottom-4 left-4 rounded-full border border-white/40 bg-white/[0.86] px-3 py-1.5 text-xs font-black uppercase tracking-wide text-brand backdrop-blur-xl">
+                    {project.category}
+                  </span>
+                </div>
+                <div className="p-6">
+                  <h2 className="text-2xl font-black tracking-tight text-charcoal">{project.title}</h2>
+                  <p className="mt-3 flex items-center gap-2 text-sm font-bold text-steel">
+                    <MapPin className="h-4 w-4 text-brand" />
+                    {project.location}
+                  </p>
+                  <p className="mt-4 text-sm leading-7 text-steel">{project.description}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+                    View portfolio <ArrowRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="section-pad bg-white">
         <div className="container-pad">

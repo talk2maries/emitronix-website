@@ -3,8 +3,9 @@ import { ArrowLeft, ArrowRight, CalendarDays, Clock3, Linkedin, MessageCircle, S
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
 import { blogAuthor, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
-import { absoluteUrl, site } from "@/data/site";
+import { absoluteUrl, services, site } from "@/data/site";
 
 type BlogArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -197,7 +198,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
             </div>
           </aside>
 
-          <div className="min-w-0">
+          <div className="min-w-0" data-blog-content>
             <div className="rounded-[1.5rem] border border-brand/[0.12] bg-white p-5 shadow-panel lg:hidden">
               <p className="premium-kicker">Table of contents</p>
               <div className="mt-4 grid gap-2">
@@ -336,6 +337,8 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
           </aside>
         </div>
       </article>
+
+      <BlogEnquiryPopup articleTitle={post.title} serviceOptions={services.map((service) => service.title)} />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />

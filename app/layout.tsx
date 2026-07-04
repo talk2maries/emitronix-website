@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { PhoneCall } from "lucide-react";
 import "./globals.css";
+import { CookieConsentManager } from "@/components/CookieConsentManager";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { absoluteUrl, services, site, whatsappUrl } from "@/data/site";
@@ -75,69 +76,124 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const organizationId = absoluteUrl("/#organization");
+  const localBusinessId = absoluteUrl("/#localbusiness");
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "GeneralContractor"],
-    "@id": absoluteUrl("/#localbusiness"),
-    name: site.legalName,
-    alternateName: site.name,
-    url: site.url,
-    logo: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-    image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
-    description: site.description,
-    email: site.email,
-    telephone: site.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Dubai Investment Park 02",
-      addressLocality: "Dubai",
-      addressCountry: "AE",
-    },
-    areaServed: site.serviceArea.map((name) => ({
-      "@type": cityServiceAreas.has(name) ? "City" : "Country",
-      name,
-    })),
-    openingHoursSpecification: [
+    "@graph": [
       {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "08:00",
-        closes: "18:00",
+        "@type": "Organization",
+        "@id": organizationId,
+        name: site.legalName,
+        alternateName: site.name,
+        url: site.url,
+        logo: {
+          "@type": "ImageObject",
+          url: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
+        },
+        image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
+        description: site.description,
+        email: site.email,
+        telephone: site.phone,
+      },
+      {
+        "@type": ["LocalBusiness", "GeneralContractor"],
+        "@id": localBusinessId,
+        name: site.legalName,
+        alternateName: site.name,
+        url: site.url,
+        parentOrganization: {
+          "@id": organizationId,
+        },
+        logo: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
+        image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
+        description: site.description,
+        email: site.email,
+        telephone: site.phone,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Dubai Investment Park 02",
+          addressLocality: "Dubai",
+          addressCountry: "AE",
+        },
+        areaServed: site.serviceArea.map((name) => ({
+          "@type": cityServiceAreas.has(name) ? "City" : "Country",
+          name,
+        })),
+        openingHoursSpecification: [
+          {
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            opens: "08:00",
+            closes: "18:00",
+          },
+        ],
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: site.phone,
+          email: site.email,
+          contactType: "customer service",
+          areaServed: "AE",
+          availableLanguage: ["English"],
+        },
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Dubai contracting and approval services",
+          itemListElement: services.map((service) => ({
+            "@type": "Offer",
+            url: absoluteUrl(service.href),
+            itemOffered: {
+              "@type": "Service",
+              name: service.title,
+              description: service.description,
+              areaServed: "Dubai, United Arab Emirates",
+              provider: {
+                "@id": localBusinessId,
+              },
+            },
+          })),
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": absoluteUrl("/#website"),
+        name: site.name,
+        url: site.url,
+        description: site.description,
+        publisher: {
+          "@id": organizationId,
+        },
+        inLanguage: "en-AE",
       },
     ],
-    contactPoint: {
-      "@type": "ContactPoint",
-      telephone: site.phone,
-      email: site.email,
-      contactType: "customer service",
-      areaServed: "AE",
-      availableLanguage: ["English"],
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Dubai contracting and approval services",
-      itemListElement: services.map((service) => ({
-        "@type": "Offer",
-        url: absoluteUrl(service.href),
-        itemOffered: {
-          "@type": "Service",
-          name: service.title,
-          description: service.description,
-          areaServed: "Dubai, United Arab Emirates",
-          provider: {
-            "@id": absoluteUrl("/#localbusiness"),
-          },
-        },
-      })),
-    },
   };
 
   return (
     <html lang="en-AE" className={inter.variable}>
       <body className="min-h-screen antialiased">
+        <script
+          id="emitronix-google-consent-default"
+          dangerouslySetInnerHTML={{
+            __html: `
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  analytics_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  functionality_storage: 'denied',
+  personalization_storage: 'denied',
+  security_storage: 'granted',
+  wait_for_update: 500
+});
+`,
+          }}
+        />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
+        <CookieConsentManager />
         <a
           href={whatsappUrl}
           target="_blank"

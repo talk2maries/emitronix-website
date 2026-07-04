@@ -593,7 +593,7 @@ export const stats = [
   { value: "Dubai", label: "Primary delivery market", icon: MapPin },
   { value: "G+4", label: "Building contracting scope", icon: Building2 },
   { value: "DM / DCD", label: "Authority coordination", icon: BadgeCheck },
-  { value: "DIP 02", label: "Local business location", icon: Clock },
+  { value: "UAE", label: "Business service area", icon: Clock },
 ];
 
 export const verifiedMetrics = [
@@ -610,9 +610,9 @@ export const verifiedMetrics = [
     icon: MapPin,
   },
   {
-    value: "DIP 02",
-    label: "Dubai business location",
-    description: site.location,
+    value: "Dubai / UAE",
+    label: "Business service coverage",
+    description: "Dubai-wide construction enquiries with UAE service area visibility from the verified business profile.",
     icon: Building2,
   },
   {

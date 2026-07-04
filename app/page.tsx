@@ -5,7 +5,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { HomeSignatureHero } from "@/components/HomeSignatureHero";
-import { CommandCenter, FeatureGrid, ImagePanel, PremiumLink, PremiumSectionHeading } from "@/components/Premium";
+import { CommandCenter, ImagePanel, PremiumLink, PremiumSectionHeading } from "@/components/Premium";
 import { ServiceCard } from "@/components/ServiceCard";
 import { blogPosts } from "@/data/blog";
 import { absoluteUrl, authorities, complianceHighlights, homeFaqs, services, site, stats, verifiedMetrics, whatsappUrl } from "@/data/site";
@@ -112,7 +112,7 @@ export default function HomePage() {
           <PremiumSectionHeading
             eyebrow="Company introduction"
             title="A Dubai construction partner for owners who value clarity before site work."
-            description="Emitronix Contracting LLC supports civil construction, main contracting, warehouses, industrial buildings, commercial buildings, villas, building renovation, interior fit-out and authority-facing project coordination from Dubai Investment Park 02."
+            description="Emitronix Contracting LLC supports civil construction, main contracting, warehouses, industrial buildings, commercial buildings, villas, building renovation, interior fit-out and authority-facing project coordination across Dubai and the UAE."
           />
           <div className="grid gap-5 text-base leading-8 text-steel">
             <article className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
@@ -125,7 +125,7 @@ export default function HomePage() {
               </p>
             </article>
             <div className="grid gap-3 sm:grid-cols-2">
-              {["Dubai", "Dubai Investment Park", "JAFZA", "Dubai South", "Al Quoz", "Business Bay", "Abu Dhabi", "Sharjah"].map((location) => (
+              {["Dubai-wide construction", "UAE business support", "Authority approvals", "Civil contracting", "Interior fit-out", "MEP coordination", "Commercial renovation", "Project delivery"].map((location) => (
                 <Link key={location} href="/contact" className="rounded-2xl border border-brand/[0.12] bg-brand-soft px-5 py-4 text-sm font-black text-charcoal transition hover:border-brand/30 hover:bg-white hover:text-brand">
                   {location}
                 </Link>
@@ -141,7 +141,7 @@ export default function HomePage() {
             <PremiumSectionHeading
               eyebrow="Company credibility"
               title="Verified trust signals for Dubai construction buyers."
-              description="Only verified facts are published here: service coverage, service areas, local business location and documented authority coordination routes."
+              description="Only verified facts are published here: service coverage, Dubai and UAE service areas, published contact details and documented authority coordination routes."
             />
             <Link href="/contact" className="premium-button">
               Request a Site Visit <ArrowRight className="h-4 w-4" />
@@ -164,16 +164,20 @@ export default function HomePage() {
       </section>
 
       <section className="section-pad bg-white">
-        <div className="container-pad grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
-          <div>
-            <PremiumSectionHeading
-              eyebrow="What we do"
-              title="End-to-end construction solutions for Dubai."
-              description="From concept to completion, Emitronix structures civil, fit-out and approval scopes around precision, buildability and authority readiness."
-            />
+        <div className="container-pad">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div className="max-w-4xl">
+              <p className="premium-kicker">What we do</p>
+              <h2 className="mt-4 text-balance text-4xl font-black leading-[1.04] tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
+                End-to-end construction solutions for Dubai and UAE projects.
+              </h2>
+              <p className="mt-5 max-w-3xl text-base leading-8 text-steel sm:text-lg">
+                Emitronix structures civil contracting, fit-out, MEP coordination, authority approvals and project delivery scopes around precision, buildability and handover readiness.
+              </p>
+            </div>
             <PremiumLink href="/services" variant="primary">Explore Services</PremiumLink>
           </div>
-          <div className="grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
@@ -205,22 +209,62 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad soft-section">
-        <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <ImagePanel
-            src="/images/civil-contractor-dubai-construction-site.webp"
-            alt="Civil contractor Dubai site coordination and project progress review"
-            label="About Emitronix"
-            title="Building trust. Delivering value."
-          />
-          <div>
-            <PremiumSectionHeading
-              eyebrow="Project control"
-              title="A premium contractor experience designed around control."
-              description="Emitronix brings together civil contracting, authority coordination and interior fit-out support for owners and consultants who need Dubai project clarity before site execution begins."
-            />
-            <div className="mt-8">
-              <FeatureGrid features={intelligenceFeatures} />
+      <section className="section-pad soft-section overflow-hidden">
+        <div className="container-pad">
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-white shadow-luxe">
+              <Image
+                src="/images/about-construction-coordination-dubai.webp"
+                alt="Dubai construction team reviewing drawings for authority approvals and project coordination"
+                fill
+                loading="lazy"
+                sizes="(min-width: 1024px) 46vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,31,58,0.02)_0%,rgba(11,31,58,0.68)_100%)]" />
+              <div className="absolute left-5 right-5 top-5 flex flex-wrap gap-2">
+                {["Authority approvals", "Civil delivery", "MEP coordination"].map((item) => (
+                  <span key={item} className="rounded-full border border-white/35 bg-white/[0.88] px-4 py-2 text-xs font-black uppercase tracking-wide text-brand shadow-sm backdrop-blur-xl">
+                    {item}
+                  </span>
+                ))}
+              </div>
+              <div className="absolute bottom-5 left-5 right-5 rounded-[1.5rem] border border-white/45 bg-white/[0.88] p-5 text-charcoal shadow-panel backdrop-blur-2xl">
+                <p className="premium-kicker">Project control</p>
+                <h3 className="mt-3 text-3xl font-black tracking-tight">Decisions aligned before site pressure builds.</h3>
+              </div>
+            </div>
+
+            <div>
+              <p className="premium-kicker">Project control</p>
+              <h2 className="mt-4 text-balance text-4xl font-black leading-[1.03] tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
+                Dubai project delivery with fewer blind spots.
+              </h2>
+              <p className="mt-5 max-w-3xl text-base leading-8 text-steel sm:text-lg">
+                Emitronix connects civil works, fit-out decisions, authority approvals, MEP coordination and close-out documentation through one clear contractor rhythm for owners, consultants and commercial teams.
+              </p>
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                {intelligenceFeatures.map((feature) => {
+                  const Icon = feature.icon;
+
+                  return (
+                    <article key={feature.title} className="group min-h-48 rounded-[1.5rem] border border-brand/[0.12] bg-white p-6 shadow-panel transition duration-500 hover:-translate-y-1 hover:border-brand/30 hover:bg-brand-soft hover:shadow-luxe">
+                      <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand text-white shadow-blue transition duration-500 group-hover:scale-105">
+                        <Icon className="h-6 w-6" />
+                      </span>
+                      <h3 className="mt-5 text-xl font-black tracking-tight text-charcoal">{feature.title}</h3>
+                      <p className="mt-3 text-sm leading-7 text-steel">{feature.description}</p>
+                    </article>
+                  );
+                })}
+              </div>
+              <div className="mt-6 grid gap-3 rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-4 shadow-sm backdrop-blur-xl sm:grid-cols-3">
+                {["Scope clarity", "Approval readiness", "Handover control"].map((item) => (
+                  <div key={item} className="rounded-2xl bg-brand-soft px-4 py-3 text-sm font-black text-charcoal">
+                    {item}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -340,7 +384,7 @@ export default function HomePage() {
         eyebrow="Trust section"
         title="Built around verified business facts and practical delivery signals."
         points={[
-          "Dubai Investment Park 02 location",
+          "Verified Dubai and UAE business profile",
           "Civil, fit-out and authority scope coverage",
           "Dubai Municipality, DCD and DEWA visibility",
           "Local SEO content tied to verified services",

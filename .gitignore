@@ -12,3 +12,4 @@ pnpm-debug.log*
 .vercel
 *.tsbuildinfo
 _codex_push_*
+storage

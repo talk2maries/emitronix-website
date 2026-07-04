@@ -3,7 +3,7 @@ import { ClipboardCheck, FileText, Mail, MapPin, MessageCircle, Phone } from "lu
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { contactItems, site, whatsappUrl } from "@/data/site";
+import { absoluteUrl, contactItems, site, whatsappUrl } from "@/data/site";
 import { createPageMetadata } from "@/data/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -68,6 +68,15 @@ const contactFaqs = [
       "Emitronix uses Dubai as its primary service area and supports enquiries connected to civil construction, interior fit-out, villas, warehouses, commercial works and authority coordination.",
   },
 ];
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+    { "@type": "ListItem", position: 2, name: "Contact", item: absoluteUrl("/contact") },
+  ],
+};
 
 export default function ContactPage() {
   return (
@@ -165,6 +174,7 @@ export default function ContactPage() {
         faqs={contactFaqs}
         schema
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
     </>
   );
 }

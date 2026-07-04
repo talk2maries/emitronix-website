@@ -41,12 +41,12 @@ export const metadata: Metadata = createPageMetadata({
     "civil works Dubai",
     "MEP coordination Dubai",
     "renovation contractor Dubai",
-    "warehouse upgrade DIP",
+    "warehouse upgrade Dubai",
     "authority approvals Dubai",
     "fit out contractor Dubai",
   ],
-  image: "/images/warehouse-construction-dubai.webp",
-  imageAlt: "Premium Dubai construction portfolio and warehouse project profile by Emitronix",
+  image: "/images/project-warehouse-industrial-dubai.webp",
+  imageAlt: "Premium Dubai construction portfolio with warehouse and industrial project profile by Emitronix",
 });
 
 const portfolioCapabilities = [
@@ -165,8 +165,8 @@ export default function ProjectsPage() {
     <>
       <section className="relative min-h-[760px] overflow-hidden bg-brand-dark text-white">
         <Image
-          src="/images/warehouse-construction-dubai.webp"
-          alt="Premium Dubai construction portfolio hero background"
+          src="/images/project-warehouse-industrial-dubai.webp"
+          alt="Premium Dubai warehouse and industrial construction portfolio hero background"
           fill
           priority
           sizes="100vw"
@@ -182,7 +182,7 @@ export default function ProjectsPage() {
             <h1 className="mt-6 text-balance text-5xl font-black leading-[0.96] tracking-tight sm:text-7xl lg:text-8xl">
               Our Projects
             </h1>
-            <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/86 sm:text-xl sm:leading-9">
+            <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/[0.86] sm:text-xl sm:leading-9">
               {site.legalName} supports Dubai and UAE project scopes across civil works, building contracting, renovation, MEP coordination, authority approvals, maintenance and interior fit-out works.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
@@ -247,7 +247,7 @@ export default function ProjectsPage() {
               className="object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/80 via-brand-dark/12 to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 rounded-[1.5rem] border border-white/40 bg-white/82 p-5 text-charcoal shadow-panel backdrop-blur-2xl">
+            <div className="absolute bottom-6 left-6 right-6 rounded-[1.5rem] border border-white/40 bg-white/[0.82] p-5 text-charcoal shadow-panel backdrop-blur-2xl">
               <p className="premium-kicker">{featuredProject.category}</p>
               <h2 className="mt-3 text-3xl font-black tracking-tight">{featuredProject.title}</h2>
               <p className="mt-2 flex items-center gap-2 text-sm font-bold text-steel">
@@ -342,7 +342,7 @@ export default function ProjectsPage() {
                     className="object-cover transition duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/75 via-brand-dark/10 to-transparent" />
-                  <div className="absolute bottom-5 left-5 right-5 rounded-[1.35rem] border border-white/35 bg-white/82 p-4 text-charcoal shadow-sm backdrop-blur-xl">
+                  <div className="absolute bottom-5 left-5 right-5 rounded-[1.35rem] border border-white/35 bg-white/[0.82] p-4 text-charcoal shadow-sm backdrop-blur-xl">
                     <p className="text-xs font-black uppercase tracking-[0.22em] text-brand">{item.location}</p>
                     <h3 className="mt-2 text-2xl font-black tracking-tight">{item.title}</h3>
                   </div>

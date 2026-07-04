@@ -5,7 +5,7 @@ import { approvalServices } from "@/data/approvals";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { authorities, stats } from "@/data/site";
+import { absoluteUrl, authorities, stats } from "@/data/site";
 import { createPageMetadata } from "@/data/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -46,6 +46,28 @@ const approvalFaqs = [
       "Yes. Emitronix keeps approval coordination connected to drawings, site sequencing, inspection readiness and handover documentation so authority work supports the construction path.",
   },
 ];
+
+const approvalHubItemListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Dubai authority approval services",
+  itemListElement: approvalServices.map((service, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: absoluteUrl(service.href),
+    name: service.menuLabel,
+    description: service.metaDescription,
+  })),
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+    { "@type": "ListItem", position: 2, name: "Authority Approvals", item: absoluteUrl("/approval") },
+  ],
+};
 
 export default function ApprovalPage() {
   return (
@@ -134,6 +156,8 @@ export default function ApprovalPage() {
       />
 
       <CTA />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(approvalHubItemListJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
     </>
   );
 }

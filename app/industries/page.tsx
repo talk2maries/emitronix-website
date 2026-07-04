@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { stats } from "@/data/site";
+import { absoluteUrl, stats } from "@/data/site";
 import { createPageMetadata } from "@/data/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -103,6 +103,15 @@ const industryFaqs = [
   },
 ];
 
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+    { "@type": "ListItem", position: 2, name: "Industries", item: absoluteUrl("/industries") },
+  ],
+};
+
 export default function IndustriesPage() {
   return (
     <>
@@ -192,6 +201,7 @@ export default function IndustriesPage() {
       />
 
       <CTA />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
     </>
   );
 }
