@@ -1,6 +1,6 @@
 import { approvalServices } from "@/data/approvals";
 import { arabicApprovalTitle, arabicNavItems, arabicServiceTitle } from "@/data/arabic";
-import { navItems, services, site, whatsappUrl } from "@/data/site";
+import { navItems, services, site } from "@/data/site";
 import { HeaderClient } from "./HeaderClient";
 
 export function Header() {
@@ -16,7 +16,6 @@ export function Header() {
         phone: site.phone,
         email: site.email,
         location: site.location,
-        whatsappUrl,
       }}
     />
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, MessageCircle, Sparkles, X } from "lucide-react";
+import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, Sparkles, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -24,7 +24,6 @@ export type HeaderContact = {
   phone: string;
   email: string;
   location: string;
-  whatsappUrl: string;
 };
 
 const industryLinks = [
@@ -63,7 +62,6 @@ export function HeaderClient({
     ? {
         homeLabel: "الصفحة الرئيسية",
         quote: "عرض سعر",
-        whatsapp: "واتساب",
         services: "الخدمات الأساسية",
         servicesDescription: "مقاولات، تشطيبات وتحكم في التسليم",
         allServices: "منصة الخدمات الكاملة",
@@ -86,7 +84,6 @@ export function HeaderClient({
     : {
         homeLabel: "Emitronix home",
         quote: "Free Quote",
-        whatsapp: "WhatsApp",
         services: "Core services",
         servicesDescription: "Construction, fit-out and delivery control",
         allServices: "Complete services platform",
@@ -289,9 +286,6 @@ export function HeaderClient({
               <Languages className="h-4 w-4" />
               {copy.language}
             </Link>
-            <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-              {copy.whatsapp} <MessageCircle className="h-4 w-4" />
-            </a>
           </div>
 
           <button
@@ -377,9 +371,6 @@ export function HeaderClient({
               <Languages className="h-4 w-4" />
               {copy.language}
             </Link>
-            <a href={contact.whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)} className="premium-button-light">
-              {copy.whatsapp} <MessageCircle className="h-4 w-4" />
-            </a>
             <div className="mt-3 grid gap-2 border-t border-brand/[0.15] pt-4 text-sm font-bold text-steel">
               <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone}</a>
               <a href={`mailto:${contact.email}`}>{contact.email}</a>
