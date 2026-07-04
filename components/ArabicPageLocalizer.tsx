@@ -44,6 +44,21 @@ function localizeElement(root: HTMLElement, page: ArabicPageLocalizerProps["page
     if (href) link.setAttribute("href", localizeInternalHref(href));
   });
 
+  // React hydration keeps JSX-interpolated text ("Need {title} in Dubai?") as
+  // separate text nodes divided by comment markers, so full-sentence dictionary
+  // keys never match individual nodes. Merge elements whose children are only
+  // text/comment nodes and translate the combined sentence first.
+  root.querySelectorAll<HTMLElement>("h1, h2, h3, h4, h5, h6, p, span, a, li, td, th, button, label, option").forEach((element) => {
+    const nodes = Array.from(element.childNodes);
+    if (nodes.length < 2) return;
+    if (!nodes.every((node) => node.nodeType === Node.TEXT_NODE || node.nodeType === Node.COMMENT_NODE)) return;
+    if (nodes.filter((node) => node.nodeType === Node.TEXT_NODE).length < 2) return;
+    const combined = element.textContent ?? "";
+    if (!/[A-Za-z]/.test(combined)) return;
+    const translated = translateArabicText(combined, page, element.tagName);
+    if (translated !== combined) element.textContent = translated;
+  });
+
   root.querySelectorAll<HTMLElement>("[aria-label], [title], [alt], [placeholder]").forEach((element) => {
     for (const attribute of ["aria-label", "title", "alt", "placeholder"] as const) {
       const value = element.getAttribute(attribute);

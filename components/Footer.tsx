@@ -183,7 +183,7 @@ export function Footer() {
                 </li>
                 <li className="flex gap-3">
                   <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-                  <span>{site.location}</span>
+                  <span>{isArabic ? "مجمع دبي للاستثمار 02، دبي، الإمارات" : site.location}</span>
                 </li>
               </ul>
             </div>

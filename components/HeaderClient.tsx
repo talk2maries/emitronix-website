@@ -383,7 +383,7 @@ export function HeaderClient({
             <div className="mt-3 grid gap-2 border-t border-brand/[0.15] pt-4 text-sm font-bold text-steel">
               <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone}</a>
               <a href={`mailto:${contact.email}`}>{contact.email}</a>
-              <span>{contact.location}</span>
+              <span>{isArabic ? "مجمع دبي للاستثمار 02، دبي، الإمارات" : contact.location}</span>
             </div>
           </nav>
         </div>
