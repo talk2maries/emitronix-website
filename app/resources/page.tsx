@@ -13,7 +13,7 @@ export const metadata: Metadata = createPageMetadata({
     "Dubai civil construction, fit-out and authority approval resources from Emitronix Contracting LLC.",
   path: "/resources",
   keywords: ["Dubai construction guide", "authority approval checklist Dubai", "civil contractor Dubai resources", "fit-out approval Dubai"],
-  image: "/images/emitronix-2026-dubai-coverage.webp",
+  image: "/images/dubai-authority-approval-contractor.webp",
 });
 
 const topics = [
@@ -74,8 +74,8 @@ export default function ResourcesPage() {
         eyebrow="Resources"
         title="Planning intelligence for Dubai construction and approvals."
         description="Reference pathways for clients preparing civil construction, fit-out, renovation and authority approval work in Dubai."
-        image="/images/emitronix-2026-dubai-coverage.webp"
-        imageAlt="Dubai project coverage and authority planning resources"
+        image="/images/dubai-authority-approval-contractor.webp"
+        imageAlt="Dubai authority planning and construction document resources"
         primaryCta={{ label: "Ask Emitronix", href: "/contact" }}
         secondaryCta={{ label: "Read Blog", href: "/blog" }}
         metrics={stats}

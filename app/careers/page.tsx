@@ -31,7 +31,7 @@ export const metadata: Metadata = createPageMetadata({
     "site supervisor jobs Dubai",
     "project management careers UAE",
   ],
-  image: "/images/emitronix-2026-highrise-bim.webp",
+  image: "/images/civil-contractor-dubai-construction-site.webp",
   imageAlt: "Construction careers in Dubai with Emitronix Contracting LLC",
 });
 
@@ -179,7 +179,7 @@ export default function CareersPage() {
 
               <div className="relative min-h-[420px] overflow-hidden rounded-[2.25rem] border border-brand/[0.15] bg-pearl shadow-luxe lg:min-h-[560px]">
                 <Image
-                  src="/images/emitronix-2026-highrise-bim.webp"
+                  src="/images/civil-contractor-dubai-construction-site.webp"
                   alt="Engineers and construction professionals planning Dubai projects with Emitronix"
                   fill
                   priority

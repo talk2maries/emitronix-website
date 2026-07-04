@@ -1,8 +1,8 @@
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { approvalServices } from "@/data/approvals";
-import { navItems, services, site } from "@/data/site";
+import { navItems, services, site, whatsappUrl } from "@/data/site";
 
 const sectorLinks = [
   { label: "Luxury Villas", href: "/industries" },
@@ -32,9 +32,14 @@ export function Footer() {
             <div className="rounded-[2rem] border border-brand/[0.15] bg-white/80 p-6 text-charcoal shadow-panel backdrop-blur-xl">
               <p className="text-xs font-black uppercase tracking-[0.28em] text-brand">Start a project</p>
               <h2 className="mt-4 text-3xl font-black tracking-tight">Bring engineering clarity to your next Dubai build.</h2>
-              <Link href="/contact" className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand px-6 py-3 text-sm font-black uppercase tracking-wide text-white shadow-blue transition hover:bg-brand-deep">
-                Request Consultation <ArrowRight className="h-4 w-4" />
-              </Link>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Link href="/contact" className="premium-button">
+                  Get a Free Quote <ArrowRight className="h-4 w-4" />
+                </Link>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+                  WhatsApp Us <MessageCircle className="h-4 w-4" />
+                </a>
+              </div>
             </div>
           </div>
 

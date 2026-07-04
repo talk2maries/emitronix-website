@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { ClipboardCheck, FileText, Mail, MapPin, Phone } from "lucide-react";
+import { ClipboardCheck, FileText, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { contactItems, site } from "@/data/site";
+import { contactItems, site, whatsappUrl } from "@/data/site";
 import { createPageMetadata } from "@/data/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -12,11 +12,12 @@ export const metadata: Metadata = createPageMetadata({
     "Contact Emitronix Contracting LLC in Dubai for civil contracting, villa construction, warehouse projects, authority approvals and interior fit-out enquiries.",
   path: "/contact",
   keywords: ["contact Emitronix Dubai", "Dubai contracting quote", "civil contractor contact", "Dubai Municipality approval contractor"],
-  image: "/images/emitronix-2026-dubai-coverage.webp",
+  image: "/images/building-contractor-dubai-construction-site.webp",
 });
 
 const contactSignals = [
   { label: "Phone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}`, icon: Phone },
+  { label: "WhatsApp", value: "Chat with Emitronix", href: whatsappUrl, icon: MessageCircle },
   { label: "Email", value: site.email, href: `mailto:${site.email}`, icon: Mail },
   { label: "Location", value: site.location, href: "/contact", icon: MapPin },
 ];
@@ -75,8 +76,8 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Start a premium Dubai project conversation."
         description="Share your civil construction, fit-out, renovation or authority approval requirements. Include the project location, scope, timeline and current approval status."
-        image="/images/emitronix-2026-dubai-coverage.webp"
-        imageAlt="Dubai contact and project coverage map for Emitronix Contracting LLC"
+        image="/images/building-contractor-dubai-construction-site.webp"
+        imageAlt="Dubai construction project consultation for Emitronix Contracting LLC"
         primaryCta={{ label: "Call Emitronix", href: `tel:${site.phone.replace(/\s/g, "")}` }}
         secondaryCta={{ label: "Email Team", href: `mailto:${site.email}` }}
       />
@@ -93,7 +94,13 @@ export default function ContactPage() {
               {contactSignals.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <a key={item.label} href={item.href} className="luxury-card flex gap-4 rounded-[1.5rem] p-5">
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target={item.href.startsWith("http") ? "_blank" : undefined}
+                    rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="luxury-card flex gap-4 rounded-[1.5rem] p-5"
+                  >
                     <Icon className="mt-1 h-5 w-5 shrink-0 text-brand" />
                     <span>
                       <span className="block text-sm font-black uppercase tracking-wide text-charcoal">{item.label}</span>

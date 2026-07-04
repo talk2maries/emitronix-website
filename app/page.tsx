@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { ArrowRight, BadgeCheck, Building2, ClipboardCheck, Factory, FileCheck2, Landmark, Layers3, ShieldCheck, Sparkles, Warehouse } from "lucide-react";
+import { ArrowRight, BadgeCheck, Building2, ClipboardCheck, Factory, FileCheck2, Landmark, Layers3, MessageCircle, PhoneCall, ShieldCheck, Sparkles, Warehouse } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { HomeSignatureHero } from "@/components/HomeSignatureHero";
 import { CommandCenter, FeatureGrid, ImagePanel, PremiumLink, PremiumSectionHeading } from "@/components/Premium";
-import { ProjectCard } from "@/components/ProjectCard";
 import { ServiceCard } from "@/components/ServiceCard";
 import { blogPosts } from "@/data/blog";
-import { absoluteUrl, authorities, homeFaqs, projects, services, site, stats } from "@/data/site";
+import { absoluteUrl, authorities, complianceHighlights, homeFaqs, services, site, stats, verifiedMetrics, whatsappUrl } from "@/data/site";
 import { createPageMetadata } from "@/data/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -20,13 +19,19 @@ export const metadata: Metadata = createPageMetadata({
   keywords: [
     "Construction Company Dubai",
     "Building Contractor Dubai",
+    "Building contractor in Dubai",
     "Civil Contractor Dubai",
+    "Civil construction company in Dubai",
     "Warehouse Construction Dubai",
+    "Warehouse construction contractor Dubai",
     "Villa Construction Dubai",
+    "Villa construction contractor Dubai",
+    "Commercial building contractor Dubai",
+    "Fit-out and renovation contractor Dubai",
     "Interior Fit-Out Dubai",
     "Authority Approvals Dubai",
   ],
-  image: "/images/emitronix-2026-hero-dubai.webp",
+  image: "/images/dubai-building-contracting-company.webp",
 });
 
 const intelligenceFeatures = [
@@ -93,24 +98,11 @@ const qualitySignals = [
   "Inspection readiness, snag closure and close-out documentation treated as part of delivery.",
 ];
 
-const buyerPriorities = [
-  {
-    title: "Clear responsibility",
-    description: "Owners want to know who is coordinating drawings, approvals, site decisions, variations and handover evidence before work begins.",
-  },
-  {
-    title: "Authority-aware planning",
-    description: "Dubai projects need early visibility on DM, DCD, DEWA, Trakhees, DDA, RTA, landlord or master developer requirements.",
-  },
-  {
-    title: "Premium communication",
-    description: "Commercial clients value concise updates, documented decisions, clear next steps and a contractor who can explain technical constraints plainly.",
-  },
-];
-
 const latestArticles = blogPosts.slice(0, 3);
 
 export default function HomePage() {
+  const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
+
   return (
     <>
       <HomeSignatureHero metrics={stats} />
@@ -143,6 +135,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section-pad soft-section">
+        <div className="container-pad">
+          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <PremiumSectionHeading
+              eyebrow="Company credibility"
+              title="Verified trust signals for Dubai construction buyers."
+              description="Only verified facts are published here: service coverage, service areas, local business location and documented authority coordination routes."
+            />
+            <Link href="/contact" className="premium-button">
+              Request a Site Visit <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {verifiedMetrics.map((metric) => {
+              const Icon = metric.icon;
+              return (
+                <article key={metric.label} className="luxury-card rounded-[1.5rem] p-6">
+                  <Icon className="h-8 w-8 text-brand" />
+                  <p className="mt-6 text-4xl font-black tracking-tight text-brand">{metric.value}</p>
+                  <h2 className="mt-2 text-xl font-black tracking-tight text-charcoal">{metric.label}</h2>
+                  <p className="mt-3 text-sm leading-7 text-steel">{metric.description}</p>
+                </article>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <div>
@@ -161,17 +181,41 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="bg-white py-8">
+        <div className="container-pad">
+          <div className="grid gap-4 rounded-[2rem] border border-brand/[0.15] bg-brand-soft p-5 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
+            <div>
+              <p className="premium-kicker">Fast enquiry path</p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal sm:text-3xl">
+                Need a building contractor in Dubai for a villa, warehouse, commercial building or fit-out?
+              </h2>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link href="/contact" className="premium-button">
+                Get a Free Quote <ArrowRight className="h-4 w-4" />
+              </Link>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+                WhatsApp Us <MessageCircle className="h-4 w-4" />
+              </a>
+              <a href={phoneHref} className="premium-button-light">
+                Call Now <PhoneCall className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section-pad soft-section">
         <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <ImagePanel
-            src="/images/emitronix-2026-highrise-bim.webp"
-            alt="AI-assisted construction planning and BIM coordination in Dubai"
+            src="/images/civil-contractor-dubai-construction-site.webp"
+            alt="Civil contractor Dubai site coordination and project progress review"
             label="About Emitronix"
             title="Building trust. Delivering value."
           />
           <div>
             <PremiumSectionHeading
-              eyebrow="AI-ready project intelligence"
+              eyebrow="Project control"
               title="A premium contractor experience designed around control."
               description="Emitronix brings together civil contracting, authority coordination and interior fit-out support for owners and consultants who need Dubai project clarity before site execution begins."
             />
@@ -183,7 +227,7 @@ export default function HomePage() {
       </section>
 
       <CommandCenter
-        eyebrow="AI project command"
+        eyebrow="Project command"
         title="A construction experience that feels intelligent before site work begins."
         description="Emitronix uses a planning-first operating model: every enquiry is translated into scope, authority, site and handover signals that the project team can act on."
         items={commandItems}
@@ -199,8 +243,8 @@ export default function HomePage() {
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <ImagePanel
-            src="/images/emitronix-2026-warehouse-industrial.webp"
-            alt="Warehouse and industrial construction quality safety planning in Dubai"
+            src="/images/warehouse-construction-dubai.webp"
+            alt="Warehouse construction Dubai quality and safety planning"
             label="Quality and safety"
             title="Quality is planned before it is inspected."
           />
@@ -222,24 +266,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-            <PremiumSectionHeading
-              eyebrow="Project capability"
-              title="Premium project categories across Dubai's built environment."
-              description="The project gallery represents the civil, industrial, villa, fit-out and authority coordination categories Emitronix supports."
-            />
-            <PremiumLink href="/projects" variant="light">View Projects</PremiumLink>
-          </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="blue-grid section-pad text-charcoal">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
           <PremiumSectionHeading
@@ -257,6 +283,29 @@ export default function HomePage() {
                   <h3 className="mt-5 text-xl font-black tracking-tight">{authority.name}</h3>
                   <p className="mt-3 text-sm leading-7 opacity-70">{authority.description}</p>
                 </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad bg-white">
+        <div className="container-pad">
+          <PremiumSectionHeading
+            eyebrow="Certifications and authority experience"
+            title="Authority coordination and compliance thinking for Dubai construction."
+            description="Emitronix presents authority experience professionally: project requirements are confirmed by location, consultant scope and authority route, without publishing unverified license, certification or approval claims."
+            align="center"
+          />
+          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {complianceHighlights.map((item) => {
+              const Icon = item.icon;
+              return (
+                <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
+                  <Icon className="h-8 w-8 text-brand" />
+                  <h2 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-steel">{item.description}</p>
+                </article>
               );
             })}
           </div>
@@ -297,25 +346,6 @@ export default function HomePage() {
           "Local SEO content tied to verified services",
         ]}
       />
-
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Client decision signals"
-            title="What serious Dubai construction buyers look for before choosing a contractor."
-            description="Instead of publishing unverified testimonials, this section focuses on the decision criteria owners and consultants commonly evaluate when comparing contractors."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {buyerPriorities.map((item) => (
-              <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
-                <h2 className="text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
 
       <section className="section-pad soft-section">
         <div className="container-pad">
@@ -394,7 +424,7 @@ export default function HomePage() {
             url: absoluteUrl("/"),
             description:
               "Premium homepage for Emitronix Contracting LLC, a Dubai construction company for civil contracting, building construction, warehouses, villas, interior fit-out and authority approvals.",
-            primaryImageOfPage: absoluteUrl("/images/emitronix-2026-hero-dubai.webp"),
+            primaryImageOfPage: absoluteUrl("/images/dubai-building-contracting-company.webp"),
             provider: {
               "@id": absoluteUrl("/#localbusiness"),
               name: site.legalName,

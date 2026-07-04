@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { PhoneCall } from "lucide-react";
 import "./globals.css";
-import { ExperienceLayer } from "@/components/ExperienceLayer";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { absoluteUrl, services, site, whatsappUrl } from "@/data/site";
@@ -10,7 +10,7 @@ const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
 const inter = Inter({
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
   variable: "--font-inter",
 });
 
@@ -52,10 +52,10 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: absoluteUrl("/images/emitronix-2026-hero-dubai.webp"),
+        url: absoluteUrl("/images/dubai-building-contracting-company.webp"),
         width: 1672,
         height: 941,
-        alt: "Cinematic Dubai skyline and futuristic construction for Emitronix Contracting LLC",
+        alt: "Dubai construction skyline and crane works for Emitronix Contracting LLC",
       },
     ],
   },
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
-    images: [absoluteUrl("/images/emitronix-2026-hero-dubai.webp")],
+    images: [absoluteUrl("/images/dubai-building-contracting-company.webp")],
   },
   icons: {
     icon: "/favicon.svg",
@@ -83,7 +83,7 @@ export default function RootLayout({
     alternateName: site.name,
     url: site.url,
     logo: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-    image: absoluteUrl("/images/emitronix-2026-hero-dubai.webp"),
+    image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
     description: site.description,
     email: site.email,
     telephone: site.phone,
@@ -135,9 +135,8 @@ export default function RootLayout({
   return (
     <html lang="en-AE" className={inter.variable}>
       <body className="min-h-screen antialiased">
-        <ExperienceLayer />
         <Header />
-        <main>{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
         <a
           href={whatsappUrl}
@@ -157,6 +156,18 @@ export default function RootLayout({
           </span>
           <span className="hidden rounded-full border border-brand/[0.15] bg-white/[0.92] px-4 py-3 text-sm font-black uppercase tracking-wide text-charcoal shadow-xl shadow-brand/[0.12] backdrop-blur-xl sm:block">
             Need Help?
+          </span>
+        </a>
+        <a
+          href={`tel:${site.phone.replace(/\s/g, "")}`}
+          aria-label="Call Emitronix"
+          className="fixed bottom-5 right-5 z-[99999] flex items-center gap-3 rounded-full"
+        >
+          <span className="grid h-14 w-14 place-items-center rounded-full bg-brand text-white shadow-xl shadow-brand/[0.18] ring-4 ring-white transition hover:scale-105 sm:h-16 sm:w-16">
+            <PhoneCall className="h-7 w-7" />
+          </span>
+          <span className="hidden rounded-full border border-brand/[0.15] bg-white/[0.92] px-4 py-3 text-sm font-black uppercase tracking-wide text-charcoal shadow-xl shadow-brand/[0.12] backdrop-blur-xl sm:block">
+            Call Now
           </span>
         </a>
         <script

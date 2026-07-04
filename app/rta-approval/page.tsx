@@ -10,7 +10,7 @@ export const metadata: Metadata = createPageMetadata({
   description: service.metaDescription,
   path: service.href,
   keywords: service.keywords,
-  image: "/images/emitronix-2026-dubai-coverage.webp",
+  image: "/images/dubai-authority-approval-contractor.webp",
   imageAlt: `${service.menuLabel} coordination for Dubai construction projects`,
 });
 

@@ -55,4 +55,34 @@ You can also double-click `start-dev.cmd` from the project folder to launch the 
 npm run build
 ```
 
+## Zoho CRM Lead Integration
+
+The contact form submits to the server-side API route at `/api/enquiries`, which creates a new record in the Zoho CRM `Leads` module. Zoho credentials must stay server-side in environment variables and must never be exposed in browser code.
+
+Create a local `.env.local` or production environment with:
+
+```bash
+ZOHO_CLIENT_ID=your_zoho_client_id
+ZOHO_CLIENT_SECRET=your_zoho_client_secret
+ZOHO_REFRESH_TOKEN=your_zoho_refresh_token
+ZOHO_ACCOUNTS_BASE_URL=https://accounts.zoho.com
+ZOHO_CRM_API_BASE_URL=https://www.zohoapis.com
+ZOHO_CRM_API_VERSION=v2
+ZOHO_SERVICE_INTEREST_FIELD_API_NAME=
+```
+
+Use the Zoho accounts and API domains for the correct Zoho data center, for example `.com`, `.eu`, `.in`, or the value returned by Zoho OAuth. The OAuth app should have CRM lead creation access, such as `ZohoCRM.modules.Leads.CREATE` or a broader approved CRM module scope.
+
+Field mapping:
+
+- Full name: split into `First_Name` and mandatory `Last_Name`
+- Company: `Company`, using `Individual Enquiry` when omitted
+- Email: `Email`
+- Phone: `Phone`
+- Service: `Lead_Source`
+- Project Details: `Description`
+- Optional service custom field: set `ZOHO_SERVICE_INTEREST_FIELD_API_NAME` to a Zoho Lead field API name if the CRM has a dedicated service-interest field
+
+After updating environment variables, restart the Next.js process so the API route can read them.
+
 Update final production phone, email, social links and domain in `data/site.ts` before launch.

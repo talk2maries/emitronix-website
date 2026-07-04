@@ -14,7 +14,7 @@ export const metadata: Metadata = createPageMetadata({
     "Dubai authority approval services for Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA approvals.",
   path: "/approval",
   keywords: ["approval services in Dubai", "authority approvals Dubai", "Dubai Municipality approval", "DEWA approval", "DCD approval", "RTA approval"],
-  image: "/images/emitronix-2026-dubai-coverage.webp",
+  image: "/images/dubai-authority-approval-contractor.webp",
 });
 
 const approvalProcess = [
@@ -54,8 +54,8 @@ export default function ApprovalPage() {
         eyebrow="Authority approval services"
         title="Dubai approval services for construction projects."
         description="Emitronix supports owners, consultants and tenants with structured document coordination, authority comment response and inspection readiness across key Dubai approval workflows."
-        image="/images/emitronix-2026-dubai-coverage.webp"
-        imageAlt="Dubai authority approval coordination map and modern construction planning"
+        image="/images/dubai-authority-approval-contractor.webp"
+        imageAlt="Dubai authority approval contractor coordinating project documents"
         primaryCta={{ label: "Request Approval Support", href: "/contact" }}
         secondaryCta={{ label: "View Services", href: "/services" }}
         metrics={stats}

@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CalendarCheck, CheckCircle2, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { approvalServices } from "@/data/approvals";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { CommandCenter, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { ServiceCard } from "@/components/ServiceCard";
-import { absoluteUrl, authorities, localSeoBlocks, services, stats } from "@/data/site";
+import { absoluteUrl, authorities, localSeoBlocks, services, site, stats, whatsappUrl } from "@/data/site";
 import { createPageMetadata } from "@/data/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -15,7 +15,7 @@ export const metadata: Metadata = createPageMetadata({
     "Explore Emitronix civil contracting, interior fit-out, villa, warehouse, commercial building and authority approval services in Dubai, UAE.",
   path: "/services",
   keywords: ["civil construction services Dubai", "building contractor Dubai", "authority approval Dubai", "interior fit-out Dubai"],
-  image: "/images/emitronix-2026-warehouse-industrial.webp",
+  image: "/images/warehouse-construction-dubai.webp",
 });
 
 const serviceCommandItems = [
@@ -80,13 +80,15 @@ const servicesItemListJsonLd = {
 };
 
 export default function ServicesPage() {
+  const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
+
   return (
     <>
       <PageHero
         eyebrow="Services"
         title="A complete construction platform for Dubai projects."
         description="Emitronix aligns civil contracting, fit-out delivery and authority approval coordination so project owners can move from scope definition to handover with clearer control."
-        image="/images/emitronix-2026-warehouse-industrial.webp"
+        image="/images/warehouse-construction-dubai.webp"
         imageAlt="Warehouse construction Dubai and industrial building delivery"
         primaryCta={{ label: "Request Consultation", href: "/contact" }}
         secondaryCta={{ label: "View Projects", href: "/projects" }}
@@ -105,6 +107,33 @@ export default function ServicesPage() {
             {services.map((service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-8">
+        <div className="container-pad">
+          <div className="grid gap-4 rounded-[2rem] border border-brand/[0.15] bg-brand-soft p-5 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
+            <div>
+              <p className="premium-kicker">Service enquiry</p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal sm:text-3xl">
+                Compare scopes, then request a quote or site visit.
+              </h2>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link href="/contact" className="premium-button">
+                Get a Free Quote <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/contact?intent=site-visit" className="premium-button-light">
+                Request a Site Visit <CalendarCheck className="h-4 w-4" />
+              </Link>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+                WhatsApp Us <MessageCircle className="h-4 w-4" />
+              </a>
+              <a href={phoneHref} className="premium-button-light">
+                Call Now <PhoneCall className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -130,7 +159,7 @@ export default function ServicesPage() {
       </section>
 
       <CommandCenter
-        eyebrow="AI-ready service model"
+        eyebrow="Service delivery model"
         title="Every service is treated as a coordinated project system."
         description="The premium value is not a single trade. It is the ability to connect scope, drawings, authority requirements, site sequencing and handover into a calmer delivery experience."
         items={serviceCommandItems}

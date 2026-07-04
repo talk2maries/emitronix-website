@@ -10,8 +10,8 @@ type PageMetadataInput = {
   imageAlt?: string;
 };
 
-const defaultImage = "/images/emitronix-2026-hero-dubai.webp";
-const defaultImageAlt = "Premium Dubai construction skyline and modern architecture by Emitronix Contracting LLC";
+const defaultImage = "/images/dubai-building-contracting-company.webp";
+const defaultImageAlt = "Dubai construction skyline and crane works by Emitronix Contracting LLC";
 
 export function createPageMetadata({
   title,

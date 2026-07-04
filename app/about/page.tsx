@@ -12,7 +12,7 @@ export const metadata: Metadata = createPageMetadata({
     "Learn about Emitronix Contracting LLC, a Dubai contracting company supporting civil construction, authority approvals, interior fit-out, villa, warehouse and commercial projects.",
   path: "/about",
   keywords: ["Emitronix Dubai", "Dubai contracting company", "civil construction company UAE", "authority approvals Dubai"],
-  image: "/images/emitronix-2026-highrise-bim.webp",
+  image: "/images/civil-contractor-dubai-construction-site.webp",
 });
 
 const operatingPrinciples = [
@@ -74,8 +74,8 @@ export default function AboutPage() {
         eyebrow="About Emitronix"
         title="A premium Dubai contractor built around clarity."
         description={`${site.legalName} brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.`}
-        image="/images/emitronix-2026-highrise-bim.webp"
-        imageAlt="Emitronix Contracting LLC Dubai construction and BIM coordination"
+        image="/images/civil-contractor-dubai-construction-site.webp"
+        imageAlt="Emitronix Contracting LLC Dubai construction site coordination"
         primaryCta={{ label: "Talk to Emitronix", href: "/contact" }}
         secondaryCta={{ label: "Explore Services", href: "/services" }}
         metrics={stats}
@@ -102,8 +102,8 @@ export default function AboutPage() {
             </div>
           </div>
           <ImagePanel
-            src="/images/emitronix-2026-villa-luxury.webp"
-            alt="Luxury villa construction Dubai by Emitronix Contracting LLC"
+            src="/images/villa-construction-contractor-dubai.webp"
+            alt="Villa construction contractor Dubai residential works by Emitronix Contracting LLC"
             label="Premium residential"
             title="Villas, buildings and authority-ready delivery."
           />

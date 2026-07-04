@@ -13,7 +13,7 @@ export const metadata: Metadata = createPageMetadata({
     "Emitronix supports Dubai villas, warehouses, industrial buildings, commercial buildings, retail fit-out and authority-facing construction project categories.",
   path: "/industries",
   keywords: ["villa construction Dubai", "warehouse construction Dubai", "commercial construction Dubai", "industrial building contractor Dubai"],
-  image: "/images/emitronix-2026-villa-luxury.webp",
+  image: "/images/villa-construction-contractor-dubai.webp",
 });
 
 const industries = [
@@ -110,8 +110,8 @@ export default function IndustriesPage() {
         eyebrow="Industries"
         title="Built for Dubai's real estate, logistics and commercial economy."
         description="Emitronix supports project categories where premium communication, practical engineering, authority visibility and handover control matter."
-        image="/images/emitronix-2026-villa-luxury.webp"
-        imageAlt="Luxury villa construction Dubai and premium residential architecture"
+        image="/images/villa-construction-contractor-dubai.webp"
+        imageAlt="Villa construction contractor Dubai residential project works"
         primaryCta={{ label: "Discuss Your Sector", href: "/contact" }}
         secondaryCta={{ label: "View Projects", href: "/projects" }}
         metrics={stats}

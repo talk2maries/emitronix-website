@@ -1,10 +1,11 @@
-import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
+import { ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
+import { ContactForm } from "@/components/ContactForm";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
-import { absoluteUrl, services as allServices, site, type Service } from "@/data/site";
+import { absoluteUrl, services as allServices, site, type Service, whatsappUrl } from "@/data/site";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
@@ -19,6 +20,7 @@ function labelFromHref(href: string) {
 
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const Icon = service.icon;
+  const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
   const relatedLinks = service.relatedHrefs.map((href) => {
     const relatedService = allServices.find((item) => item.href === href);
     const relatedApproval = approvalServices.find((item) => item.href === href);
@@ -145,6 +147,33 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                 <h2 className="mt-5 text-xl font-black tracking-tight text-charcoal">{highlight}</h2>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-8">
+        <div className="container-pad">
+          <div className="grid gap-4 rounded-[2rem] border border-brand/[0.15] bg-brand-soft p-5 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center lg:p-7">
+            <div>
+              <p className="premium-kicker">Start this scope</p>
+              <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal sm:text-3xl">
+                Need {service.title.toLowerCase()} in Dubai?
+              </h2>
+            </div>
+            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link href="/contact" className="premium-button">
+                Get a Free Quote <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link href="/contact?intent=site-visit" className="premium-button-light">
+                Request a Site Visit <CalendarCheck className="h-4 w-4" />
+              </Link>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+                WhatsApp Us <MessageCircle className="h-4 w-4" />
+              </a>
+              <a href={phoneHref} className="premium-button-light">
+                Call Now <PhoneCall className="h-4 w-4" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -388,6 +417,27 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section-pad soft-section">
+        <div className="container-pad grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <div>
+            <PremiumSectionHeading
+              eyebrow="Quick quote"
+              title={`Request ${service.shortTitle.toLowerCase()} consultation.`}
+              description={`Share your project location, drawings status, authority comments and timeline. Emitronix will review the ${service.title.toLowerCase()} enquiry and respond with the practical next step.`}
+            />
+            <div className="mt-6 grid gap-3">
+              {["Project location and scope", "Drawings or authority status", "Preferred timeline and site access"].map((item) => (
+                <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
+                  <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-brand" />
+                  <p className="text-sm font-bold leading-7 text-charcoal">{item}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <ContactForm />
         </div>
       </section>
 

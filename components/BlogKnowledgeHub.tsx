@@ -84,11 +84,11 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
       </section>
 
       <section className="bg-white pb-16 lg:pb-24">
-        <div className="container-pad grid gap-10 xl:grid-cols-[280px_1fr]">
-          <aside className="xl:sticky xl:top-28 xl:self-start">
-            <div className="luxury-surface rounded-[1.75rem] p-5 xl:max-h-[calc(100vh-18rem)] xl:overflow-auto">
+        <div className="container-pad grid min-w-0 gap-10 xl:grid-cols-[280px_minmax(0,1fr)]">
+          <aside className="min-w-0 xl:sticky xl:top-28 xl:self-start">
+            <div className="luxury-surface min-w-0 rounded-[1.75rem] p-5 xl:max-h-[calc(100vh-18rem)] xl:overflow-auto">
               <p className="text-xs font-black uppercase tracking-[0.24em] text-brand">Categories</p>
-              <div className="mt-5 flex gap-2 overflow-x-auto pb-2 xl:grid xl:overflow-visible xl:pb-0">
+              <div className="mt-5 flex min-w-0 max-w-full gap-2 overflow-x-auto pb-2 xl:grid xl:overflow-visible xl:pb-0">
                 {["All", ...categories].map((category) => (
                   <button
                     key={category}
@@ -110,7 +110,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
             </div>
           </aside>
 
-          <div className="grid gap-10">
+          <div className="grid min-w-0 gap-10">
             <article className="grid overflow-hidden rounded-[2rem] border border-brand/[0.12] bg-white shadow-luxe lg:grid-cols-[1.05fr_0.95fr]">
               <div className="relative h-[320px] lg:h-auto lg:min-h-[430px]">
                 <Image
@@ -142,7 +142,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
               </div>
             </article>
 
-            <div className="grid gap-5 lg:grid-cols-3">
+            <div className="grid min-w-0 gap-5 lg:grid-cols-3">
               {featuredCards.map((post) => (
                 <Link key={post.slug} href={postHref(post)} className="group overflow-hidden rounded-[1.6rem] border border-brand/[0.10] bg-white shadow-panel transition duration-300 hover:-translate-y-1 hover:border-brand/[0.25] hover:shadow-luxe">
                   <div className="relative aspect-[16/10] overflow-hidden">
@@ -169,8 +169,8 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
               ))}
             </div>
 
-            <div className="grid gap-8 lg:grid-cols-[1fr_340px]">
-              <div>
+            <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1fr)_340px]">
+              <div className="min-w-0">
                 <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
                   <div>
                     <p className="premium-kicker">Article library</p>
@@ -185,7 +185,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
 
                 <div className="mt-8 grid gap-5">
                   {filteredPosts.map((post) => (
-                    <Link key={post.slug} href={postHref(post)} className="luxury-card grid gap-5 rounded-[1.5rem] p-4 sm:grid-cols-[180px_1fr]">
+                    <Link key={post.slug} href={postHref(post)} className="luxury-card grid min-w-0 gap-5 rounded-[1.5rem] p-4 sm:grid-cols-[180px_minmax(0,1fr)]">
                       <div className="relative h-[180px] overflow-hidden rounded-[1.2rem] bg-brand-soft sm:h-auto sm:min-h-[190px]">
                         <Image
                           src={post.image}
@@ -197,7 +197,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                           className="object-cover"
                         />
                       </div>
-                      <div className="py-1">
+                      <div className="min-w-0 py-1">
                         <div className="flex flex-wrap gap-3 text-xs font-black uppercase tracking-wide text-steel">
                           <span>{post.category}</span>
                           <span>{post.readTime}</span>
@@ -211,7 +211,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                 </div>
               </div>
 
-              <aside className="grid gap-5 self-start">
+              <aside className="grid min-w-0 gap-5 self-start">
                 <div className="luxury-surface rounded-[1.75rem] p-5">
                   <p className="premium-kicker">Recent posts</p>
                   <div className="mt-5 grid gap-4">

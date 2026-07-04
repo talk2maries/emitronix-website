@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import type { Project } from "@/data/site";
 
 type ProjectCardProps = {
@@ -27,7 +29,34 @@ export function ProjectCard({ project, compact = false }: ProjectCardProps) {
       <div className={compact ? "p-5 text-center" : "p-6"}>
         <p className="text-xs font-black uppercase tracking-[0.22em] text-brand">{project.category}</p>
         <h3 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{project.title}</h3>
-        {!compact ? <p className="mt-3 text-sm leading-7 text-steel">{project.summary}</p> : null}
+        {!compact ? (
+          <>
+            <p className="mt-3 text-sm leading-7 text-steel">{project.summary}</p>
+            <div className="mt-5 grid gap-3">
+              <div className="rounded-2xl border border-brand/[0.12] bg-brand-soft p-4">
+                <p className="text-xs font-black uppercase tracking-[0.2em] text-brand">Scope of work</p>
+                <ul className="mt-3 grid gap-2 text-sm font-bold leading-6 text-charcoal">
+                  {project.scopeOfWork.map((scope) => (
+                    <li key={scope}>{scope}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                <div className="rounded-2xl border border-brand/[0.12] bg-white p-4">
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-brand">Timeline</p>
+                  <p className="mt-2 text-sm font-bold leading-6 text-charcoal">{project.timeline}</p>
+                </div>
+                <div className="rounded-2xl border border-brand/[0.12] bg-white p-4">
+                  <p className="text-xs font-black uppercase tracking-[0.2em] text-brand">Outcome</p>
+                  <p className="mt-2 text-sm font-bold leading-6 text-charcoal">{project.outcome}</p>
+                </div>
+              </div>
+            </div>
+            <Link href="/contact" className="premium-button-light mt-6 w-full">
+              Discuss Similar Project <ArrowRight className="h-4 w-4" />
+            </Link>
+          </>
+        ) : null}
       </div>
     </article>
   );

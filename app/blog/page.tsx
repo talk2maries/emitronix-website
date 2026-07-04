@@ -16,7 +16,7 @@ export const metadata: Metadata = createPageMetadata({
     "Dubai authority approvals",
     "building contractor Dubai",
   ],
-  image: "/images/emitronix-2026-highrise-bim.webp",
+  image: "/images/dubai-civil-works-construction-site.webp",
   imageAlt: "Dubai construction knowledge center by Emitronix Contracting LLC",
 });
 

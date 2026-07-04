@@ -242,9 +242,9 @@ export const services: Service[] = [
     description: "G+4 buildings, villas, warehouses, commercial and industrial projects.",
     details:
       "Complete civil contracting for G+4 buildings, villas, warehouses, commercial and industrial developments across Dubai and the UAE.",
-    image: "/images/emitronix-2026-highrise-bim.webp",
-    imageAlt: "Civil Contractor Dubai high-rise construction and BIM coordination environment",
-    imageTitle: "Civil Contractor Dubai - high-rise construction and BIM coordination",
+    image: "/images/civil-contractor-dubai-construction-site.webp",
+    imageAlt: "Civil contractor Dubai site team coordinating construction works",
+    imageTitle: "Civil Contractor Dubai - site coordination and construction works",
     icon: Building2,
     highlights: ["G+4 buildings", "Villas and warehouses", "Commercial and industrial works"],
     keywords: ["Dubai civil contracting", "G+4 building contractor", "warehouse construction UAE"],
@@ -269,9 +269,9 @@ export const services: Service[] = [
     description: "Single-point contracting coordination for civil, structural, fit-out, approvals and handover.",
     details:
       "Main contracting in Dubai for owners and consultants who need one coordinated construction partner for scope control, procurement, site execution, authority visibility and handover readiness.",
-    image: "/images/emitronix-2026-hero-dubai.webp",
-    imageAlt: "Main Contractor Dubai coordinating premium construction delivery and authority workflows",
-    imageTitle: "Main Contractor Dubai - construction delivery coordination",
+    image: "/images/building-contractor-dubai-construction-site.webp",
+    imageAlt: "Main contractor Dubai site team reviewing building construction progress",
+    imageTitle: "Main Contractor Dubai - building construction site coordination",
     icon: HardHat,
     highlights: ["Single-point coordination", "Consultant and authority alignment", "Handover-focused delivery"],
     keywords: ["Main Contractor Dubai", "Main Contractor UAE", "Construction Company Dubai"],
@@ -296,8 +296,8 @@ export const services: Service[] = [
     description: "Planning, civil works and delivery coordination for logistics, storage and industrial warehouses.",
     details:
       "Warehouse construction in Dubai for logistics, storage, light industrial and operational facilities requiring civil works, fire-safety visibility, utility coordination and handover planning.",
-    image: "/images/emitronix-2026-warehouse-industrial.webp",
-    imageAlt: "Warehouse Construction Dubai logistics facility with structural and authority coordination",
+    image: "/images/warehouse-construction-dubai.webp",
+    imageAlt: "Warehouse construction Dubai site with industrial building and earthworks machinery",
     imageTitle: "Warehouse Construction Dubai - logistics and industrial facility delivery",
     icon: Warehouse,
     highlights: ["Logistics and storage facilities", "Fire-safety and utility coordination", "DIP, JAFZA and Dubai South focus"],
@@ -329,8 +329,8 @@ export const services: Service[] = [
     description: "Industrial building contracting for factories, workshops, logistics and operational facilities.",
     details:
       "Industrial building contractor support in Dubai and the UAE for factories, workshops, logistics buildings and operational assets requiring practical civil, structural and authority coordination.",
-    image: "/images/emitronix-2026-warehouse-industrial.webp",
-    imageAlt: "Industrial Building Contractor Dubai for factory and logistics construction planning",
+    image: "/images/mep-civil-contracting-dubai.webp",
+    imageAlt: "Industrial building contractor Dubai steel structure and factory construction works",
     imageTitle: "Industrial Building Contractor Dubai - factory and logistics projects",
     icon: Factory,
     highlights: ["Factory and workshop planning", "Operational civil works", "Utility and fire-safety interfaces"],
@@ -356,8 +356,8 @@ export const services: Service[] = [
     description: "Commercial building construction for offices, showrooms, retail buildings and mixed-use assets.",
     details:
       "Commercial building contractor services in Dubai for offices, showrooms, retail buildings and business facilities where quality, authority readiness and handover planning matter.",
-    image: "/images/emitronix-2026-highrise-bim.webp",
-    imageAlt: "Commercial Building Contractor Dubai planning office and retail construction delivery",
+    image: "/images/dubai-building-contracting-company.webp",
+    imageAlt: "Commercial building contractor Dubai skyline construction and crane works",
     imageTitle: "Commercial Building Contractor Dubai - office and retail construction",
     icon: BriefcaseBusiness,
     highlights: ["Office and showroom buildings", "Retail and business assets", "Premium handover planning"],
@@ -383,9 +383,9 @@ export const services: Service[] = [
     description: "Villa construction and renovation coordination for private residential projects in Dubai and UAE.",
     details:
       "Villa construction in Dubai for owners seeking disciplined civil works, structural coordination, finishing quality, authority awareness and a premium residential delivery experience.",
-    image: "/images/emitronix-2026-villa-luxury.webp",
-    imageAlt: "Villa Construction Dubai luxury residential building with premium finishing coordination",
-    imageTitle: "Villa Construction Dubai - luxury residential delivery",
+    image: "/images/villa-construction-contractor-dubai.webp",
+    imageAlt: "Villa construction contractor Dubai residential building works in progress",
+    imageTitle: "Villa Construction Dubai - residential site delivery",
     icon: Home,
     highlights: ["Luxury villa construction", "Renovation and additions", "Finishing and authority awareness"],
     keywords: ["Villa Construction Dubai", "Villa Contractor Dubai", "Villa Renovation Dubai"],
@@ -410,8 +410,8 @@ export const services: Service[] = [
     description: "Complete interior fit-out solutions for commercial, retail and residential projects.",
     details:
       "Premium interior fit-out solutions for offices, retail spaces, restaurants, villas and residential developments.",
-    image: "/images/emitronix-2026-fitout-interior.webp",
-    imageAlt: "Commercial Fit Out Contractor Dubai delivering premium interior architecture",
+    image: "/images/commercial-fit-out-contractor-dubai.webp",
+    imageAlt: "Commercial fit-out contractor Dubai reviewing interior drawings and coordination",
     imageTitle: "Commercial Fit Out Contractor Dubai - premium interior delivery",
     icon: Sparkles,
     highlights: ["Commercial fit-out", "Retail and hospitality", "Residential interiors"],
@@ -437,8 +437,8 @@ export const services: Service[] = [
     description: "Civil renovation, modification and upgrade works for villas, commercial and industrial buildings.",
     details:
       "Building renovation in Dubai for owners and tenants upgrading villas, commercial units, warehouses and existing buildings with civil, fit-out and authority-aware coordination.",
-    image: "/images/emitronix-2026-fitout-interior.webp",
-    imageAlt: "Building Renovation Dubai civil modification and premium fit-out coordination",
+    image: "/images/commercial-fit-out-contractor-dubai.webp",
+    imageAlt: "Building renovation Dubai contractor reviewing drawings for civil and fit-out upgrades",
     imageTitle: "Building Renovation Dubai - civil and fit-out upgrades",
     icon: Wrench,
     highlights: ["Civil modifications", "Renovation and upgrades", "Authority-aware changes"],
@@ -464,8 +464,8 @@ export const services: Service[] = [
     description: "Structural concrete, steel, strengthening and modification coordination for Dubai building projects.",
     details:
       "Structural works in Dubai for construction, renovation, warehouse, villa and commercial projects requiring disciplined engineering coordination, approved drawings and controlled site execution.",
-    image: "/images/emitronix-2026-highrise-bim.webp",
-    imageAlt: "Structural Works Dubai concrete steel and engineering coordination for building projects",
+    image: "/images/dubai-civil-works-construction-site.webp",
+    imageAlt: "Structural works Dubai concrete high-rise construction in progress",
     imageTitle: "Structural Works Dubai - concrete and steel coordination",
     icon: Hammer,
     highlights: ["Concrete and steel works", "Structural modifications", "Engineering coordination"],
@@ -491,8 +491,8 @@ export const services: Service[] = [
     description: "Design and build coordination that connects concept, approvals, construction and handover.",
     details:
       "Design and build in Dubai for owners seeking a practical route from concept and scope definition to authority-aware construction planning, delivery coordination and handover readiness.",
-    image: "/images/emitronix-2026-hero-dubai.webp",
-    imageAlt: "Design and Build Dubai concept planning construction coordination and premium handover",
+    image: "/images/building-contractor-dubai-construction-site.webp",
+    imageAlt: "Design and build Dubai contractor coordinating site planning and construction decisions",
     imageTitle: "Design and Build Dubai - concept to completion planning",
     icon: Ruler,
     highlights: ["Concept to construction", "Buildability-led planning", "Authority-aware design route"],
@@ -518,8 +518,8 @@ export const services: Service[] = [
     description: "Turnkey construction coordination from scope definition to completion-ready handover.",
     details:
       "Turnkey construction in Dubai for owners who need integrated planning, procurement, civil works, fit-out coordination, authority visibility and handover under a single organized delivery pathway.",
-    image: "/images/emitronix-2026-warehouse-industrial.webp",
-    imageAlt: "Turnkey Construction Dubai integrated delivery for civil fit-out and handover",
+    image: "/images/warehouse-construction-dubai.webp",
+    imageAlt: "Turnkey construction Dubai warehouse site and civil works coordination",
     imageTitle: "Turnkey Construction Dubai - integrated project delivery",
     icon: Layers3,
     highlights: ["Integrated delivery route", "Procurement and execution control", "Completion-ready handover"],
@@ -545,8 +545,8 @@ export const services: Service[] = [
     description: "Construction project management support for scope, program, communication and handover control.",
     details:
       "Construction project management in Dubai for owners and consultants who need clearer scope control, program visibility, stakeholder communication, authority tracking and handover readiness.",
-    image: "/images/emitronix-2026-dubai-coverage.webp",
-    imageAlt: "Construction Project Management Dubai command center for scope authority and handover control",
+    image: "/images/civil-contractor-dubai-construction-site.webp",
+    imageAlt: "Construction project management Dubai site coordination and progress review",
     imageTitle: "Construction Project Management Dubai - premium coordination",
     icon: ClipboardCheck,
     highlights: ["Scope and program control", "Stakeholder communication", "Handover readiness tracking"],
@@ -574,64 +574,12 @@ export type Project = {
   imageAlt: string;
   imageTitle: string;
   summary: string;
+  scopeOfWork: string[];
+  timeline: string;
+  outcome: string;
 };
 
-export const projects: Project[] = [
-  {
-    title: "Site Preparation & Infrastructure Works",
-    category: "Civil Infrastructure",
-    location: "Dubai, UAE",
-    image: "/images/emitronix-2026-highrise-bim.webp",
-    imageAlt: "Civil Contractor Dubai infrastructure and BIM-led construction planning",
-    imageTitle: "Civil Contractor Dubai - BIM-led infrastructure planning",
-    summary: "Civil site preparation, enabling works and project coordination for Dubai developments.",
-  },
-  {
-    title: "Warehouse & Industrial Projects",
-    category: "Civil Contracting",
-    location: "JAFZA and Dubai South",
-    image: "/images/emitronix-2026-warehouse-industrial.webp",
-    imageAlt: "Warehouse Construction Dubai cinematic industrial building and logistics facility",
-    imageTitle: "Warehouse Construction Dubai - industrial facility delivery",
-    summary: "Warehouse and industrial construction with civil works, authority coordination and handover support.",
-  },
-  {
-    title: "Villa & Building Construction",
-    category: "G+4 Contracting",
-    location: "Dubai, UAE",
-    image: "/images/emitronix-2026-villa-luxury.webp",
-    imageAlt: "Villa Contractor Dubai luxury residential construction and modern architecture",
-    imageTitle: "Villa Contractor Dubai - luxury residential construction",
-    summary: "Villa and building construction with structural, finishing and authority delivery control.",
-  },
-  {
-    title: "Commercial Interior Fit-Out",
-    category: "Interior Fit-Out",
-    location: "Dubai, UAE",
-    image: "/images/emitronix-2026-fitout-interior.webp",
-    imageAlt: "Commercial Fit Out Contractor Dubai premium office and hospitality interior",
-    imageTitle: "Commercial Fit Out Contractor Dubai - premium office interior",
-    summary: "Commercial, retail and office fit-out delivery with clean finishing and project coordination.",
-  },
-  {
-    title: "MEP & Civil Coordination Works",
-    category: "MEP Coordination",
-    location: "Dubai, UAE",
-    image: "/images/emitronix-2026-dubai-coverage.webp",
-    imageAlt: "MEP Contractor Dubai coordination map for civil works and authority readiness",
-    imageTitle: "MEP Contractor Dubai - civil and authority coordination",
-    summary: "Civil and MEP interface coordination for project delivery, site services and handover readiness.",
-  },
-  {
-    title: "Authority Approval Projects",
-    category: "Approvals",
-    location: "Dubai, UAE",
-    image: "/images/emitronix-2026-hero-dubai.webp",
-    imageAlt: "Dubai Authority Approval Contractor supporting construction approvals across Dubai",
-    imageTitle: "Dubai Authority Approval Contractor - citywide approvals",
-    summary: "Dubai authority approval support for civil construction, renovation and fit-out projects.",
-  },
-];
+export const projects: Project[] = [];
 
 export const heroBadges = [
   { title: "G+4", label: "Building Contracting", icon: Building2 },
@@ -648,10 +596,64 @@ export const stats = [
   { value: "DIP 02", label: "Local business location", icon: Clock },
 ];
 
+export const verifiedMetrics = [
+  {
+    value: String(services.length),
+    label: "Published service lines",
+    description: "Civil contracting, main contracting, villas, warehouses, fit-out, MEP coordination, approvals and project management.",
+    icon: Layers3,
+  },
+  {
+    value: String(site.serviceArea.length),
+    label: "Verified service areas",
+    description: site.serviceArea.join(", "),
+    icon: MapPin,
+  },
+  {
+    value: "DIP 02",
+    label: "Dubai business location",
+    description: site.location,
+    icon: Building2,
+  },
+  {
+    value: "DM / DCD / DEWA",
+    label: "Authority coordination routes",
+    description: "Dubai Municipality, Dubai Civil Defence and DEWA pathways are part of the published approval content.",
+    icon: BadgeCheck,
+  },
+];
+
+export const complianceHighlights = [
+  {
+    title: "Authority approval coordination",
+    description:
+      "Dubai Municipality, Civil Defence, DEWA, Trakhees, DDA, RTA and landlord workflows are reviewed according to the project location, scope and consultant responsibilities.",
+    icon: FileCheck2,
+  },
+  {
+    title: "Construction standards mindset",
+    description:
+      "Drawings, site instructions, inspection readiness, material decisions and close-out evidence are treated as practical delivery controls.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Consultant and stakeholder rhythm",
+    description:
+      "Owners, consultants, site teams and authority-facing stakeholders need clear decisions, documented assumptions and visible next actions.",
+    icon: Users,
+  },
+  {
+    title: "Compliance without inflated claims",
+    description:
+      "Credentials, approvals, project counts and client names should be published only after they are verified by the company team.",
+    icon: BadgeCheck,
+  },
+];
+
 export const whyChoose = [
   { title: "Dubai authority-aware planning", icon: HardHat },
   { title: "DEWA and approval coordination", icon: BadgeCheck },
-  { title: "In-house Engineering Team", icon: Users },
+  { title: "Engineering coordination", icon: Users },
   { title: "Document-controlled delivery", icon: Clock },
   { title: "Design and build support", icon: Building2 },
   { title: "Handover readiness focus", icon: ShieldCheck },
