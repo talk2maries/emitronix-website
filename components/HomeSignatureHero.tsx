@@ -8,14 +8,14 @@ export function HomeSignatureHero({ metrics }: { metrics: Metric[] }) {
   return (
     <section className="relative isolate overflow-hidden bg-white">
       <div className="absolute inset-0">
-        <div className="absolute inset-y-0 right-0 w-full lg:w-[72%]">
+        <div className="absolute left-0 right-0 top-0 h-[760px] w-full lg:inset-y-0 lg:left-auto lg:h-auto lg:w-[72%]">
           <Image
             src="/images/dubai-building-contracting-company.webp"
             alt="Dubai construction skyline with cranes for Emitronix Contracting LLC"
             fill
             priority
             fetchPriority="high"
-            quality={65}
+            quality={50}
             sizes="(min-width: 1024px) 72vw, 100vw"
             className="object-cover object-center"
           />
