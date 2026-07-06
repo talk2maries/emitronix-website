@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
-import { absoluteUrl, allServiceAliasPaths, services } from "@/data/site";
+import { absoluteUrl, services } from "@/data/site";
 import { readSiteFiles } from "@/lib/adminStore";
 import { toArabicPath, toEnglishPath } from "@/lib/i18n";
 
@@ -12,7 +12,6 @@ const routes = [
   "/about",
   "/services",
   "/approval",
-  "/approvals",
   "/projects",
   "/industries",
   "/careers",
@@ -28,7 +27,6 @@ const routes = [
   "/ar/privacy-policy",
   "/ar/terms-and-conditions",
   ...services.map((service) => service.href),
-  ...allServiceAliasPaths(),
   ...blogPosts.map((post) => `/blog/${post.slug}`),
   ...approvalServices.map((service) => service.href),
 ];
