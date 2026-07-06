@@ -1800,9 +1800,9 @@ function JsonLd() {
         url: absoluteUrl(heroImage),
         contentUrl: absoluteUrl(heroImage),
         name: "DEWA approval coordination in Dubai",
-        caption: "Electrical engineers coordinating DEWA approval and power connection work in Dubai.",
+        caption: "Electrical switchgear room for DEWA approval and power connection coordination in Dubai.",
         description:
-          "High-resolution engineering image for DEWA approval, electrical infrastructure and authority coordination services in Dubai.",
+          "High-resolution electrical switchgear image for DEWA approval, electrical infrastructure and authority coordination services in Dubai.",
         representativeOfPage: true,
       },
       {
@@ -1811,9 +1811,9 @@ function JsonLd() {
         url: absoluteUrl(inspectionImage),
         contentUrl: absoluteUrl(inspectionImage),
         name: "DEWA LV inspection and testing Dubai",
-        caption: "LV inspection and testing preparation for Dubai electrical approval.",
+        caption: "LV switchgear inspection and testing preparation for Dubai electrical approval.",
         description:
-          "Engineers checking LV switchgear, testing instruments and inspection documentation before DEWA-related site inspection.",
+          "Close-up of LV switchgear testing and inspection preparation before DEWA-related site inspection.",
       },
       {
         "@type": "ImageObject",
@@ -1821,9 +1821,9 @@ function JsonLd() {
         url: absoluteUrl(cableImage),
         contentUrl: absoluteUrl(cableImage),
         name: "DEWA HV and LV cable works Dubai",
-        caption: "HV and LV cable route coordination for Dubai industrial power projects.",
+        caption: "HV and LV cable tray coordination for Dubai industrial power projects.",
         description:
-          "Engineers reviewing cable route drawings beside a safe utility trench for Dubai industrial electrical infrastructure.",
+          "Electrical cable tray and service routing image for Dubai industrial electrical infrastructure coordination.",
       },
       {
         "@type": "VideoObject",
@@ -1852,8 +1852,8 @@ export default function DewaApprovalsPage() {
       <section className="relative isolate overflow-hidden bg-brand-dark text-white">
         <Image
           src={heroImage}
-          alt="Electrical engineers coordinating DEWA approval and power connection works in Dubai"
-          title="DEWA Approval Dubai - electrical engineers coordinating power connection works"
+          alt="Electrical switchgear room for DEWA approval and power connection coordination in Dubai"
+          title="DEWA Approval Dubai - electrical switchgear and power connection coordination"
           fill
           priority
           fetchPriority="high"
@@ -2002,7 +2002,7 @@ export default function DewaApprovalsPage() {
           </div>
           <ImageFeature
             src={inspectionImage}
-            alt="Engineers preparing LV switchgear inspection and testing records for DEWA approval in Dubai"
+            alt="LV switchgear inspection and testing preparation for DEWA approval in Dubai"
             title="DEWA LV inspection and testing preparation in Dubai"
             caption="LV inspection readiness: switchgear, test instruments, labels, access and records must align before the inspection request."
           />
@@ -2084,7 +2084,7 @@ export default function DewaApprovalsPage() {
         <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <ImageFeature
             src={cableImage}
-            alt="Engineers reviewing HV and LV cable route coordination beside a safe trench in Dubai"
+            alt="HV and LV cable tray coordination for DEWA approval and electrical infrastructure in Dubai"
             title="DEWA HV and LV cable works coordination in Dubai"
             caption="Cable routes, trenching, NOCs, utility conflicts and inspection evidence must be planned before site execution."
           />

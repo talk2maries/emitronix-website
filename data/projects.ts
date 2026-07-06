@@ -33,8 +33,8 @@ export const portfolioProjects: PortfolioProject[] = [
     description:
       "A premium residential renovation profile for owners upgrading layouts, finishes, services and authority-sensitive modifications with disciplined site control.",
     image: "/images/project-villa-building-works-dubai-modern.webp",
-    imageAlt: "Modern villa and building works under construction for a Dubai residential renovation profile",
-    imageTitle: "Villa and Building Works Dubai - representative portfolio profile",
+    imageAlt: "Modern villa exterior with pool for Dubai residential construction and renovation profile",
+    imageTitle: "Modern Villa Construction Dubai - representative portfolio profile",
   },
   {
     title: "Warehouse Civil & MEP Upgrade - Dubai",
@@ -57,8 +57,8 @@ export const portfolioProjects: PortfolioProject[] = [
     description:
       "A commercial office fit-out profile shaped for Dubai business districts where programme control, finish quality and approvals coordination matter.",
     image: "/images/project-office-fit-out-dubai.webp",
-    imageAlt: "Commercial office fit-out coordination in a partially renovated interior space in Dubai",
-    imageTitle: "Office Fit-Out Works Business Bay - representative portfolio profile",
+    imageAlt: "Premium glass office corridor for Dubai commercial fit-out coordination",
+    imageTitle: "Office Fit-Out Works Dubai - representative portfolio profile",
   },
   {
     title: "Building Maintenance Works - Al Quoz",
@@ -69,7 +69,7 @@ export const portfolioProjects: PortfolioProject[] = [
     description:
       "A maintenance profile for commercial and light-industrial properties that need fast diagnosis, clean execution and clear close-out communication.",
     image: "/images/project-building-maintenance-dubai.webp",
-    imageAlt: "Construction worker in safety gear for Dubai building maintenance and repair works",
+    imageAlt: "Electrician inspecting building electrical panel for Dubai maintenance and repair works",
     imageTitle: "Building Maintenance Works Al Quoz - representative portfolio profile",
   },
   {
@@ -93,7 +93,7 @@ export const portfolioProjects: PortfolioProject[] = [
     description:
       "A retail renovation profile for tenant and landlord teams improving customer-facing space while protecting working hours, finishes and authority visibility.",
     image: "/images/project-commercial-renovation-dubai.webp",
-    imageAlt: "Interior renovation space with tools and materials for a Dubai commercial renovation profile",
+    imageAlt: "Commercial renovation corridor with exposed ceiling services for Dubai fit-out upgrades",
     imageTitle: "Commercial Shop Renovation Jumeirah - representative portfolio profile",
   },
   {
@@ -117,7 +117,7 @@ export const portfolioProjects: PortfolioProject[] = [
     description:
       "A Dubai South coordination profile for projects that need MEP decisions connected early with drawings, civil works, ceiling zones and close-out evidence.",
     image: "/images/project-mep-coordination-dubai.webp",
-    imageAlt: "Engineer reviewing drawings inside a shell space for Dubai MEP coordination works",
+    imageAlt: "Electrical conduits and cable routing for Dubai MEP coordination works",
     imageTitle: "MEP Coordination Works Dubai South - representative portfolio profile",
   },
   {
@@ -129,7 +129,7 @@ export const portfolioProjects: PortfolioProject[] = [
     description:
       "An approvals profile for owners and consultants who need documentation, comments, inspections and construction readiness managed in one clear track.",
     image: "/images/about-construction-coordination-dubai.webp",
-    imageAlt: "Construction drawings reviewed on site for Dubai authority approval and NOC support",
+    imageAlt: "Construction site team reviewing works for Dubai authority approval and NOC support",
     imageTitle: "Authority Approval and NOC Support Dubai - representative portfolio profile",
   },
   {
@@ -141,7 +141,7 @@ export const portfolioProjects: PortfolioProject[] = [
     description:
       "A Dubai repair profile for warehouses and commercial assets needing reliable civil maintenance with practical scheduling and site housekeeping.",
     image: "/images/project-civil-works-dubai.webp",
-    imageAlt: "Workers fixing steel reinforcement for Dubai civil repair and maintenance works",
+    imageAlt: "Civil works team coordinating steel reinforcement and MEP sleeves on a Dubai slab",
     imageTitle: "Civil Repair and Maintenance Works Dubai - representative portfolio profile",
   },
 ];
@@ -207,7 +207,7 @@ export const featuredProject = {
   location: "Dubai industrial area",
   category: "Featured representative project",
   image: "/images/project-warehouse-industrial-dubai.webp",
-  imageAlt: "Featured Dubai warehouse industrial interior for civil and MEP upgrade coordination",
+  imageAlt: "Featured Dubai warehouse racking interior for civil and MEP upgrade coordination",
   description:
     "A premium logistics-facility profile showing how Emitronix structures warehouse upgrades around civil repairs, MEP interfaces, authority awareness, site access and handover readiness.",
   details: [
@@ -222,21 +222,21 @@ export const projectGallery = [
     title: "Civil works coordination",
     location: "Dubai",
     image: "/images/project-civil-works-dubai.webp",
-    imageAlt: "Civil works coordination with steel reinforcement for Dubai construction projects",
+    imageAlt: "Civil works coordination with reinforcement and MEP sleeves for Dubai construction projects",
     heightClass: "h-72",
   },
   {
     title: "Warehouse construction planning",
     location: "Dubai logistics zones",
     image: "/images/project-warehouse-industrial-dubai.webp",
-    imageAlt: "Warehouse construction planning for Dubai logistics and industrial zones",
+    imageAlt: "Warehouse racking and logistics interior planning for Dubai industrial zones",
     heightClass: "h-96",
   },
   {
     title: "Commercial fit-out delivery",
     location: "Business Bay",
     image: "/images/project-office-fit-out-dubai.webp",
-    imageAlt: "Commercial fit-out delivery coordination for Dubai offices and retail spaces",
+    imageAlt: "Premium office corridor fit-out delivery coordination for Dubai commercial spaces",
     heightClass: "h-80",
   },
   {
@@ -257,7 +257,7 @@ export const projectGallery = [
     title: "MEP and civil interfaces",
     location: "Dubai South",
     image: "/images/project-mep-coordination-dubai.webp",
-    imageAlt: "MEP and civil contracting coordination with drawings inside a Dubai shell space",
+    imageAlt: "MEP and civil contracting coordination with electrical conduits and service routes",
     heightClass: "h-96",
   },
 ];

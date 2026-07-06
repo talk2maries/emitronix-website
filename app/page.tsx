@@ -227,7 +227,7 @@ export default function HomePage() {
             <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-white shadow-luxe">
               <Image
                 src="/images/about-construction-coordination-dubai.webp"
-                alt="Dubai construction team reviewing drawings for authority approvals and project coordination"
+                alt="Dubai construction team reviewing site progress for authority approvals and project coordination"
                 fill
                 loading="lazy"
                 sizes="(min-width: 1024px) 46vw, 100vw"
@@ -300,7 +300,7 @@ export default function HomePage() {
         <div className="container-pad grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <ImagePanel
             src="/images/warehouse-construction-dubai.webp"
-            alt="Warehouse construction Dubai quality and safety planning"
+            alt="Warehouse construction Dubai steel structure quality and safety planning"
             label="Quality and safety"
             title="Quality is planned before it is inspected."
           />

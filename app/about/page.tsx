@@ -83,7 +83,7 @@ export default function AboutPage() {
         title="A premium Dubai contractor built around clarity."
         description={`${site.legalName} brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.`}
         image="/images/about-construction-coordination-dubai.webp"
-        imageAlt="Construction team reviewing drawings for Dubai civil works and authority approval coordination"
+        imageAlt="Dubai construction team reviewing site progress for civil works and authority coordination"
         primaryCta={{ label: "Talk to Emitronix", href: "/contact" }}
         secondaryCta={{ label: "Explore Services", href: "/services" }}
         metrics={stats}
@@ -111,7 +111,7 @@ export default function AboutPage() {
           </div>
           <ImagePanel
             src="/images/about-civil-works-dubai.webp"
-            alt="Dubai civil works engineer using a tablet for site coordination and project delivery"
+            alt="Dubai civil works engineers reviewing site coordination and project delivery"
             label="Site coordination"
             title="Civil works, fit-out and approval-ready delivery."
           />

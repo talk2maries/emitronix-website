@@ -12,7 +12,7 @@ export const generateMetadata = createMetadataResolver({
   path: "/guest-post",
   keywords: ["construction guest post Dubai", "contracting guest post UAE", "Dubai construction articles"],
   image: "/images/dubai-civil-works-construction-site.webp",
-  imageAlt: "Dubai construction guest post enquiry route",
+  imageAlt: "Dubai civil construction site image for construction guest post enquiries",
 });
 
 const guidelines = [
@@ -38,7 +38,7 @@ export default function GuestPostPage() {
         title="Guest post enquiries for construction and approval topics."
         description="Use this page for relevant construction, contracting, fit-out, warehouse, villa, project management or Dubai authority approval article enquiries. The contact team can review whether the topic is appropriate before anything is published."
         image="/images/dubai-civil-works-construction-site.webp"
-        imageAlt="Dubai construction guest post enquiry route"
+        imageAlt="Dubai civil construction site image for construction guest post enquiries"
         primaryCta={{ label: "Contact Emitronix", href: "/contact" }}
         secondaryCta={{ label: "Read the blog", href: "/blog" }}
       />
