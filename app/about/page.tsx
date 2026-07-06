@@ -8,7 +8,7 @@ import { createMetadataResolver } from "@/data/seo";
 export const generateMetadata = createMetadataResolver({
   title: "About Emitronix Contracting LLC Dubai",
   description:
-    "Learn about Emitronix Contracting LLC, a Dubai contracting company supporting civil construction, authority approvals, interior fit-out, villa, warehouse and commercial projects.",
+    "Learn about Emitronix Contracting LLC, a Dubai contracting company for civil construction, approvals, fit-out, villa, warehouse and commercial projects.",
   path: "/about",
   keywords: ["Emitronix Dubai", "Dubai contracting company", "civil construction company UAE", "authority approvals Dubai"],
   image: "/images/about-construction-coordination-dubai.webp",

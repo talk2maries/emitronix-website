@@ -5,7 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
 import { blogAuthor, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
-import { applySeoOverrides } from "@/data/seo";
+import { applySeoOverrides, resolveMetaTitle } from "@/data/seo";
 import { absoluteUrl, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
 
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
   if (!post) return {};
 
   const url = blogPostUrl(post);
-  const title = `${post.seoTitle} | ${site.name}`;
+  const title = resolveMetaTitle(post.seoTitle);
   const imageUrl = absoluteUrl(post.image);
 
   const base: Metadata = {

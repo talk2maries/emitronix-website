@@ -112,7 +112,7 @@ const commonPages: Record<string, ArabicPageData> = {
     eyebrow: "شركة مقاولات في دبي",
     title: "شريك مقاولات في دبي للمشاريع التي تحتاج وضوحا قبل التنفيذ.",
     description:
-      "تدعم Emitronix Contracting LLC أعمال المقاولات المدنية، البناء، المستودعات، الفلل، التشطيبات الداخلية، تنسيق الأعمال الكهروميكانيكية وموافقات الجهات في دبي ودولة الإمارات.",
+      "تدعم Emitronix Contracting LLC المقاولات المدنية، البناء، المستودعات، الفلل، التشطيبات الداخلية، تنسيق MEP وموافقات الجهات في دبي والإمارات.",
     image: "/images/dubai-building-contracting-company.webp",
     imageAlt: "موقع بناء في دبي يعكس خدمات Emitronix Contracting LLC",
     primaryCta: { label: "اطلب عرض سعر", href: "/ar/contact" },

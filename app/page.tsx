@@ -12,9 +12,9 @@ import { absoluteUrl, authorities, complianceHighlights, homeFaqs, services, sit
 import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
-  title: "Construction Company Dubai | Main Contractor & Building Contractor",
+  title: "Construction Company Dubai | Building Contractor | Emitronix",
   description:
-    "Emitronix Contracting LLC is a premium construction company in Dubai for civil contracting, building construction, warehouses, villas, interior fit-out and authority approval coordination.",
+    "Emitronix Contracting LLC provides civil contracting, building construction, warehouses, villas, interior fit-out and authority approval coordination in Dubai.",
   path: "/",
   keywords: [
     "Construction Company Dubai",

@@ -14,7 +14,15 @@ type PageMetadataInput = {
 
 const defaultImage = "/images/dubai-building-contracting-company.webp";
 const defaultImageAlt = "Dubai construction skyline and crane works by Emitronix Contracting LLC";
+const MAX_TITLE_LENGTH = 70;
 const MAX_META_KEYWORDS = 12;
+
+export function resolveMetaTitle(title: string) {
+  if (title.includes(site.name)) return title;
+
+  const brandedTitle = `${title} | ${site.name}`;
+  return brandedTitle.length <= MAX_TITLE_LENGTH ? brandedTitle : title;
+}
 
 function normalizeMetaKeywords(keywords: string[] | undefined) {
   if (!keywords) return undefined;
@@ -38,7 +46,7 @@ export function createPageMetadata({
   image = defaultImage,
   imageAlt = defaultImageAlt,
 }: PageMetadataInput): Metadata {
-  const resolvedTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+  const resolvedTitle = resolveMetaTitle(title);
   const url = absoluteUrl(path);
   const arabicUrl = absoluteUrl(toArabicPath(path));
   const imageUrl = absoluteUrl(image);
