@@ -93,7 +93,7 @@ export const arabicApprovalTitles: Record<string, string> = {
 
 export const arabicBlogTitles: Record<string, string> = {
   "complete-guide-civil-construction-dubai-2026": "الدليل الشامل للمقاولات المدنية في دبي 2026",
-  "dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees": "شرح موافقات الجهات في دبي: ديوا وبلدية دبي والدفاع المدني وتراخيص",
+  "dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees": "موافقات الجهات في دبي: ديوا وبلدية دبي والدفاع المدني",
   "warehouse-construction-dubai-planning-design-authority-approvals": "إنشاء المستودعات في دبي: التخطيط والتصميم والموافقات",
   "choose-best-building-contractor-dubai": "كيفية اختيار أفضل مقاول بناء في دبي",
   "warehouse-construction-cost-dubai": "تكلفة إنشاء المستودعات في دبي والعوامل المؤثرة",

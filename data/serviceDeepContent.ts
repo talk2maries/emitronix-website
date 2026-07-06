@@ -330,7 +330,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
   },
   "warehouse-construction": {
     primaryKeyword: "Warehouse Construction Dubai",
-    seoTitle: "Warehouse Construction Dubai | Industrial & Logistics Warehouse Contractor",
+    seoTitle: "Warehouse Construction Dubai | Logistics Warehouse Contractor",
     metaDescription:
       "Warehouse construction in Dubai for logistics, storage and industrial facilities with civil works, DCD, DEWA, slab, loading and handover planning.",
     buyerPromise:
@@ -456,7 +456,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
   },
   "industrial-buildings": {
     primaryKeyword: "Industrial Building Contractor Dubai",
-    seoTitle: "Industrial Building Contractor Dubai | Factory, Workshop & Utility Coordination",
+    seoTitle: "Industrial Building Contractor Dubai | Factory & Workshop",
     metaDescription:
       "Industrial building contractor in Dubai for factories, workshops, logistics assets and operational facilities with civil, structural, DEWA and DCD coordination.",
     buyerPromise:
@@ -1086,7 +1086,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
   },
   "structural-works": {
     primaryKeyword: "Structural Works Dubai",
-    seoTitle: "Structural Works Dubai | Concrete, Steel, Strengthening & Modifications",
+    seoTitle: "Structural Works Dubai | Concrete, Steel & Strengthening",
     metaDescription:
       "Structural works in Dubai for concrete, steel, strengthening, openings and modifications with engineering-led execution and inspection readiness.",
     buyerPromise:
@@ -1464,7 +1464,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
   },
   "project-management": {
     primaryKeyword: "Construction Project Management Dubai",
-    seoTitle: "Construction Project Management Dubai | Scope, Program & Handover Control",
+    seoTitle: "Construction Project Management Dubai | Scope & Handover",
     metaDescription:
       "Construction project management in Dubai for owners and consultants needing scope control, authority tracking, program visibility and handover readiness.",
     buyerPromise:

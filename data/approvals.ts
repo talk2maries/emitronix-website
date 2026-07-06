@@ -343,7 +343,7 @@ export const approvalServices: ApprovalService[] = [
     slug: "rta-approval",
     href: "/rta-approval",
     menuLabel: "RTA Approval",
-    seoTitle: "RTA Approval Services Dubai | Roads and Transport Authority NOC Support",
+    seoTitle: "RTA Approval Dubai | Road Access & NOC Support",
     metaDescription:
       "RTA approval and NOC coordination in Dubai for access, road interface, construction logistics and authority submission support.",
     h1: "RTA Approval Services in Dubai",
