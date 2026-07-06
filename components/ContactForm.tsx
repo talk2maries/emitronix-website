@@ -187,7 +187,7 @@ export function ContactForm({
             placeholder={text.placeholders.message}
           />
         </label>
-        <label className="flex items-start gap-3 rounded-2xl border border-brand/[0.14] bg-brand-soft p-4 text-sm font-bold leading-6 text-steel sm:col-span-2">
+        <label className="flex items-start gap-3 rounded-2xl border border-brand/[0.14] bg-brand-soft p-4 text-sm font-bold leading-6 text-charcoal sm:col-span-2">
           <input name="consent" type="checkbox" required className="mt-1 h-4 w-4 rounded border-brand/30 text-brand focus-ring" />
           {text.consent}
         </label>
