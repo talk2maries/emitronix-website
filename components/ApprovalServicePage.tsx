@@ -19,6 +19,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
   const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
   const deepContent = getApprovalDeepContent(service);
   const approvalFaqs = buildApprovalExpandedFaqs(service);
+  const schemaKeywords = deepContent.semanticKeywords.slice(0, 30);
   const pageUrl = absoluteUrl(service.href);
   const imageUrl = absoluteUrl("/images/dubai-authority-approval-contractor.webp");
   const relatedPages = service.related
@@ -65,8 +66,8 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     mainEntityOfPage: {
       "@id": `${pageUrl}#webpage`,
     },
-    keywords: deepContent.semanticKeywords.join(", "),
-    knowsAbout: deepContent.semanticKeywords.slice(0, 80),
+    keywords: schemaKeywords.join(", "),
+    knowsAbout: schemaKeywords,
     isRelatedTo: relatedPages.map((item) => ({
       "@type": "WebPage",
       name: item.menuLabel,
@@ -203,7 +204,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       "@id": `${pageUrl}#webpage`,
     },
     articleSection: "Dubai authority approval services",
-    keywords: deepContent.semanticKeywords.join(", "),
+    keywords: schemaKeywords.join(", "),
   };
   const itemListJsonLd = {
     "@context": "https://schema.org",

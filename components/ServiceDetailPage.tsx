@@ -45,6 +45,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
   const deepContent = getServiceDeepContent(service);
   const expandedFaqs = buildServiceExpandedFaqs(service);
+  const schemaKeywords = deepContent.semanticKeywords.slice(0, 30);
   const pageUrl = absoluteUrl(service.href);
   const primaryImageUrl = absoluteUrl(service.image);
   const relatedLinks = service.relatedHrefs.map((href) => {
@@ -230,8 +231,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       "@id": `${pageUrl}#webpage`,
     },
     serviceType: service.title,
-    keywords: deepContent.semanticKeywords.join(", "),
-    knowsAbout: deepContent.semanticKeywords.slice(0, 80),
+    keywords: schemaKeywords.join(", "),
+    knowsAbout: schemaKeywords,
     audience: service.whoNeeds.map((item) => ({
       "@type": "Audience",
       audienceType: item,
@@ -283,7 +284,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       "@id": `${pageUrl}#webpage`,
     },
     articleSection: "Dubai construction services",
-    keywords: deepContent.semanticKeywords.join(", "),
+    keywords: schemaKeywords.join(", "),
   };
   const itemListJsonLd = {
     "@context": "https://schema.org",

@@ -14,6 +14,21 @@ type PageMetadataInput = {
 
 const defaultImage = "/images/dubai-building-contracting-company.webp";
 const defaultImageAlt = "Dubai construction skyline and crane works by Emitronix Contracting LLC";
+const MAX_META_KEYWORDS = 12;
+
+function normalizeMetaKeywords(keywords: string[] | undefined) {
+  if (!keywords) return undefined;
+
+  const normalized = Array.from(
+    new Set(
+      keywords
+        .map((keyword) => keyword.trim())
+        .filter(Boolean),
+    ),
+  ).slice(0, MAX_META_KEYWORDS);
+
+  return normalized.length > 0 ? normalized : undefined;
+}
 
 export function createPageMetadata({
   title,
@@ -33,7 +48,7 @@ export function createPageMetadata({
       absolute: resolvedTitle,
     },
     description,
-    keywords,
+    keywords: normalizeMetaKeywords(keywords),
     alternates: {
       canonical: url,
       languages: {
@@ -81,7 +96,7 @@ export async function applySeoOverrides(base: Metadata, pagePath: string): Promi
 
   if (override.metaTitle) merged.title = { absolute: override.metaTitle };
   if (override.metaDescription) merged.description = override.metaDescription;
-  if (override.keywords) merged.keywords = override.keywords.split(",").map((keyword) => keyword.trim()).filter(Boolean);
+  if (override.keywords) merged.keywords = normalizeMetaKeywords(override.keywords.split(","));
 
   if (override.canonical) {
     merged.alternates = {

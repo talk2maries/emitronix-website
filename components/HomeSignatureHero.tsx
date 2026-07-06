@@ -14,6 +14,8 @@ export function HomeSignatureHero({ metrics }: { metrics: Metric[] }) {
             alt="Dubai construction skyline with cranes for Emitronix Contracting LLC"
             fill
             priority
+            fetchPriority="high"
+            quality={65}
             sizes="(min-width: 1024px) 72vw, 100vw"
             className="object-cover object-center"
           />
