@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
 import { ArabicPageLocalizer } from "@/components/ArabicPageLocalizer";
+import { approvalServices } from "@/data/approvals";
+import { blogAuthor, blogPosts } from "@/data/blog";
 import type { ArabicPageData } from "@/data/arabic";
-import { absoluteUrl, site } from "@/data/site";
+import { absoluteUrl, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
 
 type ArabicFullPageProps = {
@@ -34,6 +36,26 @@ function breadcrumbItems(page: ArabicPageData) {
 export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
   const arabicUrl = absoluteUrl(toArabicPath(page.path));
   const englishUrl = absoluteUrl(page.path);
+  const blogPost = page.kind === "blog-post" ? blogPosts.find((post) => `/blog/${post.slug}` === page.path) : null;
+  const service = page.kind === "service" ? services.find((item) => item.href === page.path) : null;
+  const approval = page.kind === "approval" ? approvalServices.find((item) => item.href === page.path) : null;
+  const serviceLike = service
+    ? {
+        name: page.title,
+        description: page.description,
+        serviceType: service.title,
+        keywords: service.keywords.join(", "),
+        related: service.relatedHrefs,
+      }
+    : approval
+      ? {
+          name: page.title,
+          description: page.description,
+          serviceType: approval.menuLabel,
+          keywords: approval.keywords.join(", "),
+          related: approval.related.map((slug) => `/${slug}`),
+        }
+      : null;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -65,6 +87,68 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
         "@id": `${arabicUrl}#breadcrumb`,
         itemListElement: breadcrumbItems(page),
       },
+      ...(blogPost
+        ? [
+            {
+              "@type": "Article",
+              "@id": `${arabicUrl}#article`,
+              headline: page.title,
+              description: page.description,
+              image: [absoluteUrl(page.image)],
+              datePublished: blogPost.publishedDate,
+              dateModified: blogPost.modifiedDate,
+              author: blogAuthor,
+              publisher: {
+                "@id": absoluteUrl("/#localbusiness"),
+                name: site.legalName,
+                logo: {
+                  "@type": "ImageObject",
+                  url: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
+                },
+              },
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `${arabicUrl}#webpage`,
+              },
+              articleSection: blogPost.category,
+              keywords: blogPost.targetKeywords.join(", "),
+              inLanguage: "ar-AE",
+              translationOfWork: {
+                "@type": "Article",
+                url: englishUrl,
+                inLanguage: "en-AE",
+              },
+            },
+          ]
+        : []),
+      ...(serviceLike
+        ? [
+            {
+              "@type": "Service",
+              "@id": `${arabicUrl}#service`,
+              name: serviceLike.name,
+              description: serviceLike.description,
+              url: arabicUrl,
+              image: absoluteUrl(page.image),
+              areaServed: site.serviceArea.map((name) => ({ "@type": "Place", name })),
+              provider: {
+                "@id": absoluteUrl("/#localbusiness"),
+                name: site.legalName,
+                telephone: site.phone,
+                email: site.email,
+                url: site.url,
+              },
+              mainEntityOfPage: arabicUrl,
+              serviceType: serviceLike.serviceType,
+              keywords: serviceLike.keywords,
+              inLanguage: "ar-AE",
+              isRelatedTo: serviceLike.related.map((href) => ({
+                "@type": "WebPage",
+                url: absoluteUrl(toArabicPath(href)),
+              })),
+            },
+          ]
+        : []),
     ],
   };
 

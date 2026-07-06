@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, navItems, services, stats } from "@/data/site";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "HTML Sitemap",
   description:
     "Browse Emitronix Contracting LLC pages, Dubai construction services, authority approval resources and construction blog articles.",

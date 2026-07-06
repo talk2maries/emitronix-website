@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import { ArrowRight, BadgeCheck, Building2, ClipboardCheck, Factory, FileCheck2, Landmark, Layers3, MessageCircle, PhoneCall, ShieldCheck, Sparkles, Warehouse } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
 import { CTA } from "@/components/CTA";
 import { ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { HomeSignatureHero } from "@/components/HomeSignatureHero";
@@ -9,9 +9,9 @@ import { CommandCenter, ImagePanel, PremiumLink, PremiumSectionHeading } from "@
 import { ServiceCard } from "@/components/ServiceCard";
 import { blogPosts } from "@/data/blog";
 import { absoluteUrl, authorities, complianceHighlights, homeFaqs, services, site, stats, verifiedMetrics, whatsappUrl } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Construction Company Dubai | Main Contractor & Building Contractor",
   description:
     "Emitronix Contracting LLC is a premium construction company in Dubai for civil contracting, building construction, warehouses, villas, interior fit-out and authority approval coordination.",
@@ -106,6 +106,18 @@ export default function HomePage() {
   return (
     <>
       <HomeSignatureHero metrics={stats} />
+
+      <AnswerEngineSummary
+        question="Who is Emitronix for Dubai construction projects?"
+        answer="Emitronix Contracting LLC is a Dubai construction company for owners, consultants and commercial teams that need civil contracting, building construction, villas, warehouses, interior fit-out and authority approval coordination connected through one practical delivery workflow."
+        facts={[
+          `Legal business name: ${site.legalName}`,
+          `Primary location: ${site.location}`,
+          `Verified service areas: ${site.serviceArea.join(", ")}`,
+          "Core scope: civil contracting, fit-out, renovation, warehouses, villas and authority coordination",
+        ]}
+        cta={{ label: "Ask about your project", href: "/contact" }}
+      />
 
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.78fr_1.22fr] lg:items-start">
@@ -473,6 +485,23 @@ export default function HomePage() {
               "@id": absoluteUrl("/#localbusiness"),
               name: site.legalName,
             },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: absoluteUrl("/"),
+              },
+            ],
           }),
         }}
       />

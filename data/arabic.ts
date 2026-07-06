@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts, type BlogPost } from "@/data/blog";
 import { portfolioProjects } from "@/data/projects";
-import { absoluteUrl, navItems, services, site } from "@/data/site";
+import { absoluteUrl, allServiceAliasPaths, getServiceByRoutePath, navItems, services, site } from "@/data/site";
 import { toArabicPath, toEnglishPath } from "@/lib/i18n";
 
 export const arabicFooterLabels = {
@@ -222,6 +222,27 @@ const commonPages: Record<string, ArabicPageData> = {
       },
     ],
   },
+  "/guest-post": {
+    path: "/guest-post",
+    eyebrow: "مقالات الضيوف",
+    title: "استفسارات مقالات الضيوف لموضوعات البناء والموافقات.",
+    description:
+      "استخدم هذه الصفحة للاستفسارات المتعلقة بمقالات البناء والمقاولات والتشطيبات والمستودعات والفلل وإدارة المشاريع وموافقات الجهات في دبي.",
+    image: "/images/dubai-civil-works-construction-site.webp",
+    imageAlt: "استفسارات مقالات البناء والضيوف لدى Emitronix",
+    primaryCta: { label: "تواصل مع Emitronix", href: "/ar/contact" },
+    secondaryCta: { label: "اقرأ المدونة", href: "/ar/blog" },
+    sections: [
+      {
+        eyebrow: "ملاءمة الموضوع",
+        title: "موضوعات عملية مرتبطة بالبناء في دبي.",
+        body: [
+          "يمكن إرسال الاستفسارات المرتبطة بالمقاولات المدنية، المستودعات، الفلل، التشطيبات، إدارة المشاريع أو موافقات الجهات للمراجعة قبل النشر.",
+          "يجب أن يكون المحتوى مناسبا لجمهور ملاك المشاريع والاستشاريين والفرق التجارية، وأن يتجنب أي ادعاءات غير موثقة.",
+        ],
+      },
+    ],
+  },
   "/projects": {
     path: "/projects",
     eyebrow: "المشاريع",
@@ -411,6 +432,7 @@ export const englishBaseRoutes = [
   "/about",
   "/services",
   "/approval",
+  "/approvals",
   "/projects",
   "/industries",
   "/careers",
@@ -418,10 +440,12 @@ export const englishBaseRoutes = [
   "/resources",
   "/html-sitemap",
   "/contact",
+  "/guest-post",
   "/cookie-policy",
   "/privacy-policy",
   "/terms-and-conditions",
   ...services.map((service) => service.href),
+  ...allServiceAliasPaths(),
   ...blogPosts.map((post) => `/blog/${post.slug}`),
   ...approvalServices.map((service) => service.href),
 ];
@@ -446,6 +470,9 @@ export function arabicPathLabel(arabicPath: string) {
   const englishPath = toEnglishPath(arabicPath);
   if (englishPath === "/") return "الرئيسية";
   if (commonPages[englishPath]) return commonPages[englishPath].title;
+  if (englishPath === "/approvals") return commonPages["/approval"].title;
+  const service = getServiceByRoutePath(englishPath);
+  if (service) return arabicServiceTitle(service.href);
   if (arabicServiceTitles[englishPath]) return arabicServiceTitles[englishPath];
   if (arabicApprovalTitles[englishPath]) return arabicApprovalTitles[englishPath];
   const blogPost = blogPosts.find((post) => `/blog/${post.slug}` === englishPath);
@@ -458,9 +485,10 @@ export function arabicPathLabel(arabicPath: string) {
 
 export function getArabicPageByEnglishPath(path: string): ArabicPageData | null {
   const cleanPath = path === "" ? "/" : path;
-  if (commonPages[cleanPath]) return { ...commonPages[cleanPath], kind: "generic" };
+  const canonicalPath = cleanPath === "/approvals" ? "/approval" : cleanPath;
+  if (commonPages[canonicalPath]) return { ...commonPages[canonicalPath], kind: "generic" };
 
-  const service = services.find((item) => item.href === cleanPath);
+  const service = getServiceByRoutePath(canonicalPath);
   if (service) {
     const title = arabicServiceTitle(service.href);
     return {
@@ -552,8 +580,11 @@ export function getArabicMetadata(page: ArabicPageData): Metadata {
     alternates: {
       canonical,
       languages: {
+        ar: canonical,
+        en: english,
         "ar-AE": canonical,
         "en-AE": english,
+        "x-default": english,
       },
     },
     openGraph: {

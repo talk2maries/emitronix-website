@@ -149,7 +149,7 @@ export function ArabicPageLocalizer({ page, children }: ArabicPageLocalizerProps
   }, [page]);
 
   return (
-    <div ref={rootRef} lang="ar-AE" dir="rtl" className="arabic-page bg-white text-charcoal">
+    <div ref={rootRef} lang="ar" dir="rtl" className="arabic-page bg-white text-charcoal">
       {children}
     </div>
   );

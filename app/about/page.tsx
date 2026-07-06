@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
 import { BadgeCheck, Building2, ClipboardCheck, FileCheck2, ShieldCheck, Users } from "lucide-react";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { absoluteUrl, site, stats, whyChoose } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "About Emitronix Contracting LLC Dubai",
   description:
     "Learn about Emitronix Contracting LLC, a Dubai contracting company supporting civil construction, authority approvals, interior fit-out, villa, warehouse and commercial projects.",

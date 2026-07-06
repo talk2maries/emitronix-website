@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
 import { ArrowRight, ClipboardCheck, FileCheck2, Layers3 } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { absoluteUrl, authorities, services, stats } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Dubai Construction Resources",
   description:
     "Dubai civil construction, fit-out and authority approval resources from Emitronix Contracting LLC.",

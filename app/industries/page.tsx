@@ -1,13 +1,12 @@
-import type { Metadata } from "next";
 import { Building2, Factory, Home, Landmark, ShieldCheck, Sparkles, Warehouse } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { absoluteUrl, stats } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Dubai Construction Industries Served",
   description:
     "Emitronix supports Dubai villas, warehouses, industrial buildings, commercial buildings, retail fit-out and authority-facing construction project categories.",

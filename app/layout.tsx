@@ -1,13 +1,21 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { headers } from "next/headers";
 import "./globals.css";
 import { CookieConsentManager } from "@/components/CookieConsentManager";
+import { DocumentLocaleSync } from "@/components/DocumentLocaleSync";
 import { FloatingActions } from "@/components/FloatingActions";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { SeoRuntime } from "@/components/SeoRuntime";
 import { absoluteUrl, services, site, whatsappUrl } from "@/data/site";
+import { readSiteFiles } from "@/lib/adminStore";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
+
+// Refresh statically generated pages every 5 minutes so administrator SEO
+// overrides and global scripts take effect without a rebuild.
+export const revalidate = 300;
 
 const inter = Inter({
   subsets: ["latin"],
@@ -44,8 +52,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: absoluteUrl("/"),
     languages: {
+      en: absoluteUrl("/"),
+      ar: absoluteUrl("/ar"),
       "en-AE": absoluteUrl("/"),
       "ar-AE": absoluteUrl("/ar"),
+      "x-default": absoluteUrl("/"),
     },
   },
   openGraph: {
@@ -75,11 +86,17 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const pathname = requestHeaders.get("x-emitronix-pathname") ?? "";
+  const isArabicDocument = pathname === "/ar" || pathname.startsWith("/ar/");
+  const documentLang = isArabicDocument ? "ar" : "en";
+  const documentDir = isArabicDocument ? "rtl" : "ltr";
+  const siteFiles = await readSiteFiles().catch(() => ({}) as Awaited<ReturnType<typeof readSiteFiles>>);
   const organizationId = absoluteUrl("/#organization");
   const localBusinessId = absoluteUrl("/#localbusiness");
   const jsonLd = {
@@ -173,7 +190,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en-AE" dir="ltr" className={inter.variable} suppressHydrationWarning>
+    <html lang={documentLang} dir={documentDir} className={inter.variable} suppressHydrationWarning>
       <body className="min-h-screen antialiased">
         <script
           id="emitronix-document-language"
@@ -181,7 +198,7 @@ export default function RootLayout({
             __html: `
 (function(){
   var isArabic = window.location.pathname === '/ar' || window.location.pathname.indexOf('/ar/') === 0;
-  document.documentElement.lang = isArabic ? 'ar-AE' : 'en-AE';
+  document.documentElement.lang = isArabic ? 'ar' : 'en';
   document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
 })();
 `,
@@ -206,11 +223,19 @@ gtag('consent', 'default', {
 `,
           }}
         />
+        <DocumentLocaleSync />
+        {siteFiles.headScripts ? (
+          <div id="emitronix-global-head-scripts" dangerouslySetInnerHTML={{ __html: siteFiles.headScripts }} />
+        ) : null}
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />
         <CookieConsentManager />
         <FloatingActions phone={site.phone} whatsappUrl={whatsappUrl} />
+        <SeoRuntime />
+        {siteFiles.footerScripts ? (
+          <div id="emitronix-global-footer-scripts" dangerouslySetInnerHTML={{ __html: siteFiles.footerScripts }} />
+        ) : null}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

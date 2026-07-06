@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import {
   ArrowRight,
   BadgeCheck,
@@ -17,9 +16,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { CareerApplicationForm } from "@/components/CareerApplicationForm";
 import { absoluteUrl, site } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Careers at Emitronix Contracting LLC | Construction Jobs in Dubai",
   description:
     "Apply for construction, engineering, project management, and site supervision careers at Emitronix Contracting LLC in Dubai, UAE.",

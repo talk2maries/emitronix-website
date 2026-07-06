@@ -158,7 +158,7 @@ export function FAQSection({
         <div className="mt-12 grid gap-5 md:grid-cols-2">
           {faqs.map((faq) => (
             <article key={faq.question} className="luxury-card rounded-[1.5rem] p-6">
-              <h2 className="text-xl font-black tracking-tight text-charcoal">{faq.question}</h2>
+              <h3 className="text-xl font-black tracking-tight text-charcoal">{faq.question}</h3>
               <p className="mt-4 text-sm leading-7 text-steel">{faq.answer}</p>
             </article>
           ))}

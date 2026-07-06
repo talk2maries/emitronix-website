@@ -29,6 +29,23 @@ const commonText: Record<string, string> = {
   Approval: "الموافقات",
   Approvals: "الموافقات",
   Resources: "الموارد",
+  "Guest posts": "مقالات الضيوف",
+  "Guest Post Guidelines": "إرشادات مقالات الضيوف",
+  "Guest post enquiries for construction and approval topics.": "استفسارات مقالات الضيوف لموضوعات البناء والموافقات.",
+  "Use this page for relevant construction, contracting, fit-out, warehouse, villa, project management or Dubai authority approval article enquiries. The contact team can review whether the topic is appropriate before anything is published.":
+    "استخدم هذه الصفحة للاستفسارات المتعلقة بمقالات البناء والمقاولات والتشطيبات والمستودعات والفلل وإدارة المشاريع وموافقات الجهات في دبي. يمكن للفريق مراجعة ملاءمة الموضوع قبل نشر أي محتوى.",
+  "Read the blog": "اقرأ المدونة",
+  "Submission fit": "ملاءمة الإرسال",
+  "Relevant topics must support practical construction decisions.": "يجب أن تدعم الموضوعات المناسبة قرارات البناء العملية.",
+  "Guest post enquiries are reviewed for relevance, accuracy and fit with Emitronix construction, fit-out and authority approval resources.":
+    "تتم مراجعة استفسارات مقالات الضيوف من حيث الصلة والدقة وملاءمتها لموارد Emitronix حول البناء والتشطيبات وموافقات الجهات.",
+  "Construction, contracting, fit-out, warehouse, villa, project management or Dubai authority approval topics.":
+    "موضوعات البناء والمقاولات والتشطيبات والمستودعات والفلل وإدارة المشاريع أو موافقات الجهات في دبي.",
+  "Practical guidance for owners, consultants, tenants or commercial teams preparing a Dubai project.":
+    "إرشاد عملي للملاك والاستشاريين والمستأجرين أو الفرق التجارية التي تجهز مشروعا في دبي.",
+  "No unverified claims, client names, project counts, certifications, guarantees or confidential customer information.":
+    "لا توجد ادعاءات غير موثقة أو أسماء عملاء أو أعداد مشاريع أو شهادات أو ضمانات أو معلومات عملاء سرية.",
+  "Send enquiry": "أرسل الاستفسار",
   "HTML Sitemap": "خريطة الموقع",
   "Cookie Policy": "سياسة ملفات تعريف الارتباط",
   "Privacy Policy": "سياسة الخصوصية",

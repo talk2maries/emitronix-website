@@ -7,6 +7,7 @@ import BlogPage from "@/app/blog/page";
 import BlogArticlePage from "@/app/blog/[slug]/page";
 import CareersPage from "@/app/careers/page";
 import ContactPage from "@/app/contact/page";
+import GuestPostPage from "@/app/guest-post/page";
 import HtmlSitemapPage from "@/app/html-sitemap/page";
 import IndustriesPage from "@/app/industries/page";
 import ProjectsPage from "@/app/projects/page";
@@ -22,7 +23,8 @@ import {
   getArabicPageByEnglishPath,
 } from "@/data/arabic";
 import { blogPosts } from "@/data/blog";
-import { services } from "@/data/site";
+import { applySeoOverrides } from "@/data/seo";
+import { getServiceByRoutePath } from "@/data/site";
 
 type ArabicCatchAllPageProps = {
   params: Promise<{ slug: string[] }>;
@@ -36,6 +38,7 @@ const commonPages: Record<string, () => ReactElement> = {
   "/about": AboutPage,
   "/services": ServicesPage,
   "/approval": ApprovalPage,
+  "/approvals": ApprovalPage,
   "/projects": ProjectsPage,
   "/industries": IndustriesPage,
   "/careers": CareersPage,
@@ -43,6 +46,7 @@ const commonPages: Record<string, () => ReactElement> = {
   "/resources": ResourcesPage,
   "/html-sitemap": HtmlSitemapPage,
   "/contact": ContactPage,
+  "/guest-post": GuestPostPage,
 };
 
 export function generateStaticParams() {
@@ -54,9 +58,10 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: ArabicCatchAllPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const page = getArabicPageByEnglishPath(englishPathFromSlug(slug));
+  const englishPath = englishPathFromSlug(slug);
+  const page = getArabicPageByEnglishPath(englishPath);
   if (!page) return {};
-  return getArabicMetadata(page);
+  return applySeoOverrides(getArabicMetadata(page), `/ar${englishPath}`);
 }
 
 export default async function ArabicCatchAllPage({ params }: ArabicCatchAllPageProps) {
@@ -74,7 +79,7 @@ export default async function ArabicCatchAllPage({ params }: ArabicCatchAllPageP
     );
   }
 
-  const service = services.find((item) => item.href === englishPath);
+  const service = getServiceByRoutePath(englishPath);
   if (service) {
     return (
       <ArabicFullPage page={page}>

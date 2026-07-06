@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -28,9 +27,9 @@ import {
   projectTimeline,
 } from "@/data/projects";
 import { absoluteUrl, site } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Our Projects | Dubai Construction Portfolio",
   description:
     "Explore Emitronix Dubai construction portfolio profiles for civil works, MEP coordination, renovation, maintenance, fit-out, authority approvals and warehouse upgrades.",

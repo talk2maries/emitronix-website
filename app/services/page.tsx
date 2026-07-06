@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import { ArrowRight, CalendarCheck, CheckCircle2, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { approvalServices } from "@/data/approvals";
+import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { CommandCenter, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { ServiceCard } from "@/components/ServiceCard";
 import { absoluteUrl, authorities, localSeoBlocks, services, site, stats, whatsappUrl } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Civil Construction Services Dubai",
   description:
     "Explore Emitronix civil contracting, interior fit-out, villa, warehouse, commercial building and authority approval services in Dubai, UAE.",
@@ -102,6 +102,18 @@ export default function ServicesPage() {
         primaryCta={{ label: "Request Consultation", href: "/contact" }}
         secondaryCta={{ label: "View Projects", href: "/projects" }}
         metrics={stats}
+      />
+
+      <AnswerEngineSummary
+        question="Which construction services does Emitronix provide in Dubai?"
+        answer="Emitronix provides Dubai-focused civil construction, main contracting, warehouse construction, villa construction, commercial and industrial building support, interior fit-out, renovation, structural works, design-build, turnkey coordination, project management and authority approval coordination."
+        facts={[
+          "Best first step for building works: civil contracting, main contracting or the matching asset-specific service page.",
+          "Best first step for approvals: the authority approval hub or the relevant DM, DCD, DEWA, DDA, Trakhees, DIFC, Concordia-DMCC or RTA page.",
+          "Useful enquiry details: location, drawings, intended use, authority status, site condition and required timeline.",
+          `Verified contact route: ${site.email} or ${site.phone}`,
+        ]}
+        cta={{ label: "Send project details", href: "/contact" }}
       />
 
       <section className="section-pad bg-white">

@@ -566,6 +566,26 @@ export const services: Service[] = [
   }),
 ];
 
+export function serviceAliasPaths(service: Service) {
+  const hrefSlug = service.href.replace(/^\//, "");
+  return Array.from(new Set([`/services/${service.slug}`, `/services/${hrefSlug}`]));
+}
+
+export function allServiceAliasPaths() {
+  return services.flatMap((service) => serviceAliasPaths(service));
+}
+
+export function getServiceByRoutePath(path: string) {
+  const cleanPath = path || "/";
+  const serviceSlug = cleanPath.match(/^\/services\/([^/]+)$/)?.[1];
+
+  if (serviceSlug) {
+    return services.find((service) => service.slug === serviceSlug || service.href === `/${serviceSlug}`) ?? null;
+  }
+
+  return services.find((service) => service.href === cleanPath) ?? null;
+}
+
 export type Project = {
   title: string;
   category: string;

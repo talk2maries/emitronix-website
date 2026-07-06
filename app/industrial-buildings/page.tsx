@@ -1,15 +1,16 @@
-import type { Metadata } from "next";
 import { ServiceDetailPage } from "@/components/ServiceDetailPage";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
+import { getServiceDeepContent } from "@/data/serviceDeepContent";
 import { services } from "@/data/site";
 
 const service = services.find((item) => item.href === "/industrial-buildings")!;
+const deepContent = getServiceDeepContent(service);
 
-export const metadata: Metadata = createPageMetadata({
-  title: "Industrial Building Contractor Dubai",
-  description: service.details,
+export const generateMetadata = createMetadataResolver({
+  title: deepContent.seoTitle,
+  description: deepContent.metaDescription,
   path: service.href,
-  keywords: service.keywords,
+  keywords: deepContent.semanticKeywords,
   image: service.image,
   imageAlt: service.imageAlt,
 });

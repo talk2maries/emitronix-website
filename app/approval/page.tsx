@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { ArrowRight, FileCheck2 } from "lucide-react";
 import Link from "next/link";
 import { approvalServices } from "@/data/approvals";
@@ -6,9 +5,9 @@ import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { absoluteUrl, authorities, stats } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Authority Approval Services in Dubai",
   description:
     "Dubai authority approval services for Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA approvals.",

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
 import { blogAuthor, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
+import { applySeoOverrides } from "@/data/seo";
 import { absoluteUrl, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
 
@@ -37,7 +38,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
   const title = `${post.seoTitle} | ${site.name}`;
   const imageUrl = absoluteUrl(post.image);
 
-  return {
+  const base: Metadata = {
     title: {
       absolute: title,
     },
@@ -46,8 +47,11 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
     alternates: {
       canonical: url,
       languages: {
+        en: url,
+        ar: absoluteUrl(toArabicPath(`/blog/${post.slug}`)),
         "en-AE": url,
         "ar-AE": absoluteUrl(toArabicPath(`/blog/${post.slug}`)),
+        "x-default": url,
       },
     },
     authors: [{ name: post.author }],
@@ -79,6 +83,8 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
       images: [imageUrl],
     },
   };
+
+  return applySeoOverrides(base, `/blog/${post.slug}`);
 }
 
 export default async function BlogArticlePage({ params }: BlogArticlePageProps) {

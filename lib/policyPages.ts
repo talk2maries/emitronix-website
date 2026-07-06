@@ -32,6 +32,7 @@ export async function createPolicyPageMetadata(key: CookiePolicyPageKey, languag
   const alternateLanguage = language === "ar" ? "en" : "ar";
   const title = `${page.title} | ${site.name}`;
   const url = absoluteUrl(route);
+  const image = absoluteUrl("/images/dubai-building-contracting-company.webp");
 
   return {
     title: {
@@ -41,6 +42,8 @@ export async function createPolicyPageMetadata(key: CookiePolicyPageKey, languag
     alternates: {
       canonical: url,
       languages: {
+        en: absoluteUrl(policyPageRoutes[key].en),
+        ar: absoluteUrl(policyPageRoutes[key].ar),
         "en-AE": absoluteUrl(policyPageRoutes[key].en),
         "ar-AE": absoluteUrl(policyPageRoutes[key].ar),
         "x-default": absoluteUrl(policyPageRoutes[key].en),
@@ -53,11 +56,20 @@ export async function createPolicyPageMetadata(key: CookiePolicyPageKey, languag
       siteName: site.name,
       title,
       description: page.description,
+      images: [
+        {
+          url: image,
+          width: 1672,
+          height: 941,
+          alt: `${page.title} - ${site.name}`,
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description: page.description,
+      images: [image],
     },
     other: {
       "content-language": language === "ar" ? "ar-AE" : "en-AE",

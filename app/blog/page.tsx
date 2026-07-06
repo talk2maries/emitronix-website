@@ -1,10 +1,9 @@
-import type { Metadata } from "next";
 import { BlogKnowledgeHub } from "@/components/BlogKnowledgeHub";
 import { blogCategories, blogPostUrl, blogPosts } from "@/data/blog";
 import { absoluteUrl, site } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Dubai Construction Blog & Knowledge Center",
   description:
     "Premium Dubai construction blog with guides on civil contracting, warehouse construction, authority approvals, fit-out, DEWA, DCD, Trakhees and project management.",

@@ -103,8 +103,12 @@ export function HeaderClient({
   const [megaOpen, setMegaOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<number | null>(null);
-  const approvalPaths = ["/approval", ...approvalServices.map((item) => item.href)];
-  const servicePaths = ["/services", ...services.map((item) => item.href), ...approvalPaths];
+  const serviceDetailPaths = services.flatMap((item) => {
+    const hrefSlug = item.href.replace(/^\//, "");
+    return Array.from(new Set([item.href, `/services/${item.slug}`, `/services/${hrefSlug}`]));
+  });
+  const approvalPaths = ["/approval", "/approvals", ...approvalServices.map((item) => item.href)];
+  const servicePaths = ["/services", ...serviceDetailPaths, ...approvalPaths];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);

@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
 import { ClipboardCheck, FileText, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { absoluteUrl, contactItems, site, whatsappUrl } from "@/data/site";
-import { createPageMetadata } from "@/data/seo";
+import { createMetadataResolver } from "@/data/seo";
 
-export const metadata: Metadata = createPageMetadata({
+export const generateMetadata = createMetadataResolver({
   title: "Contact Emitronix Dubai",
   description:
     "Contact Emitronix Contracting LLC in Dubai for civil contracting, villa construction, warehouse projects, authority approvals and interior fit-out enquiries.",
