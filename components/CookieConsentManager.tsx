@@ -172,6 +172,10 @@ function injectScript(id: string, src: string, onLoad?: () => void) {
   document.head.appendChild(script);
 }
 
+function hasScriptWithSrc(src: string) {
+  return Array.from(document.scripts).some((script) => script.src === src);
+}
+
 function loadExtraScripts(prefix: string, urls: string[]) {
   urls.forEach((url, index) => injectScript(`${prefix}-${index}`, url));
 }
@@ -187,9 +191,12 @@ function loadConsentScripts(categories: ConsentCategoryMap) {
   }
 
   if ((categories.analytics || categories.marketing) && integrationIds.gtm) {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
-    injectScript("emitronix-gtm", `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(integrationIds.gtm)}`);
+    const gtmSrc = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(integrationIds.gtm)}`;
+    if (!hasScriptWithSrc(gtmSrc)) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
+      injectScript("emitronix-gtm", gtmSrc);
+    }
   }
 
   if (categories.marketing && integrationIds.meta) {
