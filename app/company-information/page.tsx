@@ -13,9 +13,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { BrandLogo } from "@/components/BrandLogo";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { PremiumSectionHeading } from "@/components/Premium";
 import { companyFacts } from "@/data/authority";
 import { absoluteUrl, brandAssets, site } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
 const pageUrl = absoluteUrl("/company-information");
 const pageDescription =
@@ -74,6 +76,8 @@ const companyInformationJsonLd = {
       url: pageUrl,
       name: `Company information for ${site.legalName}`,
       description: pageDescription,
+      dateModified: trustContentLastReviewedIso,
+      lastReviewed: trustContentLastReviewedIso,
       isPartOf: {
         "@id": absoluteUrl("/#website"),
       },
@@ -294,6 +298,11 @@ export default function CompanyInformationPage() {
           </div>
         </section>
       </div>
+
+      <ContentReviewRecord
+        title="Company information content record"
+        reviewScope="General editorial review against the centralized website business record. Incorporation history, licence identifiers, insurance, exact office address, map coordinates, social profiles and Google Business Profile data remain unpublished until documentary verification."
+      />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(companyInformationJsonLd) }} />
     </>

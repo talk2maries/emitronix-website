@@ -72,6 +72,7 @@ export default function ApprovalPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Authority Approvals" }]}
         eyebrow="Authority approval services"
         title="Dubai approval services for construction projects."
         description="Emitronix supports owners, consultants and tenants with structured document coordination, authority comment response and inspection readiness across key Dubai approval workflows."

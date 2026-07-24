@@ -1,6 +1,7 @@
 import { ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, FileCheck2, MapPin, MessageCircle, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { CTA } from "@/components/CTA";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
@@ -14,6 +15,7 @@ import {
   type Service,
   whatsappUrl,
 } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
@@ -119,6 +121,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     name: deepContent.seoTitle,
     description: deepContent.metaDescription,
     inLanguage: "en-AE",
+    dateModified: trustContentLastReviewedIso,
+    lastReviewed: trustContentLastReviewedIso,
     isPartOf: {
       "@id": absoluteUrl("/#website"),
     },
@@ -153,7 +157,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       name,
     })),
     provider: {
-      "@id": absoluteUrl("/#localbusiness"),
+      "@id": absoluteUrl("/#organization"),
       name: site.legalName,
       telephone: site.phone,
       email: site.email,
@@ -198,6 +202,11 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   return (
     <>
       <PageHero
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Services", href: "/services" },
+          { label: service.title },
+        ]}
         eyebrow={`Emitronix ${service.shortTitle}`}
         title={`${service.title} Dubai`}
         description={service.details}
@@ -770,6 +779,11 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <ContactForm />
         </div>
       </section>
+
+      <ContentReviewRecord
+        title={`${service.title} content record`}
+        reviewScope="General editorial review of service scope, workflow, document requirements, claim boundaries and Dubai context. Project requirements must be confirmed against current drawings, contracts, authority requirements and appointed-professional responsibilities."
+      />
 
       <div id="faq">
         <FAQSection

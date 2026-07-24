@@ -1,9 +1,11 @@
 import { BadgeCheck, Building2, ClipboardCheck, FileCheck2, ShieldCheck, Users } from "lucide-react";
 import Link from "next/link";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { absoluteUrl, site, stats, whyChoose } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
 import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
@@ -88,12 +90,15 @@ const aboutPageJsonLd = {
   about: { "@id": absoluteUrl("/#organization") },
   breadcrumb: { "@id": `${absoluteUrl("/about")}#breadcrumb` },
   inLanguage: "en-AE",
+  dateModified: trustContentLastReviewedIso,
+  lastReviewed: trustContentLastReviewedIso,
 };
 
 export default function AboutPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
         eyebrow="About Emitronix"
         title="A premium Dubai contractor built around clarity."
         description={`${site.legalName} brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.`}
@@ -184,6 +189,11 @@ export default function AboutPage() {
           site.phone,
           site.email,
         ]}
+      />
+
+      <ContentReviewRecord
+        title="About Emitronix content record"
+        reviewScope="General editorial review of the published company identity, operating principles, service descriptions and verification boundaries. Company history dates and milestones remain unpublished until management evidence is available."
       />
 
       <FAQSection

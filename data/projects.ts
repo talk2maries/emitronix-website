@@ -6,12 +6,21 @@ export type PortfolioProject = {
   location: string;
   category: ProjectCategory;
   scope: string;
-  status: string;
+  status: "Illustrative planning scenario — not a case study";
   description: string;
   image: string;
   imageAlt: string;
   imageTitle: string;
 };
+
+export const verifiedCaseStudyPublicationRequirements = [
+  "Management-confirmed project name, scope, location and completion context",
+  "Client permission for any client, consultant, site or commercial reference",
+  "Rights-cleared photographs with documented project provenance",
+  "Evidence for dates, quantities, challenges, actions and measurable outcomes",
+  "Authority references worded without implying guaranteed or delegated approval",
+  "Final factual, privacy and publication-consent review",
+] as const;
 
 export const projectFilters: ProjectFilter[] = [
   "All",
@@ -143,29 +152,6 @@ export const portfolioProjects: PortfolioProject[] = [
     image: "/images/project-civil-works-dubai.webp",
     imageAlt: "Illustrative stock image of reinforcement coordination for civil repair planning",
     imageTitle: "Illustrative civil repair and maintenance scenario",
-  },
-];
-
-export const projectStats = [
-  {
-    value: "Verified on request",
-    label: "Projects Completed",
-    description: "Completed project names, photos and completion details are published only after client approval.",
-  },
-  {
-    value: "Dubai-focused",
-    label: "Years of Experience",
-    description: "Experience is communicated through project scope review, authority visibility and practical site coordination.",
-  },
-  {
-    value: "Client-approved only",
-    label: "Happy Clients",
-    description: "Testimonials, references and client names are shared publicly only when the client approves publication.",
-  },
-  {
-    value: "DM / DCD / DEWA",
-    label: "Authorities Worked With",
-    description: "Authority exposure may include Dubai Municipality, DCD, DEWA, Trakhees, DDA, RTA, JAFZA and landlord NOCs.",
   },
 ];
 

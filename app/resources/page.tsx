@@ -179,6 +179,7 @@ export default function ResourcesPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Resources" }]}
         eyebrow="Knowledge Center"
         title="Practical construction and engineering knowledge for Dubai projects."
         description="Plain-language pathways across civil engineering, MEP, electrical, fit-out, warehouses, commercial and industrial buildings, renovation, approvals, planning, safety and quality."

@@ -17,6 +17,10 @@ export type TechnicalTopic = {
   points: string[];
 };
 
+/**
+ * Fictional scope-planning content only. These profiles are not completed
+ * Emitronix projects and must never be rendered as client or outcome evidence.
+ */
 export type CaseProfile = {
   title: string;
   location: string;

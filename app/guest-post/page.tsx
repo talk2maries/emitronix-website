@@ -45,6 +45,7 @@ export default function GuestPostPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Guest Post Guidelines" }]}
         eyebrow="Guest posts"
         title="Guest post enquiries for construction and approval topics."
         description="Use this page for relevant construction, contracting, fit-out, warehouse, villa, project management or Dubai authority approval article enquiries. The contact team can review whether the topic is appropriate before anything is published."
@@ -74,6 +75,17 @@ export default function GuestPostPage() {
             <Link href="/contact" className="premium-button">
               Send enquiry <ArrowRight className="h-4 w-4" />
             </Link>
+          </div>
+          <div className="mx-auto mt-10 max-w-4xl rounded-[1.5rem] border border-brand/[0.14] bg-brand-soft p-6 text-center">
+            <h2 className="text-2xl font-black tracking-tight text-charcoal">Review and publication boundary</h2>
+            <p className="mt-3 text-sm leading-7 text-steel">
+              An enquiry, draft or topic suggestion does not guarantee acceptance or publication. Any accepted contribution must follow the website evidence, technical-review and correction standards.
+            </p>
+            <nav className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-black" aria-label="Guest post review policies">
+              <Link href="/editorial-policy" className="text-brand underline underline-offset-4">Editorial policy</Link>
+              <Link href="/technical-review-policy" className="text-brand underline underline-offset-4">Technical review policy</Link>
+              <Link href="/corrections-policy" className="text-brand underline underline-offset-4">Corrections policy</Link>
+            </nav>
           </div>
         </div>
       </section>

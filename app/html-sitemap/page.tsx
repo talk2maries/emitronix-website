@@ -74,6 +74,7 @@ export default function HtmlSitemapPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "HTML Sitemap" }]}
         eyebrow="Sitemap"
         title="Browse Emitronix construction resources."
         description="A clean index of Emitronix Contracting LLC pages for Dubai construction services, authority approvals, project resources and civil construction articles."

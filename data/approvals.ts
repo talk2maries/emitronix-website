@@ -30,13 +30,13 @@ export const approvalServices: ApprovalService[] = [
       "Coordinated Dubai Municipality submission support for building permits, drawing reviews, inspections and completion workflows for civil construction projects.",
     overviewTitle: "Structured DM approval support for Dubai building projects.",
     overview: [
-      "Dubai Municipality approval is a core requirement for many civil construction, villa, warehouse and commercial building works in Dubai. Emitronix helps clients prepare the right technical documents, coordinate submission comments and keep project teams aligned through each authority stage.",
-      "Our approach focuses on practical engineering coordination, clear documentation control and timely response management, helping owners and consultants move from concept to approval with fewer delays.",
+      "Dubai Municipality approval can apply to civil construction, villa, warehouse and commercial building works in Dubai. Emitronix supports clients in organizing relevant technical documents, coordinating submission comments and keeping project teams aligned through the applicable authority stages.",
+      "The published approach focuses on practical coordination, clear document control and tracked responses so owners and consultants can identify information gaps before authority review.",
     ],
     process: [
       "Review project scope, plot details and applicable Dubai Municipality requirements.",
       "Coordinate drawings, forms and supporting technical documents for submission.",
-      "Submit or support consultant submission through the relevant authority channel.",
+      "Coordinate or support the appointed consultant's submission through the relevant authority channel.",
       "Track comments, clarify authority responses and coordinate revisions with the design team.",
       "Support inspection readiness, completion documentation and close-out requirements.",
     ],
@@ -50,7 +50,7 @@ export const approvalServices: ApprovalService[] = [
     ],
     whyChoose: [
       "Dubai-based construction and approval coordination team",
-      "Civil project experience for villas, warehouses and commercial works",
+      "Scope-aware planning for villa, warehouse and commercial enquiries",
       "Clear follow-up on authority comments and consultant revisions",
       "Single point of coordination from documents to inspection support",
     ],
@@ -77,7 +77,7 @@ export const approvalServices: ApprovalService[] = [
     overviewTitle: "DDA approvals managed with clear technical coordination.",
     overview: [
       "DDA approvals can involve master developer requirements, drawing compliance, community guidelines and authority submission protocols. Emitronix supports clients with a practical approval path tailored to the project location and scope.",
-      "We coordinate with owners, consultants and project stakeholders to reduce missing-document issues and keep submissions moving through review, comments and final clearance.",
+      "Emitronix coordinates with owners, consultants and project stakeholders to identify missing-document issues and track submissions through review, comments and project-specific close-out steps.",
     ],
     process: [
       "Confirm whether the project falls under DDA or related master developer requirements.",
@@ -95,9 +95,9 @@ export const approvalServices: ApprovalService[] = [
       "Contractor and consultant appointment letters",
     ],
     whyChoose: [
-      "Experience with Dubai development authority workflows",
+      "Workflow-focused Dubai development authority coordination",
       "Coordination between client, consultant and site team",
-      "Fast document gap checks before submission",
+      "Early document gap checks before submission",
       "Support for both civil construction and interior fit-out scopes",
     ],
     related: ["dubai-municipality-approval", "difc-approvals", "concordia-dmcc-approvals"],
@@ -128,7 +128,7 @@ export const approvalServices: ApprovalService[] = [
     process: [
       "Review project use, occupancy, layout and DCD approval requirements.",
       "Coordinate life safety drawings, compliance notes and supporting documents.",
-      "Submit or support submission through the approved consultant or authority channel.",
+      "Coordinate or support submission through the appropriately appointed consultant or relevant authority channel.",
       "Manage authority comments and coordinate revised drawings or clarifications.",
       "Prepare inspection support, final documentation and approval close-out.",
     ],
@@ -168,7 +168,7 @@ export const approvalServices: ApprovalService[] = [
       "DEWA approval and NOC support for Dubai projects requiring utility coordination, submission follow-up and authority documentation control.",
     overviewTitle: "DEWA coordination for Dubai construction approvals.",
     overview: [
-      "DEWA approval is often required during construction planning, utility coordination, building completion and project handover. Accurate application details and responsive follow-up help prevent avoidable delays.",
+      "DEWA approval can be relevant during construction planning, utility coordination, building completion and project handover. Accurate application details and responsive follow-up help make document dependencies and authority comments visible.",
       "Emitronix supports clients with DEWA-related documentation, NOC coordination and communication between project stakeholders so civil works and authority milestones stay aligned.",
     ],
     process: [
@@ -187,7 +187,7 @@ export const approvalServices: ApprovalService[] = [
       "Authority correspondence and previous approvals if available",
     ],
     whyChoose: [
-      "Dubai authority coordination experience",
+      "Dubai authority coordination focus",
       "Organized DEWA document preparation and follow-up",
       "Support for villas, warehouses and commercial construction",
       "Responsive communication with consultants and client teams",
@@ -215,7 +215,7 @@ export const approvalServices: ApprovalService[] = [
     overviewTitle: "Trakhees approvals handled through a disciplined workflow.",
     overview: [
       "Trakhees-regulated projects often require careful coordination between client requirements, consultant documentation, zone rules and inspection milestones. Missing documents or unclear scope can slow approvals.",
-      "Emitronix helps organize the submission package, coordinate responses and support site readiness so clients can progress through authority stages with confidence.",
+      "Emitronix helps organize the submission package, coordinate responses and support site readiness so clients have clearer visibility across the applicable authority stages.",
     ],
     process: [
       "Confirm Trakhees jurisdiction, project category and applicable approval path.",
@@ -235,7 +235,7 @@ export const approvalServices: ApprovalService[] = [
     whyChoose: [
       "Free zone and development approval awareness",
       "Practical support for warehouses and commercial units",
-      "Clear document tracking from first submission to final approval",
+      "Clear document tracking from first submission through review and close-out",
       "Responsive coordination with client and consultant teams",
     ],
     related: ["dcd-approvals", "dda-approvals", "concordia-dmcc-approvals"],
@@ -279,10 +279,10 @@ export const approvalServices: ApprovalService[] = [
       "Insurance, method statement or work schedule where requested",
     ],
     whyChoose: [
-      "Commercial project coordination experience in Dubai",
+      "Commercial project coordination focus in Dubai",
       "Careful handling of tenant, landlord and authority requirements",
-      "Fast document readiness checks before submission",
-      "Fit-out and civil modification support under one team",
+      "Early document readiness checks before submission",
+      "Connected fit-out and civil modification support",
     ],
     related: ["dda-approvals", "dubai-municipality-approval", "dcd-approvals"],
     keywords: [
@@ -328,7 +328,7 @@ export const approvalServices: ApprovalService[] = [
       "Clear understanding of multi-party approval workflows",
       "Support for JLT offices, retail and commercial units",
       "Strong document control for submission and inspection stages",
-      "Construction and fit-out team coordination under one roof",
+      "Connected construction and fit-out coordination",
     ],
     related: ["trakhees-approvals", "dda-approvals", "difc-approvals"],
     keywords: [
@@ -352,7 +352,7 @@ export const approvalServices: ApprovalService[] = [
       "RTA approval and NOC coordination for Dubai construction projects involving access, traffic interface, logistics planning and road authority requirements.",
     overviewTitle: "RTA approval support for construction access and road interfaces.",
     overview: [
-      "RTA approval may be required when a construction project affects access, road interfaces, work zones, traffic movement or authority-controlled infrastructure. Early coordination helps avoid site delays and compliance issues.",
+      "RTA approval may be required when a construction project affects access, road interfaces, work zones, traffic movement or authority-controlled infrastructure. Early coordination helps make access, document and compliance dependencies visible.",
       "Emitronix supports clients with document preparation, NOC coordination, authority follow-up and practical alignment between construction planning and RTA requirements.",
     ],
     process: [
@@ -373,8 +373,8 @@ export const approvalServices: ApprovalService[] = [
     whyChoose: [
       "Construction-focused RTA coordination support",
       "Practical site logistics and documentation understanding",
-      "Fast response to authority comments and document updates",
-      "Single team for civil works and approval coordination",
+      "Documented response coordination for authority comments and updates",
+      "Connected civil-works and approval-coordination resources",
     ],
     related: ["dubai-municipality-approval", "dewa-approvals", "dda-approvals"],
     keywords: [

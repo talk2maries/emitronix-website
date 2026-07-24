@@ -9,7 +9,7 @@ export function DocumentLocaleSync() {
 
   useEffect(() => {
     const isArabic = isArabicPath(pathname);
-    document.documentElement.lang = isArabic ? "ar" : "en";
+    document.documentElement.lang = isArabic ? "ar-AE" : "en-AE";
     document.documentElement.dir = isArabic ? "rtl" : "ltr";
   }, [pathname]);
 

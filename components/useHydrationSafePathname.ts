@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { isArabicPath } from "@/lib/i18n";
 import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
 
-const INTERNAL_NOT_FOUND_PATH = "/__emitronix-route-not-found";
+const ENGLISH_INTERNAL_NOT_FOUND_PATH = "/__emitronix-route-not-found";
+const ARABIC_INTERNAL_NOT_FOUND_PATH = "/ar/emitronix-route-not-found";
 
 /**
  * Next.js exposes a rewrite destination during server rendering and the
@@ -18,7 +20,7 @@ export function useHydrationSafePathname(pathname: string) {
   }, []);
 
   if (!hydrated && isUnknownClosedSetPath(pathname)) {
-    return INTERNAL_NOT_FOUND_PATH;
+    return isArabicPath(pathname) ? ARABIC_INTERNAL_NOT_FOUND_PATH : ENGLISH_INTERNAL_NOT_FOUND_PATH;
   }
 
   return pathname;

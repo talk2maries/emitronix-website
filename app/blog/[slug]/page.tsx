@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
-import { blogAuthor, blogImageAlt, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
+import { blogImageAlt, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
 import { applySeoOverrides, resolveMetaTitle } from "@/data/seo";
-import { absoluteUrl, brandLogoImageObject, services, site } from "@/data/site";
+import { absoluteUrl, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
 import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
 
@@ -27,21 +27,6 @@ function formatDate(value: string) {
 function postHref(slug: string) {
   return `/blog/${slug}`;
 }
-
-const articlePrimaryReferences = [
-  {
-    title: "Dubai Municipality — Building Permit Procedures",
-    href: "https://www.dm.gov.ae/municipality-business/building-permit-steps/",
-  },
-  {
-    title: "UAE Government — Buildings' Safety",
-    href: "https://u.ae/en/information-and-services/justice-safety-and-the-law/building-safety",
-  },
-  {
-    title: "UAE Government — Obtaining Certificates and Permits",
-    href: "https://u.ae/en/information-and-services/business/obtaining-certificates-and-licences/obtaining-certificates-and-permits",
-  },
-] as const;
 
 export function generateStaticParams() {
   const missingManifestPost = blogPosts.find((post) =>
@@ -136,11 +121,11 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     image: [absoluteUrl(post.image)],
     datePublished: post.publishedDate,
     dateModified: post.modifiedDate,
-    author: blogAuthor,
+    author: {
+      "@id": absoluteUrl("/#organization"),
+    },
     publisher: {
-      "@id": absoluteUrl("/#localbusiness"),
-      name: site.legalName,
-      logo: brandLogoImageObject,
+      "@id": absoluteUrl("/#organization"),
     },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -150,6 +135,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     keywords: post.targetKeywords.join(", "),
     isAccessibleForFree: true,
     publishingPrinciples: absoluteUrl("/editorial-policy"),
+    citation: post.references?.map((reference) => reference.href),
   };
 
   const breadcrumbJsonLd = {
@@ -175,11 +161,6 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     })),
   };
 
-  const authorJsonLd = {
-    "@context": "https://schema.org",
-    ...blogAuthor,
-  };
-
   return (
     <>
       <article className="bg-white">
@@ -203,7 +184,10 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                 <div className="mt-7 flex flex-wrap gap-4 text-xs font-black uppercase tracking-wide text-steel">
                   <span className="inline-flex items-center gap-2"><CalendarDays className="h-4 w-4 text-brand" />{formatDate(post.publishedDate)}</span>
                   <span className="inline-flex items-center gap-2"><Clock3 className="h-4 w-4 text-brand" />{post.readTime}</span>
-                  <span className="inline-flex items-center gap-2"><Tag className="h-4 w-4 text-brand" />{post.author}</span>
+                  <Link href="/company-information" className="inline-flex items-center gap-2 transition hover:text-brand">
+                    <Tag className="h-4 w-4 text-brand" />
+                    {post.author}
+                  </Link>
                 </div>
               </div>
               <div className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-brand-soft shadow-luxe lg:min-h-[520px]">
@@ -272,7 +256,12 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
               <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2">
                 <div>
                   <dt className="font-black uppercase tracking-wide text-charcoal">Content owner</dt>
-                  <dd className="mt-1 leading-7 text-steel">{post.author}</dd>
+                  <dd className="mt-1 leading-7 text-steel">
+                    <Link href="/company-information" className="font-bold text-brand underline underline-offset-4">
+                      {post.author}
+                    </Link>
+                    <span className="block">Organization-authored website guidance</span>
+                  </dd>
                 </div>
                 <div>
                   <dt className="font-black uppercase tracking-wide text-charcoal">Last updated</dt>
@@ -301,7 +290,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                     Current official starting points
                   </h2>
                   <p className="mt-3 max-w-3xl text-sm leading-7 text-steel">
-                    Checked 23 July 2026. This article is general planning guidance, not a clause-by-clause code review. Confirm the current requirements, service route and project-specific responsibilities with the relevant authority and appointed professionals before acting.
+                    Checked {formatDate(post.referenceCheckedDate ?? post.modifiedDate)}. This article is general planning guidance, not a clause-by-clause code review. Confirm the current requirements, service route and project-specific responsibilities with the relevant authority and appointed professionals before acting.
                   </p>
                 </div>
                 <span className="w-fit shrink-0 rounded-full border border-brand/[0.15] bg-brand-soft px-4 py-2 text-xs font-black uppercase tracking-wide text-brand">
@@ -309,7 +298,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                 </span>
               </div>
               <div className="mt-5 grid gap-3">
-                {articlePrimaryReferences.map((reference) => (
+                {(post.references ?? []).map((reference) => (
                   <a
                     key={reference.href}
                     href={reference.href}
@@ -440,7 +429,6 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(authorJsonLd) }} />
     </>
   );
 }

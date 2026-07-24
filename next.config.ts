@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import { serviceAliasPaths, services } from "./data/site";
 
 const configuredDistDir = process.env.NEXT_DIST_DIR?.trim();
+const isDevelopment = process.env.NODE_ENV === "development";
 
 if (configuredDistDir && !/^\.next(?:-[a-z0-9-]+)?$/i.test(configuredDistDir)) {
   throw new Error("NEXT_DIST_DIR must be .next or a project-local .next-* directory.");
@@ -34,8 +35,8 @@ const securityHeaders = [
       "img-src 'self' data: blob: https:",
       "font-src 'self' data: https:",
       "style-src 'self' 'unsafe-inline' https:",
-      "script-src 'self' 'unsafe-inline' https:",
-      "connect-src 'self' https:",
+      `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https:`,
+      `connect-src 'self' https:${isDevelopment ? " ws:" : ""}`,
       "worker-src 'self' blob:",
       "upgrade-insecure-requests",
     ].join("; "),
@@ -80,10 +81,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   compress: true,
-  // Keep App Router metadata in the document head for every user agent.
-  // Without this, Next.js streams metadata into <body> for crawlers such as
-  // Screaming Frog whenever a route is rendered dynamically.
-  htmlLimitedBots: /.*/,
+  // Keep metadata in <head> for search, social, answer-engine and audit
+  // crawlers without disabling metadata streaming for every human browser.
+  htmlLimitedBots:
+    /Googlebot|Google-InspectionTool|Bingbot|DuckDuckBot|YandexBot|Baiduspider|facebookexternalhit|Twitterbot|LinkedInBot|WhatsApp|OAI-SearchBot|ChatGPT-User|GPTBot|ClaudeBot|Claude-SearchBot|PerplexityBot|Perplexity-User|Screaming Frog|AhrefsBot|SemrushBot/i,
   // Production validation builds must not overwrite the build currently served
   // by PM2. NEXT_DIST_DIR gives the deployment workflow an isolated build target.
   distDir: configuredDistDir || ".next",

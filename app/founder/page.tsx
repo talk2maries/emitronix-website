@@ -13,9 +13,11 @@ import {
   Workflow,
 } from "lucide-react";
 import Link from "next/link";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { PremiumSectionHeading } from "@/components/Premium";
 import { founderProfile } from "@/data/authority";
 import { absoluteUrl, site } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
 const pageUrl = absoluteUrl(founderProfile.profilePath);
 const pageDescription =
@@ -72,6 +74,8 @@ const founderJsonLd = {
       url: pageUrl,
       name: `${founderProfile.name}, ${founderProfile.jobTitle}`,
       description: pageDescription,
+      dateModified: trustContentLastReviewedIso,
+      lastReviewed: trustContentLastReviewedIso,
       isPartOf: {
         "@id": absoluteUrl("/#website"),
       },
@@ -270,6 +274,11 @@ export default function FounderPage() {
           </div>
         </section>
       </div>
+
+      <ContentReviewRecord
+        title="Founder profile content record"
+        reviewScope="General editorial review of the founder identity, published role and professional focus areas. Education, employment chronology, experience duration, registrations and individual credentials remain behind the visible management-verification gate."
+      />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(founderJsonLd) }} />
     </>

@@ -105,6 +105,8 @@ export function HeaderClient({
   const [megaOpen, setMegaOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<number | null>(null);
+  const megaButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null);
   const serviceDetailPaths = services.flatMap((item) => {
     const hrefSlug = item.href.replace(/^\//, "");
     return Array.from(new Set([item.href, `/services/${item.slug}`, `/services/${hrefSlug}`]));
@@ -124,6 +126,34 @@ export function HeaderClient({
     setMobileServicesOpen(false);
     setMegaOpen(false);
   }, [pathname]);
+
+  useEffect(() => {
+    if (!megaOpen) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      clearCloseTimer();
+      setMegaOpen(false);
+      megaButtonRef.current?.focus();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [megaOpen]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      setMobileServicesOpen(false);
+      mobileMenuButtonRef.current?.focus();
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   function isActive(href: string) {
     if (href === "/services") return servicePaths.includes(activePathname);
@@ -198,10 +228,12 @@ export function HeaderClient({
                     }}
                   >
                     <button
+                      ref={megaButtonRef}
                       type="button"
                       className={baseClass}
                       aria-haspopup="true"
                       aria-expanded={megaOpen}
+                      aria-controls="desktop-services-menu"
                       aria-current={isCurrentPage("/services") ? "page" : undefined}
                       onClick={() => {
                         clearCloseTimer();
@@ -212,6 +244,7 @@ export function HeaderClient({
                       <ChevronDown size={14} strokeWidth={2.4} className={`transition duration-300 ${megaOpen ? "rotate-180" : ""}`} />
                     </button>
                     <div
+                      id="desktop-services-menu"
                       className={`absolute left-1/2 top-full z-50 w-[min(94vw,980px)] -translate-x-1/2 pt-5 transition duration-300 ${
                         megaOpen ? "visible translate-y-0 opacity-100" : "invisible translate-y-3 opacity-0"
                       }`}
@@ -344,10 +377,12 @@ export function HeaderClient({
           </div>
 
           <button
+            ref={mobileMenuButtonRef}
             type="button"
             className="grid h-12 w-12 place-items-center rounded-full border border-brand/[0.15] bg-white/[0.9] text-charcoal shadow-sm backdrop-blur-xl transition hover:border-brand/[0.35] hover:bg-brand-soft hover:text-brand focus-ring min-[1400px]:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
+            aria-controls="mobile-navigation-menu"
             aria-label={copy.toggleNav}
           >
             {open ? <X size={22} /> : <Menu size={22} />}
@@ -357,7 +392,7 @@ export function HeaderClient({
 
       {open ? (
         <div className="border-t border-brand/[0.15] bg-white/[0.96] shadow-luxe backdrop-blur-2xl min-[1400px]:hidden">
-          <nav className="container-pad grid gap-2 py-5" aria-label="Mobile navigation">
+          <nav id="mobile-navigation-menu" className="container-pad grid gap-2 py-5" aria-label="Mobile navigation">
             {currentNavItems.map((item) => {
               const active = isActive(item.href);
               if (item.href === "/services") {

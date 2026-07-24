@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import HomePage from "@/app/page";
 import { ArabicFullPage } from "@/components/ArabicFullPage";
+import { ArabicSitePage } from "@/components/ArabicSitePage";
 import { getArabicMetadata, getArabicPageByEnglishPath } from "@/data/arabic";
 import { applySeoOverrides } from "@/data/seo";
 
@@ -13,7 +13,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function ArabicHomePage() {
   return (
     <ArabicFullPage page={page}>
-      <HomePage />
+      <ArabicSitePage page={page} />
     </ArabicFullPage>
   );
 }

@@ -1,9 +1,8 @@
 import { ReactNode } from "react";
-import { ArabicPageLocalizer } from "@/components/ArabicPageLocalizer";
 import { approvalServices } from "@/data/approvals";
-import { blogAuthor, blogPosts } from "@/data/blog";
+import { blogPosts } from "@/data/blog";
 import type { ArabicPageData } from "@/data/arabic";
-import { absoluteUrl, brandLogoImageObject, services, site } from "@/data/site";
+import { absoluteUrl, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
 
 type ArabicFullPageProps = {
@@ -88,18 +87,18 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
       ...(blogPost
         ? [
             {
-              "@type": "Article",
+              "@type": "BlogPosting",
               "@id": `${arabicUrl}#article`,
               headline: page.title,
               description: page.description,
               image: [absoluteUrl(page.image)],
               datePublished: blogPost.publishedDate,
               dateModified: blogPost.modifiedDate,
-              author: blogAuthor,
+              author: {
+                "@id": absoluteUrl("/#organization"),
+              },
               publisher: {
-                "@id": absoluteUrl("/#localbusiness"),
-                name: site.legalName,
-                logo: brandLogoImageObject,
+                "@id": absoluteUrl("/#organization"),
               },
               mainEntityOfPage: {
                 "@type": "WebPage",
@@ -107,6 +106,7 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
               },
               articleSection: blogPost.category,
               keywords: blogPost.targetKeywords.join(", "),
+              citation: blogPost.references?.map((reference) => reference.href),
               inLanguage: "ar-AE",
               translationOfWork: {
                 "@type": "Article",
@@ -127,7 +127,7 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
               image: absoluteUrl(page.image),
               areaServed: site.serviceArea.map((name) => ({ "@type": "Place", name })),
               provider: {
-                "@id": absoluteUrl("/#localbusiness"),
+                "@id": absoluteUrl("/#organization"),
                 name: site.legalName,
                 telephone: site.phone,
                 email: site.email,
@@ -147,8 +147,13 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
 
   return (
     <>
-      <ArabicPageLocalizer page={page}>{children}</ArabicPageLocalizer>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <div lang="ar-AE" dir="rtl" className="arabic-page bg-white text-charcoal">
+        {children}
+      </div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
     </>
   );
 }

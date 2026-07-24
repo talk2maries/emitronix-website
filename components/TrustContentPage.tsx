@@ -82,6 +82,7 @@ export function TrustPageHero({
               <CalendarClock className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-brand">Content record</p>
+                <p className="mt-2 text-sm font-bold text-charcoal">Editorial owner: {site.legalName}</p>
                 <p className="mt-2 text-sm font-bold text-charcoal">Last reviewed {trustContentLastReviewedLabel}</p>
                 <p className="mt-1 text-sm leading-6 text-steel">English-language public information</p>
               </div>

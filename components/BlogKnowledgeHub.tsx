@@ -4,10 +4,10 @@ import { ArrowRight, CalendarDays, Clock3, Mail, Search, Tag } from "lucide-reac
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { blogImageAlt, type BlogPost } from "@/data/blog";
+import { blogImageAlt, type BlogPostSummary } from "@/data/blog";
 
 type BlogKnowledgeHubProps = {
-  posts: BlogPost[];
+  posts: BlogPostSummary[];
   categories: string[];
 };
 
@@ -19,7 +19,7 @@ function formatDate(value: string) {
   }).format(new Date(value));
 }
 
-function postHref(post: BlogPost) {
+function postHref(post: BlogPostSummary) {
   return `/blog/${post.slug}`;
 }
 
@@ -136,7 +136,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                   src={featured.image}
                   alt={blogImageAlt(featured)}
                   fill
-                  priority
+                  loading="lazy"
                   sizes="(min-width: 1280px) 42vw, 100vw"
                   quality={65}
                   className="object-cover"

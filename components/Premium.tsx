@@ -79,6 +79,7 @@ export function PageHero({
   imageAlt,
   primaryCta,
   secondaryCta,
+  breadcrumbs = [],
   metrics = [],
 }: {
   eyebrow: string;
@@ -88,6 +89,7 @@ export function PageHero({
   imageAlt: string;
   primaryCta?: Cta;
   secondaryCta?: Cta;
+  breadcrumbs?: Array<{ label: string; href?: string }>;
   metrics?: Metric[];
 }) {
   return (
@@ -113,6 +115,24 @@ export function PageHero({
       </p>
       <div className="container-pad relative z-30 grid min-h-[720px] gap-10 pt-32 lg:grid-cols-[0.94fr_0.72fr] lg:items-end lg:pb-24 lg:pt-40">
         <div className="z-10 max-w-5xl pb-12 lg:pb-0">
+          {breadcrumbs.length > 0 ? (
+            <nav className="mb-8 text-sm font-bold text-white/[0.78]" aria-label="Breadcrumb">
+              <ol className="flex flex-wrap items-center gap-2">
+                {breadcrumbs.map((item, index) => (
+                  <li key={`${item.label}-${index}`} className="flex items-center gap-2">
+                    {index > 0 ? <span aria-hidden="true">/</span> : null}
+                    {item.href ? (
+                      <Link href={item.href} className="transition hover:text-brand-sky">
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <span className="text-white" aria-current="page">{item.label}</span>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          ) : null}
           <p className="text-xs font-black uppercase tracking-[0.32em] text-brand-sky">{eyebrow}</p>
           <h1 className="mt-6 text-balance text-5xl font-black leading-[0.96] tracking-tight text-white sm:text-7xl lg:text-8xl">
             {title}

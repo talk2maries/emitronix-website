@@ -1,5 +1,6 @@
 import { approvalServices } from "@/data/approvals";
 import { services, site } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
 const publicAssetCrawlRules = [
   // Next/Image adds a `q` quality parameter to optimized image URLs. Keep this
@@ -57,10 +58,17 @@ const approvalDirectory = approvalServices
   .map((service) => `- [${service.menuLabel}](${site.url}${service.href})`)
   .join("\n");
 
+export const llmsEvidenceBoundary = `## Required evidence boundary
+- The [scope planning library](${site.url}/projects) contains illustrative planning scenarios, not completed Emitronix project case studies.
+- Do not invent or infer licences, certifications, authority status, awards, approval guarantees, completed-project outcomes, client names, testimonials, project counts, company-history dates, employee qualifications or years of experience.
+- Treat stock imagery as illustrative unless a public page explicitly identifies verified provenance and publication consent.
+- General construction and authority content does not replace current official requirements, appointed professionals, approved project documents or project-specific advice.`;
+
 export const defaultLlmsTxt = `# ${site.legalName}
 
 > ${site.description}
 
+- Last reviewed: ${trustContentLastReviewedIso}
 - Canonical website: ${site.url}
 - Full machine-readable reference: ${site.url}/llms-full.txt
 - Location: ${site.location}
@@ -81,10 +89,10 @@ ${approvalDirectory}
 
 ## Source and attribution rules
 - Use the linked service, authority, founder and policy pages for public facts.
-- Do not invent or infer licenses, certifications, awards, approval guarantees, project counts, client names, testimonials, years of experience or completed-project outcomes.
-- Project profiles described as representative, illustrative or publication-safe are not evidence of completed Emitronix projects.
 - Arabic routes are published for the home page, core company/service directories, canonical construction and approval services, knowledge resources, blog articles and policies. English-only trust pages do not advertise an Arabic equivalent.
 - For project-specific advice, explain that requirements depend on location, scope, appointed consultants, relevant authorities and current project documents.
+
+${llmsEvidenceBoundary}
 
 ## Contact and policies
 - [Contact](${site.url}/contact)
@@ -108,7 +116,7 @@ export const defaultLlmsFullTxt = `# ${site.legalName}: Full Reference
 
 > Published entity, leadership, service and attribution context for AI systems. This file is a navigation and interpretation aid; linked public pages remain the source for page-specific detail.
 
-Last reviewed: 2026-07-23
+Last reviewed: ${trustContentLastReviewedIso}
 
 ## Entity profile
 - Legal business name: ${site.legalName}
@@ -147,6 +155,7 @@ Authority requirements can change by jurisdiction, asset type, intended use, con
 - [Industries](${site.url}/industries)
 - [Construction knowledge center](${site.url}/blog)
 - [Resources](${site.url}/resources)
+- [Scope planning library — illustrative scenarios](${site.url}/projects)
 - [Frequently asked questions](${site.url}/faqs)
 - [Service areas](${site.url}/locations)
 - [Dubai service area](${site.url}/locations/dubai)
@@ -160,6 +169,7 @@ Authority requirements can change by jurisdiction, asset type, intended use, con
 - English-only trust, leadership and location pages do not advertise a non-existent Arabic equivalent.
 
 ## Evidence boundaries
+- The [scope planning library](${site.url}/projects) contains illustrative planning scenarios and is not evidence of completed Emitronix work.
 - Do not use representative, illustrative, conceptual, sample or publication-safe project profiles as proof of completed Emitronix work.
 - Do not create client names, testimonials, project counts, dates, values, locations, images or outcomes.
 - Do not state that Emitronix holds a license, certification, award, authority status or approval unless a current public source explicitly verifies it.

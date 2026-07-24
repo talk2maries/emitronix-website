@@ -56,22 +56,57 @@ export function PolicyContentPage({
   const isRtl = language === "ar";
   const alternateLanguage = language === "ar" ? "en" : "ar";
   const currentHref = policyPageRoutes[pageKey][language];
+  const pageUrl = absoluteUrl(currentHref);
+  const homeHref = language === "ar" ? "/ar" : "/";
+  const homeLabel = language === "ar" ? "الرئيسية" : "Home";
 
-  const breadcrumbJsonLd = {
+  const pageJsonLd = {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
-      { "@type": "ListItem", position: 2, name: page.title, item: absoluteUrl(currentHref) },
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${pageUrl}#webpage`,
+        url: pageUrl,
+        name: page.title,
+        description: page.description,
+        inLanguage: language === "ar" ? "ar-AE" : "en-AE",
+        dateModified: updatedAt,
+        isPartOf: {
+          "@id": absoluteUrl("/#website"),
+        },
+        breadcrumb: {
+          "@id": `${pageUrl}#breadcrumb`,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: homeLabel,
+            item: absoluteUrl(homeHref),
+          },
+          { "@type": "ListItem", position: 2, name: page.title, item: pageUrl },
+        ],
+      },
     ],
   };
-  const safeBreadcrumbJsonLd = JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c");
+  const safePageJsonLd = JSON.stringify(pageJsonLd).replace(/</g, "\\u003c");
 
   return (
     <article lang={language === "ar" ? "ar-AE" : "en-AE"} dir={isRtl ? "rtl" : "ltr"} className="bg-white text-charcoal">
       <section className="blue-grid section-pad">
         <div className="container-pad">
           <div className="mx-auto max-w-5xl">
+            <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm font-bold text-steel" aria-label={language === "ar" ? "مسار التنقل" : "Breadcrumb"}>
+              <Link href={homeHref} className="transition hover:text-brand">
+                {homeLabel}
+              </Link>
+              <span aria-hidden="true">/</span>
+              <span aria-current="page" className="text-charcoal">{page.title}</span>
+            </nav>
             <div className="flex flex-wrap items-center justify-between gap-4">
               <p className="premium-kicker">{complianceLabels[language].eyebrow}</p>
               <Link href={policyPageRoutes[pageKey][alternateLanguage]} className="premium-button-light">
@@ -90,7 +125,7 @@ export function PolicyContentPage({
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-brand/[0.14] bg-white px-4 py-3 text-sm font-black text-brand shadow-sm">
                 <ShieldCheck className="h-4 w-4" />
-                Privacy and consent controls
+                {language === "ar" ? "ضوابط الخصوصية والموافقة" : "Privacy and consent controls"}
               </span>
             </div>
           </div>
@@ -151,7 +186,7 @@ export function PolicyContentPage({
         </div>
       </section>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeBreadcrumbJsonLd }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safePageJsonLd }} />
     </article>
   );
 }

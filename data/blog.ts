@@ -46,6 +46,8 @@ export type BlogPost = {
   modifiedDate: string;
   readTime: string;
   author: string;
+  referenceCheckedDate?: string;
+  references?: Array<{ title: string; href: string }>;
   popular: boolean;
   featured: boolean;
   intro: string[];
@@ -54,6 +56,37 @@ export type BlogPost = {
   internalLinks: Array<{ label: string; href: string }>;
   relatedSlugs: string[];
 };
+
+export type BlogPostSummary = Pick<
+  BlogPost,
+  | "slug"
+  | "title"
+  | "excerpt"
+  | "category"
+  | "categories"
+  | "targetKeywords"
+  | "image"
+  | "publishedDate"
+  | "readTime"
+  | "popular"
+  | "featured"
+>;
+
+export function toBlogPostSummary(post: BlogPost): BlogPostSummary {
+  return {
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    category: post.category,
+    categories: post.categories,
+    targetKeywords: post.targetKeywords,
+    image: post.image,
+    publishedDate: post.publishedDate,
+    readTime: post.readTime,
+    popular: post.popular,
+    featured: post.featured,
+  };
+}
 
 export const blogImageAlt = (post: Pick<BlogPost, "title">) =>
   `Illustrative stock image accompanying the article “${post.title}”`;
@@ -82,9 +115,24 @@ export const blogPosts: BlogPost[] = [
     imageAlt: "Civil Contractor Dubai construction site progress and delivery planning",
     imageTitle: "Civil Contractor Dubai construction planning guide",
     publishedDate: "2026-07-23",
-    modifiedDate: "2026-07-23",
+    modifiedDate: "2026-07-24",
     readTime: "9 min read",
     author: site.legalName,
+    referenceCheckedDate: "2026-07-23",
+    references: [
+      {
+        title: "Dubai Municipality — Building Permit Procedures",
+        href: "https://www.dm.gov.ae/municipality-business/building-permit-steps/",
+      },
+      {
+        title: "UAE Government — Buildings' Safety",
+        href: "https://u.ae/en/information-and-services/justice-safety-and-the-law/building-safety",
+      },
+      {
+        title: "UAE Government — Obtaining Certificates and Permits",
+        href: "https://u.ae/en/information-and-services/business/obtaining-certificates-and-licences/obtaining-certificates-and-permits",
+      },
+    ],
     popular: true,
     featured: true,
     intro: [
@@ -197,7 +245,7 @@ export const blogPosts: BlogPost[] = [
     internalLinks: [
       { label: "Civil Contracting", href: "/civil" },
       { label: "Authority Approvals", href: "/approval" },
-      { label: "Projects", href: "/projects" },
+      { label: "Scope Planning Library", href: "/projects" },
       { label: "Contact Emitronix", href: "/contact" },
     ],
     relatedSlugs: [
@@ -228,9 +276,28 @@ export const blogPosts: BlogPost[] = [
     imageAlt: "Dubai authority approval drawings and coordination documents for DEWA Municipality DCD and Trakhees",
     imageTitle: "Dubai authority approvals guide",
     publishedDate: "2026-07-23",
-    modifiedDate: "2026-07-23",
+    modifiedDate: "2026-07-24",
     readTime: "8 min read",
     author: site.legalName,
+    referenceCheckedDate: "2026-07-23",
+    references: [
+      {
+        title: "Dubai Municipality — Building Permit Procedures",
+        href: "https://www.dm.gov.ae/municipality-business/building-permit-steps/",
+      },
+      {
+        title: "DEWA — Electricity Connection Requirements and Steps",
+        href: "https://www.dewa.gov.ae/en/builder/electricity-network-services/requirements-and-steps",
+      },
+      {
+        title: "Dubai Civil Defence — Fire and Life Safety Code Resources",
+        href: "https://www.dcd.gov.ae/portal/en/preventive-safety/rules-regulations/faq-uae-fire-and-life-safety-code-of-practice",
+      },
+      {
+        title: "PCFC — Trakhees Rules and Regulations",
+        href: "https://pcfc.ae/en/Pages/rules-regulations-trakhees.aspx",
+      },
+    ],
     popular: true,
     featured: true,
     intro: [
@@ -387,9 +454,24 @@ export const blogPosts: BlogPost[] = [
     imageAlt: "Warehouse Construction Dubai steel structure planning for logistics and industrial facilities",
     imageTitle: "Warehouse construction Dubai planning guide",
     publishedDate: "2026-07-23",
-    modifiedDate: "2026-07-23",
+    modifiedDate: "2026-07-24",
     readTime: "8 min read",
     author: site.legalName,
+    referenceCheckedDate: "2026-07-23",
+    references: [
+      {
+        title: "Dubai Municipality — Building Permit Procedures",
+        href: "https://www.dm.gov.ae/municipality-business/building-permit-steps/",
+      },
+      {
+        title: "Dubai Civil Defence — Fire and Life Safety Code Resources",
+        href: "https://www.dcd.gov.ae/portal/en/preventive-safety/rules-regulations/faq-uae-fire-and-life-safety-code-of-practice",
+      },
+      {
+        title: "UAE Government — Buildings' Safety",
+        href: "https://u.ae/en/information-and-services/justice-safety-and-the-law/building-safety",
+      },
+    ],
     popular: true,
     featured: true,
     intro: [
@@ -509,7 +591,7 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     internalLinks: [
-      { label: "Projects", href: "/projects" },
+      { label: "Scope Planning Library", href: "/projects" },
       { label: "Civil Contracting", href: "/civil" },
       { label: "DCD Approvals", href: "/dcd-approvals" },
       { label: "DEWA Approvals", href: "/dewa-approvals" },
@@ -542,9 +624,24 @@ export const blogPosts: BlogPost[] = [
     imageAlt: "Building contractor Dubai construction site planning and contractor selection",
     imageTitle: "Best building contractor Dubai selection guide",
     publishedDate: "2026-07-23",
-    modifiedDate: "2026-07-23",
+    modifiedDate: "2026-07-24",
     readTime: "8 min read",
     author: site.legalName,
+    referenceCheckedDate: "2026-07-23",
+    references: [
+      {
+        title: "Dubai Municipality — Building Permit Procedures",
+        href: "https://www.dm.gov.ae/municipality-business/building-permit-steps/",
+      },
+      {
+        title: "UAE Government — Obtaining Certificates and Permits",
+        href: "https://u.ae/en/information-and-services/business/obtaining-certificates-and-licences/obtaining-certificates-and-permits",
+      },
+      {
+        title: "UAE Government — Buildings' Safety",
+        href: "https://u.ae/en/information-and-services/justice-safety-and-the-law/building-safety",
+      },
+    ],
     popular: true,
     featured: true,
     intro: [
@@ -720,7 +817,7 @@ const createDraftStrategicPost = (seed: StrategicPostSeed): BlogPost => ({
   imageAlt: seed.imageAlt,
   imageTitle: seed.imageTitle,
   publishedDate: "2026-07-23",
-  modifiedDate: "2026-07-23",
+  modifiedDate: "2026-07-24",
   readTime: seed.readTime,
   author: site.legalName,
   popular: Boolean(seed.popular),
@@ -1196,6 +1293,7 @@ export const blogPostUrl = (post: BlogPost) => absoluteUrl(`/blog/${post.slug}`)
 
 export const blogAuthor = {
   "@type": "Organization",
+  "@id": absoluteUrl("/#organization"),
   name: site.legalName,
   url: site.url,
 };

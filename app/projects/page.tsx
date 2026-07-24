@@ -9,12 +9,18 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { FAQSection } from "@/components/ContentBlocks";
 import { PremiumSectionHeading } from "@/components/Premium";
 import { ProjectsPortfolio } from "@/components/ProjectsPortfolio";
-import { projectFaqs, projectTimeline } from "@/data/projects";
+import {
+  projectFaqs,
+  projectTimeline,
+  verifiedCaseStudyPublicationRequirements,
+} from "@/data/projects";
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, site } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
 export const generateMetadata = createMetadataResolver({
   title: "Construction Scope Planning Library | Dubai",
@@ -67,6 +73,8 @@ const pageJsonLd = {
       isPartOf: { "@id": absoluteUrl("/#website") },
       about: capabilities.map((item) => ({ "@type": "Thing", name: item.title })),
       inLanguage: "en-AE",
+      dateModified: trustContentLastReviewedIso,
+      lastReviewed: trustContentLastReviewedIso,
       breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
     },
     {
@@ -128,6 +136,17 @@ export default function ProjectsPage() {
               <p className="mt-3 max-w-5xl text-sm leading-7 text-charcoal/80">
                 Every scenario and image on this page is illustrative. It does not identify a completed Emitronix project, client, site, result, testimonial or before-and-after record. Verified case studies will be published only after evidence review and publication consent.
               </p>
+              <p className="mt-5 text-sm font-black text-amber-900">
+                TODO — management evidence required before any completed-project case study is published:
+              </p>
+              <ul className="mt-4 grid gap-3 md:grid-cols-2">
+                {verifiedCaseStudyPublicationRequirements.map((requirement) => (
+                  <li key={requirement} className="flex gap-3 rounded-2xl border border-amber-200 bg-white p-4 text-sm font-bold leading-6 text-charcoal">
+                    <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-amber-700" aria-hidden="true" />
+                    {requirement}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -183,6 +202,12 @@ export default function ProjectsPage() {
           </div>
         </div>
       </section>
+
+      <ContentReviewRecord
+        title="Scope planning library content record"
+        reviewScope="General editorial review of the illustrative scenario labels, evidence notice, planning framework and project-specific disclaimers. No scenario is presented as a completed Emitronix project, client engagement, outcome or testimonial."
+        showVerificationTodo={false}
+      />
 
       <FAQSection
         eyebrow="Planning library FAQ"

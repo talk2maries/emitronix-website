@@ -36,6 +36,8 @@ const missingPagePaths = [
   "/ar/services/not-found",
   "/ar/blog/not-found",
   "/ar/unknown/nested/path",
+  "/ar/missing.html",
+  "/ar/emitronix-route-not-found",
   "/About",
   "/about/team",
   "/locations/unknown",
@@ -101,9 +103,31 @@ const arabicCommonPagePaths = [
 const validPagePaths = Array.from(new Set([
   "/",
   "/about",
+  "/approval",
   "/services",
+  "/projects",
+  "/industries",
+  "/careers",
   "/blog",
+  "/resources",
+  "/faqs",
+  "/locations",
   "/locations/dubai",
+  "/contact",
+  "/html-sitemap",
+  "/founder",
+  "/leadership",
+  "/company-information",
+  "/editorial-policy",
+  "/technical-review-policy",
+  "/corrections-policy",
+  "/disclaimer",
+  "/accessibility",
+  "/cookie-policy",
+  "/privacy-policy",
+  "/terms-and-conditions",
+  "/search",
+  "/guest-post",
   ...servicePagePaths,
   ...approvalPagePaths,
   ...blogPagePaths,
@@ -182,6 +206,32 @@ function hasErrorMarker(body, code) {
   );
 }
 
+function documentAttribute(body, name) {
+  return body.match(new RegExp(`<html\\b[^>]*\\b${name}="([^"]+)"`, "i"))?.[1]?.toLowerCase() ?? null;
+}
+
+function hasLocalizedContentRoot(body, languagePrefix, direction) {
+  return new RegExp(
+    `<(?:div|article)\\b(?=[^>]*\\blang="${languagePrefix}[^"]*")(?=[^>]*\\bdir="${direction}")[^>]*>`,
+    "i",
+  ).test(body);
+}
+
+function hasWorkingLocaleSyncScript(body) {
+  const script = body.match(
+    /<script\b[^>]*\bid="emitronix-document-language"[^>]*>([\s\S]*?)<\/script>/i,
+  )?.[1];
+  return Boolean(
+    script &&
+      /document\.documentElement\.lang\s*=\s*isArabic\s*\?\s*['"]ar-AE['"]\s*:\s*['"]en-AE['"]/.test(script) &&
+      /document\.documentElement\.dir\s*=\s*isArabic\s*\?\s*['"]rtl['"]\s*:\s*['"]ltr['"]/.test(script),
+  );
+}
+
+function hasNoindex(body) {
+  return /<meta\b[^>]*\bname="robots"[^>]*\bcontent="[^"]*\bnoindex\b[^"]*"/i.test(body);
+}
+
 function collectStaticAssets(body) {
   const pattern = /(?:src|href)="(\/_next\/static\/[^"]+\.(?:css|js))"/gi;
   let match;
@@ -204,8 +254,36 @@ async function checkMissingPage(pathname) {
     if (!hasErrorMarker(body, "404")) {
       fail(subject, "custom branded 404 marker is missing");
     }
-    if (!body.includes("This project route is not available.")) {
+    const expectedHeading = pathname === "/ar" || pathname.startsWith("/ar/")
+      ? "مسار المشروع المطلوب غير متاح."
+      : "This project route is not available.";
+    if (!body.includes(expectedHeading)) {
       fail(subject, "custom 404 heading is missing");
+    }
+    if (!hasNoindex(body)) {
+      fail(subject, "404 response is missing a noindex robots directive");
+    }
+    const expectedArabicDocument = pathname === "/ar" || pathname.startsWith("/ar/");
+    const lang = documentAttribute(body, "lang");
+    const dir = documentAttribute(body, "dir");
+    const contentLanguage = response.headers.get("content-language")?.toLowerCase() ?? "";
+    const hasArabicDocumentRoot = lang?.startsWith("ar") && dir === "rtl";
+    const hasStaticShellFallback =
+      lang?.startsWith("en") && dir === "ltr" && hasWorkingLocaleSyncScript(body);
+    if (expectedArabicDocument && !contentLanguage.startsWith("ar")) {
+      fail(subject, `expected Arabic Content-Language, received ${contentLanguage || "none"}`);
+    }
+    if (expectedArabicDocument && !hasLocalizedContentRoot(body, "ar", "rtl")) {
+      fail(subject, "expected a server-rendered Arabic RTL content root");
+    }
+    if (expectedArabicDocument && !hasArabicDocumentRoot && !hasStaticShellFallback) {
+      fail(subject, `expected an Arabic document root or static locale-sync shell, received lang=${lang} dir=${dir}`);
+    }
+    if (!expectedArabicDocument && (!lang?.startsWith("en") || dir !== "ltr")) {
+      fail(subject, `expected English html language and LTR direction, received lang=${lang} dir=${dir}`);
+    }
+    if (!expectedArabicDocument && !/\.[A-Za-z0-9]+$/.test(pathname) && !contentLanguage.startsWith("en")) {
+      fail(subject, `expected English Content-Language, received ${contentLanguage || "none"}`);
     }
     assertNoFrameworkError(subject, body);
 
@@ -236,8 +314,19 @@ async function checkClientNavigation(pathname) {
     if (!response.headers.get("content-type")?.toLowerCase().includes("text/x-component")) {
       fail(subject, "expected a React Server Component response");
     }
-    if (!hasErrorMarker(body, "404") || !body.includes("This project route is not available.")) {
+    const expectedHeading = pathname === "/ar" || pathname.startsWith("/ar/")
+      ? "مسار المشروع المطلوب غير متاح."
+      : "This project route is not available.";
+    if (!hasErrorMarker(body, "404") || !body.includes(expectedHeading)) {
       fail(subject, "custom 404 payload is missing");
+    }
+    const expectedLanguage = pathname === "/ar" || pathname.startsWith("/ar/") ? "ar" : "en";
+    const contentLanguage = response.headers.get("content-language")?.toLowerCase() ?? "";
+    if (
+      (expectedLanguage === "ar" || !/\.[A-Za-z0-9]+$/.test(pathname)) &&
+      !contentLanguage.startsWith(expectedLanguage)
+    ) {
+      fail(subject, `expected ${expectedLanguage} Content-Language, received ${contentLanguage || "none"}`);
     }
     if (body.includes("NEXT_HTTP_ERROR_FALLBACK")) {
       fail(subject, "received a streamed soft-404 fallback");
@@ -263,6 +352,28 @@ async function checkValidPage(pathname) {
     }
     if (body.includes('data-error-page="404"') || body.includes('data-error-page="500"')) {
       fail(subject, "rendered an error page");
+    }
+    const expectedArabicDocument = pathname === "/ar" || pathname.startsWith("/ar/");
+    const lang = documentAttribute(body, "lang");
+    const dir = documentAttribute(body, "dir");
+    const contentLanguage = response.headers.get("content-language")?.toLowerCase() ?? "";
+    const hasArabicDocumentRoot = lang?.startsWith("ar") && dir === "rtl";
+    const hasStaticShellFallback =
+      lang?.startsWith("en") && dir === "ltr" && hasWorkingLocaleSyncScript(body);
+    if (expectedArabicDocument && !contentLanguage.startsWith("ar")) {
+      fail(subject, `expected Arabic Content-Language, received ${contentLanguage || "none"}`);
+    }
+    if (expectedArabicDocument && !hasLocalizedContentRoot(body, "ar", "rtl")) {
+      fail(subject, "expected a server-rendered Arabic RTL content root");
+    }
+    if (expectedArabicDocument && !hasArabicDocumentRoot && !hasStaticShellFallback) {
+      fail(subject, `expected an Arabic document root or static locale-sync shell, received lang=${lang} dir=${dir}`);
+    }
+    if (!expectedArabicDocument && (!lang?.startsWith("en") || dir !== "ltr")) {
+      fail(subject, `expected English html language and LTR direction, received lang=${lang} dir=${dir}`);
+    }
+    if (!expectedArabicDocument && !contentLanguage.startsWith("en")) {
+      fail(subject, `expected English Content-Language, received ${contentLanguage || "none"}`);
     }
     assertNoFrameworkError(subject, body);
     collectStaticAssets(body);
@@ -291,6 +402,11 @@ async function checkValidClientNavigation(pathname) {
     }
     if (body.includes("NEXT_HTTP_ERROR_FALLBACK")) {
       fail(subject, "valid route produced a not-found fallback");
+    }
+    const expectedLanguage = pathname === "/ar" || pathname.startsWith("/ar/") ? "ar" : "en";
+    const contentLanguage = response.headers.get("content-language")?.toLowerCase() ?? "";
+    if (!contentLanguage.startsWith(expectedLanguage)) {
+      fail(subject, `expected ${expectedLanguage} Content-Language, received ${contentLanguage || "none"}`);
     }
     assertNoFrameworkError(subject, body);
   } catch (error) {

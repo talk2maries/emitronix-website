@@ -494,7 +494,7 @@ export default function HomePage() {
               "Premium homepage for Emitronix Contracting LLC, a Dubai construction company for civil contracting, building construction, warehouses, villas, interior fit-out and authority approvals.",
             primaryImageOfPage: absoluteUrl("/images/dubai-building-contracting-company.webp"),
             provider: {
-              "@id": absoluteUrl("/#localbusiness"),
+              "@id": absoluteUrl("/#organization"),
               name: site.legalName,
             },
           }),

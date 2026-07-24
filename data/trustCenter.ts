@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { absoluteUrl, services, site } from "@/data/site";
 
-export const trustContentLastReviewedIso = "2026-07-23";
-export const trustContentLastReviewedLabel = "23 July 2026";
+export const trustContentLastReviewedIso = "2026-07-24";
+export const trustContentLastReviewedLabel = "24 July 2026";
 export const managementVerificationNotice = "Management verification required before publication.";
 
 export type TrustLink = {

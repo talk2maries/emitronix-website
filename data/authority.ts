@@ -299,9 +299,11 @@ export const companyFacts = {
     fields: [
       "Trade licence number, issuing authority and expiry date",
       "Company registration number and incorporation date",
+      "Verified company history, founding milestones and dated Dubai experience",
       "Contractor classification, professional registrations or certifications",
       "Named insurance policies, memberships, awards or accreditations",
       "Office unit, building, postal address or map profile beyond the published location",
+      "Verified Google Business Profile and official social profile URLs",
       "Named clients, project counts, testimonials or performance statistics",
     ],
   },

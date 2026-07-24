@@ -2,8 +2,10 @@ import { ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, ClipboardCheck, 
 import Link from "next/link";
 import { approvalServices, type ApprovalService } from "@/data/approvals";
 import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { buildApprovalExpandedFaqs, getApprovalDeepContent } from "@/data/serviceDeepContent";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
+import { trustContentLastReviewedIso, trustContentLastReviewedLabel } from "@/data/trustCenter";
 import { CTA } from "./CTA";
 import { ContactForm } from "./ContactForm";
 import { FAQSection, InsightGrid, TrustBar } from "./ContentBlocks";
@@ -94,7 +96,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       name: "Dubai",
     },
     provider: {
-      "@id": absoluteUrl("/#localbusiness"),
+      "@id": absoluteUrl("/#organization"),
       name: site.legalName,
       url: site.url,
       telephone: site.phone,
@@ -138,8 +140,8 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     name: service.seoTitle,
     description: service.metaDescription,
     inLanguage: "en-AE",
-    dateModified: "2026-07-23",
-    lastReviewed: "2026-07-23",
+    dateModified: trustContentLastReviewedIso,
+    lastReviewed: trustContentLastReviewedIso,
     citation: authoritySource.href,
     isPartOf: {
       "@id": absoluteUrl("/#website"),
@@ -174,6 +176,11 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
   return (
     <>
       <PageHero
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Approval", href: "/approval" },
+          { label: service.menuLabel },
+        ]}
         eyebrow={service.eyebrow}
         title={service.h1}
         description={service.heroText}
@@ -378,7 +385,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
             <p className="premium-kicker">Source and review status</p>
             <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">Confirm the live authority route before acting.</h2>
             <p className="mt-3 max-w-5xl text-sm leading-7 text-steel">
-              This general planning guide was reviewed on 23 July 2026. Authority portals, eligibility rules, documents, fees and service times can change. Check the official source below and obtain project-specific confirmation from the relevant authority and properly appointed consultant or contractor.
+              This general planning guide was reviewed on {trustContentLastReviewedLabel}. Authority portals, eligibility rules, documents, fees and service times can change. Check the official source below and obtain project-specific confirmation from the relevant authority and properly appointed consultant or contractor.
             </p>
             <a
               href={authoritySource.href}
@@ -568,6 +575,11 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
           <ContactForm />
         </div>
       </section>
+
+      <ContentReviewRecord
+        title={`${service.menuLabel} content record`}
+        reviewScope={`General editorial review of the ${service.menuLabel} planning workflow, source boundary, document-readiness guidance and non-guarantee language. The relevant authority and appointed professionals remain responsible for current project requirements and formal decisions.`}
+      />
 
       <div id="faq">
         <FAQSection

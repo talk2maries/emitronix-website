@@ -95,6 +95,7 @@ export default function ContactPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
         eyebrow="Contact"
         title="Start a premium Dubai project conversation."
         description="Share your civil construction, fit-out, renovation or authority approval requirements. Include the project location, scope, timeline and current approval status."

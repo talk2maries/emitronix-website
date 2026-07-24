@@ -5,12 +5,28 @@ import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
 import { CareerApplicationForm } from "@/components/CareerApplicationForm";
 import { ContactForm } from "@/components/ContactForm";
 import { arabicUi, type ArabicPageData } from "@/data/arabic";
+import { blogPosts } from "@/data/blog";
 import { site, whatsappUrl } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
+
+function formatArabicDate(date: string) {
+  return new Intl.DateTimeFormat("ar-AE", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(new Date(`${date}T00:00:00Z`));
+}
 
 export function ArabicSitePage({ page }: { page: ArabicPageData }) {
   const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
   const primaryCta = page.primaryCta ?? { label: arabicUi.quote, href: "/ar/contact" };
   const secondaryCta = page.secondaryCta ?? { label: arabicUi.whatsapp, href: whatsappUrl };
+  const blogPost =
+    page.kind === "blog-post"
+      ? blogPosts.find((post) => `/blog/${post.slug}` === page.path)
+      : undefined;
+  const reviewedDate = blogPost?.modifiedDate ?? trustContentLastReviewedIso;
 
   return (
     <article lang="ar-AE" dir="rtl" className="bg-white text-charcoal">
@@ -27,6 +43,15 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
         <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(11,31,58,0.10)_0%,rgba(11,31,58,0.72)_100%)]" />
         <div className="container-pad relative z-30 flex min-h-[680px] items-end pb-14 pt-36">
           <div className="max-w-5xl">
+            {page.path !== "/" ? (
+              <nav className="mb-6 flex flex-wrap items-center gap-2 text-sm font-bold text-white/80" aria-label="مسار التنقل">
+                <Link href="/ar" className="transition hover:text-white">
+                  {arabicUi.breadcrumbHome}
+                </Link>
+                <span aria-hidden="true">/</span>
+                <span aria-current="page" className="text-white">{page.title}</span>
+              </nav>
+            ) : null}
             <p className="text-xs font-black uppercase tracking-[0.24em] text-brand-sky">{page.eyebrow}</p>
             <h1 className="mt-6 text-balance text-5xl font-black leading-[1.08] tracking-tight text-white sm:text-7xl lg:text-8xl">
               {page.title}
@@ -136,6 +161,82 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
           </section>
         ))}
       </div>
+
+      <section className="section-pad bg-white" aria-labelledby="arabic-content-review-heading">
+        <div className="container-pad">
+          <div className="rounded-[1.75rem] border border-brand/[0.14] bg-brand-soft p-6 shadow-panel lg:p-8">
+            <p className="premium-kicker">سجل المحتوى</p>
+            <h2 id="arabic-content-review-heading" className="mt-3 text-3xl font-black tracking-tight text-charcoal">
+              ملكية المحتوى والمراجعة
+            </h2>
+            <dl className="mt-6 grid gap-4 md:grid-cols-2">
+              <div className="rounded-2xl border border-brand/[0.12] bg-white p-5">
+                <dt className="text-xs font-black uppercase tracking-[0.16em] text-brand">المالك التحريري</dt>
+                <dd className="mt-3 text-sm font-bold leading-7 text-charcoal">{site.legalName}</dd>
+              </div>
+              <div className="rounded-2xl border border-brand/[0.12] bg-white p-5">
+                <dt className="text-xs font-black uppercase tracking-[0.16em] text-brand">آخر مراجعة</dt>
+                <dd className="mt-3 text-sm font-bold leading-7 text-charcoal">
+                  <time dateTime={reviewedDate}>{formatArabicDate(reviewedDate)}</time>
+                </dd>
+              </div>
+              <div className="rounded-2xl border border-brand/[0.12] bg-white p-5 md:col-span-2">
+                <dt className="text-xs font-black uppercase tracking-[0.16em] text-brand">نطاق المراجعة</dt>
+                <dd className="mt-3 text-sm leading-7 text-charcoal">
+                  {blogPost
+                    ? "محتوى إرشادي عام تمت مراجعته من حيث وضوح النطاق والحدود التحريرية واتساق الموقع. لا يعد تصميما أو حسابا أو موافقة أو توجيها خاصا بمشروع."
+                    : "مراجعة تحريرية عامة لوضوح النطاق والحدود الواقعية واتساق معلومات الموقع. لا تعد مراجعة هندسية أو موافقة أو توجيها خاصا بمشروع."}
+                </dd>
+                <p className="mt-3 text-sm font-bold leading-7 text-amber-800">
+                  مطلوب إجراء — لا ينشر اسم مراجع فني أو مؤهلاته أو نطاق مراجعته إلا بعد تحقق الإدارة من الأدلة.
+                </p>
+              </div>
+            </dl>
+
+            <nav className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm font-black" aria-label="سياسات حوكمة المحتوى">
+              <Link href="/editorial-policy" className="text-brand underline underline-offset-4">
+                سياسة التحرير (بالإنجليزية)
+              </Link>
+              <Link href="/technical-review-policy" className="text-brand underline underline-offset-4">
+                سياسة المراجعة الفنية (بالإنجليزية)
+              </Link>
+              <Link href="/corrections-policy" className="text-brand underline underline-offset-4">
+                سياسة التصحيحات (بالإنجليزية)
+              </Link>
+              <Link href="/disclaimer" className="text-brand underline underline-offset-4">
+                إخلاء المسؤولية (بالإنجليزية)
+              </Link>
+            </nav>
+
+            {blogPost?.references?.length ? (
+              <div className="mt-8 border-t border-brand/[0.14] pt-6">
+                <h3 className="text-xl font-black text-charcoal">مراجع رسمية للبدء</h3>
+                <p className="mt-3 text-sm leading-7 text-steel">
+                  تم التحقق من روابط المراجع في{" "}
+                  <time dateTime={blogPost.referenceCheckedDate ?? blogPost.modifiedDate}>
+                    {formatArabicDate(blogPost.referenceCheckedDate ?? blogPost.modifiedDate)}
+                  </time>
+                  . يجب تأكيد المتطلبات الحالية والمسؤوليات الخاصة بالمشروع مع الجهة المختصة والمهنيين المعينين.
+                </p>
+                <ul className="mt-5 grid gap-3 md:grid-cols-2">
+                  {blogPost.references.map((reference) => (
+                    <li key={reference.href}>
+                      <a
+                        href={reference.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block rounded-2xl border border-brand/[0.12] bg-white px-4 py-3 text-sm font-black text-brand underline-offset-4 hover:underline focus-ring"
+                      >
+                        <span lang="en" dir="ltr">{reference.title}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </section>
 
       {page.form ? (
         <section className="section-pad bg-white">

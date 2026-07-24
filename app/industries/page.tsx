@@ -115,6 +115,7 @@ export default function IndustriesPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Industries" }]}
         eyebrow="Industries"
         title="Built for Dubai's real estate, logistics and commercial economy."
         description="Emitronix supports project categories where premium communication, practical engineering, authority visibility and handover control matter."

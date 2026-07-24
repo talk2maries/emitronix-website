@@ -7,7 +7,7 @@ import { FormEvent, useEffect, useState } from "react";
 const DISMISSED_KEY = "emitronix-blog-enquiry-dismissed";
 
 const inputClass =
-  "focus-ring rounded-2xl border border-brand/[0.15] bg-white px-4 py-3 text-sm text-charcoal shadow-sm outline-none transition placeholder:text-steel/70 hover:border-brand/30 focus:border-brand";
+  "focus-ring min-w-0 w-full rounded-2xl border border-brand/[0.15] bg-white px-4 py-3 text-sm text-charcoal shadow-sm outline-none transition placeholder:text-steel/70 hover:border-brand/30 focus:border-brand";
 
 const fallbackServices = [
   "Civil Contracting",
@@ -35,6 +35,7 @@ export function BlogEnquiryPopup({
         label: "استفسار مشروع",
         title: "ناقش مشروعك في دبي.",
         close: "إغلاق نموذج الاستفسار",
+        available: "نموذج استفسار المشروع متاح الآن. اضغط Escape لإغلاقه.",
         name: "الاسم",
         mobile: "رقم الهاتف",
         email: "البريد الإلكتروني",
@@ -60,6 +61,7 @@ export function BlogEnquiryPopup({
         label: "Project enquiry",
         title: "Discuss your Dubai project.",
         close: "Close enquiry form",
+        available: "The project enquiry form is now available. Press Escape to dismiss it.",
         name: "Name",
         mobile: "Mobile",
         email: "Email",
@@ -185,14 +187,18 @@ export function BlogEnquiryPopup({
 
   return (
     <aside
-      aria-label="Project enquiry form"
+      aria-labelledby="blog-enquiry-title"
+      aria-describedby="blog-enquiry-announcement"
       dir={isArabic ? "rtl" : "ltr"}
       className="fixed bottom-24 left-4 right-4 z-[99998] max-h-[calc(100vh-7rem)] overflow-auto rounded-[1.5rem] border border-brand/[0.16] bg-white/[0.96] p-4 text-charcoal shadow-luxe backdrop-blur-2xl sm:left-auto sm:right-6 sm:w-[430px] sm:p-5"
     >
+      <p id="blog-enquiry-announcement" className="sr-only" role="status" aria-live="polite">
+        {text.available}
+      </p>
       <div className="flex items-start justify-between gap-4">
         <div>
           <p className="premium-kicker">{text.label}</p>
-          <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal">{text.title}</h2>
+          <h2 id="blog-enquiry-title" className="mt-2 text-2xl font-black tracking-tight text-charcoal">{text.title}</h2>
         </div>
         <button
           type="button"

@@ -87,7 +87,7 @@ export const navItems: NavItem[] = [
 export const contactItems = [
   { label: "Phone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}`, icon: Phone },
   { label: "Email", value: site.email, href: `mailto:${site.email}`, icon: Mail },
-  { label: "Location", value: site.location, href: "/contact", icon: MapPin },
+  { label: "Location", value: site.location, href: "/locations/dubai", icon: MapPin },
   { label: "Hours", value: site.hours, href: "/contact", icon: Clock },
 ];
 
@@ -609,6 +609,9 @@ export function getServiceByRoutePath(path: string) {
 }
 
 export type Project = {
+  evidenceStatus: "verified";
+  publicationConsent: true;
+  evidenceSources: string[];
   title: string;
   category: string;
   location: string;

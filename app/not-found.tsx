@@ -7,10 +7,13 @@ export const metadata: Metadata = {
   title: {
     absolute: "Page Not Found | Emitronix",
   },
-  description:
-    "The requested Emitronix page could not be found. Continue to the home page, services or contact page.",
+  description: "The requested Emitronix page could not be found. Continue to the home page, services or contact page.",
   alternates: {
     canonical: null,
+  },
+  robots: {
+    index: false,
+    follow: true,
   },
 };
 

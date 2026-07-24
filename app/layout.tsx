@@ -107,18 +107,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const organizationId = absoluteUrl("/#organization");
-  const localBusinessId = absoluteUrl("/#localbusiness");
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
+        "@type": ["Organization", "LocalBusiness", "GeneralContractor"],
         "@id": organizationId,
         name: site.legalName,
         alternateName: site.name,
         url: site.url,
         logo: brandLogoImageObject,
-        image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
+        image: absoluteUrl(brandAssets.socialCard),
         description: site.description,
         email: site.email,
         telephone: site.phone,
@@ -128,21 +127,6 @@ export default function RootLayout({
         publishingPrinciples: absoluteUrl("/editorial-policy"),
         ethicsPolicy: absoluteUrl("/editorial-policy"),
         correctionsPolicy: absoluteUrl("/corrections-policy"),
-      },
-      {
-        "@type": ["LocalBusiness", "GeneralContractor"],
-        "@id": localBusinessId,
-        name: site.legalName,
-        alternateName: site.name,
-        url: site.url,
-        parentOrganization: {
-          "@id": organizationId,
-        },
-        logo: brandLogoImageObject,
-        image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
-        description: site.description,
-        email: site.email,
-        telephone: site.phone,
         address: {
           "@type": "PostalAddress",
           streetAddress: "Dubai Investment Park 02",
@@ -181,7 +165,7 @@ export default function RootLayout({
               description: service.description,
               areaServed: "Dubai, United Arab Emirates",
               provider: {
-                "@id": localBusinessId,
+                "@id": organizationId,
               },
             },
           })),
@@ -196,14 +180,26 @@ export default function RootLayout({
         publisher: {
           "@id": organizationId,
         },
-        inLanguage: "en-AE",
+        inLanguage: ["en-AE", "ar-AE"],
       },
     ],
   };
 
   return (
-    <html lang="en" dir="ltr" className={inter.variable} suppressHydrationWarning>
+    <html lang="en-AE" dir="ltr" className={inter.variable} suppressHydrationWarning>
       <head>
+        <script
+          id="emitronix-document-language"
+          dangerouslySetInnerHTML={{
+            __html: `
+(function(){
+  var isArabic = window.location.pathname === '/ar' || window.location.pathname.indexOf('/ar/') === 0;
+  document.documentElement.lang = isArabic ? 'ar-AE' : 'en-AE';
+  document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+})();
+`,
+          }}
+        />
         <script
           id="emitronix-organization-schema"
           type="application/ld+json"
@@ -232,19 +228,10 @@ gtag('consent', 'default', {
         />
       </head>
       <body className="min-h-screen antialiased">
-        <a href="#main-content" className="skip-link">Skip to main content</a>
-        <script
-          id="emitronix-document-language"
-          dangerouslySetInnerHTML={{
-            __html: `
-(function(){
-  var isArabic = window.location.pathname === '/ar' || window.location.pathname.indexOf('/ar/') === 0;
-  document.documentElement.lang = isArabic ? 'ar' : 'en';
-  document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
-})();
-`,
-          }}
-        />
+        <a href="#main-content" className="skip-link">
+          <span className="skip-link-label-en" lang="en-AE">Skip to main content</span>
+          <span className="skip-link-label-ar" lang="ar-AE" dir="rtl">تخطي إلى المحتوى الرئيسي</span>
+        </a>
         <DocumentLocaleSync />
         <Header />
         <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>

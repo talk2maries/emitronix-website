@@ -18,6 +18,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { PremiumSectionHeading } from "@/components/Premium";
 import {
   founderProfile,
@@ -25,6 +26,7 @@ import {
   leadershipPublicationGate,
 } from "@/data/authority";
 import { absoluteUrl, site } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
 const pageUrl = absoluteUrl("/leadership");
 const pageDescription =
@@ -92,6 +94,8 @@ const leadershipJsonLd = {
       url: pageUrl,
       name: `Leadership and delivery functions at ${site.name}`,
       description: pageDescription,
+      dateModified: trustContentLastReviewedIso,
+      lastReviewed: trustContentLastReviewedIso,
       isPartOf: {
         "@id": absoluteUrl("/#website"),
       },
@@ -284,6 +288,11 @@ export default function LeadershipPage() {
           </div>
         </section>
       </div>
+
+      <ContentReviewRecord
+        title="Leadership functions content record"
+        reviewScope="General editorial review of the role-based delivery functions and publication boundaries. Function descriptions are not staff biographies; names, appointments, qualifications and reporting lines require management verification before publication."
+      />
 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(leadershipJsonLd) }} />
     </>

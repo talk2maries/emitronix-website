@@ -2,12 +2,11 @@ import type { MetadataRoute } from "next";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
 import { absoluteUrl, services, site } from "@/data/site";
+import { trustContentLastReviewedIso } from "@/data/trustCenter";
 import { readSiteFiles } from "@/lib/adminStore";
 import { hasArabicPage, toArabicPath, toEnglishPath } from "@/lib/i18n";
 
 export const dynamic = "force-dynamic";
-
-const SITE_REVIEW_DATE = "2026-07-23";
 
 type RouteRecord = {
   path: string;
@@ -18,13 +17,13 @@ type RouteRecord = {
 
 const coreRoutes: RouteRecord[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
-  { path: "/about", priority: 0.8 },
-  { path: "/founder", priority: 0.8 },
-  { path: "/leadership", priority: 0.8 },
-  { path: "/company-information", priority: 0.8 },
-  { path: "/services", priority: 0.9 },
-  { path: "/approval", priority: 0.9 },
-  { path: "/projects", priority: 0.6 },
+  { path: "/about", priority: 0.8, lastModified: trustContentLastReviewedIso },
+  { path: "/founder", priority: 0.8, lastModified: trustContentLastReviewedIso },
+  { path: "/leadership", priority: 0.8, lastModified: trustContentLastReviewedIso },
+  { path: "/company-information", priority: 0.8, lastModified: trustContentLastReviewedIso },
+  { path: "/services", priority: 0.9, lastModified: trustContentLastReviewedIso },
+  { path: "/approval", priority: 0.9, lastModified: trustContentLastReviewedIso },
+  { path: "/projects", priority: 0.6, lastModified: trustContentLastReviewedIso },
   { path: "/industries", priority: 0.8 },
   { path: "/careers", priority: 0.5 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
@@ -34,11 +33,11 @@ const coreRoutes: RouteRecord[] = [
   { path: "/locations/dubai", priority: 0.8 },
   { path: "/contact", priority: 0.8 },
   { path: "/html-sitemap", priority: 0.4 },
-  { path: "/editorial-policy", priority: 0.5 },
-  { path: "/technical-review-policy", priority: 0.5 },
-  { path: "/corrections-policy", priority: 0.5 },
-  { path: "/disclaimer", priority: 0.5 },
-  { path: "/accessibility", priority: 0.5 },
+  { path: "/editorial-policy", priority: 0.5, lastModified: trustContentLastReviewedIso },
+  { path: "/technical-review-policy", priority: 0.5, lastModified: trustContentLastReviewedIso },
+  { path: "/corrections-policy", priority: 0.5, lastModified: trustContentLastReviewedIso },
+  { path: "/disclaimer", priority: 0.5, lastModified: trustContentLastReviewedIso },
+  { path: "/accessibility", priority: 0.5, lastModified: trustContentLastReviewedIso },
   { path: "/cookie-policy", changeFrequency: "yearly", priority: 0.4 },
   { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.4 },
   { path: "/terms-and-conditions", changeFrequency: "yearly", priority: 0.4 },
@@ -68,7 +67,7 @@ function languageAlternates(path: string) {
 function sitemapEntry(record: RouteRecord): MetadataRoute.Sitemap[number] {
   return {
     url: absoluteUrl(record.path),
-    lastModified: record.lastModified ?? SITE_REVIEW_DATE,
+    ...(record.lastModified ? { lastModified: record.lastModified } : {}),
     changeFrequency: record.changeFrequency ?? "monthly",
     priority: record.priority ?? 0.7,
     alternates: {
@@ -98,6 +97,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .map((line) => normalizeSameOriginExtra(line))
       .filter((path): path is string => Boolean(path)),
   );
+  for (const path of [...excluded]) {
+    const englishPath = toEnglishPath(path);
+    excluded.add(englishPath);
+    if (hasArabicPage(englishPath)) excluded.add(toArabicPath(englishPath));
+  }
 
   const extras = (siteFiles.sitemapExtraUrls || "")
     .split("\n")
@@ -108,8 +112,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const englishRecords: RouteRecord[] = [
     ...coreRoutes,
-    ...services.map((service) => ({ path: service.href, priority: 0.8 })),
-    ...approvalServices.map((service) => ({ path: service.href, priority: 0.8 })),
+    ...services.map((service) => ({
+      path: service.href,
+      priority: 0.8,
+      lastModified: trustContentLastReviewedIso,
+    })),
+    ...approvalServices.map((service) => ({
+      path: service.href,
+      priority: 0.8,
+      lastModified: trustContentLastReviewedIso,
+    })),
     ...blogPosts.map((post) => ({
       path: `/blog/${post.slug}`,
       lastModified: post.modifiedDate,

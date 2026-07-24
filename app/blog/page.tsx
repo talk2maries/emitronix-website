@@ -1,5 +1,10 @@
 import { BlogKnowledgeHub } from "@/components/BlogKnowledgeHub";
-import { blogCategories, blogPostUrl, blogPosts } from "@/data/blog";
+import {
+  blogCategories,
+  blogPostUrl,
+  blogPosts,
+  toBlogPostSummary,
+} from "@/data/blog";
 import { absoluteUrl, site } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
@@ -39,7 +44,7 @@ const collectionPageJsonLd = {
   description:
     "Construction knowledge center for Dubai civil contracting, authority approvals, warehouse construction and building contractor selection.",
   publisher: {
-    "@id": absoluteUrl("/#localbusiness"),
+    "@id": absoluteUrl("/#organization"),
     name: site.legalName,
   },
 };
@@ -54,9 +59,11 @@ const breadcrumbJsonLd = {
 };
 
 export default function BlogPage() {
+  const postSummaries = blogPosts.map(toBlogPostSummary);
+
   return (
     <>
-      <BlogKnowledgeHub posts={blogPosts} categories={blogCategories} />
+      <BlogKnowledgeHub posts={postSummaries} categories={blogCategories} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />

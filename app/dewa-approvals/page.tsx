@@ -30,9 +30,11 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { ContactForm } from "@/components/ContactForm";
 import { applySeoOverrides, createPageMetadata } from "@/data/seo";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
+import { trustContentLastReviewedIso, trustContentLastReviewedLabel } from "@/data/trustCenter";
 
 const pagePath = "/dewa-approvals";
 const pageUrl = absoluteUrl(pagePath);
@@ -1598,7 +1600,6 @@ function ImageFeature({
 
 function JsonLd() {
   const organizationId = absoluteUrl("/#organization");
-  const localBusinessId = absoluteUrl("/#localbusiness");
   const webpageId = `${pageUrl}#webpage`;
   const serviceId = `${pageUrl}#service`;
   const faqId = `${pageUrl}#faq`;
@@ -1642,7 +1643,7 @@ function JsonLd() {
         name: "DEWA Approval Coordination",
         serviceType: "Construction-side document, site-readiness and stakeholder coordination for DEWA-related project enquiries",
         provider: {
-          "@id": localBusinessId,
+          "@id": organizationId,
         },
         areaServed: {
           "@type": "City",
@@ -1666,7 +1667,7 @@ function JsonLd() {
         },
         image: [absoluteUrl(heroImage), absoluteUrl(inspectionImage), absoluteUrl(cableImage)],
         datePublished: "2026-07-06",
-        dateModified: "2026-07-23",
+        dateModified: trustContentLastReviewedIso,
         mainEntityOfPage: {
           "@id": webpageId,
         },
@@ -2124,7 +2125,7 @@ export default function DewaApprovalsPage() {
             <div className="mt-4 rounded-2xl border border-brand/[0.14] bg-white p-5 text-sm leading-7 text-steel">
               <p className="font-black text-charcoal">Editorial status</p>
               <p className="mt-2">
-                Last reviewed 23 July 2026. Emitronix is the organizational publisher. No named technical reviewer is presented until management verifies the reviewer&apos;s identity and credentials.
+                Last reviewed {trustContentLastReviewedLabel}. Emitronix is the organizational publisher. No named technical reviewer is presented until management verifies the reviewer&apos;s identity and credentials.
               </p>
               <div className="mt-3 flex flex-wrap gap-3 font-bold text-brand">
                 <Link href="/editorial-policy">Editorial policy</Link>
@@ -2159,7 +2160,7 @@ export default function DewaApprovalsPage() {
             title="A short visual overview of the DEWA approval workflow."
             description="Use this short visual summary as an orientation to approval coordination, LV inspection preparation and cable-route planning."
           />
-          <div className="overflow-hidden rounded-[1.75rem] border border-brand/[0.14] bg-white shadow-panel">
+          <figure className="overflow-hidden rounded-[1.75rem] border border-brand/[0.14] bg-white shadow-panel">
             <video
               controls
               muted
@@ -2170,7 +2171,10 @@ export default function DewaApprovalsPage() {
             >
               <source src={videoUrl} type="video/mp4" />
             </video>
-          </div>
+            <figcaption className="border-t border-brand/[0.12] bg-white px-5 py-4 text-sm leading-7 text-steel">
+              Silent visual summary. Equivalent page content: confirm the project and load context, organize the relevant drawings and documents, coordinate comments, prepare the site and test records for inspection, then maintain close-out evidence. Project-specific DEWA requirements must be confirmed through current official services.
+            </figcaption>
+          </figure>
         </div>
       </section>
 
@@ -2193,6 +2197,11 @@ export default function DewaApprovalsPage() {
           </div>
         </div>
       </section>
+
+      <ContentReviewRecord
+        title="DEWA approval guide content record"
+        reviewScope="General editorial review of published DEWA source links, workflow explanations, non-guarantee language and project-planning boundaries. Current DEWA requirements and project-specific electrical responsibilities must be confirmed through official services and appropriately appointed professionals."
+      />
 
       <section id="faq" className="section-pad soft-section scroll-mt-28">
         <div className="container-pad">

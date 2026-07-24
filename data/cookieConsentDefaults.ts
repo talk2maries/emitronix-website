@@ -64,7 +64,7 @@ export const cookieCategoryIds: CookieCategoryId[] = ["necessary", "analytics", 
 
 export const cookieLanguages: CookieLanguage[] = ["en", "ar"];
 
-const updatedAt = "2026-07-23T00:00:00.000Z";
+const updatedAt = "2026-07-24T00:00:00.000Z";
 
 export const defaultCookieConsentConfig: CookieConsentConfig = {
   enabled: true,
@@ -314,11 +314,11 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
           },
           {
             heading: "طلبات التوظيف والسير الذاتية",
-            body: "تعامل السير الذاتية وسجلات التقديم كبيانات عمل مقيدة الوصول. إرسال الملف هو تعبير عن الاهتمام وليس إعلان وظيفة أو مقابلة أو عرض عمل. تتطلب مدة الاحتفاظ الحالية تأكيد الإدارة والمراجعة القانونية. Management verification required before publication.",
+            body: "تعامل السير الذاتية وسجلات التقديم كبيانات عمل مقيدة الوصول. إرسال الملف هو تعبير عن الاهتمام وليس إعلان وظيفة أو مقابلة أو عرض عمل. تتطلب مدة الاحتفاظ الحالية تأكيد الإدارة والمراجعة القانونية. يلزم تحقق الإدارة قبل النشر.",
           },
           {
             heading: "الاحتفاظ والحذف",
-            body: "يجب الاحتفاظ بالمعلومات فقط للمدة اللازمة للاستفسار أو الطلب أو الأمان أو حفظ السجلات أو الغرض القانوني المطبق، ثم حذفها أو إخفاء هويتها. تتطلب الفترات الدقيقة تأكيد الإدارة والمراجعة القانونية. Management verification required before publication.",
+            body: "يجب الاحتفاظ بالمعلومات فقط للمدة اللازمة للاستفسار أو الطلب أو الأمان أو حفظ السجلات أو الغرض القانوني المطبق، ثم حذفها أو إخفاء هويتها. تتطلب الفترات الدقيقة تأكيد الإدارة والمراجعة القانونية. يلزم تحقق الإدارة قبل النشر.",
           },
           {
             heading: "الأمان",
@@ -357,6 +357,10 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
             heading: "Intellectual property",
             body: "Website text, layout, brand assets and media are owned by or licensed to Emitronix unless otherwise stated and may not be copied without permission.",
           },
+          {
+            heading: "Legal review status",
+            body: "TODO — governing-law, dispute, liability and jurisdiction wording requires management and qualified legal review before publication. The website disclaimer, privacy policy and corrections policy provide the current public information boundaries.",
+          },
         ],
       },
       ar: {
@@ -379,6 +383,10 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
           {
             heading: "الملكية الفكرية",
             body: "نصوص الموقع وتخطيطه وأصول العلامة والوسائط مملوكة أو مرخصة لـ Emitronix ما لم يذكر خلاف ذلك، ولا يجوز نسخها دون إذن.",
+          },
+          {
+            heading: "حالة المراجعة القانونية",
+            body: "مطلوب إجراء: تتطلب صياغة القانون الحاكم وتسوية النزاعات والمسؤولية والاختصاص تأكيد الإدارة ومراجعة قانونية مؤهلة قبل النشر. يوضح إخلاء المسؤولية وسياسة الخصوصية وسياسة التصحيحات الحدود العامة الحالية للموقع.",
           },
         ],
       },

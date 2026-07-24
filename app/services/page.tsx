@@ -94,13 +94,14 @@ export default function ServicesPage() {
   return (
     <>
       <PageHero
+        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
         eyebrow="Services"
         title="A complete construction platform for Dubai projects."
         description="Emitronix aligns civil contracting, fit-out delivery and authority approval coordination so project owners can move from scope definition to handover with clearer control."
         image="/images/warehouse-construction-dubai.webp"
         imageAlt="Warehouse construction Dubai and industrial building delivery"
         primaryCta={{ label: "Request Consultation", href: "/contact" }}
-        secondaryCta={{ label: "View Projects", href: "/projects" }}
+        secondaryCta={{ label: "Scope Planning Library", href: "/projects" }}
         metrics={stats}
       />
 
