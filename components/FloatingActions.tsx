@@ -3,9 +3,10 @@
 import { PhoneCall } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { isArabicPath } from "@/lib/i18n";
+import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
 
 export function FloatingActions({ phone, whatsappUrl }: { phone: string; whatsappUrl: string }) {
-  const pathname = usePathname();
+  const pathname = useHydrationSafePathname(usePathname());
   const isArabic = isArabicPath(pathname);
 
   return (

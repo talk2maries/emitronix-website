@@ -53,10 +53,10 @@ export const arabicNavLabels: Record<string, string> = {
   "/": "الرئيسية",
   "/about": "من نحن",
   "/services": "الخدمات",
-  "/projects": "المشاريع",
+  "/approval": "الموافقات",
   "/industries": "القطاعات",
-  "/careers": "الوظائف",
-  "/blog": "المدونة",
+  "/resources": "مركز المعرفة",
+  "/projects": "مكتبة النطاق",
   "/contact": "اتصل بنا",
 };
 
@@ -587,6 +587,10 @@ export function getArabicMetadata(page: ArabicPageData): Metadata {
         "x-default": english,
       },
     },
+    robots: {
+      index: true,
+      follow: true,
+    },
     openGraph: {
       type: "website",
       locale: "ar_AE",
@@ -615,8 +619,7 @@ function arabicBlogPage(post: BlogPost): ArabicPageData {
     kind: "blog-post",
     eyebrow: "مقال من مدونة Emitronix",
     title,
-    description:
-      "مقال عربي عملي لأصحاب المشاريع والاستشاريين حول قرارات البناء والموافقات والتسليم في دبي ودولة الإمارات.",
+    description: `دليل عربي عملي حول ${title} لأصحاب المشاريع والاستشاريين، مع توضيح قرارات التخطيط والموافقات والتنفيذ والتسليم في دبي.`,
     image: post.image,
     imageAlt: `مقال عربي حول ${title}`,
     primaryCta: { label: "ناقش مشروعك", href: "/ar/contact" },

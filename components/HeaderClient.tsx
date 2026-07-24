@@ -1,10 +1,11 @@
 "use client";
 
-import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, Sparkles, X } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, Search, Sparkles, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { BrandLogo } from "@/components/BrandLogo";
+import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
 import type { NavItem } from "@/data/site";
 import { alternateLocalePath, isArabicPath, localizedPath, toEnglishPath } from "@/lib/i18n";
 
@@ -50,7 +51,8 @@ export function HeaderClient({
   arabicApprovalServices: HeaderApprovalLink[];
   contact: HeaderContact;
 }) {
-  const pathname = usePathname();
+  const browserPathname = usePathname();
+  const pathname = useHydrationSafePathname(browserPathname);
   const isArabic = isArabicPath(pathname);
   const activePathname = toEnglishPath(pathname);
   const locale = isArabic ? "ar" : "en";
@@ -83,7 +85,7 @@ export function HeaderClient({
       }
     : {
         homeLabel: "Emitronix home",
-        quote: "Free Quote",
+        quote: "Request Quote",
         services: "Core services",
         servicesDescription: "Construction, fit-out and delivery control",
         allServices: "Complete services platform",
@@ -108,7 +110,7 @@ export function HeaderClient({
     return Array.from(new Set([item.href, `/services/${item.slug}`, `/services/${hrefSlug}`]));
   });
   const approvalPaths = ["/approval", "/approvals", ...approvalServices.map((item) => item.href)];
-  const servicePaths = ["/services", ...serviceDetailPaths, ...approvalPaths];
+  const servicePaths = ["/services", ...serviceDetailPaths];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -125,6 +127,11 @@ export function HeaderClient({
 
   function isActive(href: string) {
     if (href === "/services") return servicePaths.includes(activePathname);
+    if (href === "/approval") return approvalPaths.includes(activePathname);
+    return activePathname === href;
+  }
+
+  function isCurrentPage(href: string) {
     return activePathname === href;
   }
 
@@ -156,18 +163,21 @@ export function HeaderClient({
     >
       <div className="container-pad">
         <div className="flex h-20 items-center justify-between gap-4 transition-[height] duration-500">
-          <Link href={localizedPath("/", locale)} className="flex min-w-0 items-center rounded-xl focus-ring" aria-label={copy.homeLabel}>
-            <Image
-              src="/images/emitronix-logo-horizontal.svg"
-              alt="Emitronix Building the Future logo"
-              width={230}
-              height={51}
-              className="h-14 w-auto object-contain sm:h-16"
+          <Link
+            href={localizedPath("/", locale)}
+            className="flex min-w-0 items-center rounded-xl focus-ring"
+            aria-label={copy.homeLabel}
+            aria-current={isCurrentPage("/") ? "page" : undefined}
+          >
+            <BrandLogo
+              className="block shrink-0"
+              imageClassName="h-12 w-auto object-contain sm:h-14 lg:h-16 min-[1400px]:h-12 2xl:h-14"
+              sizes="(min-width: 1536px) 240px, (min-width: 1400px) 206px, (min-width: 1024px) 274px, (min-width: 640px) 240px, 206px"
               priority
             />
           </Link>
 
-          <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary navigation">
+          <nav className="hidden items-center gap-1 min-[1400px]:flex" aria-label="Primary navigation">
             {currentNavItems.map((item) => {
               const active = isActive(item.href);
               const baseClass = `inline-flex items-center gap-1 rounded-full px-4 py-2.5 text-xs font-black uppercase tracking-wide transition focus-ring ${
@@ -192,6 +202,7 @@ export function HeaderClient({
                       className={baseClass}
                       aria-haspopup="true"
                       aria-expanded={megaOpen}
+                      aria-current={isCurrentPage("/services") ? "page" : undefined}
                       onClick={() => {
                         clearCloseTimer();
                         setMegaOpen(true);
@@ -219,11 +230,20 @@ export function HeaderClient({
                               </div>
                             </div>
                             <div className="mt-5 grid max-h-72 gap-2 overflow-auto pr-1">
-                              <Link href={localizedPath("/services", locale)} className="premium-menu-link">
+                              <Link
+                                href={localizedPath("/services", locale)}
+                                className="premium-menu-link"
+                                aria-current={isCurrentPage("/services") ? "page" : undefined}
+                              >
                                 {copy.allServices} <ArrowRight className="h-4 w-4" />
                               </Link>
                               {currentServices.map((service) => (
-                                <Link key={service.slug} href={localizedPath(service.href, locale)} className="premium-menu-link">
+                                <Link
+                                  key={service.slug}
+                                  href={localizedPath(service.href, locale)}
+                                  className="premium-menu-link"
+                                  aria-current={isCurrentPage(service.href) ? "page" : undefined}
+                                >
                                   {service.title}
                                   <ArrowRight className="h-4 w-4" />
                                 </Link>
@@ -241,11 +261,20 @@ export function HeaderClient({
                               </div>
                             </div>
                             <div className="mt-5 grid max-h-72 gap-2 overflow-auto pr-1">
-                              <Link href={localizedPath("/approval", locale)} className="premium-menu-link">
+                              <Link
+                                href={localizedPath("/approval", locale)}
+                                className="premium-menu-link"
+                                aria-current={isCurrentPage("/approval") ? "page" : undefined}
+                              >
                                 {copy.allApprovals} <ArrowRight className="h-4 w-4" />
                               </Link>
                               {currentApprovalServices.map((service) => (
-                                <Link key={service.slug} href={localizedPath(service.href, locale)} className="premium-menu-link">
+                                <Link
+                                  key={service.slug}
+                                  href={localizedPath(service.href, locale)}
+                                  className="premium-menu-link"
+                                  aria-current={isCurrentPage(service.href) ? "page" : undefined}
+                                >
                                   {service.menuLabel}
                                   <ArrowRight className="h-4 w-4" />
                                 </Link>
@@ -275,18 +304,40 @@ export function HeaderClient({
               }
 
               return (
-                <Link key={item.href} href={localizedPath(item.href, locale)} className={baseClass}>
+                <Link
+                  key={item.href}
+                  href={localizedPath(item.href, locale)}
+                  className={baseClass}
+                  aria-current={isCurrentPage(item.href) ? "page" : undefined}
+                >
                   {item.label}
                 </Link>
               );
             })}
           </nav>
 
-          <div className="hidden items-center gap-3 xl:flex">
-            <Link href={localizedPath("/contact", locale)} className="premium-button">
+          <div className="hidden items-center gap-3 min-[1400px]:flex">
+            <Link
+              href="/search"
+              className="grid h-11 w-11 place-items-center rounded-full border border-brand/[0.15] bg-white text-brand transition hover:bg-brand-soft focus-ring"
+              aria-label={isArabic ? "البحث في الموقع" : "Search the website"}
+              aria-current={isCurrentPage("/search") ? "page" : undefined}
+            >
+              <Search className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <Link
+              href={localizedPath("/contact", locale)}
+              className="premium-button"
+              aria-current={isCurrentPage("/contact") ? "page" : undefined}
+            >
               {copy.quote} <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href={languageHref} className="premium-button-light" aria-label={copy.languageLabel}>
+            <Link
+              href={languageHref}
+              prefetch={false}
+              className="premium-button-light"
+              aria-label={copy.languageLabel}
+            >
               <Languages className="h-4 w-4" />
               {copy.language}
             </Link>
@@ -294,7 +345,7 @@ export function HeaderClient({
 
           <button
             type="button"
-            className="grid h-12 w-12 place-items-center rounded-full border border-brand/[0.15] bg-white/[0.9] text-charcoal shadow-sm backdrop-blur-xl transition hover:border-brand/[0.35] hover:bg-brand-soft hover:text-brand focus-ring xl:hidden"
+            className="grid h-12 w-12 place-items-center rounded-full border border-brand/[0.15] bg-white/[0.9] text-charcoal shadow-sm backdrop-blur-xl transition hover:border-brand/[0.35] hover:bg-brand-soft hover:text-brand focus-ring min-[1400px]:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-label={copy.toggleNav}
@@ -305,7 +356,7 @@ export function HeaderClient({
       </div>
 
       {open ? (
-        <div className="border-t border-brand/[0.15] bg-white/[0.96] shadow-luxe backdrop-blur-2xl xl:hidden">
+        <div className="border-t border-brand/[0.15] bg-white/[0.96] shadow-luxe backdrop-blur-2xl min-[1400px]:hidden">
           <nav className="container-pad grid gap-2 py-5" aria-label="Mobile navigation">
             {currentNavItems.map((item) => {
               const active = isActive(item.href);
@@ -319,14 +370,19 @@ export function HeaderClient({
                         active ? "bg-brand text-white" : "text-charcoal hover:bg-brand-soft hover:text-brand"
                       }`}
                       aria-expanded={mobileServicesOpen}
+                      aria-controls="mobile-services-menu"
+                      aria-current={isCurrentPage("/services") ? "page" : undefined}
                     >
                       {item.label}
                       <ChevronDown size={16} className={`transition duration-300 ${mobileServicesOpen ? "rotate-180" : ""}`} />
                     </button>
                     <div
+                      id="mobile-services-menu"
                       className={`grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ${
                         mobileServicesOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
                       }`}
+                      aria-hidden={!mobileServicesOpen}
+                      inert={!mobileServicesOpen}
                     >
                       <div className="min-h-0">
                         <div className="mt-2 grid gap-2 rounded-[1.5rem] border border-brand/[0.15] bg-brand-soft p-3">
@@ -334,6 +390,8 @@ export function HeaderClient({
                             href={localizedPath("/services", locale)}
                             onClick={() => setOpen(false)}
                             className="rounded-2xl bg-white px-4 py-3 text-sm font-black text-charcoal shadow-sm"
+                            tabIndex={mobileServicesOpen ? undefined : -1}
+                            aria-current={isCurrentPage("/services") ? "page" : undefined}
                           >
                             {copy.completeServices}
                           </Link>
@@ -343,6 +401,8 @@ export function HeaderClient({
                               href={localizedPath(service.href, locale)}
                               onClick={() => setOpen(false)}
                               className="rounded-2xl bg-white px-4 py-3 text-sm font-bold text-charcoal shadow-sm"
+                              tabIndex={mobileServicesOpen ? undefined : -1}
+                              aria-current={isCurrentPage(service.href) ? "page" : undefined}
                             >
                               {service.title}
                             </Link>
@@ -362,16 +422,36 @@ export function HeaderClient({
                     className={`flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-black uppercase tracking-wide transition ${
                       active ? "bg-brand text-white" : "text-charcoal hover:bg-brand-soft hover:text-brand"
                     }`}
+                    aria-current={isCurrentPage(item.href) ? "page" : undefined}
                   >
                     {item.label}
                   </Link>
                 </div>
               );
             })}
-            <Link href={localizedPath("/contact", locale)} onClick={() => setOpen(false)} className="premium-button mt-2">
+            <Link
+              href={localizedPath("/contact", locale)}
+              onClick={() => setOpen(false)}
+              className="premium-button mt-2"
+              aria-current={isCurrentPage("/contact") ? "page" : undefined}
+            >
               {copy.quote} <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href={languageHref} onClick={() => setOpen(false)} className="premium-button-light">
+            <Link
+              href="/search"
+              onClick={() => setOpen(false)}
+              className="premium-button-light"
+              aria-current={isCurrentPage("/search") ? "page" : undefined}
+            >
+              <Search className="h-4 w-4" aria-hidden="true" />
+              {isArabic ? "البحث في الموقع" : "Search the website"}
+            </Link>
+            <Link
+              href={languageHref}
+              prefetch={false}
+              onClick={() => setOpen(false)}
+              className="premium-button-light"
+            >
               <Languages className="h-4 w-4" />
               {copy.language}
             </Link>

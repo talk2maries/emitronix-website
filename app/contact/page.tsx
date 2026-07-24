@@ -49,7 +49,7 @@ const contactProcess = [
 const contactFaqs = [
   {
     question: "What is the fastest way to contact Emitronix?",
-    answer: `Call ${site.phone} or email ${site.email}. The website form also prepares a structured project enquiry email.`,
+    answer: `Call ${site.phone} or email ${site.email}. With consent, the website form sends a structured project enquiry to the company's follow-up system.`,
   },
   {
     question: "What should I include in a construction enquiry?",
@@ -71,10 +71,24 @@ const contactFaqs = [
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${absoluteUrl("/contact")}#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
     { "@type": "ListItem", position: 2, name: "Contact", item: absoluteUrl("/contact") },
   ],
+};
+
+const contactPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "@id": `${absoluteUrl("/contact")}#webpage`,
+  url: absoluteUrl("/contact"),
+  name: `Contact ${site.legalName}`,
+  description: "Published contact details and project enquiry route for Emitronix Contracting LLC.",
+  isPartOf: { "@id": absoluteUrl("/#website") },
+  about: { "@id": absoluteUrl("/#organization") },
+  breadcrumb: { "@id": `${absoluteUrl("/contact")}#breadcrumb` },
+  inLanguage: "en-AE",
 };
 
 export default function ContactPage() {
@@ -85,7 +99,7 @@ export default function ContactPage() {
         title="Start a premium Dubai project conversation."
         description="Share your civil construction, fit-out, renovation or authority approval requirements. Include the project location, scope, timeline and current approval status."
         image="/images/building-contractor-dubai-construction-site.webp"
-        imageAlt="Dubai construction project consultation for Emitronix Contracting LLC"
+        imageAlt="Illustrative stock image of a Dubai construction site"
         primaryCta={{ label: "Call Emitronix", href: `tel:${site.phone.replace(/\s/g, "")}` }}
         secondaryCta={{ label: "Email Team", href: `mailto:${site.email}` }}
       />
@@ -158,7 +172,7 @@ export default function ContactPage() {
 
       <TrustBar
         eyebrow="Contact trust"
-        title="Verified contact details from the shared business source."
+        title="Consistent published contact details."
         points={[
           site.phone,
           site.email,
@@ -174,6 +188,7 @@ export default function ContactPage() {
         schema
       />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }} />
     </>
   );
 }

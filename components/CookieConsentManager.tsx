@@ -2,7 +2,7 @@
 
 import { Check, ChevronRight, Cookie, Settings2, ShieldCheck, X } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   cookieCategoryIds,
   defaultCookieConsentConfig,
@@ -272,6 +272,15 @@ function policyHref(key: "cookie" | "privacy" | "terms", language: CookieLanguag
 }
 
 export function CookieConsentManager() {
+  const bannerTitleId = useId();
+  const bannerDescriptionId = useId();
+  const preferencesTitleId = useId();
+  const preferencesDescriptionId = useId();
+  const categoryHeadingId = useId();
+  const preferencesDialogRef = useRef<HTMLDivElement>(null);
+  const preferencesCloseButtonRef = useRef<HTMLButtonElement>(null);
+  const customizeButtonRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
   const [config, setConfig] = useState<CookieConsentConfig>(defaultCookieConsentConfig);
   const [loaded, setLoaded] = useState(false);
   const [language, setLanguage] = useState<CookieLanguage>("en");
@@ -330,6 +339,7 @@ export function CookieConsentManager() {
 
   useEffect(() => {
     const openSettings = () => {
+      returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       setReturnToBannerOnClose(false);
       setShowPreferences(true);
       setShowBanner(false);
@@ -339,16 +349,86 @@ export function CookieConsentManager() {
     return () => window.removeEventListener(SETTINGS_EVENT, openSettings);
   }, []);
 
+  useEffect(() => {
+    if (!showPreferences) return;
+
+    const dialog = preferencesDialogRef.current;
+    const focusCloseButton = window.requestAnimationFrame(() => preferencesCloseButtonRef.current?.focus());
+
+    function handleDialogKeyDown(event: KeyboardEvent) {
+      if (!dialog) return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setShowPreferences(false);
+        setShowBanner(returnToBannerOnClose);
+        window.requestAnimationFrame(() => {
+          const target = returnToBannerOnClose ? customizeButtonRef.current : returnFocusRef.current;
+          if (target?.isConnected) target.focus();
+        });
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const focusableElements = Array.from(
+        dialog.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.hasAttribute("hidden"));
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && (document.activeElement === firstElement || !dialog.contains(document.activeElement))) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    }
+
+    dialog?.addEventListener("keydown", handleDialogKeyDown);
+    return () => {
+      window.cancelAnimationFrame(focusCloseButton);
+      dialog?.removeEventListener("keydown", handleDialogKeyDown);
+    };
+  }, [returnToBannerOnClose, showPreferences]);
+
   function persistConsent(action: ConsentAction, categories: ConsentCategoryMap) {
+    const focusTarget = showPreferences ? returnFocusRef.current : null;
+    const previousConsent = getStoredConsent(config);
     const consent = buildConsentRecord(config, language, categories);
+    const revokedPreviouslyGrantedCategory = Boolean(
+      previousConsent &&
+        cookieCategoryIds.some(
+          (id) => id !== "necessary" && previousConsent.categories[id] && !consent.categories[id],
+        ),
+    );
+
     window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(consent));
     window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
     setConsentCookie(consent, config.consentExpiryDays);
     setDraftCategories(consent.categories);
-    loadConsentScripts(consent.categories);
     sendConsentEvent(action, consent.categories);
     setShowBanner(false);
     setShowPreferences(false);
+
+    if (revokedPreviouslyGrantedCategory) {
+      window.location.reload();
+      return;
+    }
+
+    loadConsentScripts(consent.categories);
+    window.requestAnimationFrame(() => {
+      if (focusTarget?.isConnected) focusTarget.focus();
+    });
   }
 
   function acceptAll() {
@@ -377,11 +457,27 @@ export function CookieConsentManager() {
     window.localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLanguage);
   }
 
+  function closePreferences() {
+    setShowPreferences(false);
+    setShowBanner(returnToBannerOnClose);
+    window.requestAnimationFrame(() => {
+      const target = returnToBannerOnClose ? customizeButtonRef.current : returnFocusRef.current;
+      if (target?.isConnected) target.focus();
+    });
+  }
+
   if (!loaded || (!showBanner && !showPreferences)) return null;
 
   return (
     <div dir={isRtl ? "rtl" : "ltr"} className="fixed inset-x-0 bottom-0 z-[100000] px-3 pb-3 sm:px-5 sm:pb-5">
-      <div className="mx-auto max-w-6xl rounded-[1.75rem] border border-brand/[0.16] bg-white/[0.96] p-4 text-charcoal shadow-luxe backdrop-blur-2xl sm:p-5">
+      <div
+        ref={showPreferences ? preferencesDialogRef : undefined}
+        role={showPreferences ? "dialog" : "region"}
+        aria-modal={showPreferences ? "true" : undefined}
+        aria-labelledby={showPreferences ? preferencesTitleId : bannerTitleId}
+        aria-describedby={showPreferences ? preferencesDescriptionId : bannerDescriptionId}
+        className="mx-auto max-w-6xl rounded-[1.75rem] border border-brand/[0.16] bg-white/[0.96] p-4 text-charcoal shadow-luxe backdrop-blur-2xl sm:p-5"
+      >
         {showPreferences ? (
           <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
             <div className="rounded-[1.25rem] bg-brand-soft p-5">
@@ -390,32 +486,40 @@ export function CookieConsentManager() {
                   <Settings2 className="h-5 w-5" />
                 </span>
                 <button
+                  ref={preferencesCloseButtonRef}
                   type="button"
                   aria-label={content.closeLabel[language]}
                   className="grid h-10 w-10 place-items-center rounded-full border border-brand/[0.14] bg-white text-brand transition hover:bg-brand hover:text-white focus-ring"
-                  onClick={() => {
-                    setShowPreferences(false);
-                    setShowBanner(returnToBannerOnClose);
-                  }}
+                  onClick={closePreferences}
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-5 w-5" aria-hidden="true" />
                 </button>
               </div>
-              <p className="premium-kicker mt-5">{content.categoryHeading[language]}</p>
-              <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal">{content.title[language]}</h2>
-              <p className="mt-4 text-sm leading-7 text-steel">{content.description[language]}</p>
-              <div className="mt-5 flex flex-wrap gap-2 text-sm font-black">
-                <button type="button" className="rounded-full bg-white px-4 py-2 text-brand shadow-sm" onClick={() => changeLanguage("en")}>
+              <p id={categoryHeadingId} className="premium-kicker mt-5">{content.categoryHeading[language]}</p>
+              <h2 id={preferencesTitleId} className="mt-3 text-3xl font-black tracking-tight text-charcoal">{content.title[language]}</h2>
+              <p id={preferencesDescriptionId} className="mt-4 text-sm leading-7 text-steel">{content.description[language]}</p>
+              <div className="mt-5 flex flex-wrap gap-2 text-sm font-black" role="group" aria-label={content.languageLabel[language]}>
+                <button
+                  type="button"
+                  className="rounded-full bg-white px-4 py-2 text-brand shadow-sm"
+                  onClick={() => changeLanguage("en")}
+                  aria-pressed={language === "en"}
+                >
                   English
                 </button>
-                <button type="button" className="rounded-full bg-white px-4 py-2 text-brand shadow-sm" onClick={() => changeLanguage("ar")}>
+                <button
+                  type="button"
+                  className="rounded-full bg-white px-4 py-2 text-brand shadow-sm"
+                  onClick={() => changeLanguage("ar")}
+                  aria-pressed={language === "ar"}
+                >
                   العربية
                 </button>
               </div>
             </div>
 
             <div>
-              <div className="grid max-h-[54vh] gap-3 overflow-auto pr-1">
+              <div className="grid max-h-[54vh] gap-3 overflow-auto pr-1" role="group" aria-labelledby={categoryHeadingId}>
                 {activeCategories.map((category) => (
                   <button
                     key={category.id}
@@ -423,10 +527,12 @@ export function CookieConsentManager() {
                     className="flex items-start justify-between gap-4 rounded-[1.25rem] border border-brand/[0.12] bg-white p-4 text-start shadow-sm transition hover:border-brand/25 hover:bg-brand-soft"
                     onClick={() => toggleCategory(category.id)}
                     disabled={category.required}
+                    aria-pressed={category.required || draftCategories[category.id]}
+                    aria-describedby={`${preferencesDescriptionId}-${category.id}`}
                   >
                     <span>
                       <span className="block text-base font-black tracking-tight text-charcoal">{category.title[language]}</span>
-                      <span className="mt-2 block text-sm leading-6 text-steel">{category.description[language]}</span>
+                      <span id={`${preferencesDescriptionId}-${category.id}`} className="mt-2 block text-sm leading-6 text-steel">{category.description[language]}</span>
                     </span>
                     <span
                       className={`mt-1 inline-flex min-w-24 items-center justify-center rounded-full px-3 py-2 text-xs font-black uppercase tracking-wide ${
@@ -462,15 +568,25 @@ export function CookieConsentManager() {
             <div>
               <div className="flex flex-wrap items-center gap-3">
                 <p className="premium-kicker">{content.languageLabel[language]}</p>
-                <button type="button" className="text-xs font-black uppercase tracking-wide text-brand" onClick={() => changeLanguage("en")}>
+                <button
+                  type="button"
+                  className="text-xs font-black uppercase tracking-wide text-brand"
+                  onClick={() => changeLanguage("en")}
+                  aria-pressed={language === "en"}
+                >
                   English
                 </button>
-                <button type="button" className="text-xs font-black uppercase tracking-wide text-brand" onClick={() => changeLanguage("ar")}>
+                <button
+                  type="button"
+                  className="text-xs font-black uppercase tracking-wide text-brand"
+                  onClick={() => changeLanguage("ar")}
+                  aria-pressed={language === "ar"}
+                >
                   العربية
                 </button>
               </div>
-              <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal sm:text-3xl">{content.title[language]}</h2>
-              <p className="mt-2 max-w-4xl text-sm leading-7 text-steel">{content.description[language]}</p>
+              <h2 id={bannerTitleId} className="mt-2 text-2xl font-black tracking-tight text-charcoal sm:text-3xl">{content.title[language]}</h2>
+              <p id={bannerDescriptionId} className="mt-2 max-w-4xl text-sm leading-7 text-steel">{content.description[language]}</p>
               <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs font-black uppercase tracking-wide text-brand">
                 <Link href={policyHref("cookie", language)}>{content.cookiePolicyLabel[language]}</Link>
                 <Link href={policyHref("privacy", language)}>{content.privacyPolicyLabel[language]}</Link>
@@ -486,9 +602,11 @@ export function CookieConsentManager() {
                 {content.rejectLabel[language]}
               </button>
               <button
+                ref={customizeButtonRef}
                 type="button"
                 className="premium-button-light"
-                onClick={() => {
+                onClick={(event) => {
+                  returnFocusRef.current = event.currentTarget;
                   setReturnToBannerOnClose(true);
                   setShowPreferences(true);
                   setShowBanner(false);

@@ -1,0 +1,42 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="220"
+  height="220"
+  viewBox="0 0 220 220"
+  fill="none"
+  role="img"
+  aria-labelledby="emitronix-mark-title emitronix-mark-description"
+  shape-rendering="geometricPrecision"
+>
+  <title id="emitronix-mark-title">Emitronix</title>
+  <desc id="emitronix-mark-description">Emitronix building symbol</desc>
+
+  <defs>
+    <linearGradient id="emitronix-mark-background" x1="22" y1="12" x2="202" y2="210" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123A73"/>
+      <stop offset="1" stop-color="#0B1F3A"/>
+    </linearGradient>
+    <linearGradient id="emitronix-mark-blue" x1="108" y1="42" x2="194" y2="183" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#194991"/>
+      <stop offset=".56" stop-color="#1EA7FF"/>
+      <stop offset="1" stop-color="#54D6FF"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="4" y="4" width="212" height="212" rx="48" fill="url(#emitronix-mark-background)"/>
+
+  <g transform="translate(30 24) scale(.72 .86)">
+    <path d="M76 35 112 13v162l-36 7V35Z" fill="#F8FBFF"/>
+    <path d="M14 181V83l65-36v26L37 97v20l35-18v26l-35 18v20l42-10v27l-65 1Z" fill="#F8FBFF"/>
+    <path d="m116 48 42 20v110l-42-4V48Z" fill="url(#emitronix-mark-blue)"/>
+    <path d="m162 114 28 14v53l-28-3v-64Z" fill="#54D6FF"/>
+    <path d="m194 134 22 11v39l-22-3v-47Z" fill="#D6E9FF"/>
+    <path d="M6 187c68-14 141-13 216 1-69-5-143-6-216 5v-6Z" fill="#F8FBFF"/>
+    <path
+      d="M27 185c56-8 116-7 174 2"
+      stroke="#54D6FF"
+      stroke-width="3"
+      stroke-linecap="round"
+    />
+  </g>
+</svg>

@@ -13,15 +13,52 @@ type ApprovalServicePageProps = {
   service: ApprovalService;
 };
 
-const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
+const authoritySources: Record<string, { label: string; href: string }> = {
+  "dubai-municipality-approval": {
+    label: "Dubai Municipality — Buildings Regulation and Permits Agency",
+    href: "https://www.dm.gov.ae/municipality-business/buildings-regulation-permits-agency/",
+  },
+  "dda-approvals": {
+    label: "Dubai Development Authority — Construction Permits and NOCs",
+    href: "https://dda.gov.ae/en/planning-development/construction/permits-nocs",
+  },
+  "dcd-approvals": {
+    label: "Dubai Civil Defence — Fire and Life Safety Code resources",
+    href: "https://www.dcd.gov.ae/portal/en/preventive-safety/rules-regulations/faq-uae-fire-and-life-safety-code-of-practice",
+  },
+  "dewa-approvals": {
+    label: "DEWA — Electricity connection requirements and steps",
+    href: "https://www.dewa.gov.ae/en/builder/electricity-network-services/requirements-and-steps",
+  },
+  "trakhees-approvals": {
+    label: "PCFC — Trakhees rules and regulations",
+    href: "https://pcfc.ae/en/Pages/rules-regulations-trakhees.aspx",
+  },
+  "difc-approvals": {
+    label: "DIFC — Official website",
+    href: "https://www.difc.com/",
+  },
+  "concordia-dmcc-approvals": {
+    label: "DMCC — Official website",
+    href: "https://dmcc.ae/",
+  },
+  "rta-approval": {
+    label: "RTA — Construction NOC for infrastructure work",
+    href: "https://www.rta.ae/wps/portal/rta/ae/home/rta-services/service-details?serviceId=315",
+  },
+};
 
 export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
   const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
   const deepContent = getApprovalDeepContent(service);
   const approvalFaqs = buildApprovalExpandedFaqs(service);
-  const schemaKeywords = deepContent.semanticKeywords.slice(0, 30);
+  const authoritySource = authoritySources[service.slug] ?? {
+    label: "UAE Government — Building safety guidance",
+    href: "https://u.ae/en/information-and-services/justice-safety-and-the-law/building-safety",
+  };
   const pageUrl = absoluteUrl(service.href);
   const imageUrl = absoluteUrl("/images/dubai-authority-approval-contractor.webp");
+  const illustrativeImageAlt = `Illustrative stock image accompanying the ${service.menuLabel} guide; not evidence of an Emitronix project, team or approval`;
   const relatedPages = service.related
     .map((slug) => approvalServices.find((item) => item.slug === slug))
     .filter((item): item is ApprovalService => Boolean(item));
@@ -66,25 +103,11 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     mainEntityOfPage: {
       "@id": `${pageUrl}#webpage`,
     },
-    keywords: schemaKeywords.join(", "),
-    knowsAbout: schemaKeywords,
     isRelatedTo: relatedPages.map((item) => ({
       "@type": "WebPage",
       name: item.menuLabel,
       url: absoluteUrl(item.href),
     })),
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: `${service.menuLabel} support deliverables`,
-      itemListElement: service.process.map((step) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: step,
-          description: `${step} for ${service.menuLabel} in Dubai.`,
-        },
-      })),
-    },
   };
 
   const breadcrumbJsonLd = {
@@ -103,57 +126,9 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     "@id": `${pageUrl}#primaryimage`,
     url: imageUrl,
     contentUrl: imageUrl,
-    name: `${service.menuLabel} coordination in Dubai`,
-    caption: `${service.menuLabel} document, submission and inspection coordination for Dubai projects`,
-  };
-  const organizationJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": absoluteUrl("/#organization"),
-    name: site.legalName,
-    alternateName: site.name,
-    url: site.url,
-    logo: {
-      "@type": "ImageObject",
-      url: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-    },
-    email: site.email,
-    telephone: site.phone,
-    sameAs: [],
-  };
-  const localBusinessJsonLd = {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "GeneralContractor"],
-    "@id": absoluteUrl("/#localbusiness"),
-    name: site.legalName,
-    alternateName: site.name,
-    url: site.url,
-    image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
-    logo: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-    description: site.description,
-    email: site.email,
-    telephone: site.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Dubai Investment Park 02",
-      addressLocality: "Dubai",
-      addressCountry: "AE",
-    },
-    areaServed: site.serviceArea.map((name) => ({
-      "@type": cityServiceAreas.has(name) ? "City" : "Country",
-      name,
-    })),
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "08:00",
-        closes: "18:00",
-      },
-    ],
-    parentOrganization: {
-      "@id": absoluteUrl("/#organization"),
-    },
+    name: `Illustrative image for the ${service.menuLabel} guide`,
+    caption: illustrativeImageAlt,
+    description: illustrativeImageAlt,
   };
   const webPageJsonLd = {
     "@context": "https://schema.org",
@@ -163,6 +138,9 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     name: service.seoTitle,
     description: service.metaDescription,
     inLanguage: "en-AE",
+    dateModified: "2026-07-23",
+    lastReviewed: "2026-07-23",
+    citation: authoritySource.href,
     isPartOf: {
       "@id": absoluteUrl("/#website"),
     },
@@ -172,10 +150,6 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     breadcrumb: {
       "@id": `${pageUrl}#breadcrumb`,
     },
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: ["h1", "#approval-answers", "#faq"],
-    },
     about: [
       { "@type": "Thing", name: service.menuLabel },
       { "@type": "Thing", name: deepContent.primaryKeyword },
@@ -184,27 +158,6 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     mainEntity: {
       "@id": `${pageUrl}#service`,
     },
-  };
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "@id": `${pageUrl}#article`,
-    headline: service.seoTitle,
-    description: service.metaDescription,
-    image: {
-      "@id": `${pageUrl}#primaryimage`,
-    },
-    author: {
-      "@id": absoluteUrl("/#organization"),
-    },
-    publisher: {
-      "@id": absoluteUrl("/#organization"),
-    },
-    mainEntityOfPage: {
-      "@id": `${pageUrl}#webpage`,
-    },
-    articleSection: "Dubai authority approval services",
-    keywords: schemaKeywords.join(", "),
   };
   const itemListJsonLd = {
     "@context": "https://schema.org",
@@ -225,7 +178,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         title={service.h1}
         description={service.heroText}
         image="/images/dubai-authority-approval-contractor.webp"
-        imageAlt={`${service.menuLabel} coordination for Dubai construction projects`}
+        imageAlt={illustrativeImageAlt}
         primaryCta={{ label: "Request Approval Support", href: "/contact" }}
         secondaryCta={{ label: "All Approvals", href: "/approval" }}
         metrics={[
@@ -240,13 +193,25 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         question={`How does ${service.menuLabel} work in Dubai?`}
         answer={deepContent.answerBlocks[0].description}
         facts={[
-          `Primary search intent: ${deepContent.primaryKeyword}`,
           `Common project types: ${deepContent.projectTypes.slice(0, 4).join(", ")}`,
           `Useful documents: ${deepContent.documents.slice(0, 4).join(", ")}`,
-          `Dubai areas: ${deepContent.locations.slice(0, 5).join(", ")}`,
+          "The relevant authority and appointed-party responsibilities must be confirmed for each project",
+          "Authority review times and outcomes cannot be guaranteed",
         ]}
         cta={{ label: `Request ${service.menuLabel} support`, href: "/contact" }}
       />
+
+      <section className="bg-white py-8">
+        <div className="container-pad">
+          <div className="rounded-[1.75rem] border border-amber-300 bg-amber-50 p-6 text-charcoal shadow-panel">
+            <p className="premium-kicker">Authority disclaimer</p>
+            <h2 className="mt-3 text-2xl font-black tracking-tight">Coordination support is not authority approval.</h2>
+            <p className="mt-3 max-w-5xl text-sm leading-7 text-charcoal/80">
+              Emitronix is not the approving authority and does not guarantee an approval, NOC, review period or inspection outcome. The relevant authority and appointed consultant determine formal requirements and technical submission responsibilities for each project. Confirm the current route before design, procurement or site commitments are made.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section className="section-pad bg-white">
         <div className="container-pad">
@@ -278,9 +243,9 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       <section id="approval-answers" className="section-pad soft-section">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Answer engine blocks"
-            title={`${service.menuLabel} answers for Google, AI search and Dubai buyers.`}
-            description="These answer blocks are written to help owners, tenants, consultants and AI assistants understand the approval route without oversimplifying authority requirements."
+            eyebrow="Practical answers"
+            title={`${service.menuLabel} answers for Dubai project teams.`}
+            description="These answers help owners, tenants and consultants understand the coordination route without oversimplifying authority requirements."
             align="center"
           />
           <div className="mt-12 grid gap-5 md:grid-cols-3">
@@ -297,9 +262,9 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       <section className="section-pad bg-white">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Topical authority"
-            title={`${service.menuLabel} buyer questions, search intent and Dubai approval context.`}
-            description={`${deepContent.primaryKeyword} content must connect documents, jurisdiction, project type, authority comments, inspection readiness and construction-side consequences.`}
+            eyebrow="Approval context"
+            title={`${service.menuLabel} documents, decisions and Dubai project context.`}
+            description="A useful approval route connects jurisdiction, project type, documents, authority comments, inspection readiness and construction-side consequences."
             align="center"
           />
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
@@ -314,7 +279,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
             <div className="grid gap-4">
               {deepContent.commercialIntentBlocks.map((item) => (
                 <article key={item.title} className="rounded-[1.5rem] border border-brand/[0.12] bg-platinum p-6">
-                  <p className="premium-kicker">Buyer intent</p>
+                  <p className="premium-kicker">Decision factor</p>
                   <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
                   <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
                 </article>
@@ -407,6 +372,26 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         </div>
       </section>
 
+      <section className="bg-white pb-16">
+        <div className="container-pad">
+          <div className="rounded-[1.75rem] border border-brand/[0.14] bg-brand-soft p-6 shadow-panel lg:p-8">
+            <p className="premium-kicker">Source and review status</p>
+            <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">Confirm the live authority route before acting.</h2>
+            <p className="mt-3 max-w-5xl text-sm leading-7 text-steel">
+              This general planning guide was reviewed on 23 July 2026. Authority portals, eligibility rules, documents, fees and service times can change. Check the official source below and obtain project-specific confirmation from the relevant authority and properly appointed consultant or contractor.
+            </p>
+            <a
+              href={authoritySource.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex text-sm font-black text-brand underline decoration-brand/30 underline-offset-4 hover:decoration-brand"
+            >
+              {authoritySource.label}
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
           <div>
@@ -463,11 +448,11 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
             description="Authority requirements can change by location, asset use, master developer, landlord and inspection stage."
           />
           <div className="grid gap-4 md:grid-cols-2">
-            {[...deepContent.locations, ...deepContent.projectTypes].map((item) => (
+            {["Dubai", ...deepContent.projectTypes].map((item) => (
               <Link key={item} href="/contact" className="luxury-card rounded-[1.5rem] p-5">
                 <h2 className="text-xl font-black tracking-tight text-charcoal">{item}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">
-                  {service.menuLabel} support related to {item}, subject to jurisdiction, documents and authority comments.
+                  Planning questions for {service.menuLabel.toLowerCase()} related to {item}, subject to jurisdiction, documents, appointment scope and authority comments.
                 </p>
               </Link>
             ))}
@@ -480,14 +465,19 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
           <div>
             <FileCheck2 className="h-14 w-14 text-brand" />
             <PremiumSectionHeading
-              eyebrow="Why Emitronix"
-              title="Approval support backed by construction-side coordination."
-              description="Emitronix keeps authority work connected to drawings, site sequencing, consultant responses and handover requirements."
+              eyebrow="Before appointment"
+              title="Questions that should be resolved before approval coordination begins."
+              description="A project-specific proposal should define the authority route, formal submitter, coordination scope, exclusions and authority-controlled outcomes."
               light
             />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            {service.whyChoose.map((item) => (
+            {[
+              "Confirm the current authority route and project jurisdiction.",
+              "Identify the properly appointed and eligible formal submitter.",
+              "Define Emitronix's document, stakeholder and site-readiness tasks.",
+              "Record exclusions, dependencies and authority-controlled outcomes.",
+            ].map((item) => (
               <article key={item} className="rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-6 backdrop-blur-xl">
                 <CheckCircle2 className="h-6 w-6 text-brand" />
                 <p className="mt-4 text-sm font-bold leading-7 text-charcoal">{item}</p>
@@ -508,9 +498,9 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       <section className="section-pad bg-white">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Internal link map"
+            eyebrow="Next resources"
             title={`${service.menuLabel} connected to Dubai construction and authority workflows.`}
-            description="Approval pages link to related authority routes, construction-side coordination and enquiry actions so buyers can move through the right next step."
+            description="Continue to related authority routes, construction coordination and the right enquiry step."
             align="center"
           />
           <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -551,9 +541,9 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         eyebrow="Authority trust"
         title="A practical approval route for owners, tenants and consultants."
         points={[
-          "Dubai authority-focused page structure",
+          "Clear authority and appointment boundaries",
           "Document and comment tracking",
-          "Related approval internal links",
+          "Connected approval guidance",
           "Construction-side close-out awareness",
         ]}
       />
@@ -579,21 +569,20 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         </div>
       </section>
 
-      <FAQSection
-        title={`${service.menuLabel} FAQ.`}
-        description="Useful answers for Dubai project teams preparing authority submissions, comments and inspections."
-        faqs={approvalFaqs}
-        schema
-      />
+      <div id="faq">
+        <FAQSection
+          title={`${service.menuLabel} FAQ.`}
+          description="Useful answers for Dubai project teams preparing authority submissions, comments and inspections."
+          faqs={approvalFaqs}
+          schema
+        />
+      </div>
 
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
     </>
   );

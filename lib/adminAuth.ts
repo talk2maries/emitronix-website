@@ -1,5 +1,5 @@
 import { createHmac, randomBytes, randomUUID, scryptSync, timingSafeEqual } from "crypto";
-import { mkdir, readFile, writeFile } from "fs/promises";
+import { chmod, mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 
 export type AdminRole = "admin" | "seo";
@@ -47,8 +47,11 @@ export function verifyPassword(password: string, stored: string) {
 }
 
 async function writeUsers(users: AdminUser[]) {
-  await mkdir(path.dirname(USERS_PATH), { recursive: true });
-  await writeFile(USERS_PATH, JSON.stringify(users, null, 2), "utf8");
+  const directory = path.dirname(USERS_PATH);
+  await mkdir(directory, { recursive: true, mode: 0o700 });
+  await chmod(directory, 0o700);
+  await writeFile(USERS_PATH, JSON.stringify(users, null, 2), { encoding: "utf8", mode: 0o600 });
+  await chmod(USERS_PATH, 0o600);
 }
 
 /**

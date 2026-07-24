@@ -1,6 +1,7 @@
 import { createHmac, timingSafeEqual } from "crypto";
 
 export const COOKIE_ADMIN_SESSION_NAME = "emitronix_cookie_admin";
+export const COOKIE_ADMIN_SESSION_TTL_SECONDS = 60 * 60 * 8;
 
 const ADMIN_CONTEXT = "emitronix-cookie-consent-admin";
 
@@ -12,10 +13,15 @@ export function isCookieAdminConfigured() {
   return Boolean(getCookieAdminSecret());
 }
 
+function createCookieAdminSignature(secret: string, expiresAt: number) {
+  return createHmac("sha256", secret).update(`${ADMIN_CONTEXT}:${expiresAt}`).digest("hex");
+}
+
 export function createCookieAdminSessionValue() {
   const secret = getCookieAdminSecret();
   if (!secret) return "";
-  return createHmac("sha256", secret).update(ADMIN_CONTEXT).digest("hex");
+  const expiresAt = Math.floor(Date.now() / 1000) + COOKIE_ADMIN_SESSION_TTL_SECONDS;
+  return `${expiresAt}.${createCookieAdminSignature(secret, expiresAt)}`;
 }
 
 function safeCompare(left: string, right: string) {
@@ -31,8 +37,17 @@ export function verifyCookieAdminPassword(value: unknown) {
 }
 
 export function hasCookieAdminAccess(value: string | undefined) {
-  const expected = createCookieAdminSessionValue();
-  return Boolean(value && expected && safeCompare(value, expected));
+  const secret = getCookieAdminSecret();
+  if (!value || !secret) return false;
+
+  const parts = value.split(".");
+  if (parts.length !== 2 || !/^\d+$/.test(parts[0])) return false;
+
+  const expiresAt = Number(parts[0]);
+  if (!Number.isSafeInteger(expiresAt) || expiresAt <= Math.floor(Date.now() / 1000)) return false;
+
+  const expectedSignature = createCookieAdminSignature(secret, expiresAt);
+  return safeCompare(parts[1], expectedSignature);
 }
 
 export function hasCookieAdminCookie(cookies: { get: (name: string) => { value: string } | undefined }) {

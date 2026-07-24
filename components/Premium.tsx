@@ -108,6 +108,9 @@ export function PageHero({
         <div className="absolute bottom-24 right-0 h-px w-1/2 bg-gradient-to-r from-transparent via-brand-sky/25 to-transparent" />
         <div className="absolute right-[14%] top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-white/20 to-transparent lg:block" />
       </div>
+      <p className="absolute right-4 top-24 z-30 rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.68rem] font-black uppercase tracking-[0.18em] text-white backdrop-blur-xl sm:right-8">
+        Illustrative stock image — not project evidence
+      </p>
       <div className="container-pad relative z-30 grid min-h-[720px] gap-10 pt-32 lg:grid-cols-[0.94fr_0.72fr] lg:items-end lg:pb-24 lg:pt-40">
         <div className="z-10 max-w-5xl pb-12 lg:pb-0">
           <p className="text-xs font-black uppercase tracking-[0.32em] text-brand-sky">{eyebrow}</p>
@@ -136,12 +139,12 @@ export function PageHero({
         <div className="relative z-10 hidden pb-12 lg:block">
           <div className="rounded-[2rem] border border-white/25 bg-white/[0.12] p-5 shadow-luxe backdrop-blur-2xl">
             <div className="rounded-[1.5rem] border border-white/20 bg-white/[0.82] p-5 text-charcoal shadow-panel">
-              <p className="premium-kicker">Dubai delivery intelligence</p>
+              <p className="premium-kicker">Project planning summary</p>
               <p className="mt-3 text-2xl font-black tracking-tight text-charcoal">
-                Civil, MEP, approvals and fit-out decisions aligned before site execution.
+                Civil, MEP, approval and fit-out questions to align before site execution.
               </p>
               <div className="mt-5 grid gap-2">
-                {["Authority-aware planning", "Premium scope control", "Handover-ready coordination"].map((item) => (
+                {["Project-specific authority check", "Documented scope boundaries", "Handover planning"].map((item) => (
                   <span key={item} className="rounded-2xl border border-brand/[0.12] bg-brand-soft px-4 py-3 text-sm font-black text-charcoal">
                     {item}
                   </span>
@@ -256,6 +259,9 @@ export function ImagePanel({
   return (
     <div className="relative min-h-[420px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-smoke shadow-luxe">
       <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+      <p className="absolute right-4 top-4 z-10 rounded-full border border-white/70 bg-white/90 px-3 py-2 text-[0.65rem] font-black uppercase tracking-[0.16em] text-charcoal shadow-sm">
+        Illustrative stock image — not project evidence
+      </p>
       <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/30 to-transparent" />
       <div className="absolute bottom-6 left-6 right-6 rounded-[1.5rem] border border-white/70 bg-white/[0.82] p-5 text-charcoal shadow-panel backdrop-blur-2xl">
         <p className="text-xs font-black uppercase tracking-[0.26em] text-brand">{label}</p>

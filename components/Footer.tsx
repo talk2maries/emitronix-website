@@ -1,10 +1,11 @@
 "use client";
 
 import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BrandLogo } from "@/components/BrandLogo";
 import { CookieSettingsFooterButton } from "@/components/CookieConsentManager";
+import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
 import { approvalServices } from "@/data/approvals";
 import { arabicApprovalTitle, arabicFooterLabels, arabicNavItems, arabicServiceTitle } from "@/data/arabic";
 import { navItems, services, site, whatsappUrl } from "@/data/site";
@@ -18,7 +19,7 @@ const sectorLinks = [
 ];
 
 export function Footer() {
-  const pathname = usePathname();
+  const pathname = useHydrationSafePathname(usePathname());
   const isArabic = isArabicPath(pathname);
   const locale = isArabic ? "ar" : "en";
   const currentNavItems = isArabic ? arabicNavItems : navItems;
@@ -38,9 +39,9 @@ export function Footer() {
         cookieSettings: "Cookie Settings",
         startProject: "Start a project",
         startProjectTitle: "Bring engineering clarity to your next Dubai build.",
-        quote: "Get a Free Quote",
+        quote: "Request a Quote",
         whatsapp: "WhatsApp Us",
-        footerTagline: "Construction Company Dubai | Civil Contractor Dubai | Authority Approvals Dubai",
+        footerTagline: "Construction, engineering and project information for Dubai and the UAE",
       };
   const currentSectorLinks = isArabic
     ? [
@@ -57,12 +58,10 @@ export function Footer() {
         <div className="overflow-hidden rounded-[2.5rem] border border-brand/[0.15] bg-[linear-gradient(135deg,#ffffff_0%,#f8fbff_58%,#eaf5ff_100%)] shadow-luxe">
           <div className="grid gap-10 border-b border-brand/[0.12] p-6 lg:grid-cols-[1.2fr_0.8fr] lg:p-10">
             <div>
-              <Image
-                src="/images/emitronix-logo-horizontal.svg"
-                alt="Emitronix Building the Future logo"
-                width={230}
-                height={51}
-                className="h-14 w-auto object-contain sm:h-16"
+              <BrandLogo
+                className="block"
+                imageClassName="h-14 w-auto object-contain sm:h-16"
+                sizes="(min-width: 640px) 274px, 240px"
               />
               <p className="mt-6 max-w-2xl text-lg leading-8 text-steel">
                 {isArabic
@@ -95,11 +94,23 @@ export function Footer() {
                     </Link>
                   </li>
                 ))}
-                <li>
-                  <Link href={localizedPath("/resources", locale)} className="transition hover:text-brand">
-                    {labels.resources}
-                  </Link>
-                </li>
+                {!currentNavItems.some((item) => item.href === "/resources") ? (
+                  <li>
+                    <Link href={localizedPath("/resources", locale)} className="transition hover:text-brand">
+                      {labels.resources}
+                    </Link>
+                  </li>
+                ) : null}
+                {!isArabic ? (
+                  <>
+                    <li><Link href="/founder" className="transition hover:text-brand">Founder</Link></li>
+                    <li><Link href="/leadership" className="transition hover:text-brand">Leadership</Link></li>
+                    <li><Link href="/company-information" className="transition hover:text-brand">Company Information</Link></li>
+                    <li><Link href="/locations/dubai" className="transition hover:text-brand">Dubai Service Area</Link></li>
+                    <li><Link href="/faqs" className="transition hover:text-brand">FAQs</Link></li>
+                    <li><Link href="/careers" className="transition hover:text-brand">Careers</Link></li>
+                  </>
+                ) : null}
                 <li>
                   <Link href={localizedPath("/html-sitemap", locale)} className="transition hover:text-brand">
                     {labels.htmlSitemap}
@@ -120,6 +131,15 @@ export function Footer() {
                     {labels.terms}
                   </Link>
                 </li>
+                {!isArabic ? (
+                  <>
+                    <li><Link href="/editorial-policy" className="transition hover:text-brand">Editorial Policy</Link></li>
+                    <li><Link href="/technical-review-policy" className="transition hover:text-brand">Technical Review Policy</Link></li>
+                    <li><Link href="/corrections-policy" className="transition hover:text-brand">Corrections Policy</Link></li>
+                    <li><Link href="/disclaimer" className="transition hover:text-brand">Disclaimer</Link></li>
+                    <li><Link href="/accessibility" className="transition hover:text-brand">Accessibility</Link></li>
+                  </>
+                ) : null}
                 <li>
                   <CookieSettingsFooterButton label={labels.cookieSettings} />
                 </li>

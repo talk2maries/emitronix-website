@@ -72,6 +72,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, message: "The enquiry is too large. Please shorten the message and try again." }, { status: 413 });
   }
 
+  if (request.headers.get("content-type")?.split(";", 1)[0]?.trim().toLowerCase() !== "application/json") {
+    return badRequest("Invalid enquiry format.");
+  }
+
+  if (request.headers.get("sec-fetch-site") === "cross-site") {
+    return NextResponse.json({ ok: false, message: "Cross-site submissions are not accepted." }, { status: 403 });
+  }
+
   const ip = clientIp(request);
 
   if (isRateLimited(ip)) {
@@ -81,7 +89,22 @@ export async function POST(request: NextRequest) {
   let payload: ContactPayload;
 
   try {
-    payload = (await request.json()) as ContactPayload;
+    const body = await request.text();
+
+    if (Buffer.byteLength(body, "utf8") > MAX_BODY_BYTES) {
+      return NextResponse.json(
+        { ok: false, message: "The enquiry is too large. Please shorten the message and try again." },
+        { status: 413 },
+      );
+    }
+
+    const parsed = JSON.parse(body) as unknown;
+
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return badRequest("Invalid enquiry format.");
+    }
+
+    payload = parsed as ContactPayload;
   } catch {
     return badRequest("Invalid enquiry format.");
   }
@@ -109,6 +132,18 @@ export async function POST(request: NextRequest) {
 
   if (!lead.email || !isValidEmail(lead.email)) {
     return badRequest("Please enter a valid email address.");
+  }
+
+  if (!lead.phone) {
+    return badRequest("Please enter a mobile number.");
+  }
+
+  if (!lead.service) {
+    return badRequest("Please select the service required.");
+  }
+
+  if (!lead.projectLocation) {
+    return badRequest("Please enter the project location.");
   }
 
   if (!lead.message) {

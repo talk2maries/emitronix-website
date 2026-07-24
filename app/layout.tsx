@@ -1,22 +1,24 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
 import "./globals.css";
 import { CookieConsentManager } from "@/components/CookieConsentManager";
 import { DocumentLocaleSync } from "@/components/DocumentLocaleSync";
 import { FloatingActions } from "@/components/FloatingActions";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
-import { SeoRuntime } from "@/components/SeoRuntime";
-import { absoluteUrl, services, site, whatsappUrl } from "@/data/site";
-import { readSiteFiles } from "@/lib/adminStore";
-
-const googleTagManagerId = "GTM-MSM8MPD6";
+import {
+  absoluteUrl,
+  brandAssets,
+  brandLogoImageObject,
+  services,
+  site,
+  whatsappUrl,
+} from "@/data/site";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
 // Refresh statically generated pages every 5 minutes so administrator SEO
-// overrides and global scripts take effect without a rebuild.
+// overrides take effect without a rebuild.
 export const revalidate = 300;
 
 const inter = Inter({
@@ -36,15 +38,10 @@ export const metadata: Metadata = {
   keywords: [
     "Emitronix Contracting LLC",
     "Dubai civil contracting",
-    "G+4 building contractor Dubai",
     "building contractor Dubai",
     "civil contractor Dubai",
-    "Dubai contracting company",
     "warehouse contractor UAE",
     "renovation contractor Dubai",
-    "DEWA approvals",
-    "Dubai Municipality approvals",
-    "Dubai Civil Defence approvals",
     "authority approvals Dubai",
     "interior fit-out Dubai",
   ],
@@ -61,6 +58,10 @@ export const metadata: Metadata = {
       "x-default": absoluteUrl("/"),
     },
   },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     type: "website",
     locale: "en_AE",
@@ -70,10 +71,10 @@ export const metadata: Metadata = {
     description: site.description,
     images: [
       {
-        url: absoluteUrl("/images/dubai-building-contracting-company.webp"),
-        width: 1672,
-        height: 941,
-        alt: "Dubai construction skyline and crane works for Emitronix Contracting LLC",
+        url: absoluteUrl(brandAssets.socialCard),
+        width: 1200,
+        height: 630,
+        alt: "Emitronix — Building the Future",
       },
     ],
   },
@@ -81,24 +82,30 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: site.title,
     description: site.description,
-    images: [absoluteUrl("/images/dubai-building-contracting-company.webp")],
+    images: [absoluteUrl(brandAssets.socialCard)],
   },
   icons: {
-    icon: "/favicon.svg",
+    icon: [
+      { url: brandAssets.markSvg, type: "image/svg+xml" },
+      { url: brandAssets.faviconPng, type: "image/png", sizes: "32x32" },
+    ],
+    shortcut: brandAssets.markSvg,
+    apple: [
+      {
+        url: brandAssets.appleTouchIcon,
+        type: "image/png",
+        sizes: "180x180",
+      },
+    ],
   },
+  manifest: "/manifest.webmanifest",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const requestHeaders = await headers();
-  const pathname = requestHeaders.get("x-emitronix-pathname") ?? "";
-  const isArabicDocument = pathname === "/ar" || pathname.startsWith("/ar/");
-  const documentLang = isArabicDocument ? "ar" : "en";
-  const documentDir = isArabicDocument ? "rtl" : "ltr";
-  const siteFiles = await readSiteFiles().catch(() => ({}) as Awaited<ReturnType<typeof readSiteFiles>>);
   const organizationId = absoluteUrl("/#organization");
   const localBusinessId = absoluteUrl("/#localbusiness");
   const jsonLd = {
@@ -110,14 +117,17 @@ export default async function RootLayout({
         name: site.legalName,
         alternateName: site.name,
         url: site.url,
-        logo: {
-          "@type": "ImageObject",
-          url: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-        },
+        logo: brandLogoImageObject,
         image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
         description: site.description,
         email: site.email,
         telephone: site.phone,
+        founder: {
+          "@id": absoluteUrl("/founder#person"),
+        },
+        publishingPrinciples: absoluteUrl("/editorial-policy"),
+        ethicsPolicy: absoluteUrl("/editorial-policy"),
+        correctionsPolicy: absoluteUrl("/corrections-policy"),
       },
       {
         "@type": ["LocalBusiness", "GeneralContractor"],
@@ -128,7 +138,7 @@ export default async function RootLayout({
         parentOrganization: {
           "@id": organizationId,
         },
-        logo: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
+        logo: brandLogoImageObject,
         image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
         description: site.description,
         email: site.email,
@@ -157,7 +167,7 @@ export default async function RootLayout({
           email: site.email,
           contactType: "customer service",
           areaServed: "AE",
-          availableLanguage: ["English", "Arabic"],
+          availableLanguage: ["English"],
         },
         hasOfferCatalog: {
           "@type": "OfferCatalog",
@@ -186,48 +196,19 @@ export default async function RootLayout({
         publisher: {
           "@id": organizationId,
         },
-        inLanguage: ["en-AE", "ar-AE"],
+        inLanguage: "en-AE",
       },
     ],
   };
 
   return (
-    <html lang={documentLang} dir={documentDir} className={inter.variable} suppressHydrationWarning>
+    <html lang="en" dir="ltr" className={inter.variable} suppressHydrationWarning>
       <head>
-        {/* eslint-disable-next-line @next/next/next-script-for-ga -- Google Tag Manager requires this document-head bootstrap snippet. */}
         <script
-          id="google-tag-manager"
+          id="emitronix-organization-schema"
+          type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: `
-(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${googleTagManagerId}');
-`,
-          }}
-        />
-      </head>
-      <body className="min-h-screen antialiased">
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${googleTagManagerId}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-            title="Google Tag Manager"
-          />
-        </noscript>
-        <script
-          id="emitronix-document-language"
-          dangerouslySetInnerHTML={{
-            __html: `
-(function(){
-  var isArabic = window.location.pathname === '/ar' || window.location.pathname.indexOf('/ar/') === 0;
-  document.documentElement.lang = isArabic ? 'ar' : 'en';
-  document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
-})();
-`,
+            __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
         <script
@@ -249,23 +230,27 @@ gtag('consent', 'default', {
 `,
           }}
         />
+      </head>
+      <body className="min-h-screen antialiased">
+        <a href="#main-content" className="skip-link">Skip to main content</a>
+        <script
+          id="emitronix-document-language"
+          dangerouslySetInnerHTML={{
+            __html: `
+(function(){
+  var isArabic = window.location.pathname === '/ar' || window.location.pathname.indexOf('/ar/') === 0;
+  document.documentElement.lang = isArabic ? 'ar' : 'en';
+  document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
+})();
+`,
+          }}
+        />
         <DocumentLocaleSync />
-        {siteFiles.headScripts ? (
-          <div id="emitronix-global-head-scripts" dangerouslySetInnerHTML={{ __html: siteFiles.headScripts }} />
-        ) : null}
         <Header />
-        <main className="min-h-screen">{children}</main>
+        <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>
         <Footer />
         <CookieConsentManager />
         <FloatingActions phone={site.phone} whatsappUrl={whatsappUrl} />
-        <SeoRuntime />
-        {siteFiles.footerScripts ? (
-          <div id="emitronix-global-footer-scripts" dangerouslySetInnerHTML={{ __html: siteFiles.footerScripts }} />
-        ) : null}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
       </body>
     </html>
   );

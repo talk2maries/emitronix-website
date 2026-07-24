@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
 
 type RedirectEntry = { from: string; to: string; permanent: boolean };
 
@@ -11,6 +12,21 @@ function nextWithLocaleHeaders(request: NextRequest) {
   requestHeaders.set("x-emitronix-pathname", request.nextUrl.pathname);
 
   return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
+}
+
+function rewriteToBrandedNotFound(request: NextRequest) {
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set("x-emitronix-pathname", request.nextUrl.pathname);
+
+  const destination = request.nextUrl.clone();
+  destination.pathname = "/__emitronix-route-not-found";
+  destination.search = "";
+
+  return NextResponse.rewrite(destination, {
     request: {
       headers: requestHeaders,
     },
@@ -38,15 +54,23 @@ async function loadRedirects(request: NextRequest): Promise<Map<string, Redirect
 }
 
 export async function middleware(request: NextRequest) {
-  const redirects = await loadRedirects(request);
-  if (redirects.size === 0) return nextWithLocaleHeaders(request);
-
   const pathname = request.nextUrl.pathname.replace(/\/+$/, "") || "/";
+  const redirects = await loadRedirects(request);
   const entry = redirects.get(pathname);
-  if (!entry) return nextWithLocaleHeaders(request);
+  if (entry) {
+    try {
+      const destination = entry.to.startsWith("http") ? entry.to : new URL(entry.to, request.url);
+      return NextResponse.redirect(destination, entry.permanent ? 301 : 302);
+    } catch {
+      // Ignore malformed administrator data instead of surfacing a runtime error.
+    }
+  }
 
-  const destination = entry.to.startsWith("http") ? entry.to : new URL(entry.to, request.url);
-  return NextResponse.redirect(destination, entry.permanent ? 301 : 302);
+  if (isUnknownClosedSetPath(pathname)) {
+    return rewriteToBrandedNotFound(request);
+  }
+
+  return nextWithLocaleHeaders(request);
 }
 
 export const config = {

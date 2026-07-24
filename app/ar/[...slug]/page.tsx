@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactElement } from "react";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import AboutPage from "@/app/about/page";
 import ApprovalPage from "@/app/approval/page";
 import BlogPage from "@/app/blog/page";
@@ -25,10 +25,13 @@ import {
 import { blogPosts } from "@/data/blog";
 import { applySeoOverrides } from "@/data/seo";
 import { getServiceByRoutePath } from "@/data/site";
+import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
 
 type ArabicCatchAllPageProps = {
   params: Promise<{ slug: string[] }>;
 };
+
+export const dynamicParams = false;
 
 function englishPathFromSlug(slug: string[]) {
   return `/${slug.join("/")}`;
@@ -50,10 +53,14 @@ const commonPages: Record<string, () => ReactElement> = {
 };
 
 export function generateStaticParams() {
-  return arabicSitemapPaths()
+  const paths = arabicSitemapPaths()
     .filter((path) => path !== "/ar")
-    .filter((path) => !["/ar/cookie-policy", "/ar/privacy-policy", "/ar/terms-and-conditions"].includes(path))
-    .map((path) => ({ slug: path.replace(/^\/ar\//, "").split("/") }));
+    .filter((path) => !["/ar/cookie-policy", "/ar/privacy-policy", "/ar/terms-and-conditions"].includes(path));
+  const missingManifestPath = paths.find((path) => isUnknownClosedSetPath(path));
+  if (missingManifestPath) {
+    throw new Error(`Arabic route manifest is missing ${missingManifestPath}`);
+  }
+  return paths.map((path) => ({ slug: path.replace(/^\/ar\//, "").split("/") }));
 }
 
 export async function generateMetadata({ params }: ArabicCatchAllPageProps): Promise<Metadata> {
@@ -61,12 +68,31 @@ export async function generateMetadata({ params }: ArabicCatchAllPageProps): Pro
   const englishPath = englishPathFromSlug(slug);
   const page = getArabicPageByEnglishPath(englishPath);
   if (!page) return {};
-  return applySeoOverrides(getArabicMetadata(page), `/ar${englishPath}`);
+  const metadata = await applySeoOverrides(getArabicMetadata(page), `/ar${englishPath}`);
+  if (englishPath === "/guest-post") {
+    return {
+      ...metadata,
+      robots: { index: false, follow: true },
+    };
+  }
+  return metadata;
 }
 
 export default async function ArabicCatchAllPage({ params }: ArabicCatchAllPageProps) {
   const { slug } = await params;
   const englishPath = englishPathFromSlug(slug);
+
+  if (englishPath === "/approvals") {
+    permanentRedirect("/ar/approval");
+  }
+
+  if (englishPath.startsWith("/services/")) {
+    const aliasService = getServiceByRoutePath(englishPath);
+    if (aliasService) {
+      permanentRedirect(`/ar${aliasService.href}`);
+    }
+  }
+
   const page = getArabicPageByEnglishPath(englishPath);
   if (!page) notFound();
 

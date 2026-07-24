@@ -79,15 +79,15 @@ export function ProjectsPortfolio() {
       <div className="container-pad">
         <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:items-end">
           <div>
-            <p className="premium-kicker">Interactive portfolio</p>
+            <p className="premium-kicker">Scope planning library</p>
             <h2 className="mt-4 text-balance text-4xl font-black leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
-              Representative Dubai project profiles.
+              Illustrative Dubai project-planning scenarios.
             </h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-steel">
-              Explore civil works, MEP works, interior fit-out, commercial renovation, maintenance and authority approval profiles with a publication-safe portfolio view. Public case studies are added only after client approval.
+              Explore common civil, MEP, fit-out, renovation, maintenance and approval-coordination situations. These cards are educational examples, not completed-project claims, client work or case studies.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3 lg:justify-end" aria-label="Filter projects by category">
+          <div className="flex flex-wrap gap-3 lg:justify-end" aria-label="Filter planning scenarios by category">
             {projectFilters.map((filter) => {
               const Icon = filterIcons[filter];
               const isActive = activeFilter === filter;
@@ -114,7 +114,7 @@ export function ProjectsPortfolio() {
 
         <div className="mt-10 flex items-center justify-between gap-4 border-y border-brand/10 py-4">
           <p className="text-sm font-bold text-steel">
-            Showing <span className="text-brand">{visibleProjects.length}</span> project profiles
+            Showing <span className="text-brand">{visibleProjects.length}</span> illustrative scenarios
           </p>
           <Link href="/contact" className="hidden items-center gap-2 text-sm font-black uppercase tracking-wide text-brand transition hover:text-brand-deep sm:inline-flex">
             Start a similar project <ArrowRight className="h-4 w-4" />
@@ -161,7 +161,7 @@ export function ProjectsPortfolio() {
                     <div className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-brand-soft/90 p-4">
                       <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
                       <div>
-                        <p className="text-[11px] font-black uppercase tracking-[0.22em] text-brand">Location</p>
+                        <p className="text-[11px] font-black uppercase tracking-[0.22em] text-brand">Planning context</p>
                         <p className="mt-1 text-sm font-bold leading-6 text-charcoal">{project.location}</p>
                       </div>
                     </div>

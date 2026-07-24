@@ -1,5 +1,5 @@
 import { randomUUID } from "crypto";
-import { mkdir, writeFile } from "fs/promises";
+import { chmod, mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { NextRequest, NextResponse } from "next/server";
 import { createZohoLead, type WebsiteLead } from "@/lib/zoho";
@@ -10,6 +10,7 @@ export const dynamic = "force-dynamic";
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 const MAX_CV_BYTES = 8 * 1024 * 1024;
+const MAX_REQUEST_BYTES = 9 * 1024 * 1024;
 const ALLOWED_EXTENSIONS = [".pdf", ".doc", ".docx"];
 const STORAGE_DIR = process.env.CAREERS_STORE_DIR || path.join(process.cwd(), "storage", "careers");
 
@@ -44,7 +45,57 @@ function badRequest(message: string) {
   return NextResponse.json({ ok: false, message }, { status: 400 });
 }
 
+function hasExpectedSignature(extension: string, bytes: Buffer) {
+  if (extension === ".pdf") {
+    return bytes.subarray(0, 5).toString("ascii") === "%PDF-";
+  }
+
+  if (extension === ".docx") {
+    return bytes.length >= 4 && bytes[0] === 0x50 && bytes[1] === 0x4b && bytes[2] === 0x03 && bytes[3] === 0x04;
+  }
+
+  if (extension === ".doc") {
+    const compoundFileHeader = [0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1];
+    return compoundFileHeader.every((byte, index) => bytes[index] === byte);
+  }
+
+  return false;
+}
+
 export async function POST(request: NextRequest) {
+  const contentLengthHeader = request.headers.get("content-length");
+
+  if (!contentLengthHeader || !/^[1-9]\d*$/.test(contentLengthHeader)) {
+    return NextResponse.json(
+      { ok: false, message: "A valid Content-Length header is required." },
+      { status: 411 },
+    );
+  }
+
+  const contentLength = Number(contentLengthHeader);
+
+  if (!Number.isSafeInteger(contentLength)) {
+    return NextResponse.json(
+      { ok: false, message: "A valid Content-Length header is required." },
+      { status: 411 },
+    );
+  }
+
+  if (contentLength > MAX_REQUEST_BYTES) {
+    return NextResponse.json(
+      { ok: false, message: "The application is too large. Please upload a smaller CV." },
+      { status: 413 },
+    );
+  }
+
+  if (request.headers.get("sec-fetch-site") === "cross-site") {
+    return NextResponse.json({ ok: false, message: "Cross-site submissions are not accepted." }, { status: 403 });
+  }
+
+  if (!request.headers.get("content-type")?.toLowerCase().startsWith("multipart/form-data")) {
+    return badRequest("Invalid application format.");
+  }
+
   const ip = clientIp(request);
 
   if (isRateLimited(ip)) {
@@ -79,6 +130,7 @@ export async function POST(request: NextRequest) {
     message: text(formData.get("message"), 3000),
     language: text(formData.get("language"), 5) || "en",
     pageUrl: text(formData.get("pageUrl"), 300),
+    consent: formData.get("consent") === "on",
   };
 
   if (!application.fullName) return badRequest("Please enter your full name.");
@@ -86,6 +138,7 @@ export async function POST(request: NextRequest) {
   if (!application.mobile) return badRequest("Please enter your mobile number.");
   if (!application.position) return badRequest("Please select a position.");
   if (!application.message) return badRequest("Please add a short message or cover letter.");
+  if (!application.consent) return badRequest("Please confirm consent before submitting your application.");
 
   const resume = formData.get("resume");
 
@@ -103,12 +156,18 @@ export async function POST(request: NextRequest) {
     return badRequest("Please upload a CV smaller than 8 MB.");
   }
 
+  const cvBuffer = Buffer.from(await resume.arrayBuffer());
+  if (!hasExpectedSignature(extension, cvBuffer)) {
+    return badRequest("The CV file content does not match the selected PDF, DOC, or DOCX format.");
+  }
+
   const id = `${new Date().toISOString().replace(/[:.]/g, "-")}-${randomUUID().slice(0, 8)}`;
   const cvFileName = `${id}${extension}`;
 
   try {
-    await mkdir(STORAGE_DIR, { recursive: true });
-    await writeFile(path.join(STORAGE_DIR, cvFileName), Buffer.from(await resume.arrayBuffer()));
+    await mkdir(STORAGE_DIR, { recursive: true, mode: 0o700 });
+    await chmod(STORAGE_DIR, 0o700);
+    await writeFile(path.join(STORAGE_DIR, cvFileName), cvBuffer, { mode: 0o600 });
     await writeFile(
       path.join(STORAGE_DIR, `${id}.json`),
       JSON.stringify(
@@ -123,7 +182,7 @@ export async function POST(request: NextRequest) {
         null,
         2,
       ),
-      "utf8",
+      { encoding: "utf8", mode: 0o600 },
     );
   } catch (error) {
     console.error("Career application storage failed", { id, error: error instanceof Error ? error.message : "unknown" });

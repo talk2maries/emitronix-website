@@ -21,13 +21,13 @@ const pageLabels: Record<CookiePolicyPageKey, Record<CookieLanguage, string>> = 
 
 const complianceLabels = {
   en: {
-    eyebrow: "Compliance",
+    eyebrow: "Website transparency",
     languageSwitch: "Arabic version",
     contact: "For privacy or cookie questions, contact Emitronix using the published contact details on the website.",
     legalNote: "This page is maintained for website transparency and may be updated when policies, tools or legal requirements change.",
   },
   ar: {
-    eyebrow: "الامتثال",
+    eyebrow: "شفافية الموقع",
     languageSwitch: "English version",
     contact: "لأي أسئلة حول الخصوصية أو ملفات الارتباط، يرجى التواصل مع Emitronix عبر بيانات الاتصال المنشورة في الموقع.",
     legalNote: "تتم صيانة هذه الصفحة لدعم شفافية الموقع وقد يتم تحديثها عند تغير السياسات أو الأدوات أو المتطلبات القانونية.",
@@ -65,6 +65,7 @@ export function PolicyContentPage({
       { "@type": "ListItem", position: 2, name: page.title, item: absoluteUrl(currentHref) },
     ],
   };
+  const safeBreadcrumbJsonLd = JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c");
 
   return (
     <article lang={language === "ar" ? "ar-AE" : "en-AE"} dir={isRtl ? "rtl" : "ltr"} className="bg-white text-charcoal">
@@ -89,7 +90,7 @@ export function PolicyContentPage({
               </span>
               <span className="inline-flex items-center gap-2 rounded-full border border-brand/[0.14] bg-white px-4 py-3 text-sm font-black text-brand shadow-sm">
                 <ShieldCheck className="h-4 w-4" />
-                GDPR | UAE PDPL | Google Consent Mode v2
+                Privacy and consent controls
               </span>
             </div>
           </div>
@@ -150,7 +151,7 @@ export function PolicyContentPage({
         </div>
       </section>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeBreadcrumbJsonLd }} />
     </article>
   );
 }

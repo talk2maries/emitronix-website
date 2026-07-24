@@ -11,7 +11,7 @@ export function HomeSignatureHero({ metrics }: { metrics: Metric[] }) {
         <div className="absolute left-0 right-0 top-0 h-[760px] w-full lg:inset-y-0 lg:left-auto lg:h-auto lg:w-[72%]">
           <Image
             src="/images/dubai-building-contracting-company.webp"
-            alt="Dubai construction skyline with cranes for Emitronix Contracting LLC"
+            alt="Illustrative stock image of a Dubai construction skyline; not evidence of an Emitronix project"
             fill
             priority
             fetchPriority="high"
@@ -19,6 +19,9 @@ export function HomeSignatureHero({ metrics }: { metrics: Metric[] }) {
             sizes="(min-width: 1024px) 72vw, 100vw"
             className="object-cover object-center"
           />
+          <p className="absolute right-4 top-24 z-20 rounded-full border border-white/70 bg-white/90 px-3 py-2 text-[0.65rem] font-black uppercase tracking-[0.16em] text-charcoal shadow-sm sm:right-8">
+            Illustrative stock image — not project evidence
+          </p>
           <div className="absolute inset-0 architectural-light" />
         </div>
         <div className="premium-grid absolute inset-0 opacity-55" />
@@ -37,7 +40,7 @@ export function HomeSignatureHero({ metrics }: { metrics: Metric[] }) {
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link href="/contact" className="premium-button">
-              Get a Free Quote <ArrowRight className="h-4 w-4" />
+              Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
               WhatsApp Us <MessageCircle className="h-4 w-4" />

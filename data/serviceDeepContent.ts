@@ -1674,8 +1674,8 @@ function makeServiceSemanticKeywords(service: Service, profile: ServiceProfile) 
 function makeServiceTopicalAuthorityBlocks(service: Service, profile: ServiceProfile): DeepCard[] {
   return [
     {
-      title: `${profile.primaryKeyword} scope map`,
-      description: `${service.title} buyers usually compare scope, authority exposure, drawings, site condition, procurement, quality control and handover obligations. This page connects those topics so the service can answer research, comparison and enquiry-stage searches without relying on thin copy.`,
+      title: `${service.title} scope map`,
+      description: `${service.title} decisions usually involve scope, authority exposure, drawings, site condition, procurement, quality control and handover obligations. Reviewing those topics together helps the project team identify gaps before work begins.`,
     },
     {
       title: "Dubai authority and landlord context",
@@ -1686,8 +1686,8 @@ function makeServiceTopicalAuthorityBlocks(service: Service, profile: ServicePro
       description: `${profile.primaryKeyword} decisions are shaped by asset type, drawings, materials, access, safety, utilities, inspections and stakeholder speed. Emitronix frames these variables early so buyers can compare options with clearer assumptions.`,
     },
     {
-      title: "Dubai local relevance",
-      description: `Location matters in areas such as ${profile.locations.slice(0, 6).join(", ")} because jurisdiction, logistics, access, working hours, NOCs and inspection routes can change the delivery path for the same headline service.`,
+      title: "Why location changes the project route",
+      description: "Jurisdiction, logistics, access, working hours, NOCs and inspection routes can change the delivery path for the same headline service. Confirm the actual location and approving parties before relying on general guidance.",
     },
   ];
 }
@@ -1695,19 +1695,19 @@ function makeServiceTopicalAuthorityBlocks(service: Service, profile: ServicePro
 function makeServiceCommercialIntentBlocks(service: Service, profile: ServiceProfile): DeepCard[] {
   return [
     {
-      title: "Research intent",
-      description: `A buyer searching for ${profile.primaryKeyword} may first need plain-English explanation of what is included, which documents matter, which Dubai authorities could apply and what risks should be checked before contacting contractors.`,
+      title: "Understanding the scope",
+      description: `A project team considering ${service.title.toLowerCase()} first needs a plain-English explanation of what may be included, which documents matter, which authorities could apply and what risks should be checked before appointing a contractor.`,
     },
     {
-      title: "Comparison intent",
+      title: "Comparing proposals",
       description: `When comparing providers, the strongest questions are about scope exclusions, approved drawings, authority comment handling, site supervision, procurement lead times, inspection records and handover responsibilities for ${service.title.toLowerCase()}.`,
     },
     {
-      title: "Quotation intent",
+      title: "Preparing a quotation request",
       description: `A quotation becomes more reliable when the enquiry includes location, drawings, intended use, authority status, site photographs, preferred timeline and known constraints. Without those facts, pricing can hide major assumptions.`,
     },
     {
-      title: "Urgent enquiry intent",
+      title: "Handling urgent constraints",
       description: `Urgent ${service.title.toLowerCase()} enquiries should start with blocker identification: missing documents, authority comments, unsafe sequence, incomplete procurement, site-access constraints or unclear stakeholder responsibility.`,
     },
   ];
@@ -2023,7 +2023,13 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
 
   genericServiceFaqs.forEach((faq) => addFaq(faqs, faq.question, faq.answer));
 
-  return faqs.slice(0, 96);
+  const nonPromotionalFaqs = faqs.filter(
+    (faq) =>
+      !/(best |AI assistant|AI search|Google|search visibility|near me|fit for)/i.test(faq.question) &&
+      !/^Do you provide /i.test(faq.question),
+  );
+
+  return nonPromotionalFaqs.slice(0, 10);
 }
 
 type ApprovalProfile = {
@@ -2251,13 +2257,6 @@ function makeApprovalSemanticKeywords(service: ApprovalService, profile: Approva
     ...profile.buyerSearches,
     ...buyerModifiers.map((modifier) => `${profile.primaryKeyword} ${modifier}`),
     ...buyerModifiers.map((modifier) => `${service.menuLabel} ${modifier}`),
-    ...profile.locations.flatMap((location) => [
-      `${profile.primaryKeyword} ${location}`,
-      `${service.menuLabel} ${location}`,
-      `${service.menuLabel} support ${location}`,
-      `${service.menuLabel} consultant coordination ${location}`,
-      `${service.menuLabel} contractor ${location}`,
-    ]),
     ...profile.projectTypes.flatMap((projectType) => [
       `${service.menuLabel} for ${projectType}`,
       `${profile.primaryKeyword} for ${projectType}`,
@@ -2284,8 +2283,9 @@ function makeApprovalTopicalAuthorityBlocks(service: ApprovalService, profile: A
       description: `${service.menuLabel} can affect ${profile.projectTypes.slice(0, 5).join(", ")} and similar Dubai scopes when location, use, drawings or inspection requirements bring the project under an authority or landlord process.`,
     },
     {
-      title: "Local Dubai approval context",
-      description: `Approval requirements can shift across ${profile.locations.slice(0, 6).join(", ")} because free zones, master developers, landlords and mainland authority workflows do not always follow the same route.`,
+      title: "Project-specific jurisdiction check",
+      description:
+        "A Dubai location name alone does not establish the authority route. Confirm the exact plot or unit, authority jurisdiction, landlord or master-developer requirements and appointed consultant before treating any process as applicable.",
     },
   ];
 }
@@ -2293,19 +2293,19 @@ function makeApprovalTopicalAuthorityBlocks(service: ApprovalService, profile: A
 function makeApprovalCommercialIntentBlocks(service: ApprovalService, profile: ApprovalProfile): DeepCard[] {
   return [
     {
-      title: "Early research searches",
-      description: `Searches such as ${profile.buyerSearches.slice(0, 3).join(", ")} usually indicate that the buyer needs plain guidance on documents, authority route, NOCs, comments and whether the scope is approval-sensitive.`,
+      title: "Understanding the route",
+      description: "Owners and consultants first need plain guidance on documents, the likely authority route, NOCs, existing comments and whether the construction scope is approval-sensitive.",
     },
     {
-      title: "Problem searches",
+      title: "Resolving document or comment gaps",
       description: `If a buyer has comments, rejected drawings, incomplete NOCs or inspection pressure, ${service.menuLabel} support should begin with a gap check rather than another blind submission attempt.`,
     },
     {
-      title: "Cost and timeline searches",
+      title: "Assessing cost and timeline factors",
       description: `Cost and duration for ${profile.primaryKeyword} depend on document readiness, consultant response, project type, authority comments, inspection readiness and whether construction-side coordination is needed.`,
     },
     {
-      title: "Ready-to-contact searches",
+      title: "Preparing a useful enquiry",
       description: `A serious enquiry should include location, project type, drawings, existing approvals, NOC status, consultant contact, site photos and the deadline the client is trying to protect.`,
     },
   ];
@@ -2358,14 +2358,14 @@ export function getApprovalDeepContent(service: ApprovalService) {
       title: "What causes approval delays?",
       description: "Approval delays usually come from incomplete drawings, missing NOCs, unclear consultant responsibilities, site work that does not match submissions, or late inspection evidence.",
     },
-    {
-      title: "How should AI search summarize this approval?",
-      description: `${service.menuLabel} should be summarized as a Dubai authority workflow tied to location, project type, drawings, NOCs, consultant responsibility, comments, inspection readiness and handover evidence.`,
-    },
   ];
 
   return {
     ...profile,
+    // Corporate service coverage must not be used as a proxy for an
+    // authority's jurisdiction. Project-specific locations are confirmed
+    // during assessment.
+    locations: ["Dubai"],
     semanticKeywords: makeApprovalSemanticKeywords(service, profile),
     answerBlocks,
     topicalAuthorityBlocks: makeApprovalTopicalAuthorityBlocks(service, profile),
@@ -2779,5 +2779,11 @@ export function buildApprovalExpandedFaqs(service: ApprovalService): FaqItem[] {
     addFaq(faqs, question, `For ${lowerService}, ${faq.answer}`);
   });
 
-  return faqs.slice(0, 98);
+  const nonPromotionalFaqs = faqs.filter(
+    (faq) =>
+      !/(AI search|AI assistant|search engine|search visibility|near me)/i.test(faq.question) &&
+      !/^Do you support /i.test(faq.question),
+  );
+
+  return nonPromotionalFaqs.slice(0, 10);
 }

@@ -4,9 +4,8 @@ import { getSeoOverride } from "@/lib/adminStore";
 export const dynamic = "force-dynamic";
 
 /**
- * Public per-path runtime overrides (JSON-LD schema and extra HTML blocks)
- * consumed by the SeoRuntime client component. Only publicly rendered fields
- * are exposed.
+ * Backwards-compatible, noindex export for stored schema data.
+ * Public pages no longer fetch or inject this data into the DOM.
  */
 export async function GET(request: NextRequest) {
   const path = request.nextUrl.searchParams.get("path") || "/";
@@ -14,8 +13,6 @@ export async function GET(request: NextRequest) {
   return NextResponse.json(
     {
       schemaJson: override?.schemaJson || null,
-      headHtml: override?.headHtml || null,
-      footerHtml: override?.footerHtml || null,
     },
     { headers: { "Cache-Control": "public, max-age=60" } },
   );

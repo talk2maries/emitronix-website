@@ -7,11 +7,20 @@ import { getCookieConsentData } from "@/lib/cookieConsentStore";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Cookie Consent Admin | Emitronix",
+  title: {
+    absolute: "Cookie Consent Admin | Emitronix",
+  },
+  description: "Private Emitronix cookie-consent administration utility.",
   robots: {
     index: false,
     follow: false,
   },
+  alternates: {
+    canonical: null,
+    languages: {},
+  },
+  openGraph: null,
+  twitter: null,
 };
 
 export default async function CookieConsentAdminPage() {

@@ -7,8 +7,19 @@ import { ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { HomeSignatureHero } from "@/components/HomeSignatureHero";
 import { CommandCenter, ImagePanel, PremiumLink, PremiumSectionHeading } from "@/components/Premium";
 import { ServiceCard } from "@/components/ServiceCard";
-import { blogPosts } from "@/data/blog";
-import { absoluteUrl, authorities, complianceHighlights, homeFaqs, services, site, stats, verifiedMetrics, whatsappUrl } from "@/data/site";
+import { blogImageAlt, blogPosts } from "@/data/blog";
+import {
+  absoluteUrl,
+  authorities,
+  brandAssets,
+  complianceHighlights,
+  homeFaqs,
+  services,
+  site,
+  stats,
+  verifiedMetrics,
+  whatsappUrl,
+} from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
@@ -31,7 +42,8 @@ export const generateMetadata = createMetadataResolver({
     "Interior Fit-Out Dubai",
     "Authority Approvals Dubai",
   ],
-  image: "/images/dubai-building-contracting-company.webp",
+  image: brandAssets.socialCard,
+  imageAlt: "Emitronix — Building the Future",
 });
 
 const intelligenceFeatures = [
@@ -47,7 +59,7 @@ const intelligenceFeatures = [
   },
   {
     title: "Premium communication",
-    description: "Owners, consultants and commercial teams get a calmer project experience through clear scope and decision visibility.",
+    description: "Clear scope, assumptions and decision ownership help owners, consultants and commercial teams coordinate project work.",
     icon: ShieldCheck,
   },
   {
@@ -151,9 +163,9 @@ export default function HomePage() {
         <div className="container-pad">
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <PremiumSectionHeading
-              eyebrow="Company credibility"
-              title="Verified trust signals for Dubai construction buyers."
-              description="Only verified facts are published here: service coverage, Dubai and UAE service areas, published contact details and documented authority coordination routes."
+              eyebrow="Company information"
+              title="Published facts for a more informed first conversation."
+              description="This section uses the company information currently verified for website publication: service coverage, Dubai and UAE service areas, contact details and authority-coordination topics."
             />
             <Link href="/contact" className="premium-button">
               Request a Site Visit <ArrowRight className="h-4 w-4" />
@@ -181,7 +193,7 @@ export default function HomePage() {
             <div className="max-w-4xl">
               <p className="premium-kicker">What we do</p>
               <h2 className="mt-4 text-balance text-4xl font-black leading-[1.04] tracking-tight text-charcoal sm:text-5xl lg:text-6xl">
-                End-to-end construction solutions for Dubai and UAE projects.
+                Connected construction services for Dubai and UAE projects.
               </h2>
               <p className="mt-5 max-w-3xl text-base leading-8 text-steel sm:text-lg">
                 Emitronix structures civil contracting, fit-out, MEP coordination, authority approvals and project delivery scopes around precision, buildability and handover readiness.
@@ -208,7 +220,7 @@ export default function HomePage() {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/contact" className="premium-button">
-                Get a Free Quote <ArrowRight className="h-4 w-4" />
+                Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
                 WhatsApp Us <MessageCircle className="h-4 w-4" />
@@ -227,7 +239,7 @@ export default function HomePage() {
             <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-white shadow-luxe">
               <Image
                 src="/images/about-construction-coordination-dubai.webp"
-                alt="Dubai construction team reviewing site progress for authority approvals and project coordination"
+                alt="Illustrative stock image of construction coordination in Dubai"
                 fill
                 loading="lazy"
                 sizes="(min-width: 1024px) 46vw, 100vw"
@@ -284,7 +296,7 @@ export default function HomePage() {
 
       <CommandCenter
         eyebrow="Project command"
-        title="A construction experience that feels intelligent before site work begins."
+        title="A construction workflow that starts with scope and responsibility clarity."
         description="Emitronix uses a planning-first operating model: every enquiry is translated into scope, authority, site and handover signals that the project team can act on."
         items={commandItems}
       />
@@ -325,7 +337,7 @@ export default function HomePage() {
       <section className="blue-grid section-pad text-charcoal">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.72fr_1.28fr]">
           <PremiumSectionHeading
-            eyebrow="Authority intelligence"
+            eyebrow="Authority coordination"
             title="Dubai approvals coordinated with construction reality."
             description="Approval planning is most valuable when it is connected to drawings, site conditions, inspection readiness and handover evidence."
             light
@@ -348,9 +360,9 @@ export default function HomePage() {
       <section className="section-pad bg-white">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Certifications and authority experience"
-            title="Authority coordination and compliance thinking for Dubai construction."
-            description="Emitronix presents authority experience professionally: project requirements are confirmed by location, consultant scope and authority route, without publishing unverified license, certification or approval claims."
+            eyebrow="Authority coordination context"
+            title="Project requirements depend on the location, scope and appointed parties."
+            description="This section explains coordination principles without claiming unverified licences, certifications, enrollment status or authority approvals."
             align="center"
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -393,13 +405,13 @@ export default function HomePage() {
       </section>
 
       <TrustBar
-        eyebrow="Trust section"
-        title="Built around verified business facts and practical delivery signals."
+        eyebrow="Company profile"
+        title="Published company details and service pathways."
         points={[
-          "Verified Dubai and UAE business profile",
-          "Civil, fit-out and authority scope coverage",
-          "Dubai Municipality, DCD and DEWA visibility",
-          "Local SEO content tied to verified services",
+          "Dubai and UAE service area",
+          "Civil, fit-out and authority service pathways",
+          "Published authority coordination guides",
+          "Direct contact and company information",
         ]}
       />
 
@@ -436,7 +448,7 @@ export default function HomePage() {
             {latestArticles.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="luxury-card overflow-hidden rounded-[1.5rem]">
                 <div className="relative h-52 bg-brand-soft">
-                  <Image src={post.image} alt={post.imageAlt} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+                  <Image src={post.image} alt={blogImageAlt(post)} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
                 </div>
                 <div className="p-6">
                   <p className="premium-kicker">{post.category}</p>

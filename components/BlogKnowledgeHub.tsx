@@ -4,7 +4,7 @@ import { ArrowRight, CalendarDays, Clock3, Mail, Search, Tag } from "lucide-reac
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import type { BlogPost } from "@/data/blog";
+import { blogImageAlt, type BlogPost } from "@/data/blog";
 
 type BlogKnowledgeHubProps = {
   posts: BlogPost[];
@@ -29,7 +29,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
   const featured = posts.find((post) => post.featured) ?? posts[0];
   const featuredCards = posts.filter((post) => post.slug !== featured.slug).slice(0, 3);
   const recentPosts = [...posts].sort((a, b) => b.publishedDate.localeCompare(a.publishedDate)).slice(0, 4);
-  const popularPosts = posts.filter((post) => post.popular).slice(0, 4);
+  const selectedGuides = posts.filter((post) => post.popular).slice(0, 4);
 
   const filteredPosts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -50,12 +50,15 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
       <section className="relative isolate overflow-hidden bg-brand-dark pb-16 pt-32 text-white lg:pb-24 lg:pt-40">
         <Image
           src={featured.image}
-          alt={featured.imageAlt}
+          alt={blogImageAlt(featured)}
           fill
           priority
           sizes="100vw"
           className="absolute inset-0 z-0 object-cover"
         />
+        <p className="absolute right-4 top-24 z-30 rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.68rem] font-black uppercase tracking-[0.18em] text-white backdrop-blur-xl sm:right-8">
+          Illustrative stock image — not project evidence
+        </p>
         <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(11,31,58,0.94)_0%,rgba(18,58,115,0.76)_52%,rgba(25,73,145,0.36)_100%)]" />
         <div className="absolute inset-0 z-20 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:48px_48px]" />
 
@@ -73,7 +76,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                 Dubai construction insights for better project decisions.
               </h1>
               <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/[0.86]">
-                Expert guidance on civil construction, building contracting, warehouse delivery, interior fit-out and Dubai authority approvals for owners, consultants and commercial teams.
+                Practical guidance on civil construction, building contracting, warehouse delivery, interior fit-out and Dubai authority approvals for owners, consultants and commercial teams.
               </p>
             </div>
 
@@ -84,10 +87,12 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                 <Search className="h-5 w-5 shrink-0 text-brand" />
                 <input
                   id="blog-search"
+                  type="search"
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search approvals, warehouses, civil works..."
                   className="min-w-0 flex-1 bg-transparent text-sm font-bold text-charcoal outline-none placeholder:text-steel/70"
+                  aria-controls="blog-article-library"
                 />
               </div>
             </form>
@@ -106,6 +111,8 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                     key={category}
                     type="button"
                     onClick={() => setActiveCategory(category)}
+                    aria-pressed={activeCategory === category}
+                    aria-controls="blog-article-library"
                     className={`flex shrink-0 items-center justify-between gap-5 rounded-2xl px-4 py-3 text-left text-sm font-black transition xl:w-full ${
                       activeCategory === category
                         ? "bg-brand text-white shadow-blue"
@@ -127,8 +134,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
               <div className="relative h-[320px] lg:h-auto lg:min-h-[430px]">
                 <Image
                   src={featured.image}
-                  alt={featured.imageAlt}
-                  title={featured.imageTitle}
+                  alt={blogImageAlt(featured)}
                   fill
                   priority
                   sizes="(min-width: 1280px) 42vw, 100vw"
@@ -160,8 +166,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                   <div className="relative aspect-[16/10] overflow-hidden">
                     <Image
                       src={post.image}
-                      alt={post.imageAlt}
-                      title={post.imageTitle}
+                      alt={blogImageAlt(post)}
                       fill
                       loading="lazy"
                       sizes="(min-width: 1024px) 24vw, 100vw"
@@ -189,19 +194,22 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                     <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">
                       {filteredPosts.length} construction articles
                     </h2>
+                    <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+                      {filteredPosts.length} {filteredPosts.length === 1 ? "article matches" : "articles match"} the current search and category filters.
+                    </p>
                   </div>
                   <Link href="/resources" className="premium-button-light w-fit">
                     Resources <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
 
-                <div className="mt-8 grid gap-5">
+                <div id="blog-article-library" className="mt-8 grid gap-5">
                   {filteredPosts.map((post) => (
                     <Link key={post.slug} href={postHref(post)} className="luxury-card grid min-w-0 gap-5 rounded-[1.5rem] p-4 sm:grid-cols-[180px_minmax(0,1fr)]">
                       <div className="relative h-[180px] overflow-hidden rounded-[1.2rem] bg-brand-soft sm:h-auto sm:min-h-[190px]">
                         <Image
                           src={post.image}
-                          alt={post.imageAlt}
+                          alt={blogImageAlt(post)}
                           fill
                           loading="lazy"
                           sizes="(min-width: 768px) 180px, 100vw"
@@ -237,9 +245,9 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                 </div>
 
                 <div className="luxury-surface rounded-[1.75rem] p-5">
-                  <p className="premium-kicker">Popular posts</p>
+                  <p className="premium-kicker">Selected guides</p>
                   <div className="mt-5 grid gap-3">
-                    {popularPosts.map((post, index) => (
+                    {selectedGuides.map((post, index) => (
                       <Link key={post.slug} href={postHref(post)} className="flex gap-3 rounded-2xl bg-white p-3 shadow-sm transition hover:bg-brand-soft">
                         <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-brand text-xs font-black text-white">
                           {String(index + 1).padStart(2, "0")}
@@ -250,24 +258,16 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                   </div>
                 </div>
 
-                <form action="/contact" className="rounded-[1.75rem] border border-brand/[0.15] bg-[linear-gradient(135deg,#ffffff_0%,#f8fbff_100%)] p-5 shadow-panel">
+                <div className="rounded-[1.75rem] border border-brand/[0.15] bg-[linear-gradient(135deg,#ffffff_0%,#f8fbff_100%)] p-5 shadow-panel">
                   <Mail className="h-7 w-7 text-brand" />
-                  <h2 className="mt-4 text-2xl font-black tracking-tight text-charcoal">Get Dubai project insights.</h2>
+                  <h2 className="mt-4 text-2xl font-black tracking-tight text-charcoal">Request Dubai project guidance.</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">
-                    Send your email through the contact form and the team can follow up with construction and approval guidance.
+                    Use the project enquiry form to share your location, scope and authority status with the team.
                   </p>
-                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
-                  <input
-                    id="newsletter-email"
-                    name="email"
-                    type="email"
-                    placeholder="name@example.com"
-                    className="mt-5 w-full rounded-2xl border border-brand/[0.15] bg-white px-4 py-3 text-sm font-bold text-charcoal outline-none transition placeholder:text-steel/70 focus:border-brand"
-                  />
-                  <button className="premium-button mt-4 w-full" type="submit">
-                    Request insights <ArrowRight className="h-4 w-4" />
-                  </button>
-                </form>
+                  <Link href="/contact" className="premium-button mt-5 w-full">
+                    Open project enquiry <ArrowRight className="h-4 w-4" />
+                  </Link>
+                </div>
               </aside>
             </div>
           </div>
@@ -287,7 +287,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
               </p>
             </div>
             <Link href="/contact" className="premium-button">
-              Request Free Consultation <ArrowRight className="h-4 w-4" />
+              Request a Consultation <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
         </div>

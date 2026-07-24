@@ -1,1 +1,5 @@
-export { default, generateMetadata } from "@/app/approval/page";
+import { permanentRedirect } from "next/navigation";
+
+export default function ApprovalsAliasPage() {
+  permanentRedirect("/approval");
+}

@@ -150,12 +150,12 @@ export const arabicPageStaticText: Record<string, string> = {
     "تدعم Emitronix فئات المشاريع التي تتطلب ضبطا دقيقا للنطاق ورؤية للجهات وتواصلا احترافيا في الموقع.",
   "Industrial Facilities": "المنشآت الصناعية",
   "Authority-Facing Projects": "المشاريع المرتبطة بالجهات",
-  "Built around verified business facts and practical delivery signals.":
-    "مبني على حقائق عمل موثقة ومؤشرات تسليم عملية.",
-  "Verified Dubai and UAE business profile": "ملف عمل موثق في دبي والإمارات",
-  "Civil, fit-out and authority scope coverage": "تغطية نطاقات الأعمال المدنية والتشطيبات والجهات",
-  "Dubai Municipality, DCD and DEWA visibility": "رؤية لمتطلبات بلدية دبي وDCD وDEWA",
-  "Local SEO content tied to verified services": "محتوى محلي مرتبط بخدمات موثقة",
+  "Published company details and service pathways.":
+    "تفاصيل الشركة المنشورة ومسارات الخدمات.",
+  "Dubai and UAE service area": "نطاق الخدمة في دبي والإمارات",
+  "Civil, fit-out and authority service pathways": "مسارات خدمات الأعمال المدنية والتشطيبات والجهات",
+  "Published authority coordination guides": "أدلة منشورة لتنسيق متطلبات الجهات",
+  "Direct contact and company information": "معلومات الشركة والتواصل المباشر",
   "Dubai construction questions, answered with clarity.":
     "أسئلة البناء في دبي، بإجابات واضحة.",
   "Useful answers for owners comparing a civil contractor, building contractor, fit-out partner or approval coordinator in Dubai.":
@@ -837,8 +837,8 @@ export const arabicPageStaticText: Record<string, string> = {
   "Convert the sector-specific risks into a practical enquiry conversation with Emitronix.":
     "تحويل مخاطر القطاع إلى محادثة استفسار عملية مع Emitronix.",
   "Industry trust": "ثقة القطاع",
-  "Dubai market language built around verified service capability.":
-    "لغة سوق دبي مبنية على قدرة خدمة موثقة.",
+  "Published project categories and enquiry pathways.":
+    "فئات المشاريع المنشورة ومسارات الاستفسار.",
   "Villas and residential projects": "الفلل والمشاريع السكنية",
   "Warehouses and logistics environments": "المستودعات والبيئات اللوجستية",
   "Commercial and retail interiors": "الأعمال الداخلية التجارية والتجزئة",
@@ -927,7 +927,7 @@ export const arabicPageStaticText: Record<string, string> = {
   "Search Dubai guides": "ابحث في أدلة دبي",
   "Search construction articles": "ابحث في مقالات البناء",
   "Recent posts": "أحدث المنشورات",
-  "Popular posts": "المنشورات الشائعة",
+  "Selected guides": "أدلة مختارة",
   "Get Dubai project insights.": "احصل على رؤى مشاريع دبي.",
   "Send your email through the contact form and the team can follow up with construction and approval guidance.":
     "أرسل بريدك الإلكتروني عبر نموذج التواصل وسيتابع الفريق معك بإرشادات البناء والموافقات.",

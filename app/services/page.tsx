@@ -108,8 +108,8 @@ export default function ServicesPage() {
         question="Which construction services does Emitronix provide in Dubai?"
         answer="Emitronix provides Dubai-focused civil construction, main contracting, warehouse construction, villa construction, commercial and industrial building support, interior fit-out, renovation, structural works, design-build, turnkey coordination, project management and authority approval coordination."
         facts={[
-          "Best first step for building works: civil contracting, main contracting or the matching asset-specific service page.",
-          "Best first step for approvals: the authority approval hub or the relevant DM, DCD, DEWA, DDA, Trakhees, DIFC, Concordia-DMCC or RTA page.",
+          "Recommended starting point for building works: civil contracting, main contracting or the matching asset-specific service page.",
+          "Recommended starting point for approvals: the authority approval hub or the relevant authority guide.",
           "Useful enquiry details: location, drawings, intended use, authority status, site condition and required timeline.",
           `Verified contact route: ${site.email} or ${site.phone}`,
         ]}
@@ -121,7 +121,7 @@ export default function ServicesPage() {
           <PremiumSectionHeading
             eyebrow="Core services"
             title="Civil, main contracting, warehouse, villa and fit-out scopes under one premium workflow."
-            description="Every service page is structured around Dubai search intent, practical project requirements, authority-aware execution and handover readiness."
+            description="Every service page explains practical project requirements, authority-aware execution and handover readiness."
             align="center"
           />
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -143,7 +143,7 @@ export default function ServicesPage() {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/contact" className="premium-button">
-                Get a Free Quote <ArrowRight className="h-4 w-4" />
+                Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/contact?intent=site-visit" className="premium-button-light">
                 Request a Site Visit <CalendarCheck className="h-4 w-4" />
@@ -246,7 +246,7 @@ export default function ServicesPage() {
           "Civil contracting and G+4 scope",
           "Interior fit-out and renovation support",
           "DM, DCD, DEWA, Trakhees and DDA coordination",
-          "Dubai-focused service pages and internal linking",
+          "Connected service and approval guidance",
         ]}
       />
 

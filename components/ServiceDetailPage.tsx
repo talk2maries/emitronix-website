@@ -1,5 +1,4 @@
 import { ArrowRight, CalendarCheck, CheckCircle2, ChevronRight, FileCheck2, MapPin, MessageCircle, PhoneCall } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
 import { CTA } from "@/components/CTA";
@@ -7,9 +6,14 @@ import { ContactForm } from "@/components/ContactForm";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
-import { portfolioProjects, type PortfolioProject } from "@/data/projects";
 import { buildServiceExpandedFaqs, getServiceDeepContent } from "@/data/serviceDeepContent";
-import { absoluteUrl, services as allServices, site, type Service, whatsappUrl } from "@/data/site";
+import {
+  absoluteUrl,
+  services as allServices,
+  site,
+  type Service,
+  whatsappUrl,
+} from "@/data/site";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
@@ -22,32 +26,14 @@ function labelFromHref(href: string) {
   return href.replace("/", "").replace(/-/g, " ");
 }
 
-function getRelatedProjectProfiles(service: Service): PortfolioProject[] {
-  const text = `${service.title} ${service.shortTitle} ${service.keywords.join(" ")}`.toLowerCase();
-  const categoryPriority = text.includes("approval") || text.includes("dewa") || text.includes("municipality")
-    ? ["Authority Approvals", "MEP Works", "Civil Works"]
-    : text.includes("mep") || text.includes("warehouse") || text.includes("industrial")
-      ? ["MEP Works", "Civil Works", "Maintenance"]
-      : text.includes("renovation") || text.includes("fit-out") || text.includes("interior") || text.includes("villa")
-        ? ["Renovation", "Maintenance", "Authority Approvals"]
-        : ["Civil Works", "Renovation", "MEP Works"];
-
-  const ordered = [
-    ...portfolioProjects.filter((project) => categoryPriority.includes(project.category)),
-    ...portfolioProjects.filter((project) => !categoryPriority.includes(project.category)),
-  ];
-
-  return ordered.slice(0, 3);
-}
-
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const Icon = service.icon;
   const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
   const deepContent = getServiceDeepContent(service);
   const expandedFaqs = buildServiceExpandedFaqs(service);
-  const schemaKeywords = deepContent.semanticKeywords.slice(0, 30);
   const pageUrl = absoluteUrl(service.href);
   const primaryImageUrl = absoluteUrl(service.image);
+  const illustrativeImageAlt = `Illustrative stock image accompanying the ${service.title} planning guide; not evidence of an Emitronix project or team`;
   const relatedLinks = service.relatedHrefs.map((href) => {
     const relatedService = allServices.find((item) => item.href === href);
     const relatedApproval = approvalServices.find((item) => item.href === href);
@@ -115,65 +101,15 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       icon: CheckCircle2,
     },
   ];
-  const relatedProjectProfiles = getRelatedProjectProfiles(service);
   const imageJsonLd = {
     "@context": "https://schema.org",
     "@type": "ImageObject",
     "@id": `${pageUrl}#primaryimage`,
     url: primaryImageUrl,
     contentUrl: primaryImageUrl,
-    name: service.imageTitle,
-    caption: service.imageAlt,
-    description: `${service.imageAlt} for ${deepContent.primaryKeyword} service content by ${site.legalName}.`,
-  };
-  const organizationJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": absoluteUrl("/#organization"),
-    name: site.legalName,
-    alternateName: site.name,
-    url: site.url,
-    logo: {
-      "@type": "ImageObject",
-      url: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-    },
-    email: site.email,
-    telephone: site.phone,
-    sameAs: [],
-  };
-  const localBusinessJsonLd = {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "GeneralContractor"],
-    "@id": absoluteUrl("/#localbusiness"),
-    name: site.legalName,
-    alternateName: site.name,
-    url: site.url,
-    image: absoluteUrl("/images/dubai-building-contracting-company.webp"),
-    logo: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-    description: site.description,
-    email: site.email,
-    telephone: site.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Dubai Investment Park 02",
-      addressLocality: "Dubai",
-      addressCountry: "AE",
-    },
-    areaServed: site.serviceArea.map((name) => ({
-      "@type": cityServiceAreas.has(name) ? "City" : "Country",
-      name,
-    })),
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        opens: "08:00",
-        closes: "18:00",
-      },
-    ],
-    parentOrganization: {
-      "@id": absoluteUrl("/#organization"),
-    },
+    name: `Illustrative image for the ${service.title} planning guide`,
+    caption: illustrativeImageAlt,
+    description: illustrativeImageAlt,
   };
   const webPageJsonLd = {
     "@context": "https://schema.org",
@@ -196,10 +132,6 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     },
     breadcrumb: {
       "@id": `${pageUrl}#breadcrumb`,
-    },
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: ["h1", "#answers", "#faq"],
     },
     mainEntity: {
       "@id": `${pageUrl}#service`,
@@ -231,8 +163,6 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       "@id": `${pageUrl}#webpage`,
     },
     serviceType: service.title,
-    keywords: schemaKeywords.join(", "),
-    knowsAbout: schemaKeywords,
     audience: service.whoNeeds.map((item) => ({
       "@type": "Audience",
       audienceType: item,
@@ -242,18 +172,6 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       name: item.title,
       url: absoluteUrl(item.href),
     })),
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: `${service.title} deliverables`,
-      itemListElement: deepContent.deliverables.map((deliverable) => ({
-        "@type": "Offer",
-        itemOffered: {
-          "@type": "Service",
-          name: deliverable,
-          description: `${deliverable} for ${service.title} projects in Dubai.`,
-        },
-      })),
-    },
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
@@ -264,27 +182,6 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       { "@type": "ListItem", position: 2, name: "Services", item: absoluteUrl("/services") },
       { "@type": "ListItem", position: 3, name: service.title, item: pageUrl },
     ],
-  };
-  const articleJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "@id": `${pageUrl}#article`,
-    headline: deepContent.seoTitle,
-    description: deepContent.metaDescription,
-    image: {
-      "@id": `${pageUrl}#primaryimage`,
-    },
-    author: {
-      "@id": absoluteUrl("/#organization"),
-    },
-    publisher: {
-      "@id": absoluteUrl("/#organization"),
-    },
-    mainEntityOfPage: {
-      "@id": `${pageUrl}#webpage`,
-    },
-    articleSection: "Dubai construction services",
-    keywords: schemaKeywords.join(", "),
   };
   const itemListJsonLd = {
     "@context": "https://schema.org",
@@ -305,14 +202,14 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         title={`${service.title} Dubai`}
         description={service.details}
         image={service.image}
-        imageAlt={service.imageAlt}
+        imageAlt={illustrativeImageAlt}
         primaryCta={{ label: "Request a Quote", href: "/contact" }}
-        secondaryCta={{ label: "View Projects", href: "/projects" }}
+        secondaryCta={{ label: "Planning Library", href: "/projects" }}
         metrics={[
           { value: "Dubai", label: "Local market focus" },
-          { value: "G+4", label: "Civil contracting scope" },
-          { value: "DM/DCD", label: "Authority-ready planning" },
-          { value: "UAE", label: "Project enquiry coverage" },
+          { value: "DIP 02", label: "Published location" },
+          { value: "Mon–Sat", label: "Published business days" },
+          { value: "UAE", label: "Published enquiry coverage" },
         ]}
       />
 
@@ -320,21 +217,32 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         question={`What is ${service.title.toLowerCase()} in Dubai?`}
         answer={deepContent.aiAnswer}
         facts={[
-          `Primary search intent: ${deepContent.primaryKeyword}`,
           `Typical project fit: ${service.whoNeeds[0]}`,
-          `Common Dubai areas: ${deepContent.locations.slice(0, 5).join(", ")}`,
           `Key document examples: ${deepContent.documents.slice(0, 3).join(", ")}`,
+          "Final scope and authority responsibilities must be confirmed for the specific project",
           "Useful enquiry details: project location, drawings status, authority comments and timeline",
         ]}
         cta={{ label: `Request ${service.shortTitle.toLowerCase()} consultation`, href: "/contact" }}
       />
 
+      <section className="bg-white py-8">
+        <div className="container-pad">
+          <div className="rounded-[1.75rem] border border-brand/[0.15] bg-brand-soft p-6 text-charcoal shadow-panel">
+            <p className="premium-kicker">Scope note</p>
+            <h2 className="mt-3 text-2xl font-black tracking-tight">General guidance must be checked against project facts.</h2>
+            <p className="mt-3 max-w-5xl text-sm leading-7 text-steel">
+              Materials, methods, standards, authority routes, consultant duties, cost and programme vary by design, location, use and site condition. This page supports early planning and does not replace approved drawings, project specifications, formal authority requirements or advice from the appointed professionals.
+            </p>
+          </div>
+        </div>
+      </section>
+
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <PremiumSectionHeading
-            eyebrow="Scope intelligence"
+            eyebrow="Scope planning"
             title={`A premium ${service.title.toLowerCase()} workflow for Dubai projects.`}
-            description={`This page is structured for buyers evaluating ${service.searchIntent}. It explains the scope, decision points, Dubai authority considerations, timeline variables, cost factors and practical mistakes to avoid.`}
+            description="Review the scope, decision points, Dubai authority considerations, timeline variables, cost factors and practical mistakes before defining a project-specific brief."
           />
           <div className="grid gap-5 sm:grid-cols-3">
             {service.highlights.map((highlight) => (
@@ -358,7 +266,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             </div>
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Link href="/contact" className="premium-button">
-                Get a Free Quote <ArrowRight className="h-4 w-4" />
+                Request a Quote <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/contact?intent=site-visit" className="premium-button-light">
                 Request a Site Visit <CalendarCheck className="h-4 w-4" />
@@ -401,7 +309,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
                   <p key={paragraph}>{paragraph}</p>
                 ))}
                 <p>
-                  This guide also covers practical documents, Dubai service areas, authority touchpoints, technical risks, decision factors, sample project situations and frequently asked buyer questions so the page can support searchers at research, comparison and enquiry stages.
+                  Use the sections below to review documents, possible authority touchpoints, technical risks, decision factors and questions to raise before defining a project-specific scope.
                 </p>
               </div>
             </article>
@@ -424,8 +332,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <section id="answers" className="section-pad bg-white">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Answer engine blocks"
-            title={`${service.title} answers written for buyers, Google AI Overviews and LLM search.`}
+            eyebrow="Practical answers"
+            title={`${service.title} questions for owners and consultants.`}
             description={`These concise answers help owners comparing ${deepContent.primaryKeyword} understand scope, contractor selection, authority exposure and enquiry readiness before contacting Emitronix.`}
             align="center"
           />
@@ -443,9 +351,9 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <section id="topical-authority" className="section-pad soft-section">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Topical authority"
-            title={`${service.title} buyer questions, search intent and Dubai project context.`}
-            description={`${deepContent.primaryKeyword} pages need more than a short service description. This section connects practical buyer intent, Dubai approval exposure, technical scope and enquiry readiness in one place.`}
+            eyebrow="Project context"
+            title={`${service.title} decisions, risks and Dubai project context.`}
+            description="This section connects practical scope questions, possible approval exposure, technical interfaces and enquiry readiness."
             align="center"
           />
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
@@ -460,7 +368,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             <div className="grid gap-4">
               {deepContent.commercialIntentBlocks.map((item) => (
                 <article key={item.title} className="rounded-[1.5rem] border border-brand/[0.12] bg-white p-6 shadow-panel">
-                  <p className="premium-kicker">Buyer intent</p>
+                  <p className="premium-kicker">Decision factor</p>
                   <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
                   <p className="mt-4 text-sm leading-7 text-steel">{item.description}</p>
                 </article>
@@ -552,7 +460,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <PremiumSectionHeading
             eyebrow="Technical knowledge base"
             title={`${service.title} technical points buyers should understand.`}
-            description="These topics are written to help non-technical owners ask better questions while giving consultants and AI search systems precise context."
+            description="These topics help non-technical owners ask better questions while giving consultants a clear basis for project-specific review."
             align="center"
           />
           <div className="mt-12 grid gap-5 lg:grid-cols-3">
@@ -605,19 +513,24 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
 
       <section id="dubai-standards" className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-          <ImagePanel src={service.image} alt={service.imageAlt} label="Premium execution" title={`${service.title} with authority-ready control.`} />
+          <ImagePanel
+            src={service.image}
+            alt={illustrativeImageAlt}
+            label="Planning illustration"
+            title={`${service.title} scope and coordination considerations.`}
+          />
           <div>
             <PremiumSectionHeading
-              eyebrow="Dubai local SEO"
+              eyebrow="Authority and standards context"
               title={`${service.title} support for owners, consultants and commercial teams.`}
-              description={`Emitronix Contracting LLC supports ${service.title.toLowerCase()} enquiries across Dubai and the UAE with practical engineering coordination, clear communication and documented project controls.`}
+              description="The applicable authorities, standards and appointed-party responsibilities depend on location, use, design and project stage."
             />
             <div className="mt-8 grid gap-3">
-              {deepContent.semanticKeywords.slice(0, 12).map((keyword) => (
-                <Link key={keyword} href="/contact" className="flex items-center justify-between rounded-2xl border border-brand/[0.12] bg-platinum px-5 py-4 text-sm font-black text-charcoal transition hover:border-brand/30 hover:bg-white hover:text-brand">
-                  {keyword}
-                  <ChevronRight className="h-4 w-4" />
-                </Link>
+              {deepContent.authorityTouchpoints.slice(0, 6).map((item) => (
+                <div key={item.title} className="rounded-2xl border border-brand/[0.12] bg-platinum px-5 py-4">
+                  <h2 className="text-sm font-black text-charcoal">{item.title}</h2>
+                  <p className="mt-2 text-sm leading-6 text-steel">{item.description}</p>
+                </div>
               ))}
             </div>
             <Link href="/contact" className="premium-button mt-8">
@@ -630,17 +543,17 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <section className="section-pad soft-section">
         <div className="container-pad grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
           <PremiumSectionHeading
-            eyebrow="Dubai location coverage"
-            title={`${service.title} enquiries across key Dubai business districts.`}
-            description="Location affects authority jurisdiction, landlord requirements, site access, deliveries, working hours and inspection planning."
+            eyebrow="Published service area"
+            title={`${service.title} enquiries within Emitronix's published coverage.`}
+            description="Availability and the applicable authority route remain subject to the actual project location, scope and appointed parties."
           />
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {deepContent.locations.map((location) => (
+            {site.serviceArea.map((location) => (
               <Link key={location} href="/contact" className="luxury-card rounded-[1.5rem] p-5">
                 <MapPin className="h-6 w-6 text-brand" />
                 <h2 className="mt-4 text-xl font-black tracking-tight text-charcoal">{location}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">
-                  {deepContent.primaryKeyword} support for enquiries in {location}, subject to scope, authority route and site readiness.
+                  {service.title} enquiries for {location}, subject to scope review, authority jurisdiction, availability and site readiness.
                 </p>
               </Link>
             ))}
@@ -696,17 +609,18 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <div className="mt-12 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
             <div className="overflow-x-auto rounded-[1.75rem] border border-brand/[0.12] bg-white shadow-panel">
               <table className="w-full min-w-[720px] border-collapse text-left text-sm">
+                <caption className="sr-only">{service.title} timeline planning variables</caption>
                 <thead className="bg-brand-soft text-charcoal">
                   <tr>
-                    <th className="px-5 py-4 font-black">Phase</th>
-                    <th className="px-5 py-4 font-black">Typical Duration</th>
-                    <th className="px-5 py-4 font-black">What Changes It</th>
+                    <th scope="col" className="px-5 py-4 font-black">Phase</th>
+                    <th scope="col" className="px-5 py-4 font-black">Typical Duration</th>
+                    <th scope="col" className="px-5 py-4 font-black">What Changes It</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-brand/[0.10]">
                   {service.timeline.map((item) => (
                     <tr key={item.phase} className="align-top">
-                      <td className="px-5 py-4 font-black text-charcoal">{item.phase}</td>
+                      <th scope="row" className="px-5 py-4 font-black text-charcoal">{item.phase}</th>
                       <td className="px-5 py-4 font-bold text-brand">{item.typicalDuration}</td>
                       <td className="px-5 py-4 leading-7 text-steel">{item.notes}</td>
                     </tr>
@@ -795,78 +709,9 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <section className="section-pad bg-white">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Sample project situations"
-            title={`How ${service.title.toLowerCase()} enquiries become clearer.`}
-            description="These are publication-safe sample profiles that describe common Dubai project situations without inventing private client names, project counts or unverifiable claims."
-            align="center"
-          />
-          <div className="mt-12 grid gap-5 lg:grid-cols-3">
-            {deepContent.caseProfiles.map((profile) => (
-              <article key={profile.title} className="luxury-card rounded-[1.5rem] p-6">
-                <p className="premium-kicker">{profile.location}</p>
-                <h2 className="mt-4 text-2xl font-black tracking-tight text-charcoal">{profile.title}</h2>
-                <p className="mt-4 text-sm leading-7 text-steel"><strong className="text-charcoal">Situation:</strong> {profile.situation}</p>
-                <p className="mt-3 text-sm leading-7 text-steel"><strong className="text-charcoal">Approach:</strong> {profile.approach}</p>
-                <p className="mt-3 text-sm leading-7 text-steel"><strong className="text-charcoal">Outcome:</strong> {profile.outcome}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad soft-section">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Related projects"
-            title={`Representative project profiles for ${service.title.toLowerCase()}.`}
-            description="These publication-safe profiles show the types of Dubai scopes connected to this service. Client names, dates and private site details are shared only after approval."
-            align="center"
-          />
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {relatedProjectProfiles.map((project) => (
-              <Link
-                key={`${service.slug}-${project.title}`}
-                href="/projects"
-                className="group overflow-hidden rounded-[1.5rem] border border-brand/10 bg-white/[0.88] shadow-panel backdrop-blur-xl transition duration-500 hover:-translate-y-2 hover:border-brand/30 hover:shadow-luxe"
-              >
-                <div className="relative h-60 overflow-hidden bg-brand-soft">
-                  <Image
-                    src={project.image}
-                    alt={project.imageAlt}
-                    title={project.imageTitle}
-                    fill
-                    loading="lazy"
-                    sizes="(min-width: 1024px) 31vw, 100vw"
-                    className="object-cover transition duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/72 via-brand-dark/10 to-transparent" />
-                  <span className="absolute bottom-4 left-4 rounded-full border border-white/40 bg-white/[0.86] px-3 py-1.5 text-xs font-black uppercase tracking-wide text-brand backdrop-blur-xl">
-                    {project.category}
-                  </span>
-                </div>
-                <div className="p-6">
-                  <h2 className="text-2xl font-black tracking-tight text-charcoal">{project.title}</h2>
-                  <p className="mt-3 flex items-center gap-2 text-sm font-bold text-steel">
-                    <MapPin className="h-4 w-4 text-brand" />
-                    {project.location}
-                  </p>
-                  <p className="mt-4 text-sm leading-7 text-steel">{project.description}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
-                    View portfolio <ArrowRight className="h-4 w-4" />
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-pad bg-white">
-        <div className="container-pad">
-          <PremiumSectionHeading
-            eyebrow="Internal link map"
+            eyebrow="Next resources"
             title={`${service.title} connected to related Dubai services and approvals.`}
-            description="These links help buyers move between connected scopes, authority touchpoints, project environments and enquiry actions without losing context."
+            description="Continue to related scopes, approval guidance and enquiry routes based on the next project decision."
             align="center"
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -888,7 +733,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <PremiumSectionHeading
             eyebrow="Related services"
             title={`Plan ${service.title.toLowerCase()} with the right supporting scopes.`}
-            description="Internal links help owners and consultants move between construction, fit-out, authority approvals and project planning resources without losing context."
+            description="Use these related resources to move between construction, fit-out, authority approvals and project planning without losing context."
             align="center"
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -938,11 +783,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
     </>
   );

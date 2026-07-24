@@ -3,7 +3,7 @@
 import { ReactNode, useEffect, useRef } from "react";
 import { translateArabicText } from "@/data/arabicText";
 import type { ArabicPageData } from "@/data/arabic";
-import { toArabicPath } from "@/lib/i18n";
+import { toAvailableArabicPath } from "@/lib/i18n";
 
 type ArabicPageLocalizerProps = {
   page: Pick<ArabicPageData, "path" | "title" | "description" | "kind">;
@@ -27,11 +27,11 @@ function localizeInternalHref(rawHref: string) {
     if (url.origin !== window.location.origin) return rawHref;
     if (url.pathname.startsWith("/api/") || url.pathname.startsWith("/_next/")) return rawHref;
 
-    const localizedPath = toArabicPath(url.pathname);
+    const localizedPath = toAvailableArabicPath(url.pathname);
     return `${localizedPath}${url.search}${url.hash}`;
   } catch {
     if (rawHref.startsWith("/") && !rawHref.startsWith("/api/") && !rawHref.startsWith("/_next/")) {
-      return toArabicPath(rawHref);
+      return toAvailableArabicPath(rawHref);
     }
   }
 

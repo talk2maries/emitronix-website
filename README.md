@@ -57,7 +57,7 @@ npm run build
 
 ## Zoho CRM Lead Integration
 
-The contact form submits to the server-side API route at `/api/enquiries`, which creates a new record in the Zoho CRM `Leads` module. Zoho credentials must stay server-side in environment variables and must never be exposed in browser code.
+The contact and article enquiry forms submit to the consent-checked server-side API route at `/api/contact`, which creates a follow-up record in the configured CRM. CRM credentials must stay server-side in environment variables and must never be exposed in browser code.
 
 Create a local `.env.local` or production environment with:
 

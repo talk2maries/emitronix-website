@@ -1,36 +1,20 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { ServiceDetailPage } from "@/components/ServiceDetailPage";
-import { applySeoOverrides, createPageMetadata } from "@/data/seo";
-import { getServiceDeepContent } from "@/data/serviceDeepContent";
+import { notFound, permanentRedirect } from "next/navigation";
 import { getServiceByRoutePath, serviceAliasPaths, services } from "@/data/site";
+import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
 
 type ServiceAliasPageProps = {
   params: Promise<{ slug: string }>;
 };
 
+export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return Array.from(new Set(services.flatMap((service) => serviceAliasPaths(service).map((path) => path.split("/").pop()!)))).map((slug) => ({
-    slug,
-  }));
-}
-
-export async function generateMetadata({ params }: ServiceAliasPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const service = getServiceByRoutePath(`/services/${slug}`);
-  if (!service) return {};
-  const deepContent = getServiceDeepContent(service);
-
-  const base = createPageMetadata({
-    title: deepContent.seoTitle,
-    description: deepContent.metaDescription,
-    path: service.href,
-    keywords: deepContent.semanticKeywords,
-    image: service.image,
-    imageAlt: service.imageAlt,
-  });
-
-  return applySeoOverrides(base, service.href);
+  const paths = Array.from(new Set(services.flatMap((service) => serviceAliasPaths(service))));
+  const missingManifestPath = paths.find((path) => isUnknownClosedSetPath(path));
+  if (missingManifestPath) {
+    throw new Error(`Service route manifest is missing ${missingManifestPath}`);
+  }
+  return paths.map((path) => ({ slug: path.split("/").pop()! }));
 }
 
 export default async function ServiceAliasPage({ params }: ServiceAliasPageProps) {
@@ -38,5 +22,5 @@ export default async function ServiceAliasPage({ params }: ServiceAliasPageProps
   const service = getServiceByRoutePath(`/services/${slug}`);
   if (!service) notFound();
 
-  return <ServiceDetailPage service={service} />;
+  permanentRedirect(service.href);
 }

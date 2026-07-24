@@ -44,55 +44,27 @@ const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
 
 const dewaKeywords = [
   "DEWA approval Dubai",
-  "DEWA approvals",
-  "DEWA approval contractor Dubai",
-  "DEWA approval services Dubai",
   "DEWA NOC Dubai",
   "DEWA new connection Dubai",
-  "DEWA electricity connection",
   "DEWA additional load Dubai",
-  "DEWA load reduction Dubai",
   "DEWA LV approval Dubai",
   "DEWA HV approval Dubai",
-  "DEWA design approval",
   "DEWA electrical inspection",
-  "DEWA testing and commissioning",
-  "DEWA temporary power supply Dubai",
-  "DEWA permanent connection",
-  "DEWA transformer approval Dubai",
-  "DEWA package substation Dubai",
-  "DEWA pocket substation Dubai",
-  "DEWA compact substation Dubai",
-  "DEWA HV cable works",
-  "DEWA LV cable works",
   "DEWA warehouse power approval",
-  "DEWA factory power approval",
-  "DEWA industrial power Dubai",
-  "DEWA approval DIP",
-  "DEWA approval JAFZA",
-  "DEWA approval Dubai South",
-  "DEWA approval Al Quoz",
-  "DEWA approval Business Bay",
-  "DEWA approval Dubai Silicon Oasis",
-  "DEWA approval Dubai Industrial City",
-  "DEWA approval Jebel Ali",
-  "DEWA approval Dubai Marina",
   "authority approvals Dubai",
-  "Dubai electrical approvals",
-  "electrical contractor Dubai DEWA approval",
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
   return applySeoOverrides(
     createPageMetadata({
-      title: "DEWA Approval Dubai | New Connection, Load, LV, HV, NOC",
+      title: "DEWA Approval Coordination Guide Dubai",
       description:
-        "DEWA approval services in Dubai for new connections, additional load, LV/HV approvals, NOCs, inspections, temporary power, substations and electrical handover.",
+        "A practical DEWA coordination guide for Dubai projects covering connections, load changes, documents, consultant roles, inspections and authority limitations.",
       path: pagePath,
       keywords: dewaKeywords,
       image: heroImage,
       imageAlt:
-        "Electrical engineers coordinating DEWA approval and power connection works in Dubai",
+        "Illustrative electrical switchgear image accompanying a Dubai DEWA coordination guide",
     }),
     pagePath,
   );
@@ -127,7 +99,7 @@ const anchorLinks = [
   { href: "#inspection", label: "Inspection" },
   { href: "#industries", label: "Industries" },
   { href: "#mistakes", label: "Mistakes" },
-  { href: "#faq", label: "100+ FAQs" },
+  { href: "#faq", label: "Practical FAQs" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -147,7 +119,7 @@ const directAnswers: MiniCard[] = [
   {
     title: "Who can submit DEWA applications?",
     description:
-      "Several DEWA builder services are submitted by enrolled consultants or contractors through DEWA digital channels or integrated Dubai systems. Emitronix helps organize the engineering scope, documentation, site readiness and authority coordination around that submission route.",
+      "Several DEWA builder services are submitted by enrolled consultants or contractors through DEWA digital channels or integrated Dubai systems. The properly appointed submitter and current enrollment requirements must be confirmed for each project route.",
     icon: FileCheck2,
   },
   {
@@ -174,7 +146,7 @@ const serviceClusters: MiniCard[] = [
   {
     title: "DEWA New Connection",
     description:
-      "New electricity connections need early load calculation, authority path confirmation, design package preparation, site layout coordination and inspection planning. Emitronix helps project teams understand whether the request belongs through DEWA channels, Dubai Building Permit System integration, landlord or master developer coordination, or a consultant-led route. The aim is to connect design intent, construction readiness and DEWA submission evidence before the project reaches handover pressure.",
+      "New electricity connections need early load calculation, authority path confirmation, design package preparation, site layout coordination and inspection planning. The team should confirm whether the request belongs through DEWA channels, Dubai Building Permit System integration, landlord or master developer coordination, or a consultant-led route before preparing the file.",
     icon: PlugZap,
     items: ["Connected load and maximum demand review", "MDB, SMDB, DB and metering coordination", "Permanent supply readiness"],
   },
@@ -209,7 +181,7 @@ const serviceClusters: MiniCard[] = [
   {
     title: "Electrical Design Approval",
     description:
-      "Electrical design approval is not just a drawing upload. It is the discipline of making sure connected load, maximum demand, distribution architecture, metering, life safety interfaces, earthing, containment, equipment locations, room dimensions and authority comments all tell one consistent story. Emitronix supports the practical review that prevents design, site and authority teams from working in different directions.",
+      "Electrical design approval is not just a drawing upload. Connected load, maximum demand, distribution architecture, metering, life safety interfaces, earthing, containment, equipment locations, room dimensions and authority comments must tell one consistent story.",
     icon: FileCheck2,
     items: ["Design package gap review", "Drawing consistency checks", "Comment response coordination"],
   },
@@ -244,7 +216,7 @@ const serviceClusters: MiniCard[] = [
   {
     title: "Transformer Installation",
     description:
-      "Transformer installation requires coordination between load requirements, substation type, equipment procurement, civil base, access, ventilation, earthing, fire and life safety interfaces, cable entry, testing and authority inspections. Emitronix helps align transformer works with the approval route and the practical construction sequence.",
+      "Transformer installation requires coordination between load requirements, substation type, equipment procurement, civil base, access, ventilation, earthing, fire and life safety interfaces, cable entry, testing and authority inspections. Any Emitronix role in this specialist scope requires project-specific capability and responsibility confirmation.",
     icon: Factory,
     items: ["Transformer room readiness", "Cable and earthing interfaces", "Inspection and testing coordination"],
   },
@@ -286,7 +258,7 @@ const serviceClusters: MiniCard[] = [
   {
     title: "Authority Coordination",
     description:
-      "DEWA approval often intersects with Dubai Municipality, DCD, Trakhees, DDA, Dubai South, JAFZA, landlords and master developers. Emitronix treats authority coordination as one joined-up workflow so power approval does not become isolated from building permits, fire requirements, fit-out approvals or completion certificates.",
+      "DEWA approval can intersect with building-permit, fire-and-life-safety, free-zone, landlord and master-developer requirements. The project team should manage those dependencies as one workflow so the electricity route is not isolated from other approvals or completion evidence.",
     icon: Users,
     items: ["Consultant and authority alignment", "Landlord NOCs", "Integrated close-out tracking"],
   },
@@ -303,7 +275,7 @@ const processSteps: ProcessStep[] = [
   {
     title: "1. Project intake and authority route check",
     description:
-      "We start with the project location, asset type, landlord or master developer, current approval status, intended use, existing load, required load, drawings, site photos and target date. The first decision is whether the work is a new connection, fit-out connection, NOC, additional load, network modification, LV inspection, HV route or completion support.",
+      "Start with the project location, asset type, landlord or master developer, current approval status, intended use, existing load, required load, drawings, site photos and target date. The first decision is whether the work is a new connection, fit-out connection, NOC, additional load, network modification, LV inspection, HV route or completion-support enquiry.",
     ownerFocus: "Avoid choosing the wrong submission path before documents are ready.",
   },
   {
@@ -315,7 +287,7 @@ const processSteps: ProcessStep[] = [
   {
     title: "3. Drawing and document gap review",
     description:
-      "We check whether the available package supports the intended authority request. Typical gaps include missing single line diagrams, inconsistent load schedules, incomplete wiring layouts, unclear electrical room dimensions, absent landlord NOC, old approvals not linked to the current design, or DWF/PDF format issues.",
+      "Check whether the available package supports the intended authority request. Typical gaps include missing single line diagrams, inconsistent load schedules, incomplete wiring layouts, unclear electrical room dimensions, absent landlord NOC, old approvals not linked to the current design, or DWF/PDF format issues.",
     ownerFocus: "Reduce rejection risk caused by incomplete or inconsistent files.",
   },
   {
@@ -357,7 +329,7 @@ const processSteps: ProcessStep[] = [
   {
     title: "10. Testing, commissioning and energization support",
     description:
-      "Energization requires technical readiness and operational readiness. We help align test records, equipment condition, switching sequence, shutdown planning, client operations, safety checks and final evidence so the project can move from approval to usable power.",
+      "Energization requires technical readiness and operational readiness. The appointed project parties should align test records, equipment condition, switching sequence, shutdown planning, client operations, safety checks and final evidence before the project moves from approval to usable power.",
     ownerFocus: "Connect paperwork, inspection and real electrical operation.",
   },
   {
@@ -583,21 +555,6 @@ const industryCards: MiniCard[] = [
       "Data centres and server rooms demand careful maximum demand review, redundancy thinking, cooling loads, UPS interfaces, generator coordination, cable management, shutdown planning and staged commissioning. A weak load narrative can compromise both approval and resilience.",
     icon: PlugZap,
   },
-];
-
-const locationSignals = [
-  "Dubai Investment Park (DIP)",
-  "JAFZA",
-  "Dubai South",
-  "Al Quoz",
-  "Business Bay",
-  "Dubai Silicon Oasis",
-  "Dubai Industrial City",
-  "Jebel Ali",
-  "Dubai Marina",
-  "Dubai mainland",
-  "Free zone communities",
-  "UAE project locations requiring Dubai utility coordination",
 ];
 
 const commonMistakes: MiniCard[] = [
@@ -1487,7 +1444,26 @@ const dewaFaqs: FaqItem[] = [
   },
 ];
 
-const faqCategories = Array.from(new Set(dewaFaqs.map((faq) => faq.category)));
+const publishedFaqQuestions = new Set([
+  "How do I get DEWA approval in Dubai?",
+  "How much does DEWA approval cost in Dubai?",
+  "How long does DEWA approval take?",
+  "What documents are required for DEWA approval?",
+  "How do warehouse DEWA approvals work?",
+  "How does LV approval differ from HV approval?",
+  "Can I apply for DEWA approval manually?",
+  "What is a DEWA new connection?",
+  "Can a tenant request a new DEWA electricity connection?",
+  "What is temporary power supply?",
+  "How do I avoid delays in a new connection application?",
+  "What is DEWA additional load approval?",
+  "Can I install new machines before additional load approval?",
+  "What documents are needed for additional load?",
+  "What if DEWA rejects additional load?",
+]);
+
+const publishedDewaFaqs = dewaFaqs.filter((faq) => publishedFaqQuestions.has(faq.question));
+const faqCategories = Array.from(new Set(publishedDewaFaqs.map((faq) => faq.category)));
 
 function CtaButtons({ compact = false }: { compact?: boolean }) {
   return (
@@ -1633,70 +1609,12 @@ function JsonLd() {
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Organization",
-        "@id": organizationId,
-        name: site.legalName,
-        alternateName: site.name,
-        url: site.url,
-        logo: {
-          "@type": "ImageObject",
-          url: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-        },
-        email: site.email,
-        telephone: site.phone,
-      },
-      {
-        "@type": ["LocalBusiness", "GeneralContractor", "Electrician"],
-        "@id": localBusinessId,
-        name: site.legalName,
-        alternateName: site.name,
-        url: site.url,
-        image: absoluteUrl(heroImage),
-        telephone: site.phone,
-        email: site.email,
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: "Dubai Investment Park 02",
-          addressLocality: "Dubai",
-          addressCountry: "AE",
-        },
-        openingHoursSpecification: [
-          {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-            opens: "08:00",
-            closes: "18:00",
-          },
-        ],
-        areaServed: locationSignals.map((name) => ({
-          "@type": name === "UAE project locations requiring Dubai utility coordination" ? "Country" : "Place",
-          name,
-        })),
-        parentOrganization: {
-          "@id": organizationId,
-        },
-      },
-      {
-        "@type": "WebSite",
-        "@id": absoluteUrl("/#website"),
-        name: site.name,
-        url: site.url,
-        publisher: {
-          "@id": organizationId,
-        },
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${site.url}/search?q={search_term_string}`,
-          "query-input": "required name=search_term_string",
-        },
-      },
-      {
         "@type": "WebPage",
         "@id": webpageId,
         url: pageUrl,
-        name: "DEWA Approval Services in Dubai",
+        name: "DEWA Approval Coordination Guide for Dubai Projects",
         description:
-          "Comprehensive DEWA approval, NOC, new connection, additional load, LV, HV, inspection and electrical infrastructure guide for Dubai projects.",
+          "A practical guide to DEWA coordination, current-source checking, submission roles, documents and site readiness for Dubai projects.",
         inLanguage: "en-AE",
         isPartOf: {
           "@id": absoluteUrl("/#website"),
@@ -1711,10 +1629,6 @@ function JsonLd() {
         primaryImageOfPage: {
           "@id": `${pageUrl}#primaryimage`,
         },
-        speakable: {
-          "@type": "SpeakableSpecification",
-          cssSelector: ["#dewa-direct-answer", "#dewa-cost-answer", "#dewa-timeline-answer"],
-        },
         breadcrumb: {
           "@id": `${pageUrl}#breadcrumb`,
         },
@@ -1725,40 +1639,25 @@ function JsonLd() {
       {
         "@type": "Service",
         "@id": serviceId,
-        name: "DEWA Approval Services Dubai",
-        serviceType: "DEWA approval, DEWA NOC, electricity connection, LV approval, HV approval and electrical inspection coordination",
+        name: "DEWA Approval Coordination",
+        serviceType: "Construction-side document, site-readiness and stakeholder coordination for DEWA-related project enquiries",
         provider: {
           "@id": localBusinessId,
         },
-        areaServed: locationSignals.map((name) => ({
-          "@type": "Place",
-          name,
-        })),
+        areaServed: {
+          "@type": "City",
+          name: "Dubai",
+        },
         url: pageUrl,
         description:
-          "DEWA approval support for Dubai villas, warehouses, factories, commercial buildings, retail, hotels, healthcare, schools, government buildings and data centres.",
-        hasOfferCatalog: {
-          "@type": "OfferCatalog",
-          name: "DEWA approval service clusters",
-          itemListElement: serviceClusters.slice(0, 12).map((item) => ({
-            "@type": "Offer",
-            itemOffered: {
-              "@type": "Service",
-              name: item.title,
-              description: item.description,
-              provider: {
-                "@id": localBusinessId,
-              },
-            },
-          })),
-        },
+          "DEWA approval coordination support for Dubai project enquiries, subject to the formal submission route, appointed consultant responsibilities and current authority requirements.",
       },
       {
         "@type": "Article",
         "@id": articleId,
-        headline: "DEWA Approval Dubai: Complete Guide for New Connection, Additional Load, LV, HV, NOC and Inspection",
+        headline: "DEWA Approval Coordination Guide for Dubai Projects",
         description:
-          "A comprehensive Dubai DEWA approval resource for project owners, tenants, consultants and contractors planning electricity approval, inspection and handover.",
+          "A practical Dubai resource for project teams reviewing electricity-approval routes, documents, responsibilities and site readiness.",
         author: {
           "@id": organizationId,
         },
@@ -1767,16 +1666,17 @@ function JsonLd() {
         },
         image: [absoluteUrl(heroImage), absoluteUrl(inspectionImage), absoluteUrl(cableImage)],
         datePublished: "2026-07-06",
-        dateModified: "2026-07-06",
+        dateModified: "2026-07-23",
         mainEntityOfPage: {
           "@id": webpageId,
         },
         articleSection: ["DEWA approval", "Dubai electrical approvals", "Authority coordination", "Electrical inspection"],
+        publishingPrinciples: absoluteUrl("/editorial-policy"),
       },
       {
         "@type": "FAQPage",
         "@id": faqId,
-        mainEntity: dewaFaqs.map((faq) => ({
+        mainEntity: publishedDewaFaqs.map((faq) => ({
           "@type": "Question",
           name: faq.question,
           acceptedAnswer: {
@@ -1800,10 +1700,9 @@ function JsonLd() {
         url: absoluteUrl(heroImage),
         contentUrl: absoluteUrl(heroImage),
         name: "DEWA approval coordination in Dubai",
-        caption: "Electrical switchgear room for DEWA approval and power connection coordination in Dubai.",
+        caption: "Illustrative stock image of an electrical switchgear room accompanying this Dubai coordination guide.",
         description:
-          "High-resolution electrical switchgear image for DEWA approval, electrical infrastructure and authority coordination services in Dubai.",
-        representativeOfPage: true,
+          "Illustrative electrical switchgear image; it is not evidence of an Emitronix project, team member or completed authority approval.",
       },
       {
         "@type": "ImageObject",
@@ -1811,9 +1710,9 @@ function JsonLd() {
         url: absoluteUrl(inspectionImage),
         contentUrl: absoluteUrl(inspectionImage),
         name: "DEWA LV inspection and testing Dubai",
-        caption: "LV switchgear inspection and testing preparation for Dubai electrical approval.",
+        caption: "Illustrative stock image of LV switchgear inspection and testing preparation.",
         description:
-          "Close-up of LV switchgear testing and inspection preparation before DEWA-related site inspection.",
+          "Illustrative image only; it is not a documented Emitronix inspection or project.",
       },
       {
         "@type": "ImageObject",
@@ -1821,9 +1720,9 @@ function JsonLd() {
         url: absoluteUrl(cableImage),
         contentUrl: absoluteUrl(cableImage),
         name: "DEWA HV and LV cable works Dubai",
-        caption: "HV and LV cable tray coordination for Dubai industrial power projects.",
+        caption: "Illustrative stock image of HV and LV cable routing.",
         description:
-          "Electrical cable tray and service routing image for Dubai industrial electrical infrastructure coordination.",
+          "Illustrative image only; it is not evidence of an Emitronix cable-work project.",
       },
       {
         "@type": "VideoObject",
@@ -1835,7 +1734,6 @@ function JsonLd() {
         uploadDate: "2026-07-06",
         duration: "PT15S",
         contentUrl: absoluteUrl(videoUrl),
-        embedUrl: `${pageUrl}#video-briefing`,
         publisher: {
           "@id": organizationId,
         },
@@ -1852,8 +1750,8 @@ export default function DewaApprovalsPage() {
       <section className="relative isolate overflow-hidden bg-brand-dark text-white">
         <Image
           src={heroImage}
-          alt="Electrical switchgear room for DEWA approval and power connection coordination in Dubai"
-          title="DEWA Approval Dubai - electrical switchgear and power connection coordination"
+          alt="Illustrative electrical switchgear room accompanying a Dubai DEWA coordination guide"
+          title="Illustrative electrical switchgear image"
           fill
           priority
           fetchPriority="high"
@@ -1866,13 +1764,13 @@ export default function DewaApprovalsPage() {
         <div className="container-pad relative z-20 grid min-h-[740px] gap-10 pt-32 lg:grid-cols-[0.98fr_0.62fr] lg:items-end lg:pb-24 lg:pt-40">
           <div className="max-w-5xl pb-16 lg:pb-0">
             <p className="text-xs font-black uppercase tracking-[0.28em] text-brand-sky">
-              DEWA Approval Dubai
+              Dubai authority coordination guide
             </p>
             <h1 className="mt-6 text-5xl font-black leading-none text-white sm:text-6xl lg:text-7xl">
-              DEWA Approval Services in Dubai for New Connection, Load, LV, HV and NOC
+              DEWA Approval Coordination Guide for Dubai Projects
             </h1>
             <p id="dewa-direct-answer" className="mt-7 max-w-3xl text-lg font-medium leading-9 text-white/[0.88] sm:text-xl">
-              Emitronix Contracting LLC supports Dubai projects that need DEWA approval, electricity connection, additional load, LV approval, HV approval, electrical inspection, testing, commissioning, transformer coordination, utility NOC and project handover support.
+              A practical resource for defining the approval route, organizing project information, coordinating site readiness and confirming who is formally responsible for each submission.
             </p>
             <div className="mt-9">
               <CtaButtons />
@@ -1884,10 +1782,10 @@ export default function DewaApprovalsPage() {
               <p className="premium-kicker">Request-ready summary</p>
               <ul className="mt-5 grid gap-3">
                 {[
-                  "DEWA new connection, fit-out connection and additional load",
-                  "LV design approval, LV inspection and test record planning",
-                  "HV approval, transformer, substation and cable work coordination",
-                  "Dubai local coverage: DIP, JAFZA, Dubai South, Al Quoz, Jebel Ali and more",
+                  "Define the project-specific authority route",
+                  "Organize documents and site-readiness evidence",
+                  "Confirm the properly appointed formal submitter",
+                  "Treat official requirements and outcomes as authority-controlled",
                 ].map((point) => (
                   <li key={point} className="flex gap-3 text-sm font-bold leading-6">
                     <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
@@ -1925,20 +1823,26 @@ export default function DewaApprovalsPage() {
           <div className="grid gap-12 lg:grid-cols-[0.76fr_1.24fr]">
             <SectionIntro
               eyebrow="Authority resource"
-              title="A complete Dubai DEWA approval guide built for owners, tenants, consultants and project teams."
-              description="This page is intentionally detailed. It is designed to answer the commercial, technical, local and authority questions that usually appear before a client requests a DEWA approval assessment."
+              title="A practical guide for owners, tenants, consultants and project teams."
+              description="Use this resource to frame early project questions, then confirm the current service route and document rules directly with the authority and the properly appointed consultant or contractor."
             />
             <div className="grid gap-5 text-lg leading-9 text-steel">
               <p>
                 DEWA approval is not one document and it is not one meeting. For a Dubai project, it can involve Building NOC - Electricity, electricity permits and connections, design approval, connection estimates, additional load, fit-out connection, utility NOC, LV inspection, HV inspection, transformer coordination, cable works, testing, commissioning and final supply release. The correct route depends on location, authority jurisdiction, building use, connected load, maximum demand, existing supply, landlord requirements, consultant scope and site readiness.
               </p>
               <p>
-                Emitronix approaches DEWA approval as an engineering workflow. The objective is to prevent the classic Dubai project failure pattern: construction moves quickly, the electrical submission is treated as admin, the drawings do not match the site, a landlord NOC is missing, inspection is requested too early, and the handover date becomes exposed. A strong DEWA strategy ties documents, design, site execution, inspection and completion records together from the start.
+                A sound coordination workflow connects documents, design, site execution, inspection readiness and completion records from the start. It also identifies landlord, master-developer and consultant dependencies before they become handover risks.
               </p>
               <p>
-                This guide covers DEWA new connection, additional load, load reduction, LV approval, HV approval, electrical design approval, electrical inspection, testing and commissioning, temporary power supply, permanent power connection, transformer installation, transformer relocation, package substation, pocket substation, compact substation, HV cable works, LV cable works, utility coordination, shutdown planning, authority coordination and project completion across Dubai and the wider UAE.
+                The examples below are educational planning prompts for Dubai projects. They do not confirm that Emitronix is enrolled for, appointed to, or able to undertake every listed specialist or submission function.
               </p>
             </div>
+          </div>
+          <div className="mt-10 rounded-[1.5rem] border border-amber-300 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+            <p className="font-black">Authority and responsibility notice</p>
+            <p className="mt-2">
+              Emitronix is not DEWA and cannot guarantee an approval, inspection outcome or timeline. Formal submissions and regulated work must be handled by the properly appointed and currently eligible party for the specific service. Emitronix&apos;s exact coordination, construction or specialist scope must be confirmed in writing for each project.
+            </p>
           </div>
         </div>
       </section>
@@ -1946,9 +1850,9 @@ export default function DewaApprovalsPage() {
       <section id="answers" className="section-pad soft-section scroll-mt-28">
         <div className="container-pad">
           <SectionIntro
-            eyebrow="Answer engine summary"
-            title="Short answers for DEWA approval searches in Dubai."
-            description="These answer blocks are written for customers, Google snippets and AI search engines. Each answer is concise first, with deeper detail throughout the page."
+            eyebrow="Quick reference"
+            title="Short answers to common DEWA coordination questions."
+            description="Each answer starts with the practical point, with documents, process limits and deeper detail explained throughout the page."
             align="center"
           />
           <div className="mt-12">
@@ -1961,12 +1865,12 @@ export default function DewaApprovalsPage() {
         <div className="container-pad">
           <div className="grid gap-6 rounded-[1.75rem] border border-brand/[0.15] bg-brand-soft p-6 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center lg:p-8">
             <div>
-              <p className="premium-kicker">Conversion point</p>
+              <p className="premium-kicker">Project enquiry</p>
               <h2 className="mt-2 text-2xl font-black leading-tight text-charcoal sm:text-3xl">
                 Need DEWA approval, additional load or inspection support now?
               </h2>
               <p className="mt-3 max-w-3xl text-sm leading-7 text-charcoal/85">
-                Send your project location, drawings, existing DEWA reference, required load, site photos and target date. Emitronix will identify the likely approval route and missing information.
+                Send your project location, available drawings, existing DEWA reference, required load, site photos and target date. The team can review the enquiry and confirm whether Emitronix can support the requested scope.
               </p>
             </div>
             <CtaButtons compact />
@@ -1977,9 +1881,9 @@ export default function DewaApprovalsPage() {
       <section id="services" className="section-pad bg-white scroll-mt-28">
         <div className="container-pad">
           <SectionIntro
-            eyebrow="DEWA approval services"
-            title="Every major DEWA approval and electrical infrastructure service covered in one workflow."
-            description="The search term may be simple, but the real project can touch new supply, load changes, fit-out connections, substations, cable routes, inspections, utility NOCs and completion evidence."
+              eyebrow="DEWA coordination pathways"
+              title="Common electricity approval and infrastructure routes explained in one workflow."
+              description="A real project can touch new supply, load changes, fit-out connections, substations, cable routes, inspections, utility NOCs and completion evidence. Final capability and submission responsibility must be confirmed for the specific project."
             align="center"
           />
           <div className="mt-12">
@@ -2002,9 +1906,9 @@ export default function DewaApprovalsPage() {
           </div>
           <ImageFeature
             src={inspectionImage}
-            alt="LV switchgear inspection and testing preparation for DEWA approval in Dubai"
-            title="DEWA LV inspection and testing preparation in Dubai"
-            caption="LV inspection readiness: switchgear, test instruments, labels, access and records must align before the inspection request."
+            alt="Illustrative stock image of LV switchgear inspection and testing preparation"
+            title="Illustrative LV switchgear image"
+            caption="Illustrative stock image—not evidence of an Emitronix project. In general, switchgear, test records, labels and access should align before an inspection request."
           />
         </div>
       </section>
@@ -2084,9 +1988,9 @@ export default function DewaApprovalsPage() {
         <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <ImageFeature
             src={cableImage}
-            alt="HV and LV cable tray coordination for DEWA approval and electrical infrastructure in Dubai"
-            title="DEWA HV and LV cable works coordination in Dubai"
-            caption="Cable routes, trenching, NOCs, utility conflicts and inspection evidence must be planned before site execution."
+            alt="Illustrative stock image of HV and LV cable tray coordination"
+            title="Illustrative cable-routing image"
+            caption="Illustrative stock image—not evidence of an Emitronix project. Cable routes, NOCs, utility conflicts and inspection evidence generally need early planning."
           />
           <div>
             <SectionIntro
@@ -2149,13 +2053,13 @@ export default function DewaApprovalsPage() {
       <section id="industries" className="section-pad bg-white scroll-mt-28">
         <div className="container-pad">
           <SectionIntro
-            eyebrow="Industries served"
-            title="DEWA approval support for Dubai assets where power is critical."
-            description="Every industry has a different load profile, stakeholder map and risk pattern. Emitronix reviews the approval around actual use, not just the building category."
+            eyebrow="Project environments"
+            title="Electricity-approval planning changes with building use and operating risk."
+            description="These examples explain how load profiles and stakeholder dependencies can differ. They are not a claim of completed projects in every environment."
             align="center"
           />
           <div className="mt-12">
-            <MiniCardGrid items={industryCards} columns="three" />
+            <MiniCardGrid items={industryCards.slice(0, 5)} columns="three" />
           </div>
         </div>
       </section>
@@ -2163,12 +2067,12 @@ export default function DewaApprovalsPage() {
       <section className="section-pad blue-grid">
         <div className="container-pad grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-start">
           <SectionIntro
-            eyebrow="Local SEO coverage"
-            title="Dubai-local DEWA approval coverage where projects actually need power."
-            description="Local context matters because free zones, landlords, master developers and authority portals change the route. These Dubai locations are common for DEWA-related electrical approval, load and inspection enquiries."
+            eyebrow="Published service area"
+            title="Start with the exact Dubai project location and jurisdiction."
+            description="Emitronix publishes Dubai and the UAE as its service area. A specific project route still depends on the site, authority jurisdiction, landlord and master developer."
           />
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-            {locationSignals.map((location) => (
+            {["Dubai", site.location].map((location) => (
               <div key={location} className="flex min-h-20 items-center gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4 text-sm font-black text-charcoal shadow-sm">
                 <MapPinIcon />
                 {location}
@@ -2181,9 +2085,9 @@ export default function DewaApprovalsPage() {
       <section className="section-pad bg-white">
         <div className="container-pad">
           <SectionIntro
-            eyebrow="Sample project pathways"
-            title="Realistic DEWA approval scenarios without invented client claims."
-            description="Emitronix does not publish fabricated client names, testimonials, certifications or project counts. These scenarios show the practical approval routes customers commonly need to plan."
+            eyebrow="Illustrative planning scenarios"
+            title="Example coordination pathways—not Emitronix case studies."
+            description="These fictional scenarios help project teams frame common dependencies. They do not represent named clients, completed projects, outcomes or authority approvals."
             align="center"
           />
           <div className="mt-12">
@@ -2212,11 +2116,23 @@ export default function DewaApprovalsPage() {
             <SectionIntro
               eyebrow="Regulations and official resources"
               title="Use official DEWA sources for the latest service rules."
-              description="This page is current as a practical engineering guide, but DEWA service pages, portal routes, file formats, delivery times and service conditions can change. Always verify the live official source before submission."
+              description="Official service pages, portal routes, file formats, delivery times and conditions can change. The sources below were reviewed on 23 July 2026; verify the live official source again before submission."
             />
             <p id="dewa-cost-answer" className="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm font-bold leading-7 text-amber-950">
               Cost note: public DEWA service pages may list some e-service registrations as free, but project owners should still plan for estimates, connection charges, contractor works, consultant drawings, equipment, testing and rectification when applicable.
             </p>
+            <div className="mt-4 rounded-2xl border border-brand/[0.14] bg-white p-5 text-sm leading-7 text-steel">
+              <p className="font-black text-charcoal">Editorial status</p>
+              <p className="mt-2">
+                Last reviewed 23 July 2026. Emitronix is the organizational publisher. No named technical reviewer is presented until management verifies the reviewer&apos;s identity and credentials.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-3 font-bold text-brand">
+                <Link href="/editorial-policy">Editorial policy</Link>
+                <Link href="/technical-review-policy">Technical review policy</Link>
+                <Link href="/corrections-policy">Corrections policy</Link>
+                <Link href="/disclaimer">Disclaimer</Link>
+              </div>
+            </div>
           </div>
           <div className="grid gap-4">
             {officialResources.map((resource) => (
@@ -2241,7 +2157,7 @@ export default function DewaApprovalsPage() {
           <SectionIntro
             eyebrow="Video briefing"
             title="A short visual overview of the DEWA approval workflow."
-            description="This lightweight video supports the VideoObject schema on this page and gives visitors a quick visual summary of approval coordination, LV inspection and cable route planning."
+            description="Use this short visual summary as an orientation to approval coordination, LV inspection preparation and cable-route planning."
           />
           <div className="overflow-hidden rounded-[1.75rem] border border-brand/[0.14] bg-white shadow-panel">
             <video
@@ -2261,9 +2177,9 @@ export default function DewaApprovalsPage() {
       <section className="section-pad bg-white">
         <div className="container-pad">
           <SectionIntro
-            eyebrow="Related services and internal links"
+            eyebrow="Related services"
             title="Connected Dubai approval and construction services."
-            description="DEWA approval rarely stands alone. These internal resources help users and search engines understand the wider Emitronix service ecosystem."
+            description="DEWA approval rarely stands alone. These resources connect electrical coordination with related construction and approval decisions."
             align="center"
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
@@ -2282,8 +2198,8 @@ export default function DewaApprovalsPage() {
         <div className="container-pad">
           <SectionIntro
             eyebrow="DEWA approval FAQs"
-            title="100+ questions answered before you contact a contractor."
-            description="These FAQs are written for high-intent customers, AI search engines and project teams that need practical answers before approving a site visit, quotation or authority submission."
+            title="Practical questions to review before a project enquiry."
+            description="Concise answers for project teams preparing documents, a site visit, quotation discussion or authority-coordination request."
             align="center"
           />
           <div className="mt-12 grid gap-8">
@@ -2293,7 +2209,7 @@ export default function DewaApprovalsPage() {
                   {category}
                 </h3>
                 <div className="mt-5 grid gap-4 md:grid-cols-2">
-                  {dewaFaqs
+                  {publishedDewaFaqs
                     .filter((faq) => faq.category === category)
                     .map((faq) => (
                       <details key={faq.question} className="group rounded-[1.25rem] border border-brand/[0.14] bg-white p-5 shadow-sm open:shadow-panel">
@@ -2315,7 +2231,7 @@ export default function DewaApprovalsPage() {
           <div>
             <SectionIntro
               eyebrow="Request a DEWA assessment"
-              title="Talk to an engineer before your power approval becomes a deadline problem."
+              title="Talk to the project team before power coordination becomes a deadline problem."
               description="Share the project location, drawings, existing DEWA status, current load, required load, authority comments, site photos and target handover date. The first response will focus on the next practical step."
             />
             <div className="mt-8 grid gap-3">

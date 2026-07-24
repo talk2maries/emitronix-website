@@ -1,4 +1,5 @@
 import { BadgeCheck, Building2, ClipboardCheck, FileCheck2, ShieldCheck, Users } from "lucide-react";
+import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
@@ -69,10 +70,24 @@ const aboutFaqs = [
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
+  "@id": `${absoluteUrl("/about")}#breadcrumb`,
   itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
     { "@type": "ListItem", position: 2, name: "About", item: absoluteUrl("/about") },
   ],
+};
+
+const aboutPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": `${absoluteUrl("/about")}#webpage`,
+  url: absoluteUrl("/about"),
+  name: `About ${site.legalName}`,
+  description: "Company overview, operating principles, published business facts and authority profiles for Emitronix Contracting LLC.",
+  isPartOf: { "@id": absoluteUrl("/#website") },
+  about: { "@id": absoluteUrl("/#organization") },
+  breadcrumb: { "@id": `${absoluteUrl("/about")}#breadcrumb` },
+  inLanguage: "en-AE",
 };
 
 export default function AboutPage() {
@@ -83,7 +98,7 @@ export default function AboutPage() {
         title="A premium Dubai contractor built around clarity."
         description={`${site.legalName} brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.`}
         image="/images/about-construction-coordination-dubai.webp"
-        imageAlt="Dubai construction team reviewing site progress for civil works and authority coordination"
+        imageAlt="Illustrative stock image of a construction team reviewing site information"
         primaryCta={{ label: "Talk to Emitronix", href: "/contact" }}
         secondaryCta={{ label: "Explore Services", href: "/services" }}
         metrics={stats}
@@ -111,7 +126,7 @@ export default function AboutPage() {
           </div>
           <ImagePanel
             src="/images/about-civil-works-dubai.webp"
-            alt="Dubai civil works engineers reviewing site coordination and project delivery"
+            alt="Illustrative stock image of civil works coordination"
             label="Site coordination"
             title="Civil works, fit-out and approval-ready delivery."
           />
@@ -143,17 +158,18 @@ export default function AboutPage() {
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-8 md:grid-cols-3">
           {[
-            { title: "Verified business source", body: "Site contact facts, location and service areas are maintained from the shared business data file.", icon: BadgeCheck },
-            { title: "Dubai location signal", body: site.location, icon: ShieldCheck },
-            { title: "Project enquiry scope", body: "Civil construction, approvals, fit-out, villas, warehouses and commercial works.", icon: Building2 },
+            { title: "Founder profile", body: "Meet Marieswaran Sadaiappan and review the published professional focus areas and verification boundaries.", href: "/founder", icon: BadgeCheck },
+            { title: "Leadership functions", body: "Understand the role-based operational, engineering, QA/QC, HSE, procurement and site-delivery functions.", href: "/leadership", icon: ShieldCheck },
+            { title: "Company information", body: `Review the published legal name, contact details, location, hours and service areas for ${site.name}.`, href: "/company-information", icon: Building2 },
           ].map((item) => {
             const Icon = item.icon;
             return (
-              <article key={item.title} className="luxury-card rounded-[1.5rem] p-6">
+              <Link key={item.title} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
                 <Icon className="h-8 w-8 text-brand" />
                 <h2 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{item.title}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">{item.body}</p>
-              </article>
+                <span className="mt-5 inline-flex text-sm font-black uppercase tracking-wide text-brand">Read profile →</span>
+              </Link>
             );
           })}
         </div>
@@ -179,6 +195,7 @@ export default function AboutPage() {
 
       <CTA />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageJsonLd) }} />
     </>
   );
 }

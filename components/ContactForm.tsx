@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader2, Send } from "lucide-react";
+import Link from "next/link";
 import { FormEvent, useState } from "react";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
@@ -189,7 +190,12 @@ export function ContactForm({
         </label>
         <label className="flex items-start gap-3 rounded-2xl border border-brand/[0.14] bg-brand-soft p-4 text-sm font-bold leading-6 text-charcoal sm:col-span-2">
           <input name="consent" type="checkbox" required className="mt-1 h-4 w-4 rounded border-brand/30 text-brand focus-ring" />
-          {text.consent}
+          <span>
+            {text.consent}{" "}
+            <Link href={isArabic ? "/ar/privacy-policy" : "/privacy-policy"} className="font-black text-brand underline underline-offset-2">
+              {isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
+            </Link>
+          </span>
         </label>
       </div>
 

@@ -4,14 +4,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
-import { blogAuthor, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
+import { blogAuthor, blogImageAlt, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
 import { applySeoOverrides, resolveMetaTitle } from "@/data/seo";
-import { absoluteUrl, services, site } from "@/data/site";
+import { absoluteUrl, brandLogoImageObject, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
+import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
 
 type BlogArticlePageProps = {
   params: Promise<{ slug: string }>;
 };
+
+export const dynamicParams = false;
 
 function formatDate(value: string) {
   return new Intl.DateTimeFormat("en-AE", {
@@ -25,7 +28,28 @@ function postHref(slug: string) {
   return `/blog/${slug}`;
 }
 
+const articlePrimaryReferences = [
+  {
+    title: "Dubai Municipality — Building Permit Procedures",
+    href: "https://www.dm.gov.ae/municipality-business/building-permit-steps/",
+  },
+  {
+    title: "UAE Government — Buildings' Safety",
+    href: "https://u.ae/en/information-and-services/justice-safety-and-the-law/building-safety",
+  },
+  {
+    title: "UAE Government — Obtaining Certificates and Permits",
+    href: "https://u.ae/en/information-and-services/business/obtaining-certificates-and-licences/obtaining-certificates-and-permits",
+  },
+] as const;
+
 export function generateStaticParams() {
+  const missingManifestPost = blogPosts.find((post) =>
+    isUnknownClosedSetPath(`/blog/${post.slug}`),
+  );
+  if (missingManifestPost) {
+    throw new Error(`Blog route manifest is missing /blog/${missingManifestPost.slug}`);
+  }
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
@@ -54,6 +78,10 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
         "x-default": url,
       },
     },
+    robots: {
+      index: true,
+      follow: true,
+    },
     authors: [{ name: post.author }],
     openGraph: {
       type: "article",
@@ -72,7 +100,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
           url: imageUrl,
           width: 1672,
           height: 941,
-          alt: post.imageAlt,
+          alt: blogImageAlt(post),
         },
       ],
     },
@@ -102,7 +130,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
 
   const articleJsonLd = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: post.title,
     description: post.metaDescription,
     image: [absoluteUrl(post.image)],
@@ -112,10 +140,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     publisher: {
       "@id": absoluteUrl("/#localbusiness"),
       name: site.legalName,
-      logo: {
-        "@type": "ImageObject",
-        url: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-      },
+      logo: brandLogoImageObject,
     },
     mainEntityOfPage: {
       "@type": "WebPage",
@@ -123,6 +148,8 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     },
     articleSection: post.category,
     keywords: post.targetKeywords.join(", "),
+    isAccessibleForFree: true,
+    publishingPrinciples: absoluteUrl("/editorial-policy"),
   };
 
   const breadcrumbJsonLd = {
@@ -182,8 +209,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
               <div className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-brand-soft shadow-luxe lg:min-h-[520px]">
                 <Image
                   src={post.image}
-                  alt={post.imageAlt}
-                  title={post.imageTitle}
+                  alt={blogImageAlt(post)}
                   fill
                   priority
                   sizes="(min-width: 1024px) 50vw, 100vw"
@@ -238,6 +264,66 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
               ))}
             </div>
 
+            <section className="mt-10 rounded-[1.75rem] border border-brand/[0.15] bg-brand-soft p-6" aria-labelledby="article-review-heading">
+              <p className="premium-kicker">Authorship and review</p>
+              <h2 id="article-review-heading" className="mt-3 text-2xl font-black tracking-tight text-charcoal">
+                Transparent editorial ownership
+              </h2>
+              <dl className="mt-5 grid gap-4 text-sm sm:grid-cols-2">
+                <div>
+                  <dt className="font-black uppercase tracking-wide text-charcoal">Content owner</dt>
+                  <dd className="mt-1 leading-7 text-steel">{post.author}</dd>
+                </div>
+                <div>
+                  <dt className="font-black uppercase tracking-wide text-charcoal">Last updated</dt>
+                  <dd className="mt-1 leading-7 text-steel">{formatDate(post.modifiedDate)}</dd>
+                </div>
+                <div className="sm:col-span-2">
+                  <dt className="font-black uppercase tracking-wide text-charcoal">Technical-review status</dt>
+                  <dd className="mt-1 leading-7 text-steel">
+                    General educational content; it is not a project-specific design, calculation, approval or site instruction. A named reviewer and credentials are shown only after formal verification.
+                  </dd>
+                </div>
+              </dl>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Link href="/editorial-policy" className="text-sm font-black text-brand underline underline-offset-4">Editorial policy</Link>
+                <Link href="/technical-review-policy" className="text-sm font-black text-brand underline underline-offset-4">Technical review policy</Link>
+                <Link href="/corrections-policy" className="text-sm font-black text-brand underline underline-offset-4">Request a correction</Link>
+                <Link href="/disclaimer" className="text-sm font-black text-brand underline underline-offset-4">Content disclaimer</Link>
+              </div>
+            </section>
+
+            <section className="mt-6 rounded-[1.75rem] border border-brand/[0.15] bg-white p-6 shadow-panel" aria-labelledby="article-references-heading">
+              <p className="premium-kicker">Primary references</p>
+              <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <h2 id="article-references-heading" className="text-2xl font-black tracking-tight text-charcoal">
+                    Current official starting points
+                  </h2>
+                  <p className="mt-3 max-w-3xl text-sm leading-7 text-steel">
+                    Checked 23 July 2026. This article is general planning guidance, not a clause-by-clause code review. Confirm the current requirements, service route and project-specific responsibilities with the relevant authority and appointed professionals before acting.
+                  </p>
+                </div>
+                <span className="w-fit shrink-0 rounded-full border border-brand/[0.15] bg-brand-soft px-4 py-2 text-xs font-black uppercase tracking-wide text-brand">
+                  General planning guidance
+                </span>
+              </div>
+              <div className="mt-5 grid gap-3">
+                {articlePrimaryReferences.map((reference) => (
+                  <a
+                    key={reference.href}
+                    href={reference.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between gap-4 rounded-2xl border border-brand/[0.12] bg-pearl px-5 py-4 text-sm font-black leading-6 text-charcoal transition hover:border-brand/30 hover:bg-brand-soft hover:text-brand"
+                  >
+                    <span>{reference.title}</span>
+                    <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </section>
+
             <div className="mt-12 grid gap-12">
               {post.sections.map((section) => (
                 <section key={section.id} id={section.id} className="scroll-mt-28">
@@ -287,7 +373,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
             </section>
 
             <section className="mt-14 rounded-[2rem] border border-brand/[0.15] bg-[linear-gradient(135deg,#ffffff_0%,#eaf5ff_100%)] p-6 shadow-luxe lg:p-8">
-              <p className="premium-kicker">Request Free Consultation</p>
+              <p className="premium-kicker">Project consultation</p>
               <h2 className="mt-4 max-w-3xl text-4xl font-black tracking-tight text-charcoal">
                 Turn this guidance into a clear Dubai project route.
               </h2>

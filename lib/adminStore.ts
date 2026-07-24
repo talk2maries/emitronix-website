@@ -1,4 +1,4 @@
-import { appendFile, mkdir, readFile, readdir, unlink, writeFile } from "fs/promises";
+import { appendFile, chmod, mkdir, readFile, readdir, unlink, writeFile } from "fs/promises";
 import path from "path";
 
 const STORAGE_DIR = path.join(process.cwd(), "storage");
@@ -18,12 +18,8 @@ export type SeoOverride = {
   ogDescription?: string;
   ogImage?: string;
   noindex?: boolean;
-  /** Raw JSON-LD object or array, injected as an additional script tag. */
+  /** Raw JSON-LD object or array, parsed and serialized as data only. */
   schemaJson?: string;
-  /** Extra HTML injected client-side near the top of the page for this path. */
-  headHtml?: string;
-  /** Extra HTML injected client-side before the end of the page for this path. */
-  footerHtml?: string;
 };
 
 export type Redirect = {
@@ -33,11 +29,7 @@ export type Redirect = {
 };
 
 export type SiteFiles = {
-  robotsTxt?: string;
   llmsTxt?: string;
-  /** Global scripts injected on every page. */
-  headScripts?: string;
-  footerScripts?: string;
   /** Extra absolute or relative URLs appended to sitemap.xml. */
   sitemapExtraUrls?: string;
   /** Paths excluded from sitemap.xml, one per line. */
@@ -71,8 +63,11 @@ async function readJson<T>(filePath: string, fallback: T): Promise<T> {
 }
 
 async function writeJson(filePath: string, value: unknown) {
-  await mkdir(path.dirname(filePath), { recursive: true });
-  await writeFile(filePath, JSON.stringify(value, null, 2), "utf8");
+  const directory = path.dirname(filePath);
+  await mkdir(directory, { recursive: true, mode: 0o700 });
+  await chmod(directory, 0o700);
+  await writeFile(filePath, JSON.stringify(value, null, 2), { encoding: "utf8", mode: 0o600 });
+  await chmod(filePath, 0o600);
 }
 
 // ---------- SEO overrides ----------
@@ -108,7 +103,7 @@ export async function saveRedirects(redirects: Redirect[]) {
   await writeJson(REDIRECTS_PATH, redirects);
 }
 
-// ---------- Site files (robots, llms, global scripts, sitemap tweaks) ----------
+// ---------- Site files (LLM guidance and sitemap tweaks) ----------
 
 export async function readSiteFiles(): Promise<SiteFiles> {
   return readJson(SITE_FILES_PATH, {});
@@ -121,9 +116,11 @@ export async function saveSiteFiles(files: SiteFiles) {
 // ---------- Activity log ----------
 
 export async function logActivity(entry: Omit<ActivityEntry, "at">) {
-  await mkdir(STORAGE_DIR, { recursive: true });
+  await mkdir(STORAGE_DIR, { recursive: true, mode: 0o700 });
+  await chmod(STORAGE_DIR, 0o700);
   const line = JSON.stringify({ at: new Date().toISOString(), ...entry });
-  await appendFile(ACTIVITY_PATH, line + "\n", "utf8");
+  await appendFile(ACTIVITY_PATH, line + "\n", { encoding: "utf8", mode: 0o600 });
+  await chmod(ACTIVITY_PATH, 0o600);
 }
 
 export async function readActivity(limit = 200): Promise<ActivityEntry[]> {
@@ -151,8 +148,11 @@ export async function saveEnquiry(kind: "contact" | "blog", data: Record<string,
     status: "new",
     data,
   };
-  await mkdir(ENQUIRIES_DIR, { recursive: true });
-  await writeFile(path.join(ENQUIRIES_DIR, `${id}.json`), JSON.stringify(record, null, 2), "utf8");
+  await mkdir(ENQUIRIES_DIR, { recursive: true, mode: 0o700 });
+  await chmod(ENQUIRIES_DIR, 0o700);
+  const filePath = path.join(ENQUIRIES_DIR, `${id}.json`);
+  await writeFile(filePath, JSON.stringify(record, null, 2), { encoding: "utf8", mode: 0o600 });
+  await chmod(filePath, 0o600);
   return id;
 }
 
@@ -203,7 +203,8 @@ export async function updateEnquiryStatus(id: string, status: EnquiryRecord["sta
     try {
       const record = JSON.parse(await readFile(filePath, "utf8")) as Record<string, unknown>;
       record.status = status;
-      await writeFile(filePath, JSON.stringify(record, null, 2), "utf8");
+      await writeFile(filePath, JSON.stringify(record, null, 2), { encoding: "utf8", mode: 0o600 });
+      await chmod(filePath, 0o600);
       return true;
     } catch {
       // try next directory

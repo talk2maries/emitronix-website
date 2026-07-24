@@ -66,8 +66,8 @@ const industryBenefits = [
     icon: Building2,
   },
   {
-    title: "Content built for Dubai search intent",
-    description: "Each sector is described with local service language so users can move naturally to civil, fit-out, projects, approvals or contact pathways.",
+    title: "Clear routes to relevant guidance",
+    description: "Each sector connects users to the relevant civil, fit-out, planning, approval or contact pathway.",
     icon: Landmark,
   },
 ];
@@ -119,9 +119,9 @@ export default function IndustriesPage() {
         title="Built for Dubai's real estate, logistics and commercial economy."
         description="Emitronix supports project categories where premium communication, practical engineering, authority visibility and handover control matter."
         image="/images/villa-construction-contractor-dubai.webp"
-        imageAlt="Villa construction contractor Dubai residential project works"
+        imageAlt="Illustrative stock image accompanying the Dubai construction industries guide; not project evidence"
         primaryCta={{ label: "Discuss Your Sector", href: "/contact" }}
-        secondaryCta={{ label: "View Projects", href: "/projects" }}
+        secondaryCta={{ label: "Planning Library", href: "/projects" }}
         metrics={stats}
       />
 
@@ -183,7 +183,7 @@ export default function IndustriesPage() {
 
       <TrustBar
         eyebrow="Industry trust"
-        title="Dubai market language built around verified service capability."
+        title="Published project categories and enquiry pathways."
         points={[
           "Villas and residential projects",
           "Warehouses and logistics environments",

@@ -55,6 +55,9 @@ export type BlogPost = {
   relatedSlugs: string[];
 };
 
+export const blogImageAlt = (post: Pick<BlogPost, "title">) =>
+  `Illustrative stock image accompanying the article “${post.title}”`;
+
 export const blogPosts: BlogPost[] = [
   {
     slug: "complete-guide-civil-construction-dubai-2026",
@@ -78,15 +81,15 @@ export const blogPosts: BlogPost[] = [
     image: "/images/dubai-civil-works-construction-site.webp",
     imageAlt: "Civil Contractor Dubai construction site progress and delivery planning",
     imageTitle: "Civil Contractor Dubai construction planning guide",
-    publishedDate: "2026-01-15",
-    modifiedDate: "2026-07-03",
+    publishedDate: "2026-07-23",
+    modifiedDate: "2026-07-23",
     readTime: "9 min read",
-    author: "Emitronix Editorial Team",
+    author: site.legalName,
     popular: true,
     featured: true,
     intro: [
       "Civil construction in Dubai rewards early clarity. A successful project in Dubai Investment Park, JAFZA, Dubai South, Al Quoz, Business Bay or Downtown Dubai rarely starts with site activity alone. It starts with scope definition, drawings, authority exposure, buildability review, procurement planning and a clear understanding of who is responsible for each decision.",
-      "This guide explains the civil construction process for owners, developers, tenants and consultants comparing a Civil Contractor Dubai, Building Contractor Dubai, Construction Company Dubai or Main Contractor Dubai. It is written for practical decision-making and does not replace project-specific consultant advice, authority requirements or contractual review.",
+      "This guide explains the civil construction process for owners, developers, tenants and consultants comparing civil, building and main contractors in Dubai. It is written for practical decision-making and does not replace project-specific consultant advice, authority requirements or contractual review.",
     ],
     sections: [
       {
@@ -136,7 +139,7 @@ export const blogPosts: BlogPost[] = [
         title: "Cost Factors in Dubai Civil Construction",
         paragraphs: [
           "Construction cost is shaped by scope clarity, site condition, structural requirements, material selection, access constraints, utility interfaces, authority requirements, program pressure and quality expectations. A low initial price can become expensive if drawings are incomplete or responsibilities are unclear.",
-          "Owners comparing a Commercial Building Contractor or Warehouse Contractor Dubai should ask whether the proposal includes assumptions, exclusions, authority interfaces, inspection support, temporary works, procurement responsibilities and close-out documents. Transparent scope language is often more valuable than a short quotation with unclear boundaries.",
+          "Owners comparing contractors for commercial buildings or warehouses should ask whether the proposal includes assumptions, exclusions, authority interfaces, inspection support, temporary works, procurement responsibilities and close-out documents. Transparent scope language is often more valuable than a short quotation with unclear boundaries.",
           "Cost optimization does not mean cutting quality. It means designing the correct scope, avoiding late changes, choosing practical materials, managing procurement early and coordinating approvals before site pressure starts.",
         ],
       },
@@ -153,7 +156,7 @@ export const blogPosts: BlogPost[] = [
         id: "choosing-contractor",
         title: "How to Compare Civil Contractors in Dubai",
         paragraphs: [
-          "When comparing a Civil Construction Company UAE or Main Contractor Dubai, look beyond presentation. Review whether the contractor asks useful technical questions, understands local authority exposure, communicates exclusions clearly, can coordinate with consultants and has a practical approach to handover.",
+          "When comparing civil construction companies or main contractors in the UAE, look beyond presentation. Review whether the contractor asks useful technical questions, understands local authority exposure, communicates exclusions clearly, can coordinate with consultants and has a practical approach to handover.",
           "Ask for a project-specific method of communication. Who will track drawings? Who will coordinate comments? How will variations be handled? What information is needed before mobilization? How will inspections and close-out documents be managed? These questions reveal whether the contractor is prepared for real delivery conditions.",
           "Do not rely on unverified claims, awards, project counts or client names unless they are independently confirmed. A professional contractor should be comfortable discussing process, documentation, authority awareness and scope boundaries without exaggeration.",
         ],
@@ -224,10 +227,10 @@ export const blogPosts: BlogPost[] = [
     image: "/images/dubai-authority-approval-contractor.webp",
     imageAlt: "Dubai authority approval drawings and coordination documents for DEWA Municipality DCD and Trakhees",
     imageTitle: "Dubai authority approvals guide",
-    publishedDate: "2026-02-05",
-    modifiedDate: "2026-07-03",
+    publishedDate: "2026-07-23",
+    modifiedDate: "2026-07-23",
     readTime: "8 min read",
-    author: "Emitronix Editorial Team",
+    author: site.legalName,
     popular: true,
     featured: true,
     intro: [
@@ -383,10 +386,10 @@ export const blogPosts: BlogPost[] = [
     image: "/images/warehouse-construction-dubai.webp",
     imageAlt: "Warehouse Construction Dubai steel structure planning for logistics and industrial facilities",
     imageTitle: "Warehouse construction Dubai planning guide",
-    publishedDate: "2026-02-21",
-    modifiedDate: "2026-07-03",
+    publishedDate: "2026-07-23",
+    modifiedDate: "2026-07-23",
     readTime: "8 min read",
-    author: "Emitronix Editorial Team",
+    author: site.legalName,
     popular: true,
     featured: true,
     intro: [
@@ -538,15 +541,15 @@ export const blogPosts: BlogPost[] = [
     image: "/images/dubai-building-contracting-company.webp",
     imageAlt: "Building contractor Dubai construction site planning and contractor selection",
     imageTitle: "Best building contractor Dubai selection guide",
-    publishedDate: "2026-03-10",
-    modifiedDate: "2026-07-03",
+    publishedDate: "2026-07-23",
+    modifiedDate: "2026-07-23",
     readTime: "8 min read",
-    author: "Emitronix Editorial Team",
+    author: site.legalName,
     popular: true,
     featured: true,
     intro: [
       "Choosing a building contractor in Dubai is a commercial decision, a technical decision and a risk decision. The best contractor for a villa, warehouse, commercial unit or building modification is not always the one with the fastest promise or the lowest number. It is the team that can clarify scope, coordinate approvals, manage site execution and communicate clearly.",
-      "This guide gives owners, tenants and consultants a practical checklist for comparing a Best Building Contractor Dubai, Construction Company Dubai, Main Contractor UAE, Civil Contractor Dubai or Commercial Construction Company. It avoids unverified claims and focuses on questions that reveal how a contractor actually works.",
+      "This guide gives owners, tenants and consultants a practical checklist for comparing building, main, civil and commercial contractors in Dubai and the wider UAE. It avoids unverified claims and focuses on questions that reveal how a contractor actually works.",
     ],
     sections: [
       {
@@ -704,7 +707,7 @@ type StrategicPostSeed = {
   relatedSlugs: string[];
 };
 
-const createStrategicPost = (seed: StrategicPostSeed): BlogPost => ({
+const createDraftStrategicPost = (seed: StrategicPostSeed): BlogPost => ({
   slug: seed.slug,
   title: seed.title,
   seoTitle: seed.seoTitle,
@@ -716,10 +719,10 @@ const createStrategicPost = (seed: StrategicPostSeed): BlogPost => ({
   image: seed.image,
   imageAlt: seed.imageAlt,
   imageTitle: seed.imageTitle,
-  publishedDate: seed.publishedDate,
-  modifiedDate: "2026-07-03",
+  publishedDate: "2026-07-23",
+  modifiedDate: "2026-07-23",
   readTime: seed.readTime,
-  author: "Emitronix Editorial Team",
+  author: site.legalName,
   popular: Boolean(seed.popular),
   featured: false,
   intro: [
@@ -808,8 +811,10 @@ const createStrategicPost = (seed: StrategicPostSeed): BlogPost => ({
   relatedSlugs: seed.relatedSlugs,
 });
 
-const strategicBlogPosts: BlogPost[] = [
-  createStrategicPost({
+// Draft-only inventory. These templated articles are intentionally excluded
+// from `blogPosts` until each one receives a distinct editorial rewrite.
+export const draftStrategicBlogPosts: BlogPost[] = [
+  createDraftStrategicPost({
     slug: "warehouse-construction-cost-dubai",
     title: "Warehouse Construction Cost in Dubai: What Affects Budget in 2026",
     seoTitle: "Warehouse Construction Cost Dubai 2026 | Budget Factors",
@@ -856,7 +861,7 @@ const strategicBlogPosts: BlogPost[] = [
     ],
     relatedSlugs: ["warehouse-construction-dubai-planning-design-authority-approvals", "warehouse-design-guide-uae", "industrial-building-planning-guide-uae"],
   }),
-  createStrategicPost({
+  createDraftStrategicPost({
     slug: "main-contractor-vs-general-contractor-dubai",
     title: "Main Contractor vs General Contractor in Dubai: What Owners Should Know",
     seoTitle: "Main Contractor vs General Contractor Dubai | Owner Guide",
@@ -902,7 +907,7 @@ const strategicBlogPosts: BlogPost[] = [
     ],
     relatedSlugs: ["choose-best-building-contractor-dubai", "complete-guide-civil-construction-dubai-2026", "construction-cost-saving-tips-dubai"],
   }),
-  createStrategicPost({
+  createDraftStrategicPost({
     slug: "warehouse-design-guide-uae",
     title: "Warehouse Design Guide UAE: Layout, Structure, Fire Safety and Operations",
     seoTitle: "Warehouse Design Guide UAE | Layout, Structure & Fire Safety",
@@ -948,7 +953,7 @@ const strategicBlogPosts: BlogPost[] = [
     ],
     relatedSlugs: ["warehouse-construction-cost-dubai", "warehouse-construction-dubai-planning-design-authority-approvals", "industrial-building-planning-guide-uae"],
   }),
-  createStrategicPost({
+  createDraftStrategicPost({
     slug: "commercial-building-construction-guide-dubai",
     title: "Commercial Building Construction Guide Dubai",
     seoTitle: "Commercial Building Construction Dubai | Owner Guide",
@@ -994,7 +999,7 @@ const strategicBlogPosts: BlogPost[] = [
     ],
     relatedSlugs: ["complete-guide-civil-construction-dubai-2026", "choose-best-building-contractor-dubai", "main-contractor-vs-general-contractor-dubai"],
   }),
-  createStrategicPost({
+  createDraftStrategicPost({
     slug: "villa-construction-process-dubai",
     title: "Villa Construction Process in Dubai: Step-by-Step Owner Guide",
     seoTitle: "Villa Construction Process Dubai | Step-by-Step Guide",
@@ -1040,7 +1045,7 @@ const strategicBlogPosts: BlogPost[] = [
     ],
     relatedSlugs: ["choose-best-building-contractor-dubai", "complete-guide-civil-construction-dubai-2026", "construction-cost-saving-tips-dubai"],
   }),
-  createStrategicPost({
+  createDraftStrategicPost({
     slug: "construction-approvals-explained-dubai",
     title: "Construction Approvals Explained in Dubai",
     seoTitle: "Construction Approvals Dubai Explained | DM, DEWA, DCD",
@@ -1087,7 +1092,7 @@ const strategicBlogPosts: BlogPost[] = [
     ],
     relatedSlugs: ["dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees", "complete-guide-civil-construction-dubai-2026", "warehouse-construction-dubai-planning-design-authority-approvals"],
   }),
-  createStrategicPost({
+  createDraftStrategicPost({
     slug: "industrial-building-planning-guide-uae",
     title: "Industrial Building Planning Guide UAE",
     seoTitle: "Industrial Building Planning UAE | Factory & Logistics Guide",
@@ -1133,7 +1138,7 @@ const strategicBlogPosts: BlogPost[] = [
     ],
     relatedSlugs: ["warehouse-design-guide-uae", "warehouse-construction-cost-dubai", "complete-guide-civil-construction-dubai-2026"],
   }),
-  createStrategicPost({
+  createDraftStrategicPost({
     slug: "construction-cost-saving-tips-dubai",
     title: "Construction Cost Saving Tips in Dubai Without Cutting Quality",
     seoTitle: "Construction Cost Saving Tips Dubai | Reduce Waste Safely",
@@ -1181,8 +1186,6 @@ const strategicBlogPosts: BlogPost[] = [
     relatedSlugs: ["choose-best-building-contractor-dubai", "main-contractor-vs-general-contractor-dubai", "complete-guide-civil-construction-dubai-2026"],
   }),
 ];
-
-blogPosts.push(...strategicBlogPosts);
 
 export const getBlogPost = (slug: string) => blogPosts.find((post) => post.slug === slug);
 

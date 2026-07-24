@@ -49,6 +49,10 @@ export async function createPolicyPageMetadata(key: CookiePolicyPageKey, languag
         "x-default": absoluteUrl(policyPageRoutes[key].en),
       },
     },
+    robots: {
+      index: true,
+      follow: true,
+    },
     openGraph: {
       type: "website",
       locale: language === "ar" ? "ar_AE" : "en_AE",

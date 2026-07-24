@@ -27,7 +27,7 @@ const approvalFaqs = [
   {
     question: "Which Dubai approvals can Emitronix coordinate?",
     answer:
-      "Emitronix supports approval coordination for Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA workflows depending on project location and scope.",
+      "The website provides planning guides for Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA workflows. Emitronix's exact role, eligibility and appointed responsibilities must be confirmed for the specific project.",
   },
   {
     question: "Are approval requirements the same for every project?",
@@ -42,7 +42,7 @@ const approvalFaqs = [
   {
     question: "Can approval work be connected to construction execution?",
     answer:
-      "Yes. Emitronix keeps approval coordination connected to drawings, site sequencing, inspection readiness and handover documentation so authority work supports the construction path.",
+      "It should be. Drawings, site sequencing, inspection readiness and handover documentation need to stay aligned. The project-specific proposal should state which coordination tasks Emitronix will perform.",
   },
 ];
 
@@ -76,11 +76,22 @@ export default function ApprovalPage() {
         title="Dubai approval services for construction projects."
         description="Emitronix supports owners, consultants and tenants with structured document coordination, authority comment response and inspection readiness across key Dubai approval workflows."
         image="/images/dubai-authority-approval-contractor.webp"
-        imageAlt="Dubai authority approval contractor coordinating project documents"
+        imageAlt="Illustrative stock image accompanying Dubai authority coordination guidance"
         primaryCta={{ label: "Request Approval Support", href: "/contact" }}
         secondaryCta={{ label: "View Services", href: "/services" }}
         metrics={stats}
       />
+
+      <section className="bg-white pt-10">
+        <div className="container-pad">
+          <div className="rounded-[1.5rem] border border-amber-300 bg-amber-50 p-6 text-sm leading-7 text-amber-950">
+            <p className="font-black">Authority and appointment notice</p>
+            <p className="mt-2">
+              Emitronix is not a government authority and does not guarantee permits, NOCs, inspections, timelines or outcomes. The authority, current submission route, required consultant or contractor enrollment, and Emitronix&apos;s exact role must be confirmed for each project before appointment.
+            </p>
+          </div>
+        </div>
+      </section>
 
       <section className="section-pad bg-white">
         <div className="container-pad">
@@ -143,7 +154,7 @@ export default function ApprovalPage() {
           "Document gap checks before submission",
           "Authority comment response coordination",
           "Inspection and close-out readiness",
-          "Internal links to every authority page",
+          "Connected guidance for each published authority route",
         ]}
       />
 

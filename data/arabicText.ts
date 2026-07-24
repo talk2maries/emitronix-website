@@ -59,6 +59,14 @@ const commonText: Record<string, string> = {
   "Request Support": "اطلب الدعم",
   "Request Approval Support": "اطلب دعم الموافقات",
   "Request a Site Visit": "اطلب زيارة للموقع",
+  "Illustrative stock image — not project evidence": "صورة توضيحية من مصدر صور عام — وليست دليلا على مشروع",
+  "Illustrative stock image": "صورة توضيحية من مصدر صور عام",
+  "Project planning summary": "ملخص تخطيط المشروع",
+  "Civil, MEP, approval and fit-out questions to align before site execution.":
+    "أسئلة الأعمال المدنية والأنظمة الكهروميكانيكية والموافقات والتشطيبات التي ينبغي تنسيقها قبل التنفيذ في الموقع.",
+  "Project-specific authority check": "تحقق خاص بالمشروع من جهة الاختصاص",
+  "Documented scope boundaries": "حدود نطاق موثقة",
+  "Handover planning": "تخطيط التسليم",
   "View Projects": "عرض المشاريع",
   "View projects": "عرض المشاريع",
   "View Portfolio": "عرض المشاريع",
@@ -531,8 +539,8 @@ function makeTextMap() {
     map[service.description] = serviceArabicDescription(title);
     map[service.details] = serviceArabicDescription(title);
     map[service.searchIntent] = `${title} في دبي`;
-    map[service.imageAlt] = `${title} في دبي من Emitronix`;
-    map[service.imageTitle] = `${title} في دبي - تنفيذ وتنسيق`;
+    map[service.imageAlt] = `صورة توضيحية من مصدر صور عام مرافقة لدليل ${title}؛ وليست دليلا على مشروع أو فريق تابع لـ Emitronix`;
+    map[service.imageTitle] = `صورة توضيحية لدليل ${title}`;
     service.highlights.forEach((item, index) => {
       map[item] = ["وضوح النطاق", "تنسيق الموقع والجهات", "جاهزية التسليم"][index % 3];
     });

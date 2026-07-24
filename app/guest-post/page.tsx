@@ -5,7 +5,7 @@ import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { absoluteUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
-export const generateMetadata = createMetadataResolver({
+const resolveGuestPostMetadata = createMetadataResolver({
   title: "Guest Post Guidelines",
   description:
     "Contact Emitronix for relevant construction, contracting, fit-out, warehouse, villa, project management or Dubai authority approval guest post enquiries.",
@@ -14,6 +14,17 @@ export const generateMetadata = createMetadataResolver({
   image: "/images/dubai-civil-works-construction-site.webp",
   imageAlt: "Dubai civil construction site image for construction guest post enquiries",
 });
+
+export async function generateMetadata() {
+  const metadata = await resolveGuestPostMetadata();
+  return {
+    ...metadata,
+    robots: {
+      index: false,
+      follow: true,
+    },
+  };
+}
 
 const guidelines = [
   "Construction, contracting, fit-out, warehouse, villa, project management or Dubai authority approval topics.",

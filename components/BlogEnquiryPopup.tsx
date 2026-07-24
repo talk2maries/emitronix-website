@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader2, Send, X } from "lucide-react";
+import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
 
 const DISMISSED_KEY = "emitronix-blog-enquiry-dismissed";
@@ -38,6 +39,8 @@ export function BlogEnquiryPopup({
         mobile: "رقم الهاتف",
         email: "البريد الإلكتروني",
         service: "الخدمة المطلوبة",
+        projectLocation: "موقع المشروع",
+        consent: "أوافق على استخدام بيانات الاستفسار للتواصل معي وإنشاء متابعة للمشروع.",
         selectService: "اختر الخدمة",
         other: "نطاق إنشاءات آخر",
         message: "الرسالة",
@@ -49,6 +52,7 @@ export function BlogEnquiryPopup({
           name: "اسمك",
           mobile: "+971",
           email: "name@example.com",
+          location: "دبي، الإمارات",
           message: "شارك الموقع والرسومات وحالة الموافقات ونطاق المشروع.",
         },
       }
@@ -60,6 +64,8 @@ export function BlogEnquiryPopup({
         mobile: "Mobile",
         email: "Email",
         service: "Service Required",
+        projectLocation: "Project location",
+        consent: "I agree that Emitronix may use my enquiry details to contact me and create a CRM lead for follow-up.",
         selectService: "Select service",
         other: "Other Construction Scope",
         message: "Message",
@@ -71,6 +77,7 @@ export function BlogEnquiryPopup({
           name: "Your name",
           mobile: "+971",
           email: "name@example.com",
+          location: "Dubai, UAE",
           message: "Share your location, drawings, authority status and project scope.",
         },
       };
@@ -105,6 +112,19 @@ export function BlogEnquiryPopup({
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!visible || dismissed) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        window.sessionStorage.setItem(DISMISSED_KEY, "true");
+        setDismissed(true);
+        setVisible(false);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [visible, dismissed]);
+
   function closePopup() {
     window.sessionStorage.setItem(DISMISSED_KEY, "true");
     setDismissed(true);
@@ -124,18 +144,22 @@ export function BlogEnquiryPopup({
     setSending(true);
 
     try {
-      const response = await fetch("/api/enquiries", {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: formData.get("name") || "",
-          mobile: formData.get("mobile") || "",
+          phone: formData.get("mobile") || "",
           email: formData.get("email") || "",
-          projectLocation: "Dubai, UAE",
-          scopeOfWork: serviceRequired,
+          company: "",
+          projectLocation: formData.get("projectLocation") || "",
+          service: serviceRequired,
           message: [`Blog enquiry: ${articleTitle}`, `Service required: ${serviceRequired}`, "", message].join("\n"),
+          consent: formData.get("consent") === "on",
+          website: formData.get("website") || "",
+          pageUrl: window.location.href,
         }),
       });
 
@@ -161,7 +185,6 @@ export function BlogEnquiryPopup({
 
   return (
     <aside
-      role="dialog"
       aria-label="Project enquiry form"
       dir={isArabic ? "rtl" : "ltr"}
       className="fixed bottom-24 left-4 right-4 z-[99998] max-h-[calc(100vh-7rem)] overflow-auto rounded-[1.5rem] border border-brand/[0.16] bg-white/[0.96] p-4 text-charcoal shadow-luxe backdrop-blur-2xl sm:left-auto sm:right-6 sm:w-[430px] sm:p-5"
@@ -182,6 +205,7 @@ export function BlogEnquiryPopup({
       </div>
 
       <form onSubmit={handleSubmit} className="mt-5 grid gap-3">
+        <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
         <label className="grid gap-1.5 text-sm font-black text-charcoal">
           {text.name}
           <input required name="name" autoComplete="name" className={inputClass} placeholder={text.placeholders.name} />
@@ -211,6 +235,10 @@ export function BlogEnquiryPopup({
           </select>
         </label>
         <label className="grid gap-1.5 text-sm font-black text-charcoal">
+          {text.projectLocation}
+          <input required name="projectLocation" autoComplete="street-address" className={inputClass} placeholder={text.placeholders.location} />
+        </label>
+        <label className="grid gap-1.5 text-sm font-black text-charcoal">
           {text.message}
           <textarea
             required
@@ -219,6 +247,15 @@ export function BlogEnquiryPopup({
             className={`${inputClass} resize-none`}
             placeholder={text.placeholders.message}
           />
+        </label>
+        <label className="flex items-start gap-3 rounded-2xl border border-brand/[0.14] bg-brand-soft p-3 text-xs font-bold leading-5 text-charcoal">
+          <input required name="consent" type="checkbox" className="mt-1 h-4 w-4 rounded border-brand/30 text-brand focus-ring" />
+          <span>
+            {text.consent}{" "}
+            <Link href={isArabic ? "/ar/privacy-policy" : "/privacy-policy"} className="font-black text-brand underline underline-offset-2">
+              {isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
+            </Link>
+          </span>
         </label>
 
         <button type="submit" disabled={sending} className="premium-button w-full disabled:cursor-wait disabled:opacity-70">

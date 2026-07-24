@@ -1,6 +1,7 @@
 "use client";
 
 import { Loader2, Send, UploadCloud } from "lucide-react";
+import Link from "next/link";
 import { FormEvent, useId, useState } from "react";
 
 const fieldClass =
@@ -43,6 +44,7 @@ const requiredFields = [
   "expectedSalary",
   "noticePeriod",
   "message",
+  "consent",
 ];
 
 type CareerApplicationFormProps = {
@@ -73,6 +75,7 @@ export function CareerApplicationForm({ language = "en" }: CareerApplicationForm
         submitting: "جاري إرسال الطلب",
         submit: "إرسال الطلب",
         reviewNote: "تتم مراجعة الطلبات حسب متطلبات المشاريع والأدوار المناسبة.",
+        consent: "أوافق على استخدام بيانات طلبي وسيرتي الذاتية لتقييم فرص العمل المناسبة وإرسال متابعة إلى نظام إدارة علاقات العملاء.",
         missing: "يرجى إكمال جميع الحقول المطلوبة وتحميل السيرة الذاتية قبل الإرسال.",
         invalidFile: "يرجى تحميل السيرة الذاتية بصيغة PDF أو DOC أو DOCX.",
         largeFile: "يرجى تحميل سيرة ذاتية أصغر من 8 ميجابايت.",
@@ -108,6 +111,7 @@ export function CareerApplicationForm({ language = "en" }: CareerApplicationForm
         submitting: "Submitting Application",
         submit: "Submit Application",
         reviewNote: "Applications are reviewed against active project requirements and suitable role matches.",
+        consent: "I agree that my application details and CV may be used to assess suitable opportunities and send a follow-up record to the company's CRM.",
         missing: "Please complete all required fields and upload your CV before submitting.",
         invalidFile: "Please upload your CV in PDF, DOC, or DOCX format.",
         largeFile: "Please upload a CV smaller than 8 MB.",
@@ -193,6 +197,7 @@ export function CareerApplicationForm({ language = "en" }: CareerApplicationForm
       dir={isArabic ? "rtl" : "ltr"}
       className="rounded-[2rem] border border-brand/[0.15] bg-white/[0.9] p-5 shadow-luxe backdrop-blur-2xl sm:p-7 lg:p-8"
       aria-describedby={`${formId}-status`}
+      aria-busy={submitting}
     >
       <div className="flex flex-col gap-4 border-b border-brand/[0.12] pb-6 sm:flex-row sm:items-start sm:justify-between">
         <div>
@@ -213,19 +218,19 @@ export function CareerApplicationForm({ language = "en" }: CareerApplicationForm
       <div className="mt-7 grid gap-5 md:grid-cols-2">
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.fullName}
-          <input name="fullName" autoComplete="name" className={fieldClass} placeholder={text.placeholders.name} />
+          <input required aria-required="true" name="fullName" autoComplete="name" className={fieldClass} placeholder={text.placeholders.name} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.email}
-          <input name="email" type="email" autoComplete="email" className={fieldClass} placeholder={text.placeholders.email} />
+          <input required aria-required="true" name="email" type="email" autoComplete="email" className={fieldClass} placeholder={text.placeholders.email} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.mobile}
-          <input name="mobile" type="tel" autoComplete="tel" className={fieldClass} placeholder={text.placeholders.mobile} />
+          <input required aria-required="true" name="mobile" type="tel" autoComplete="tel" className={fieldClass} placeholder={text.placeholders.mobile} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.position}
-          <select name="position" className={fieldClass} defaultValue="">
+          <select required aria-required="true" name="position" className={fieldClass} defaultValue="">
             <option value="" disabled>
               {text.selectPosition}
             </option>
@@ -238,38 +243,52 @@ export function CareerApplicationForm({ language = "en" }: CareerApplicationForm
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.experience}
-          <input name="experience" inputMode="decimal" className={fieldClass} placeholder={text.placeholders.experience} />
+          <input required aria-required="true" name="experience" inputMode="decimal" className={fieldClass} placeholder={text.placeholders.experience} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.location}
-          <input name="location" autoComplete="address-level2" className={fieldClass} placeholder={text.placeholders.location} />
+          <input required aria-required="true" name="location" autoComplete="address-level2" className={fieldClass} placeholder={text.placeholders.location} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.expectedSalary}
-          <input name="expectedSalary" className={fieldClass} placeholder={text.placeholders.expectedSalary} />
+          <input required aria-required="true" name="expectedSalary" className={fieldClass} placeholder={text.placeholders.expectedSalary} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.noticePeriod}
-          <input name="noticePeriod" className={fieldClass} placeholder={text.placeholders.noticePeriod} />
+          <input required aria-required="true" name="noticePeriod" className={fieldClass} placeholder={text.placeholders.noticePeriod} />
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal md:col-span-2">
           {text.resume}
           <input
+            required
+            aria-required="true"
+            aria-describedby={`${formId}-resume-note`}
             name="resume"
             type="file"
             accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
             className={fileClass}
           />
-          <span className="text-xs font-bold leading-5 text-steel">{text.fileNote}</span>
+          <span id={`${formId}-resume-note`} className="text-xs font-bold leading-5 text-steel">{text.fileNote}</span>
         </label>
         <label className="grid gap-2 text-sm font-black text-charcoal md:col-span-2">
           {text.message}
           <textarea
+            required
+            aria-required="true"
             name="message"
             rows={6}
             className={`${fieldClass} resize-none leading-7`}
             placeholder={text.placeholders.message}
           />
+        </label>
+        <label className="flex items-start gap-3 rounded-2xl border border-brand/[0.14] bg-brand-soft p-4 text-sm font-bold leading-6 text-charcoal md:col-span-2">
+          <input name="consent" type="checkbox" required aria-required="true" className="mt-1 h-4 w-4 rounded border-brand/30 text-brand focus-ring" />
+          <span>
+            {text.consent}{" "}
+            <Link href={isArabic ? "/ar/privacy-policy" : "/privacy-policy"} className="font-black text-brand underline underline-offset-2">
+              {isArabic ? "سياسة الخصوصية" : "Privacy Policy"}
+            </Link>
+          </span>
         </label>
       </div>
 
@@ -283,14 +302,14 @@ export function CareerApplicationForm({ language = "en" }: CareerApplicationForm
         </p>
       </div>
 
-      <div id={`${formId}-status`} className="mt-5" aria-live="polite">
+      <div id={`${formId}-status`} className="mt-5">
         {error ? (
-          <p role="alert" className="rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm font-bold leading-6 text-brand-deep">
+          <p role="alert" aria-live="assertive" aria-atomic="true" className="rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm font-bold leading-6 text-brand-deep">
             {error}
           </p>
         ) : null}
         {success ? (
-          <p className="rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm font-bold leading-6 text-brand-deep">
+          <p role="status" aria-live="polite" aria-atomic="true" className="rounded-2xl border border-brand/20 bg-brand-soft px-4 py-3 text-sm font-bold leading-6 text-brand-deep">
             {text.success}
           </p>
         ) : null}

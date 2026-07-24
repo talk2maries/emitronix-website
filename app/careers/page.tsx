@@ -19,9 +19,9 @@ import { absoluteUrl, site } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
-  title: "Careers at Emitronix Contracting LLC | Construction Jobs in Dubai",
+  title: "Construction Career Interest | Emitronix Dubai",
   description:
-    "Apply for construction, engineering, project management, and site supervision careers at Emitronix Contracting LLC in Dubai, UAE.",
+    "Register interest in future construction, engineering, project management and site supervision opportunities with Emitronix in Dubai.",
   path: "/careers",
   keywords: [
     "Emitronix careers",
@@ -113,21 +113,7 @@ const careersJsonLd = {
   description:
     "Construction, engineering, project management and site supervision career application page for Emitronix Contracting LLC in Dubai, UAE.",
   about: {
-    "@type": "Organization",
-    name: site.legalName,
-    url: site.url,
-    email: site.email,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: site.location,
-      addressLocality: "Dubai",
-      addressCountry: "AE",
-    },
-  },
-  potentialAction: {
-    "@type": "ApplyAction",
-    target: absoluteUrl("/careers#career-application"),
-    name: "Submit a career application",
+    "@id": absoluteUrl("/#organization"),
   },
 };
 
@@ -164,14 +150,14 @@ export default function CareersPage() {
                   Build Your Career With Emitronix
                 </h1>
                 <p className="mt-7 max-w-3xl text-lg leading-8 text-steel sm:text-xl sm:leading-9">
-                  Join a growing Dubai construction company focused on civil contracting, authority coordination, interior fit-out, site execution and practical project delivery.
+                  Register your interest in future construction, engineering, project coordination and site-delivery opportunities with Emitronix.
                 </p>
                 <div className="mt-9 flex flex-col gap-3 sm:flex-row">
                   <a href="#career-application" className="premium-button">
-                    Apply Now <ArrowRight className="h-4 w-4" />
+                    Register Interest <ArrowRight className="h-4 w-4" />
                   </a>
                   <a href="#current-openings" className="premium-button-light">
-                    View Openings <BriefcaseBusiness className="h-4 w-4" />
+                    View Talent Areas <BriefcaseBusiness className="h-4 w-4" />
                   </a>
                 </div>
               </div>
@@ -179,7 +165,7 @@ export default function CareersPage() {
               <div className="relative min-h-[420px] overflow-hidden rounded-[2.25rem] border border-brand/[0.15] bg-pearl shadow-luxe lg:min-h-[560px]">
                 <Image
                   src="/images/civil-contractor-dubai-construction-site.webp"
-                  alt="Engineers and construction professionals planning Dubai projects with Emitronix"
+                  alt="Illustrative stock image of construction professionals planning site work"
                   fill
                   priority
                   sizes="(min-width: 1024px) 52vw, 100vw"
@@ -228,13 +214,13 @@ export default function CareersPage() {
           <div className="container-pad">
             <div className="grid gap-8 lg:grid-cols-[0.78fr_1.22fr] lg:items-end">
               <div>
-                <p className="premium-kicker">Current Openings</p>
+                <p className="premium-kicker">Talent Areas</p>
                 <h2 className="mt-4 text-balance text-4xl font-black leading-[1.02] tracking-tight text-charcoal sm:text-5xl">
-                  Apply for construction role areas that match your experience.
+                  Register interest in role areas that match your experience.
                 </h2>
               </div>
               <p className="max-w-3xl text-base leading-8 text-steel">
-                Active project requirements can change. Submit your CV for the relevant role area and the team can review your profile against suitable Dubai construction requirements.
+                These are professional interest areas, not confirmed vacancies or job offers. Submit your CV only if you want the team to consider it when a suitable requirement is verified.
               </p>
             </div>
 
@@ -279,7 +265,7 @@ export default function CareersPage() {
                 Submit your profile for Dubai construction opportunities.
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-steel">
-                Complete the form with your experience, location, salary expectation and notice period so Emitronix can review your suitability for relevant role areas.
+                Complete the form with your experience, location, salary expectation and notice period so Emitronix can review your suitability if a relevant requirement becomes available. Submission does not guarantee contact, interview or employment.
               </p>
 
               <div className="mt-8 grid gap-3">

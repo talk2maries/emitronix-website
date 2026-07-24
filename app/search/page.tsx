@@ -33,6 +33,34 @@ const staticPages: SearchResult[] = [
     category: "Contact",
     keywords: ["contact", "quote", "site visit", "Dubai contractor"],
   },
+  {
+    title: "Founder — Marieswaran Sadaiappan",
+    href: "/founder",
+    description: "Founder and Managing Director profile with published professional focus areas and verification boundaries.",
+    category: "Company",
+    keywords: ["founder", "managing director", "leadership", "Marieswaran Sadaiappan"],
+  },
+  {
+    title: "Leadership and Delivery Functions",
+    href: "/leadership",
+    description: "Role-based construction, engineering, QA/QC, HSE, procurement and project delivery functions.",
+    category: "Company",
+    keywords: ["leadership", "engineering team", "QA QC", "HSE", "project management"],
+  },
+  {
+    title: "Frequently Asked Questions",
+    href: "/faqs",
+    description: "Concise answers about services, locations, project enquiries, review and website information.",
+    category: "Knowledge",
+    keywords: ["FAQ", "questions", "services", "technical review"],
+  },
+  {
+    title: "Construction Services in Dubai",
+    href: "/locations/dubai",
+    description: "Verified location facts and practical context for Dubai project enquiries.",
+    category: "Location",
+    keywords: ["Dubai", "location", "service area", "DIP 02"],
+  },
   ...navItems.map((item) => ({
     title: item.label,
     href: item.href,
@@ -73,7 +101,10 @@ export const metadata: Metadata = createPageMetadata({
     "Search Emitronix Contracting LLC services, Dubai authority approval pages, construction resources and project articles.",
   path: "/search",
   keywords: ["Emitronix search", "Dubai construction search", "Dubai approval services search"],
+  arabicPath: null,
 });
+
+metadata.robots = { index: false, follow: true };
 
 function scoreResult(result: SearchResult, terms: string[]) {
   const haystack = [

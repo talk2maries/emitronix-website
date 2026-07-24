@@ -1,77 +1,177 @@
 import { ArrowRight, ClipboardCheck, FileCheck2, Layers3 } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
-import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
+import { FAQSection, ProcessRail } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { absoluteUrl, authorities, services, stats } from "@/data/site";
+import { blogPosts } from "@/data/blog";
 import { createMetadataResolver } from "@/data/seo";
+import { absoluteUrl, services, stats } from "@/data/site";
 
 export const generateMetadata = createMetadataResolver({
-  title: "Dubai Construction Resources",
+  title: "Dubai Construction Knowledge Center",
   description:
-    "Dubai civil construction, fit-out and authority approval resources from Emitronix Contracting LLC.",
+    "Practical Dubai knowledge for construction, civil engineering, MEP, electrical, fit-out, warehouses, approvals, planning, QA/QC and site safety.",
   path: "/resources",
-  keywords: ["Dubai construction guide", "authority approval checklist Dubai", "civil contractor Dubai resources", "fit-out approval Dubai"],
   image: "/images/dubai-authority-approval-contractor.webp",
+  imageAlt: "Illustrative stock image of construction drawings and project documents",
 });
 
 const topics = [
   {
-    title: "Authority approval checklist for Dubai projects",
-    description: "A planning overview for owners preparing civil, fit-out or modification works that may require Dubai authority coordination.",
+    title: "Construction fundamentals",
+    description: "Scope, drawings, roles, procurement, execution controls, inspections and handover as one connected delivery path.",
+    href: "/blog/complete-guide-civil-construction-dubai-2026",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Civil engineering and structural works",
+    description: "Buildability, site conditions, concrete, masonry, structural interfaces, inspection points and drawing coordination.",
+    href: "/structural-works",
+    icon: Layers3,
+  },
+  {
+    title: "MEP coordination",
+    description: "How mechanical, electrical and plumbing routes interact with structure, ceilings, equipment, access and close-out.",
+    href: "/project-management",
+    icon: Layers3,
+  },
+  {
+    title: "Electrical engineering and power",
+    description: "Load information, distribution interfaces, utility coordination, documents and electrical readiness.",
+    href: "/dewa-approvals",
+    icon: FileCheck2,
+  },
+  {
+    title: "Interior fit-out",
+    description: "Layout, finishes, services, landlord requirements, inspection readiness and handover planning.",
+    href: "/interior",
+    icon: Layers3,
+  },
+  {
+    title: "Warehouse construction",
+    description: "Use, access, structure, slab, utilities, fire-life-safety interfaces, logistics and completion.",
+    href: "/warehouse-construction",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Commercial buildings",
+    description: "Scope and stakeholder questions for offices, retail, mixed commercial areas and occupied-building work.",
+    href: "/commercial-buildings",
+    icon: Layers3,
+  },
+  {
+    title: "Industrial buildings",
+    description: "Operational use, equipment, utilities, access, drainage, safety interfaces and future change.",
+    href: "/industrial-buildings",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Building renovation",
+    description: "Existing-condition review, demolition boundaries, concealed risks, temporary protection and coordinated upgrades.",
+    href: "/building-renovation",
+    icon: Layers3,
+  },
+  {
+    title: "Authority approvals",
+    description: "Documents, NOCs, consultant roles, comments, inspections and the limits of approval coordination.",
     href: "/approval",
     icon: FileCheck2,
   },
   {
-    title: "Civil contracting scope review before tender",
-    description: "What to clarify before comparing contractors: drawings, site constraints, responsibilities, authority exposure and handover requirements.",
-    href: "/civil",
+    title: "Construction planning",
+    description: "A route from brief and design maturity through procurement, mobilization, sequence and handover.",
+    href: "/design-build",
     icon: ClipboardCheck,
   },
   {
-    title: "Interior fit-out delivery sequence",
-    description: "How commercial, retail and villa interiors move from layout intent to coordinated execution and close-out.",
-    href: "/interior",
+    title: "Engineering standards",
+    description: "How to identify the controlling specification, approved drawing, authority requirement and current primary source.",
+    href: "/technical-review-policy",
+    icon: FileCheck2,
+  },
+  {
+    title: "Project management",
+    description: "Programme, responsibilities, decisions, risks, changes, reporting and completion information.",
+    href: "/project-management",
+    icon: ClipboardCheck,
+  },
+  {
+    title: "Site safety",
+    description: "Risk awareness, activity planning, access, workforce communication and escalation as role-based controls.",
+    href: "/leadership#health-safety-environment",
     icon: Layers3,
+  },
+  {
+    title: "Quality assurance and control",
+    description: "Inspection points, material records, corrective actions, snag closure and handover evidence.",
+    href: "/leadership#quality-assurance-control",
+    icon: ClipboardCheck,
   },
 ];
 
 const resourceProcess = [
-  "Start with the project type: civil construction, fit-out, renovation, warehouse, villa, commercial unit or approval-only support.",
-  "Review what information is available, including drawings, authority comments, site details, NOCs, ownership or tenancy documents and intended use.",
-  "Use the linked service and approval pages to understand which pathway is most relevant before contacting Emitronix.",
-  "Send a more complete enquiry so the first conversation can focus on practical next steps instead of missing basics.",
+  "Define the project question: scope, design, authority route, site execution, quality, safety or handover.",
+  "Read the relevant overview and note which facts remain project-specific, including location, intended use, drawings and appointed-party responsibilities.",
+  "Check the controlling information: current authority publication, approved drawing, project specification, contract document or manufacturer literature where applicable.",
+  "Use the contact route only after gathering enough information for a useful, project-specific first review.",
 ];
 
 const resourceFaqs = [
   {
-    question: "What are Emitronix resources for?",
+    question: "What is the Emitronix Knowledge Center?",
     answer:
-      "Resources help owners and consultants understand civil contracting, fit-out planning and Dubai authority approval basics before starting an enquiry.",
+      "It is a directory of practical construction and engineering explanations connected to service pages, long-form articles, role-based team information and website policies.",
   },
   {
-    question: "Do resources replace authority advice?",
+    question: "Does the Knowledge Center replace an engineer, consultant or authority?",
     answer:
-      "No. Resources are planning guidance only. Final authority requirements depend on project location, use, consultant scope and authority comments.",
+      "No. The content is general educational information. Approved drawings, project specifications, appointed professionals and current authority requirements take precedence.",
   },
   {
-    question: "Which resource should I start with?",
+    question: "Which topic should I start with?",
     answer:
-      "Start with the authority checklist if approvals are unclear, the civil scope review before tendering building works, or the fit-out sequence for interior projects.",
+      "Start with the decision you need to make. Use construction fundamentals for an early brief, authority approvals for a jurisdiction question, or a specific service resource for a defined scope.",
   },
   {
-    question: "Can I contact Emitronix after reviewing resources?",
+    question: "How is technical content reviewed?",
     answer:
-      "Yes. Use the contact page with project location, documents, authority status and the service or resource topic most relevant to your enquiry.",
+      "The technical review policy explains risk-based checks, source boundaries and the distinction between editorial review, technical review and project-specific professional advice.",
+  },
+  {
+    question: "How can I report an error?",
+    answer:
+      "Use the corrections policy and published contact details. Include the page URL, disputed wording and a primary source or project-specific controlling document where possible.",
+  },
+  {
+    question: "Can I contact Emitronix after reading a resource?",
+    answer:
+      "Yes. Share the exact location, intended use, drawings, current status, required scope and timeline so the first discussion can focus on the actual project.",
   },
 ];
 
-const breadcrumbJsonLd = {
+const pageUrl = absoluteUrl("/resources");
+
+const knowledgeCenterJsonLd = {
   "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
-    { "@type": "ListItem", position: 2, name: "Resources", item: absoluteUrl("/resources") },
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: "Emitronix Dubai Construction Knowledge Center",
+      description: "Construction and engineering topic directory for Dubai project planning.",
+      isPartOf: { "@id": absoluteUrl("/#website") },
+      inLanguage: "en-AE",
+      breadcrumb: { "@id": `${pageUrl}#breadcrumb` },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: absoluteUrl("/") },
+        { "@type": "ListItem", position: 2, name: "Knowledge Center", item: pageUrl },
+      ],
+    },
   ],
 };
 
@@ -79,34 +179,34 @@ export default function ResourcesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Resources"
-        title="Planning intelligence for Dubai construction and approvals."
-        description="Reference pathways for clients preparing civil construction, fit-out, renovation and authority approval work in Dubai."
+        eyebrow="Knowledge Center"
+        title="Practical construction and engineering knowledge for Dubai projects."
+        description="Plain-language pathways across civil engineering, MEP, electrical, fit-out, warehouses, commercial and industrial buildings, renovation, approvals, planning, safety and quality."
         image="/images/dubai-authority-approval-contractor.webp"
-        imageAlt="Dubai authority planning and construction document resources"
-        primaryCta={{ label: "Ask Emitronix", href: "/contact" }}
-        secondaryCta={{ label: "Read Blog", href: "/blog" }}
+        imageAlt="Illustrative stock image of construction drawings and project documents"
+        primaryCta={{ label: "Explore Topics", href: "#topic-directory" }}
+        secondaryCta={{ label: "Read Articles", href: "/blog" }}
         metrics={stats}
       />
 
-      <section className="section-pad bg-white">
+      <section id="topic-directory" className="section-pad scroll-mt-28 bg-white">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Popular topics"
-            title="Plan smarter before mobilization."
-            description="These resource pathways connect planning questions to the service pages where the next action is clear."
+            eyebrow="Topic directory"
+            title="Find the context behind the next project decision."
+            description="Each pathway starts with a useful definition and connects to a detailed service, guide, policy or role-based resource. Project-specific documents and appointed professionals remain controlling."
             align="center"
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {topics.map((topic) => {
               const Icon = topic.icon;
               return (
                 <Link key={topic.title} href={topic.href} className="luxury-card rounded-[1.5rem] p-6">
-                  <Icon className="h-8 w-8 text-brand" />
+                  <Icon className="h-8 w-8 text-brand" aria-hidden="true" />
                   <h2 className="mt-5 text-2xl font-black tracking-tight text-charcoal">{topic.title}</h2>
                   <p className="mt-3 text-sm leading-7 text-steel">{topic.description}</p>
                   <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
-                    Open guide <ArrowRight className="h-4 w-4" />
+                    Open resource <ArrowRight className="h-4 w-4" />
                   </span>
                 </Link>
               );
@@ -118,23 +218,23 @@ export default function ResourcesPage() {
       <section className="blue-grid section-pad text-charcoal">
         <div className="container-pad grid gap-12 lg:grid-cols-2">
           <div>
-            <PremiumSectionHeading eyebrow="Services" title="Related service lines." light />
-            <div className="mt-8 grid gap-3">
+            <PremiumSectionHeading eyebrow="Service resources" title="Detailed scope pages." />
+            <div className="mt-8 grid gap-3 sm:grid-cols-2">
               {services.map((service) => (
-                <Link key={service.slug} href={service.href} className="rounded-2xl border border-brand/[0.12] bg-white/[0.82] p-4 font-bold backdrop-blur-xl transition hover:border-brand/25 hover:bg-white hover:text-brand">
+                <Link key={service.slug} href={service.href} className="rounded-2xl border border-brand/[0.12] bg-white/[0.82] p-4 font-bold transition hover:bg-white hover:text-brand">
                   {service.title}
                 </Link>
               ))}
             </div>
           </div>
           <div>
-            <PremiumSectionHeading eyebrow="Authorities" title="Approval bodies we coordinate with." light />
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              {authorities.map((authority) => (
-                <article key={authority.name} className="rounded-2xl border border-brand/[0.12] bg-white/[0.82] p-4 backdrop-blur-xl">
-                  <h3 className="font-black">{authority.name}</h3>
-                  <p className="mt-2 text-sm leading-6 text-steel">{authority.description}</p>
-                </article>
+            <PremiumSectionHeading eyebrow="Long-form learning" title="Construction articles." />
+            <div className="mt-8 grid gap-3">
+              {blogPosts.slice(0, 6).map((post) => (
+                <Link key={post.slug} href={`/blog/${post.slug}`} className="rounded-2xl border border-brand/[0.12] bg-white/[0.82] p-4 transition hover:bg-white">
+                  <h3 className="font-black text-charcoal">{post.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-steel">{post.excerpt}</p>
+                </Link>
               ))}
             </div>
           </div>
@@ -142,32 +242,37 @@ export default function ResourcesPage() {
       </section>
 
       <ProcessRail
-        eyebrow="Resource workflow"
-        title="Use the resources to prepare a stronger Dubai project enquiry."
-        description="The goal is practical clarity: understand the topic, gather the right documents and contact the correct service pathway."
+        eyebrow="Research workflow"
+        title="Move from general guidance to controlling project information."
+        description="Useful content should improve the questions a project team asks, while keeping authority, design, contract and site responsibilities explicit."
         steps={resourceProcess}
       />
 
-      <TrustBar
-        eyebrow="Resource trust"
-        title="Guidance connected to real website services and authority pages."
-        points={[
-          "Civil contracting pathway",
-          "Interior fit-out planning",
-          "Authority approval checklist",
-          "Direct contact route",
-        ]}
-      />
+      <section className="bg-white py-10">
+        <div className="container-pad">
+          <div className="grid gap-5 rounded-[2rem] border border-brand/[0.15] bg-brand-soft p-6 shadow-panel lg:grid-cols-[1fr_auto] lg:items-center">
+            <div>
+              <p className="premium-kicker">Publication standards</p>
+              <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal">See how content is written, reviewed and corrected.</h2>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/editorial-policy" className="premium-button-light">Editorial policy</Link>
+              <Link href="/technical-review-policy" className="premium-button-light">Technical review</Link>
+              <Link href="/corrections-policy" className="premium-button-light">Corrections</Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <FAQSection
-        title="Dubai construction resources FAQ."
-        description="Answers for users researching construction, fit-out and authority approval planning before contacting a contractor."
+        title="Construction Knowledge Center FAQ."
+        description="Answers about topic selection, technical boundaries, review and corrections."
         faqs={resourceFaqs}
         schema
       />
 
       <CTA />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(knowledgeCenterJsonLd) }} />
     </>
   );
 }

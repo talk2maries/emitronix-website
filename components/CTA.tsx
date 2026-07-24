@@ -37,7 +37,7 @@ export function CTA() {
               </div>
               <div className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                 <Link href="/contact" className="premium-button">
-                  Get a Free Quote <ArrowRight size={18} />
+                  Request a Quote <ArrowRight size={18} />
                 </Link>
                 <Link href="/contact?intent=site-visit" className="premium-button-light">
                   Request a Site Visit <CalendarCheck size={18} />

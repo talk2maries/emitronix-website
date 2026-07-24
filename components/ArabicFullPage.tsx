@@ -3,7 +3,7 @@ import { ArabicPageLocalizer } from "@/components/ArabicPageLocalizer";
 import { approvalServices } from "@/data/approvals";
 import { blogAuthor, blogPosts } from "@/data/blog";
 import type { ArabicPageData } from "@/data/arabic";
-import { absoluteUrl, services, site } from "@/data/site";
+import { absoluteUrl, brandLogoImageObject, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
 
 type ArabicFullPageProps = {
@@ -44,7 +44,6 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
         name: page.title,
         description: page.description,
         serviceType: service.title,
-        keywords: service.keywords.join(", "),
         related: service.relatedHrefs,
       }
     : approval
@@ -52,7 +51,6 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
           name: page.title,
           description: page.description,
           serviceType: approval.menuLabel,
-          keywords: approval.keywords.join(", "),
           related: approval.related.map((slug) => `/${slug}`),
         }
       : null;
@@ -101,10 +99,7 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
               publisher: {
                 "@id": absoluteUrl("/#localbusiness"),
                 name: site.legalName,
-                logo: {
-                  "@type": "ImageObject",
-                  url: absoluteUrl("/images/emitronix-logo-horizontal.svg"),
-                },
+                logo: brandLogoImageObject,
               },
               mainEntityOfPage: {
                 "@type": "WebPage",
@@ -140,8 +135,6 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
               },
               mainEntityOfPage: arabicUrl,
               serviceType: serviceLike.serviceType,
-              keywords: serviceLike.keywords,
-              inLanguage: "ar-AE",
               isRelatedTo: serviceLike.related.map((href) => ({
                 "@type": "WebPage",
                 url: absoluteUrl(toArabicPath(href)),

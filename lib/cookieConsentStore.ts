@@ -100,10 +100,13 @@ async function readStore(): Promise<CookieConsentStoreData> {
 
 async function writeStore(data: CookieConsentStoreData) {
   const filePath = storePath();
-  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  const directory = path.dirname(filePath);
+  await fs.mkdir(directory, { recursive: true, mode: 0o700 });
+  await fs.chmod(directory, 0o700);
   const tmpPath = `${filePath}.${process.pid}.${Date.now()}.tmp`;
-  await fs.writeFile(tmpPath, JSON.stringify(data, null, 2), "utf8");
+  await fs.writeFile(tmpPath, JSON.stringify(data, null, 2), { encoding: "utf8", mode: 0o600 });
   await fs.rename(tmpPath, filePath);
+  await fs.chmod(filePath, 0o600);
 }
 
 export async function getCookieConsentData() {

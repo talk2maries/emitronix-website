@@ -64,7 +64,7 @@ export const cookieCategoryIds: CookieCategoryId[] = ["necessary", "analytics", 
 
 export const cookieLanguages: CookieLanguage[] = ["en", "ar"];
 
-const updatedAt = "2026-07-04T00:00:00.000Z";
+const updatedAt = "2026-07-23T00:00:00.000Z";
 
 export const defaultCookieConsentConfig: CookieConsentConfig = {
   enabled: true,
@@ -214,6 +214,10 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
             body: "Strictly necessary cookies are always enabled. Analytics, marketing, functional and performance cookies are optional and can be changed from Cookie Settings in the footer.",
           },
           {
+            heading: "Consent record and duration",
+            body: "The website stores the `emitronix_cookie_consent` choice in the browser cookie and local storage so the banner can remember selected categories. The default consent lifetime is 180 days and a new policy version can request consent again. Configured third-party cookies, providers and durations depend on which optional integrations management enables.",
+          },
+          {
             heading: "Google Consent Mode v2",
             body: "When Google tools are configured, consent signals are sent for ad_storage, analytics_storage, ad_user_data and ad_personalization based on the visitor's choices.",
           },
@@ -237,6 +241,10 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
             body: "ملفات الارتباط الضرورية مفعلة دائماً. ملفات التحليلات والتسويق والوظائف والأداء اختيارية ويمكن تغييرها من إعدادات ملفات الارتباط في تذييل الموقع.",
           },
           {
+            heading: "سجل الموافقة ومدته",
+            body: "يحفظ الموقع اختيار `emitronix_cookie_consent` في ملف ارتباط والتخزين المحلي في المتصفح لتذكر الفئات المحددة. المدة الافتراضية للموافقة هي 180 يوماً، ويمكن لإصدار سياسة جديد طلب الموافقة مرة أخرى. تعتمد ملفات ومزودو ومدد الأدوات الخارجية على التكاملات الاختيارية التي يتم تفعيلها.",
+          },
+          {
             heading: "وضع موافقة Google v2",
             body: "عند تهيئة أدوات Google، يتم إرسال إشارات الموافقة الخاصة بـ ad_storage وanalytics_storage وad_user_data وad_personalization بناءً على اختيارات الزائر.",
           },
@@ -255,19 +263,35 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
         sections: [
           {
             heading: "Personal data we collect",
-            body: "We may collect information submitted through contact, enquiry or career forms, including name, contact details, company, project location, service interest and message content.",
+            body: "Contact and article enquiry forms may collect name, email, mobile number, company, project location, service interest, message content, page URL and browser user-agent information. Career interest forms may also collect current location, experience, role interest, salary expectation, notice period, cover message and an uploaded CV. Basic anti-abuse data, such as an IP address, may be processed by server logs and form controls.",
           },
           {
-            heading: "How we use information",
-            body: "Information is used to respond to enquiries, manage project discussions, evaluate applications, improve website operations and meet legal or compliance obligations.",
+            heading: "Purposes and consent",
+            body: "Project information is used to assess and respond to the requested enquiry and, when the user checks the consent box, to create a follow-up record in the configured customer relationship system. Career information is used to assess possible role matches and, with explicit consent, to create a follow-up record. Optional analytics and marketing tools remain disabled until the relevant cookie choice is granted.",
           },
           {
             heading: "Sharing and processors",
-            body: "We do not sell personal data. Data may be processed by trusted service providers such as CRM, hosting, email, analytics or security platforms where they are configured and required for business operations.",
+            body: "Emitronix does not sell personal data. Information may be handled by configured hosting, customer relationship, email, analytics or security service providers only for the stated business purpose. Provider locations and safeguards can vary by configuration; request current details using the published contact information.",
           },
           {
-            heading: "Your rights",
-            body: "Depending on applicable law, including GDPR and UAE PDPL principles, you may request access, correction, deletion, restriction or withdrawal of consent by contacting Emitronix.",
+            heading: "Career applications and CVs",
+            body: "CVs and career form records are access-controlled business records. Submitting a profile is an expression of interest, not a confirmed vacancy, interview or job offer. The current retention schedule and any automated deletion period require management and legal confirmation. Management verification required before publication.",
+          },
+          {
+            heading: "Retention and deletion",
+            body: "Information should be kept only while needed for the enquiry, application, security, record-keeping or applicable legal purpose, then deleted or anonymized. Exact retention periods for enquiry, CRM, server-log and candidate records require management and legal confirmation. Management verification required before publication.",
+          },
+          {
+            heading: "Security",
+            body: "The website uses server-side provider calls, consent checks, request limits, anti-bot fields and restricted local file permissions. No internet service can guarantee absolute security. Do not send passwords, payment-card data, government identifiers or unnecessary confidential project information through a website form.",
+          },
+          {
+            heading: "Requests and questions",
+            body: "Depending on the law that applies to you and the processing, you may be able to request access, correction or deletion, object to certain uses, or withdraw consent for future processing. Contact Emitronix using the published email and identify the relevant form submission. Identity verification may be required before a request is completed.",
+          },
+          {
+            heading: "Children and policy changes",
+            body: "The website and project or career forms are intended for adults acting for themselves or an organization, not for children. This notice may be updated when forms, providers, retention practices or legal requirements change.",
           },
         ],
       },
@@ -278,19 +302,35 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
         sections: [
           {
             heading: "البيانات الشخصية التي نجمعها",
-            body: "قد نجمع المعلومات المقدمة عبر نماذج الاتصال أو الاستفسار أو التوظيف، بما في ذلك الاسم وبيانات الاتصال والشركة وموقع المشروع والخدمة المطلوبة ومحتوى الرسالة.",
+            body: "قد تجمع نماذج الاتصال والاستفسار الاسم والبريد الإلكتروني ورقم الهاتف والشركة وموقع المشروع والخدمة والرسالة وعنوان الصفحة ومعلومات المتصفح. وقد تجمع نماذج الاهتمام الوظيفي أيضاً الموقع الحالي والخبرة والوظيفة المطلوبة والراتب المتوقع وفترة الإشعار والرسالة والسيرة الذاتية. وقد تعالج سجلات الخادم وضوابط منع الإساءة بيانات تقنية أساسية مثل عنوان IP.",
           },
           {
-            heading: "كيفية استخدام المعلومات",
-            body: "تستخدم المعلومات للرد على الاستفسارات وإدارة مناقشات المشاريع وتقييم الطلبات وتحسين عمليات الموقع والوفاء بالالتزامات القانونية أو الامتثالية.",
+            heading: "الأغراض والموافقة",
+            body: "تستخدم بيانات المشروع لتقييم الاستفسار والرد عليه، وعند تحديد خانة الموافقة لإنشاء سجل متابعة في نظام إدارة علاقات العملاء المهيأ. وتستخدم بيانات الاهتمام الوظيفي لتقييم الفرص المناسبة. تبقى أدوات التحليلات والتسويق الاختيارية معطلة حتى يمنح الزائر الموافقة المناسبة.",
           },
           {
             heading: "المشاركة والمعالجة",
-            body: "لا نبيع البيانات الشخصية. قد تتم معالجة البيانات بواسطة مزودي خدمات موثوقين مثل CRM أو الاستضافة أو البريد الإلكتروني أو التحليلات أو منصات الأمان عند تهيئتها واحتياج العمل إليها.",
+            body: "لا تبيع Emitronix البيانات الشخصية. قد تعالج المعلومات خدمات الاستضافة أو إدارة علاقات العملاء أو البريد الإلكتروني أو التحليلات أو الأمان المهيأة، وذلك للغرض التجاري المعلن فقط. يمكن طلب تفاصيل التهيئة الحالية عبر بيانات الاتصال المنشورة.",
           },
           {
-            heading: "حقوقك",
-            body: "وفقاً للقوانين المعمول بها، بما في ذلك مبادئ GDPR وقانون حماية البيانات الشخصية في دولة الإمارات، يمكنك طلب الوصول أو التصحيح أو الحذف أو التقييد أو سحب الموافقة عبر التواصل مع Emitronix.",
+            heading: "طلبات التوظيف والسير الذاتية",
+            body: "تعامل السير الذاتية وسجلات التقديم كبيانات عمل مقيدة الوصول. إرسال الملف هو تعبير عن الاهتمام وليس إعلان وظيفة أو مقابلة أو عرض عمل. تتطلب مدة الاحتفاظ الحالية تأكيد الإدارة والمراجعة القانونية. Management verification required before publication.",
+          },
+          {
+            heading: "الاحتفاظ والحذف",
+            body: "يجب الاحتفاظ بالمعلومات فقط للمدة اللازمة للاستفسار أو الطلب أو الأمان أو حفظ السجلات أو الغرض القانوني المطبق، ثم حذفها أو إخفاء هويتها. تتطلب الفترات الدقيقة تأكيد الإدارة والمراجعة القانونية. Management verification required before publication.",
+          },
+          {
+            heading: "الأمان",
+            body: "يستخدم الموقع اتصالات خادم آمنة وموافقة صريحة وحدوداً للطلبات وحقولاً لمكافحة الروبوتات وصلاحيات ملفات مقيدة. لا توجد خدمة إنترنت تضمن أماناً مطلقاً. لا ترسل كلمات مرور أو بيانات بطاقات دفع أو معرفات حكومية أو معلومات سرية غير ضرورية عبر النماذج.",
+          },
+          {
+            heading: "الطلبات والأسئلة",
+            body: "وفقاً للقانون المطبق وطبيعة المعالجة، قد تتمكن من طلب الوصول أو التصحيح أو الحذف أو الاعتراض على بعض الاستخدامات أو سحب الموافقة للمستقبل. تواصل مع Emitronix عبر البريد المنشور وحدد الطلب المعني.",
+          },
+          {
+            heading: "الأطفال وتحديث السياسة",
+            body: "الموقع ونماذج المشاريع والاهتمام الوظيفي مخصصة للبالغين الذين يتصرفون لأنفسهم أو نيابة عن مؤسسة وليست موجهة للأطفال. قد يتم تحديث الإشعار عند تغير النماذج أو المزودين أو ممارسات الاحتفاظ أو المتطلبات القانونية.",
           },
         ],
       },

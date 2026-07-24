@@ -1,0 +1,109 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="864"
+  height="202"
+  viewBox="0 0 864 202"
+  fill="none"
+  role="img"
+  aria-labelledby="emitronix-logo-title emitronix-logo-description"
+  shape-rendering="geometricPrecision"
+>
+  <title id="emitronix-logo-title">Emitronix — Building the Future</title>
+  <desc id="emitronix-logo-description">Emitronix building symbol and wordmark</desc>
+
+  <defs>
+    <linearGradient id="emitronix-tower-blue" x1="110" y1="42" x2="195" y2="183" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#123A73"/>
+      <stop offset=".52" stop-color="#194991"/>
+      <stop offset="1" stop-color="#1EA7FF"/>
+    </linearGradient>
+    <linearGradient id="emitronix-tower-sky" x1="158" y1="111" x2="204" y2="181" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#194991"/>
+      <stop offset="1" stop-color="#54D6FF"/>
+    </linearGradient>
+
+    <path id="tagline-b" d="M0 14V0h5c3 0 5 1.2 5 3.5S8 7 5 7H0m5 0c3 0 5 1.2 5 3.5S8 14 5 14H0"/>
+    <path id="tagline-u" d="M0 0v9.5C0 12.5 1.8 14 5 14s5-1.5 5-4.5V0"/>
+    <path id="tagline-i" d="M0 0h10M5 0v14M0 14h10"/>
+    <path id="tagline-l" d="M0 0v14h10"/>
+    <path id="tagline-d" d="M0 0v14h4.5C8.2 14 10 11.7 10 7S8.2 0 4.5 0H0Z"/>
+    <path id="tagline-n" d="M0 14V0l10 14V0"/>
+    <path id="tagline-g" d="M10 3C9 1 7.2 0 5 0 1.8 0 0 2.6 0 7s1.8 7 5 7c2.2 0 4-1 5-2.2V8H6"/>
+    <path id="tagline-t" d="M0 0h10M5 0v14"/>
+    <path id="tagline-h" d="M0 0v14M10 0v14M0 7h10"/>
+    <path id="tagline-e" d="M10 0H0v14h10M0 7h8"/>
+    <path id="tagline-f" d="M10 0H0v14M0 7h8"/>
+    <path id="tagline-r" d="M0 14V0h5c3.2 0 5 1.3 5 4s-1.8 4-5 4H0m5 0 5 6"/>
+  </defs>
+
+  <g transform="scale(.855 1)" aria-label="Emitronix building symbol">
+    <path d="M76 35 112 13v162l-36 7V35Z" fill="#1E293B"/>
+    <path d="M14 181V83l65-36v26L37 97v20l35-18v26l-35 18v20l42-10v27l-65 1Z" fill="#1E293B"/>
+    <path d="m116 48 42 20v110l-42-4V48Z" fill="url(#emitronix-tower-blue)"/>
+    <path d="m162 114 28 14v53l-28-3v-64Z" fill="url(#emitronix-tower-sky)"/>
+    <path d="m194 134 22 11v39l-22-3v-47Z" fill="#1E293B"/>
+    <path d="M6 187c68-14 141-13 216 1-69-5-143-6-216 5v-6Z" fill="#1E293B"/>
+    <path
+      d="M27 185c56-8 116-7 174 2"
+      stroke="#54D6FF"
+      stroke-width="2"
+      stroke-linecap="round"
+      opacity=".7"
+    />
+  </g>
+
+  <g fill="#1E293B" aria-label="EMITRONIX">
+    <path d="M244 78h58v9h-46v9h38v9h-38v10h46v9h-58V78Z"/>
+    <path d="M324 124V78h12l20 22 20-22h12v46h-12V94l-17 18h-6l-17-18v30h-12Z"/>
+    <path d="M414 78h10v46h-10V78Z"/>
+    <path d="M444 78h56v10h-23v36h-10V88h-23V78Z"/>
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M520 78h34c15 0 24 7 24 18 0 7-5 12-13 14l14 14h-16l-13-13h-18v13h-12V78Zm12 9v15h22c8 0 12-2 12-7s-4-8-12-8h-22Z"
+    />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M612 78h32c8 0 12 5 12 13v20c0 8-4 13-12 13h-32c-8 0-12-5-12-13V91c0-8 4-13 12-13Zm3 9c-3 0-4 2-4 5v18c0 3 1 5 4 5h26c3 0 4-2 4-5V92c0-3-1-5-4-5h-26Z"
+    />
+    <path d="M680 124V78h12l36 30V78h12v46h-12l-36-30v30h-12Z"/>
+    <path d="M764 78h10v46h-10V78Z"/>
+    <path d="M794 78h14l15 15 15-15h14l-22 23 22 23h-14l-15-15-15 15h-14l22-23-22-23Z"/>
+  </g>
+
+  <path d="M838 78h14l-22 23-7-8 15-15Z" fill="#1EA7FF" aria-hidden="true"/>
+
+  <g
+    fill="none"
+    stroke="#64748B"
+    stroke-width="1.55"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-label="Building the Future"
+  >
+    <path d="M244 149h106" stroke-width="2.4" opacity=".62"/>
+
+    <use href="#tagline-b" transform="translate(371 142)"/>
+    <use href="#tagline-u" transform="translate(391 142)"/>
+    <use href="#tagline-i" transform="translate(411 142)"/>
+    <use href="#tagline-l" transform="translate(431 142)"/>
+    <use href="#tagline-d" transform="translate(451 142)"/>
+    <use href="#tagline-i" transform="translate(471 142)"/>
+    <use href="#tagline-n" transform="translate(491 142)"/>
+    <use href="#tagline-g" transform="translate(511 142)"/>
+
+    <use href="#tagline-t" transform="translate(551 142)"/>
+    <use href="#tagline-h" transform="translate(571 142)"/>
+    <use href="#tagline-e" transform="translate(591 142)"/>
+
+    <use href="#tagline-f" transform="translate(631 142)"/>
+    <use href="#tagline-u" transform="translate(651 142)"/>
+    <use href="#tagline-t" transform="translate(671 142)"/>
+    <use href="#tagline-u" transform="translate(691 142)"/>
+    <use href="#tagline-r" transform="translate(711 142)"/>
+    <use href="#tagline-e" transform="translate(731 142)"/>
+
+    <path d="M762 149h90" stroke-width="2.4" opacity=".62"/>
+  </g>
+</svg>

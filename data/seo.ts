@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
 import { getSeoOverride } from "@/lib/adminStore";
-import { absoluteUrl, site } from "@/data/site";
-import { toArabicPath } from "@/lib/i18n";
+import { absoluteUrl, brandAssets, site } from "@/data/site";
+import { hasArabicPage, toArabicPath } from "@/lib/i18n";
 
 type PageMetadataInput = {
   title: string;
   description: string;
   path: string;
+  /**
+   * Existing Arabic routes are paired automatically. Set this to null only
+   * for a genuine English-only or utility route.
+   */
+  arabicPath?: string | null;
   keywords?: string[];
   image?: string;
   imageAlt?: string;
 };
 
 const defaultImage = "/images/dubai-building-contracting-company.webp";
-const defaultImageAlt = "Dubai construction skyline and crane works by Emitronix Contracting LLC";
+const defaultImageAlt =
+  "Illustrative stock image accompanying an Emitronix construction guide; not evidence of an Emitronix project or team";
 const MAX_TITLE_LENGTH = 70;
 const MAX_META_KEYWORDS = 12;
 
@@ -42,14 +48,39 @@ export function createPageMetadata({
   title,
   description,
   path,
+  arabicPath,
   keywords,
   image = defaultImage,
   imageAlt = defaultImageAlt,
 }: PageMetadataInput): Metadata {
   const resolvedTitle = resolveMetaTitle(title);
   const url = absoluteUrl(path);
-  const arabicUrl = absoluteUrl(toArabicPath(path));
+  const resolvedArabicPath =
+    arabicPath === undefined && hasArabicPage(path) ? toArabicPath(path) : (arabicPath ?? null);
+  const languages = resolvedArabicPath
+    ? {
+        en: url,
+        ar: absoluteUrl(resolvedArabicPath),
+        "en-AE": url,
+        "ar-AE": absoluteUrl(resolvedArabicPath),
+        "x-default": url,
+      }
+    : {
+        en: url,
+        "en-AE": url,
+        "x-default": url,
+      };
   const imageUrl = absoluteUrl(image);
+  const isBrandImage = image === brandAssets.socialCard || image === brandAssets.logoPng;
+  const resolvedImageAlt = isBrandImage
+    ? imageAlt
+    : /^illustrative\b/i.test(imageAlt)
+      ? imageAlt
+      : `Illustrative stock image accompanying this Emitronix page; not evidence of an Emitronix project or team. ${imageAlt}`;
+  const imageDimensions =
+    image === brandAssets.socialCard
+      ? { width: 1200, height: 630 }
+      : { width: 1672, height: 941 };
 
   return {
     title: {
@@ -59,13 +90,11 @@ export function createPageMetadata({
     keywords: normalizeMetaKeywords(keywords),
     alternates: {
       canonical: url,
-      languages: {
-        en: url,
-        ar: arabicUrl,
-        "en-AE": url,
-        "ar-AE": arabicUrl,
-        "x-default": url,
-      },
+      languages,
+    },
+    robots: {
+      index: true,
+      follow: true,
     },
     openGraph: {
       type: "website",
@@ -77,9 +106,9 @@ export function createPageMetadata({
       images: [
         {
           url: imageUrl,
-          width: 1672,
-          height: 941,
-          alt: imageAlt,
+          width: imageDimensions.width,
+          height: imageDimensions.height,
+          alt: resolvedImageAlt,
         },
       ],
     },
@@ -106,13 +135,6 @@ export async function applySeoOverrides(base: Metadata, pagePath: string): Promi
   if (override.metaDescription) merged.description = override.metaDescription;
   if (override.keywords) merged.keywords = normalizeMetaKeywords(override.keywords.split(","));
 
-  if (override.canonical) {
-    merged.alternates = {
-      ...merged.alternates,
-      canonical: override.canonical.startsWith("http") ? override.canonical : absoluteUrl(override.canonical),
-    };
-  }
-
   if (override.ogTitle || override.ogDescription || override.ogImage || override.metaTitle || override.metaDescription) {
     merged.openGraph = {
       ...merged.openGraph,
@@ -132,7 +154,10 @@ export async function applySeoOverrides(base: Metadata, pagePath: string): Promi
     };
   }
 
-  if (override.noindex) {
+  // Public canonical pages must remain self-canonical and indexable. Stored
+  // canonical/noindex values are retained for backwards data compatibility but
+  // are only allowed to affect genuine utility routes.
+  if (override.noindex && ["/search", "/guest-post"].includes(pagePath)) {
     merged.robots = { index: false, follow: false };
   }
 
