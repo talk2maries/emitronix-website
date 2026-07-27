@@ -14,22 +14,22 @@ export function HomeSignatureHero({ metrics }: { metrics: Metric[] }) {
   return (
     <section className="relative isolate overflow-hidden bg-white">
       <div className="absolute inset-0">
-        <div className="absolute left-0 right-0 top-0 h-[760px] w-full lg:inset-y-0 lg:left-auto lg:h-auto lg:w-[72%]">
+        <div className="absolute left-0 right-0 top-0 h-[760px] w-full lg:inset-y-0 lg:left-auto lg:h-auto lg:w-[78%]">
           <ResponsiveIllustrativeImage
             asset={heroImage}
             priority
             quality={65}
-            sizes="(min-width: 1024px) 72vw, 100vw"
+            sizes="(min-width: 1024px) 78vw, 100vw"
             className="absolute inset-0 block h-full w-full"
             imageClassName="h-full w-full object-cover object-center"
             imageStyle={{ height: "100%", objectFit: "cover" }}
           />
-          <p className="absolute right-4 top-4 z-20 max-w-[calc(100%-2rem)] rounded-full border border-white/70 bg-white/90 px-3 py-1.5 text-[0.6rem] font-black uppercase leading-3 tracking-[0.16em] text-charcoal shadow-sm sm:right-8 sm:py-2 sm:text-[0.65rem] sm:leading-4 lg:top-24">
+          <p className="absolute right-4 top-4 z-20 max-w-[calc(100%-2rem)] rounded-full border border-white/60 bg-white/80 px-3 py-1.5 text-[0.6rem] font-black uppercase leading-3 tracking-[0.16em] text-charcoal shadow-sm backdrop-blur-md sm:right-8 sm:py-2 sm:text-[0.65rem] sm:leading-4 lg:top-24">
             <IllustrativeImageDisclosure asset={heroImage} />
           </p>
           <div className="absolute inset-0 architectural-light" />
         </div>
-        <div className="premium-grid absolute inset-0 opacity-55" />
+        <div className="premium-grid absolute inset-0 opacity-40 lg:opacity-30" />
         <div className="route-line left-[7%] top-[70%] hidden w-[44%] lg:block" />
         <div className="absolute right-[21%] top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-brand/[0.24] to-transparent lg:block" />
       </div>
