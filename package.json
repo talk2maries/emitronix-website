@@ -12,7 +12,10 @@
     "validate:brand": "node scripts/validate-brand-assets.mjs",
     "validate:seo": "node scripts/validate-site.mjs",
     "validate:arabic-seo": "node scripts/validate-arabic-seo.mjs",
-    "validate:routes": "node scripts/validate-error-routes.mjs"
+    "validate:routes": "node scripts/validate-error-routes.mjs",
+    "generate:images": "node scripts/build-generated-image-variants.mjs",
+    "validate:images": "node scripts/validate-image-assets.mjs",
+    "validate:images:partial": "node scripts/validate-image-assets.mjs --allow-incomplete"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",

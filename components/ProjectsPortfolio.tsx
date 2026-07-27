@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -26,6 +25,8 @@ import {
   Zap,
   type LucideIcon,
 } from "lucide-react";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
+import { getGeneratedImage } from "@/data/generatedImages";
 import {
   portfolioProjects,
   projectFilters,
@@ -124,6 +125,7 @@ export function ProjectsPortfolio() {
         <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visibleProjects.map((project, index) => {
             const Icon = projectSpecificIcons[project.title] ?? projectIcons[project.category];
+            const image = getGeneratedImage(project.generatedImage);
 
             return (
               <article
@@ -132,14 +134,12 @@ export function ProjectsPortfolio() {
                 style={{ animationDelay: `${Math.min(index, 5) * 55}ms` }}
               >
                 <div className="relative h-56 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.imageAlt}
-                    title={project.imageTitle}
-                    fill
-                    loading="lazy"
+                  <ResponsiveIllustrativeImage
+                    asset={image}
                     sizes="(min-width: 1280px) 31vw, (min-width: 768px) 48vw, 100vw"
-                    className="object-cover transition duration-700 group-hover:scale-105"
+                    className="absolute inset-0 block h-full w-full"
+                    imageClassName="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                    imageStyle={{ height: "100%", objectFit: "cover" }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/78 via-brand-dark/18 to-transparent" />
                   <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-3">

@@ -7,12 +7,16 @@ import {
   HardHat,
   ShieldCheck,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { FAQSection } from "@/components/ContentBlocks";
 import { PremiumSectionHeading } from "@/components/Premium";
 import { ProjectsPortfolio } from "@/components/ProjectsPortfolio";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
+import { getGeneratedImage } from "@/data/generatedImages";
 import {
   projectFaqs,
   projectTimeline,
@@ -22,13 +26,15 @@ import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
+const portfolioHeroImage = getGeneratedImage("projects.portfolio-planning-dubai-hero");
+
 export const generateMetadata = createMetadataResolver({
   title: "Construction Scope Planning Library | Dubai",
   description:
     "Illustrative Dubai construction planning scenarios for civil, MEP, fit-out, renovation, maintenance and approval coordination. These are not completed-project case studies.",
   path: "/projects",
-  image: "/images/project-warehouse-industrial-dubai.webp",
-  imageAlt: "Illustrative stock image of a warehouse used for construction scope planning",
+  image: portfolioHeroImage.og!.src,
+  imageAlt: portfolioHeroImage.alt,
 });
 
 const capabilities = [
@@ -92,15 +98,18 @@ export default function ProjectsPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-brand-dark text-white">
-        <Image
-          src="/images/project-warehouse-industrial-dubai.webp"
-          alt="Illustrative stock image of a warehouse used for construction planning"
-          fill
+        <ResponsiveIllustrativeImage
+          asset={portfolioHeroImage}
           priority
           sizes="100vw"
-          className="object-cover"
+          className="absolute inset-0 block h-full w-full"
+          imageClassName="h-full w-full object-cover"
+          imageStyle={{ height: "100%", objectFit: "cover" }}
         />
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,31,58,0.94)_0%,rgba(18,58,115,0.78)_55%,rgba(11,31,58,0.52)_100%)]" />
+        <p className="absolute right-4 top-4 z-10 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.64rem] font-black uppercase leading-4 tracking-[0.16em] text-white backdrop-blur-xl sm:right-8 lg:top-24">
+          <IllustrativeImageDisclosure asset={portfolioHeroImage} />
+        </p>
         <div className="container-pad relative py-24 sm:py-32 lg:py-40">
           <nav className="flex flex-wrap items-center gap-2 text-sm font-bold text-white/75" aria-label="Breadcrumb">
             <Link href="/" className="transition hover:text-white">Home</Link>

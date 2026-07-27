@@ -2,6 +2,7 @@ import { ClipboardCheck, FileText, Mail, MapPin, MessageCircle, Phone } from "lu
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, contactItems, site, whatsappUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
@@ -11,7 +12,8 @@ export const generateMetadata = createMetadataResolver({
     "Contact Emitronix Contracting LLC in Dubai for civil contracting, villa construction, warehouse projects, authority approvals and interior fit-out enquiries.",
   path: "/contact",
   keywords: ["contact Emitronix Dubai", "Dubai contracting quote", "civil contractor contact", "Dubai Municipality approval contractor"],
-  image: "/images/building-contractor-dubai-construction-site.webp",
+  image: getGeneratedImage("company.dubai-project-consultation-hero").og!.src,
+  imageAlt: getGeneratedImage("company.dubai-project-consultation-hero").alt,
 });
 
 const contactSignals = [
@@ -99,8 +101,7 @@ export default function ContactPage() {
         eyebrow="Contact"
         title="Start a premium Dubai project conversation."
         description="Share your civil construction, fit-out, renovation or authority approval requirements. Include the project location, scope, timeline and current approval status."
-        image="/images/building-contractor-dubai-construction-site.webp"
-        imageAlt="Illustrative stock image of a Dubai construction site"
+        imageAsset={getGeneratedImage("company.dubai-project-consultation-hero")}
         primaryCta={{ label: "Call Emitronix", href: `tel:${site.phone.replace(/\s/g, "")}` }}
         secondaryCta={{ label: "Email Team", href: `mailto:${site.email}` }}
       />

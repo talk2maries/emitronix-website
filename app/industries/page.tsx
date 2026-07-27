@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, stats } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
@@ -12,7 +13,8 @@ export const generateMetadata = createMetadataResolver({
     "Emitronix supports Dubai villas, warehouses, industrial buildings, commercial buildings, retail fit-out and authority-facing construction project categories.",
   path: "/industries",
   keywords: ["villa construction Dubai", "warehouse construction Dubai", "commercial construction Dubai", "industrial building contractor Dubai"],
-  image: "/images/villa-construction-contractor-dubai.webp",
+  image: getGeneratedImage("company.dubai-construction-industries-hero").og!.src,
+  imageAlt: getGeneratedImage("company.dubai-construction-industries-hero").alt,
 });
 
 const industries = [
@@ -119,8 +121,7 @@ export default function IndustriesPage() {
         eyebrow="Industries"
         title="Built for Dubai's real estate, logistics and commercial economy."
         description="Emitronix supports project categories where premium communication, practical engineering, authority visibility and handover control matter."
-        image="/images/villa-construction-contractor-dubai.webp"
-        imageAlt="Illustrative stock image accompanying the Dubai construction industries guide; not project evidence"
+        imageAsset={getGeneratedImage("company.dubai-construction-industries-hero")}
         primaryCta={{ label: "Discuss Your Sector", href: "/contact" }}
         secondaryCta={{ label: "Planning Library", href: "/projects" }}
         metrics={stats}

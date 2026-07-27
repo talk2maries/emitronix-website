@@ -5,6 +5,7 @@ import {
   blogPosts,
   toBlogPostSummary,
 } from "@/data/blog";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
@@ -20,8 +21,8 @@ export const generateMetadata = createMetadataResolver({
     "Dubai authority approvals",
     "building contractor Dubai",
   ],
-  image: "/images/dubai-civil-works-construction-site.webp",
-  imageAlt: "Dubai construction knowledge center by Emitronix Contracting LLC",
+  image: getGeneratedImage("blog.civil-construction-dubai-guide-2026").og!.src,
+  imageAlt: getGeneratedImage("blog.civil-construction-dubai-guide-2026").alt,
 });
 
 const itemListJsonLd = {

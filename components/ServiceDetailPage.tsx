@@ -7,6 +7,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { buildServiceExpandedFaqs, getServiceDeepContent } from "@/data/serviceDeepContent";
 import {
   absoluteUrl,
@@ -35,7 +36,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const expandedFaqs = buildServiceExpandedFaqs(service);
   const pageUrl = absoluteUrl(service.href);
   const primaryImageUrl = absoluteUrl(service.image);
-  const illustrativeImageAlt = `Illustrative stock image accompanying the ${service.title} planning guide; not evidence of an Emitronix project or team`;
+  const serviceImage = getGeneratedImage(service.generatedImage);
   const relatedLinks = service.relatedHrefs.map((href) => {
     const relatedService = allServices.find((item) => item.href === href);
     const relatedApproval = approvalServices.find((item) => item.href === href);
@@ -110,8 +111,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     url: primaryImageUrl,
     contentUrl: primaryImageUrl,
     name: `Illustrative image for the ${service.title} planning guide`,
-    caption: illustrativeImageAlt,
-    description: illustrativeImageAlt,
+    caption: serviceImage.alt,
+    description: serviceImage.alt,
   };
   const webPageJsonLd = {
     "@context": "https://schema.org",
@@ -210,8 +211,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         eyebrow={`Emitronix ${service.shortTitle}`}
         title={`${service.title} Dubai`}
         description={service.details}
-        image={service.image}
-        imageAlt={illustrativeImageAlt}
+        imageAsset={serviceImage}
         primaryCta={{ label: "Request a Quote", href: "/contact" }}
         secondaryCta={{ label: "Planning Library", href: "/projects" }}
         metrics={[
@@ -523,8 +523,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <section id="dubai-standards" className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <ImagePanel
-            src={service.image}
-            alt={illustrativeImageAlt}
+            asset={serviceImage}
             label="Planning illustration"
             title={`${service.title} scope and coordination considerations.`}
           />

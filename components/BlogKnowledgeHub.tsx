@@ -1,10 +1,14 @@
 "use client";
 
 import { ArrowRight, CalendarDays, Clock3, Mail, Search, Tag } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { blogImageAlt, type BlogPostSummary } from "@/data/blog";
+import { getGeneratedImage } from "@/data/generatedImages";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
 
 type BlogKnowledgeHubProps = {
   posts: BlogPostSummary[];
@@ -27,6 +31,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const featured = posts.find((post) => post.featured) ?? posts[0];
+  const featuredAsset = getGeneratedImage(featured.generatedImage);
   const featuredCards = posts.filter((post) => post.slug !== featured.slug).slice(0, 3);
   const recentPosts = [...posts].sort((a, b) => b.publishedDate.localeCompare(a.publishedDate)).slice(0, 4);
   const selectedGuides = posts.filter((post) => post.popular).slice(0, 4);
@@ -48,17 +53,19 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-brand-dark pb-16 pt-32 text-white lg:pb-24 lg:pt-40">
-        <Image
-          src={featured.image}
+        <ResponsiveIllustrativeImage
+          asset={featuredAsset}
           alt={blogImageAlt(featured)}
-          fill
           priority
           sizes="100vw"
-          className="absolute inset-0 z-0 object-cover"
+          className="absolute inset-0 z-0 h-full w-full"
+          imageClassName="h-full w-full object-cover"
+          imageStyle={{ height: "100%", objectFit: "cover" }}
         />
-        <p className="absolute right-4 top-24 z-30 rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.68rem] font-black uppercase tracking-[0.18em] text-white backdrop-blur-xl sm:right-8">
-          Illustrative stock image — not project evidence
-        </p>
+        <IllustrativeImageDisclosure
+          asset={featuredAsset}
+          className="absolute right-4 top-4 z-30 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.68rem] font-black uppercase leading-4 tracking-[0.18em] text-white backdrop-blur-xl sm:right-8 lg:top-24"
+        />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(11,31,58,0.94)_0%,rgba(18,58,115,0.76)_52%,rgba(25,73,145,0.36)_100%)]" />
         <div className="absolute inset-0 z-20 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:48px_48px]" />
 
@@ -132,14 +139,14 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
           <div className="grid min-w-0 gap-10">
             <article className="grid overflow-hidden rounded-[2rem] border border-brand/[0.12] bg-white shadow-luxe lg:grid-cols-[1.05fr_0.95fr]">
               <div className="relative h-[320px] lg:h-auto lg:min-h-[430px]">
-                <Image
-                  src={featured.image}
+                <ResponsiveIllustrativeImage
+                  asset={featuredAsset}
                   alt={blogImageAlt(featured)}
-                  fill
-                  loading="lazy"
                   sizes="(min-width: 1280px) 42vw, 100vw"
                   quality={65}
-                  className="object-cover"
+                  className="absolute inset-0 h-full w-full"
+                  imageClassName="h-full w-full object-cover"
+                  imageStyle={{ height: "100%", objectFit: "cover" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-white/85 via-white/10 to-transparent lg:hidden" />
               </div>
@@ -164,14 +171,14 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
               {featuredCards.map((post) => (
                 <Link key={post.slug} href={postHref(post)} className="group overflow-hidden rounded-[1.6rem] border border-brand/[0.10] bg-white shadow-panel transition duration-300 hover:-translate-y-1 hover:border-brand/[0.25] hover:shadow-luxe">
                   <div className="relative aspect-[16/10] overflow-hidden">
-                    <Image
-                      src={post.image}
+                    <ResponsiveIllustrativeImage
+                      asset={getGeneratedImage(post.generatedImage)}
                       alt={blogImageAlt(post)}
-                      fill
-                      loading="lazy"
                       sizes="(min-width: 1024px) 24vw, 100vw"
                       quality={65}
-                      className="object-cover transition duration-500 group-hover:scale-105"
+                      className="absolute inset-0 h-full w-full"
+                      imageClassName="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                      imageStyle={{ height: "100%", objectFit: "cover" }}
                     />
                   </div>
                   <div className="p-5">
@@ -207,14 +214,14 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                   {filteredPosts.map((post) => (
                     <Link key={post.slug} href={postHref(post)} className="luxury-card grid min-w-0 gap-5 rounded-[1.5rem] p-4 sm:grid-cols-[180px_minmax(0,1fr)]">
                       <div className="relative h-[180px] overflow-hidden rounded-[1.2rem] bg-brand-soft sm:h-auto sm:min-h-[190px]">
-                        <Image
-                          src={post.image}
+                        <ResponsiveIllustrativeImage
+                          asset={getGeneratedImage(post.generatedImage)}
                           alt={blogImageAlt(post)}
-                          fill
-                          loading="lazy"
                           sizes="(min-width: 768px) 180px, 100vw"
                           quality={65}
-                          className="object-cover"
+                          className="absolute inset-0 h-full w-full"
+                          imageClassName="h-full w-full object-cover"
+                          imageStyle={{ height: "100%", objectFit: "cover" }}
                         />
                       </div>
                       <div className="min-w-0 py-1">

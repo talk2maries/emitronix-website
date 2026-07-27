@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -32,15 +31,23 @@ import {
 } from "lucide-react";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { ContactForm } from "@/components/ContactForm";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
+import { getGeneratedImage, type GeneratedImageAsset } from "@/data/generatedImages";
 import { applySeoOverrides, createPageMetadata } from "@/data/seo";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
 import { trustContentLastReviewedIso, trustContentLastReviewedLabel } from "@/data/trustCenter";
 
 const pagePath = "/dewa-approvals";
 const pageUrl = absoluteUrl(pagePath);
-const heroImage = "/images/dewa-approval-dubai-electrical-engineers.webp";
-const inspectionImage = "/images/dewa-lv-inspection-testing-dubai.webp";
-const cableImage = "/images/dewa-hv-lv-cable-works-dubai.webp";
+const heroImageAsset = getGeneratedImage("approvals.dewa-approval-electrical-coordination-dubai");
+const inspectionImageAsset = getGeneratedImage("services.testing-commissioning-dubai");
+const cableImageAsset = getGeneratedImage("approvals.dewa-cable-works-dubai");
+const heroImage = heroImageAsset.desktop.src;
+const inspectionImage = inspectionImageAsset.desktop.src;
+const cableImage = cableImageAsset.desktop.src;
 const videoUrl = "/videos/dewa-approval-dubai-workflow.mp4";
 const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
 
@@ -64,9 +71,8 @@ export async function generateMetadata(): Promise<Metadata> {
         "A practical DEWA coordination guide for Dubai projects covering connections, load changes, documents, consultant roles, inspections and authority limitations.",
       path: pagePath,
       keywords: dewaKeywords,
-      image: heroImage,
-      imageAlt:
-        "Illustrative electrical switchgear image accompanying a Dubai DEWA coordination guide",
+      image: heroImageAsset.og!.src,
+      imageAlt: heroImageAsset.alt,
     }),
     pagePath,
   );
@@ -1566,29 +1572,26 @@ function MiniCardGrid({ items, columns = "three" }: { items: MiniCard[]; columns
 }
 
 function ImageFeature({
-  src,
-  alt,
+  asset,
   title,
   caption,
   priority = false,
 }: {
-  src: string;
-  alt: string;
+  asset: GeneratedImageAsset;
   title: string;
   caption: string;
   priority?: boolean;
 }) {
   return (
-    <figure className="overflow-hidden rounded-[1.75rem] border border-brand/[0.14] bg-white shadow-panel">
+    <figure title={title} className="overflow-hidden rounded-[1.75rem] border border-brand/[0.14] bg-white shadow-panel">
       <div className="relative aspect-[16/9] w-full">
-        <Image
-          src={src}
-          alt={alt}
-          title={title}
-          fill
+        <ResponsiveIllustrativeImage
+          asset={asset}
           priority={priority}
           sizes="(min-width: 1024px) 48vw, 100vw"
-          className="object-cover"
+          className="absolute inset-0 block h-full w-full"
+          imageClassName="h-full w-full object-cover"
+          imageStyle={{ height: "100%", objectFit: "cover" }}
         />
       </div>
       <figcaption className="border-t border-brand/[0.12] bg-white p-4 text-sm font-bold leading-6 text-charcoal">
@@ -1701,9 +1704,8 @@ function JsonLd() {
         url: absoluteUrl(heroImage),
         contentUrl: absoluteUrl(heroImage),
         name: "DEWA approval coordination in Dubai",
-        caption: "Illustrative stock image of an electrical switchgear room accompanying this Dubai coordination guide.",
-        description:
-          "Illustrative electrical switchgear image; it is not evidence of an Emitronix project, team member or completed authority approval.",
+        caption: heroImageAsset.alt,
+        description: heroImageAsset.disclosure,
       },
       {
         "@type": "ImageObject",
@@ -1711,9 +1713,8 @@ function JsonLd() {
         url: absoluteUrl(inspectionImage),
         contentUrl: absoluteUrl(inspectionImage),
         name: "DEWA LV inspection and testing Dubai",
-        caption: "Illustrative stock image of LV switchgear inspection and testing preparation.",
-        description:
-          "Illustrative image only; it is not a documented Emitronix inspection or project.",
+        caption: inspectionImageAsset.alt,
+        description: inspectionImageAsset.disclosure,
       },
       {
         "@type": "ImageObject",
@@ -1721,9 +1722,8 @@ function JsonLd() {
         url: absoluteUrl(cableImage),
         contentUrl: absoluteUrl(cableImage),
         name: "DEWA HV and LV cable works Dubai",
-        caption: "Illustrative stock image of HV and LV cable routing.",
-        description:
-          "Illustrative image only; it is not evidence of an Emitronix cable-work project.",
+        caption: cableImageAsset.alt,
+        description: cableImageAsset.disclosure,
       },
       {
         "@type": "VideoObject",
@@ -1749,19 +1749,20 @@ export default function DewaApprovalsPage() {
   return (
     <>
       <section className="relative isolate overflow-hidden bg-brand-dark text-white">
-        <Image
-          src={heroImage}
-          alt="Illustrative electrical switchgear room accompanying a Dubai DEWA coordination guide"
-          title="Illustrative electrical switchgear image"
-          fill
+        <ResponsiveIllustrativeImage
+          asset={heroImageAsset}
           priority
-          fetchPriority="high"
-          quality={50}
+          quality={65}
           sizes="100vw"
-          className="absolute inset-0 z-0 object-cover"
+          className="absolute inset-0 z-0 block h-full w-full"
+          imageClassName="h-full w-full object-cover"
+          imageStyle={{ height: "100%", objectFit: "cover" }}
         />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(11,31,58,0.96)_0%,rgba(18,58,115,0.82)_45%,rgba(11,31,58,0.42)_100%)]" />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(11,31,58,0.08)_0%,rgba(11,31,58,0.76)_100%)]" />
+        <p className="absolute right-4 top-4 z-20 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.64rem] font-black uppercase leading-4 tracking-[0.16em] text-white backdrop-blur-xl sm:right-8 lg:top-24">
+          <IllustrativeImageDisclosure asset={heroImageAsset} />
+        </p>
         <div className="container-pad relative z-20 grid min-h-[740px] gap-10 pt-32 lg:grid-cols-[0.98fr_0.62fr] lg:items-end lg:pb-24 lg:pt-40">
           <div className="max-w-5xl pb-16 lg:pb-0">
             <p className="text-xs font-black uppercase tracking-[0.28em] text-brand-sky">
@@ -1906,10 +1907,9 @@ export default function DewaApprovalsPage() {
             </div>
           </div>
           <ImageFeature
-            src={inspectionImage}
-            alt="Illustrative stock image of LV switchgear inspection and testing preparation"
+            asset={inspectionImageAsset}
             title="Illustrative LV switchgear image"
-            caption="Illustrative stock image—not evidence of an Emitronix project. In general, switchgear, test records, labels and access should align before an inspection request."
+            caption={`${inspectionImageAsset.disclosure} In general, switchgear, test records, labels and access should align before an inspection request.`}
           />
         </div>
       </section>
@@ -1988,10 +1988,9 @@ export default function DewaApprovalsPage() {
       <section className="blue-grid section-pad">
         <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <ImageFeature
-            src={cableImage}
-            alt="Illustrative stock image of HV and LV cable tray coordination"
+            asset={cableImageAsset}
             title="Illustrative cable-routing image"
-            caption="Illustrative stock image—not evidence of an Emitronix project. Cable routes, NOCs, utility conflicts and inspection evidence generally need early planning."
+            caption={`${cableImageAsset.disclosure} Cable routes, NOCs, utility conflicts and inspection evidence generally need early planning.`}
           />
           <div>
             <SectionIntro

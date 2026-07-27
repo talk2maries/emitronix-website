@@ -2,6 +2,11 @@ import { ArrowRight, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
+import type { GeneratedImageAsset } from "@/data/generatedImages";
 
 type Cta = {
   label: string;
@@ -77,6 +82,7 @@ export function PageHero({
   description,
   image,
   imageAlt,
+  imageAsset,
   primaryCta,
   secondaryCta,
   breadcrumbs = [],
@@ -85,8 +91,9 @@ export function PageHero({
   eyebrow: string;
   title: string;
   description: string;
-  image: string;
-  imageAlt: string;
+  image?: string;
+  imageAlt?: string;
+  imageAsset?: GeneratedImageAsset;
   primaryCta?: Cta;
   secondaryCta?: Cta;
   breadcrumbs?: Array<{ label: string; href?: string }>;
@@ -94,14 +101,25 @@ export function PageHero({
 }) {
   return (
     <section className="relative isolate overflow-hidden bg-brand-dark text-white">
-      <Image
-        src={image}
-        alt={imageAlt}
-        fill
-        priority
-        sizes="100vw"
-        className="absolute inset-0 z-0 object-cover"
-      />
+      {imageAsset ? (
+        <ResponsiveIllustrativeImage
+          asset={imageAsset}
+          priority
+          sizes="100vw"
+          className="absolute inset-0 z-0 block h-full w-full"
+          imageClassName="h-full w-full object-cover"
+          imageStyle={{ height: "100%", objectFit: "cover" }}
+        />
+      ) : image ? (
+        <Image
+          src={image}
+          alt={imageAlt ?? ""}
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 z-0 object-cover"
+        />
+      ) : null}
       <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(11,31,58,0.94)_0%,rgba(18,58,115,0.78)_47%,rgba(25,73,145,0.34)_100%)]" />
       <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(11,31,58,0.16)_0%,rgba(11,31,58,0.70)_100%)]" />
       <div className="pointer-events-none absolute inset-0 z-20 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:48px_48px]" />
@@ -110,8 +128,12 @@ export function PageHero({
         <div className="absolute bottom-24 right-0 h-px w-1/2 bg-gradient-to-r from-transparent via-brand-sky/25 to-transparent" />
         <div className="absolute right-[14%] top-0 hidden h-full w-px bg-gradient-to-b from-transparent via-white/20 to-transparent lg:block" />
       </div>
-      <p className="absolute right-4 top-24 z-30 rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.68rem] font-black uppercase tracking-[0.18em] text-white backdrop-blur-xl sm:right-8">
-        Illustrative stock image — not project evidence
+      <p className="absolute right-4 top-4 z-30 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.68rem] font-black uppercase leading-4 tracking-[0.18em] text-white backdrop-blur-xl sm:right-8 lg:top-24">
+        {imageAsset ? (
+          <IllustrativeImageDisclosure asset={imageAsset} />
+        ) : (
+          "Illustrative image — not project evidence"
+        )}
       </p>
       <div className="container-pad relative z-30 grid min-h-[720px] gap-10 pt-32 lg:grid-cols-[0.94fr_0.72fr] lg:items-end lg:pb-24 lg:pt-40">
         <div className="z-10 max-w-5xl pb-12 lg:pb-0">
@@ -268,19 +290,41 @@ export function FeatureGrid({ features }: { features: Feature[] }) {
 export function ImagePanel({
   src,
   alt,
+  asset,
   label,
   title,
 }: {
-  src: string;
-  alt: string;
+  src?: string;
+  alt?: string;
+  asset?: GeneratedImageAsset;
   label: string;
   title: string;
 }) {
   return (
     <div className="relative min-h-[420px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-smoke shadow-luxe">
-      <Image src={src} alt={alt} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" />
+      {asset ? (
+        <ResponsiveIllustrativeImage
+          asset={asset}
+          sizes="(min-width: 1024px) 45vw, 100vw"
+          className="absolute inset-0 block h-full w-full"
+          imageClassName="h-full w-full object-cover"
+          imageStyle={{ height: "100%", objectFit: "cover" }}
+        />
+      ) : src ? (
+        <Image
+          src={src}
+          alt={alt ?? ""}
+          fill
+          sizes="(min-width: 1024px) 45vw, 100vw"
+          className="object-cover"
+        />
+      ) : null}
       <p className="absolute right-4 top-4 z-10 rounded-full border border-white/70 bg-white/90 px-3 py-2 text-[0.65rem] font-black uppercase tracking-[0.16em] text-charcoal shadow-sm">
-        Illustrative stock image — not project evidence
+        {asset ? (
+          <IllustrativeImageDisclosure asset={asset} />
+        ) : (
+          "Illustrative image — not project evidence"
+        )}
       </p>
       <div className="absolute inset-0 bg-gradient-to-t from-white/95 via-white/30 to-transparent" />
       <div className="absolute bottom-6 left-6 right-6 rounded-[1.5rem] border border-white/70 bg-white/[0.82] p-5 text-charcoal shadow-panel backdrop-blur-2xl">

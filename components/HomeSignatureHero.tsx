@@ -1,26 +1,31 @@
 import { ArrowRight, FileCheck2, Layers3, MessageCircle, PhoneCall } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { MetricRibbon, type Metric } from "@/components/Premium";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { site, whatsappUrl } from "@/data/site";
 
 export function HomeSignatureHero({ metrics }: { metrics: Metric[] }) {
+  const heroImage = getGeneratedImage("home.dubai-construction-company-hero");
+
   return (
     <section className="relative isolate overflow-hidden bg-white">
       <div className="absolute inset-0">
         <div className="absolute left-0 right-0 top-0 h-[760px] w-full lg:inset-y-0 lg:left-auto lg:h-auto lg:w-[72%]">
-          <Image
-            src="/images/dubai-building-contracting-company.webp"
-            alt="Illustrative stock image of a Dubai construction skyline; not evidence of an Emitronix project"
-            fill
+          <ResponsiveIllustrativeImage
+            asset={heroImage}
             priority
-            fetchPriority="high"
-            quality={50}
+            quality={65}
             sizes="(min-width: 1024px) 72vw, 100vw"
-            className="object-cover object-center"
+            className="absolute inset-0 block h-full w-full"
+            imageClassName="h-full w-full object-cover object-center"
+            imageStyle={{ height: "100%", objectFit: "cover" }}
           />
-          <p className="absolute right-4 top-24 z-20 rounded-full border border-white/70 bg-white/90 px-3 py-2 text-[0.65rem] font-black uppercase tracking-[0.16em] text-charcoal shadow-sm sm:right-8">
-            Illustrative stock image — not project evidence
+          <p className="absolute right-4 top-4 z-20 max-w-[calc(100%-2rem)] rounded-full border border-white/70 bg-white/90 px-3 py-1.5 text-[0.6rem] font-black uppercase leading-3 tracking-[0.16em] text-charcoal shadow-sm sm:right-8 sm:py-2 sm:text-[0.65rem] sm:leading-4 lg:top-24">
+            <IllustrativeImageDisclosure asset={heroImage} />
           </p>
           <div className="absolute inset-0 architectural-light" />
         </div>

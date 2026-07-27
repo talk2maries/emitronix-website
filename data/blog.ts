@@ -1,4 +1,5 @@
 import { absoluteUrl, site } from "@/data/site";
+import type { GeneratedImageKey } from "@/data/generatedImages";
 
 export const blogCategories = [
   "Civil Construction",
@@ -39,6 +40,7 @@ export type BlogPost = {
   category: string;
   categories: string[];
   targetKeywords: string[];
+  generatedImage: GeneratedImageKey;
   image: string;
   imageAlt: string;
   imageTitle: string;
@@ -65,7 +67,9 @@ export type BlogPostSummary = Pick<
   | "category"
   | "categories"
   | "targetKeywords"
+  | "generatedImage"
   | "image"
+  | "imageAlt"
   | "publishedDate"
   | "readTime"
   | "popular"
@@ -80,7 +84,9 @@ export function toBlogPostSummary(post: BlogPost): BlogPostSummary {
     category: post.category,
     categories: post.categories,
     targetKeywords: post.targetKeywords,
+    generatedImage: post.generatedImage,
     image: post.image,
+    imageAlt: post.imageAlt,
     publishedDate: post.publishedDate,
     readTime: post.readTime,
     popular: post.popular,
@@ -88,8 +94,7 @@ export function toBlogPostSummary(post: BlogPost): BlogPostSummary {
   };
 }
 
-export const blogImageAlt = (post: Pick<BlogPost, "title">) =>
-  `Illustrative stock image accompanying the article “${post.title}”`;
+export const blogImageAlt = (post: Pick<BlogPost, "imageAlt">) => post.imageAlt;
 
 export const blogPosts: BlogPost[] = [
   {
@@ -111,9 +116,11 @@ export const blogPosts: BlogPost[] = [
       "Commercial Building Contractor",
       "Warehouse Contractor Dubai",
     ],
-    image: "/images/dubai-civil-works-construction-site.webp",
-    imageAlt: "Civil Contractor Dubai construction site progress and delivery planning",
-    imageTitle: "Civil Contractor Dubai construction planning guide",
+    generatedImage: "blog.civil-construction-dubai-guide-2026",
+    image: "/images/generated/blog/civil-construction-dubai-guide-2026-desktop.webp",
+    imageAlt:
+      "Illustrative AI-generated civil construction planning scene in Dubai; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative civil construction planning guide image",
     publishedDate: "2026-07-23",
     modifiedDate: "2026-07-24",
     readTime: "9 min read",
@@ -272,9 +279,11 @@ export const blogPosts: BlogPost[] = [
       "Building Permit Dubai",
       "Construction Approval Dubai",
     ],
-    image: "/images/dubai-authority-approval-contractor.webp",
-    imageAlt: "Dubai authority approval drawings and coordination documents for DEWA Municipality DCD and Trakhees",
-    imageTitle: "Dubai authority approvals guide",
+    generatedImage: "blog.dubai-authority-approvals-guide",
+    image: "/images/generated/blog/dubai-authority-approvals-guide-desktop.webp",
+    imageAlt:
+      "Illustrative AI-generated Dubai authority approvals coordination scene; not an authority image, endorsement or project evidence.",
+    imageTitle: "Illustrative Dubai authority approvals guide image",
     publishedDate: "2026-07-23",
     modifiedDate: "2026-07-24",
     readTime: "8 min read",
@@ -450,9 +459,11 @@ export const blogPosts: BlogPost[] = [
       "Factory Construction UAE",
       "Logistics Warehouse Construction",
     ],
-    image: "/images/warehouse-construction-dubai.webp",
-    imageAlt: "Warehouse Construction Dubai steel structure planning for logistics and industrial facilities",
-    imageTitle: "Warehouse construction Dubai planning guide",
+    generatedImage: "blog.warehouse-construction-planning-guide",
+    image: "/images/generated/blog/warehouse-construction-planning-guide-desktop.webp",
+    imageAlt:
+      "Illustrative AI-generated warehouse construction planning scene in Dubai; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative warehouse construction planning guide image",
     publishedDate: "2026-07-23",
     modifiedDate: "2026-07-24",
     readTime: "8 min read",
@@ -620,9 +631,11 @@ export const blogPosts: BlogPost[] = [
       "Civil Contractor Dubai",
       "Commercial Construction Company",
     ],
-    image: "/images/dubai-building-contracting-company.webp",
-    imageAlt: "Building contractor Dubai construction site planning and contractor selection",
-    imageTitle: "Best building contractor Dubai selection guide",
+    generatedImage: "blog.choosing-building-contractor-dubai",
+    image: "/images/generated/blog/choosing-building-contractor-dubai-desktop.webp",
+    imageAlt:
+      "Illustrative AI-generated contractor-selection meeting in Dubai; not evidence of an Emitronix project or team.",
+    imageTitle: "Illustrative building contractor selection guide image",
     publishedDate: "2026-07-23",
     modifiedDate: "2026-07-24",
     readTime: "8 min read",
@@ -804,7 +817,9 @@ type StrategicPostSeed = {
   relatedSlugs: string[];
 };
 
-const createDraftStrategicPost = (seed: StrategicPostSeed): BlogPost => ({
+export type DraftBlogPost = Omit<BlogPost, "generatedImage">;
+
+const createDraftStrategicPost = (seed: StrategicPostSeed): DraftBlogPost => ({
   slug: seed.slug,
   title: seed.title,
   seoTitle: seed.seoTitle,
@@ -910,7 +925,7 @@ const createDraftStrategicPost = (seed: StrategicPostSeed): BlogPost => ({
 
 // Draft-only inventory. These templated articles are intentionally excluded
 // from `blogPosts` until each one receives a distinct editorial rewrite.
-export const draftStrategicBlogPosts: BlogPost[] = [
+export const draftStrategicBlogPosts: DraftBlogPost[] = [
   createDraftStrategicPost({
     slug: "warehouse-construction-cost-dubai",
     title: "Warehouse Construction Cost in Dubai: What Affects Budget in 2026",

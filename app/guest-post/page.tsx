@@ -2,8 +2,11 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
+
+const guestPostImage = getGeneratedImage("company.construction-technical-resources-dubai-hero");
 
 const resolveGuestPostMetadata = createMetadataResolver({
   title: "Guest Post Guidelines",
@@ -11,8 +14,8 @@ const resolveGuestPostMetadata = createMetadataResolver({
     "Contact Emitronix for relevant construction, contracting, fit-out, warehouse, villa, project management or Dubai authority approval guest post enquiries.",
   path: "/guest-post",
   keywords: ["construction guest post Dubai", "contracting guest post UAE", "Dubai construction articles"],
-  image: "/images/dubai-civil-works-construction-site.webp",
-  imageAlt: "Dubai civil construction site image for construction guest post enquiries",
+  image: guestPostImage.og!.src,
+  imageAlt: guestPostImage.alt,
 });
 
 export async function generateMetadata() {
@@ -49,8 +52,7 @@ export default function GuestPostPage() {
         eyebrow="Guest posts"
         title="Guest post enquiries for construction and approval topics."
         description="Use this page for relevant construction, contracting, fit-out, warehouse, villa, project management or Dubai authority approval article enquiries. The contact team can review whether the topic is appropriate before anything is published."
-        image="/images/dubai-civil-works-construction-site.webp"
-        imageAlt="Dubai civil construction site image for construction guest post enquiries"
+        imageAsset={guestPostImage}
         primaryCta={{ label: "Contact Emitronix", href: "/contact" }}
         secondaryCta={{ label: "Read the blog", href: "/blog" }}
       />

@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import { ArrowLeft, ArrowRight, CalendarDays, Clock3, Linkedin, MessageCircle, Share2, Tag } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
 import { blogImageAlt, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { applySeoOverrides, resolveMetaTitle } from "@/data/seo";
 import { absoluteUrl, services, site } from "@/data/site";
 import { toArabicPath } from "@/lib/i18n";
@@ -45,7 +49,9 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
 
   const url = blogPostUrl(post);
   const title = resolveMetaTitle(post.seoTitle);
-  const imageUrl = absoluteUrl(post.image);
+  const imageAsset = getGeneratedImage(post.generatedImage);
+  const socialImage = imageAsset.og ?? imageAsset.desktop;
+  const imageUrl = absoluteUrl(socialImage.src);
 
   const base: Metadata = {
     title: {
@@ -83,8 +89,8 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
       images: [
         {
           url: imageUrl,
-          width: 1672,
-          height: 941,
+          width: socialImage.width,
+          height: socialImage.height,
           alt: blogImageAlt(post),
         },
       ],
@@ -110,6 +116,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
   const previousPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
   const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
   const canonicalUrl = blogPostUrl(post);
+  const imageAsset = getGeneratedImage(post.generatedImage);
   const encodedUrl = encodeURIComponent(canonicalUrl);
   const encodedTitle = encodeURIComponent(post.title);
 
@@ -118,7 +125,7 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
     "@type": "BlogPosting",
     headline: post.title,
     description: post.metaDescription,
-    image: [absoluteUrl(post.image)],
+    image: [absoluteUrl((imageAsset.og ?? imageAsset.desktop).src)],
     datePublished: post.publishedDate,
     dateModified: post.modifiedDate,
     author: {
@@ -191,13 +198,18 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                 </div>
               </div>
               <div className="relative min-h-[360px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-brand-soft shadow-luxe lg:min-h-[520px]">
-                <Image
-                  src={post.image}
+                <ResponsiveIllustrativeImage
+                  asset={imageAsset}
                   alt={blogImageAlt(post)}
-                  fill
                   priority
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
+                  className="absolute inset-0 h-full w-full"
+                  imageClassName="h-full w-full object-cover"
+                  imageStyle={{ height: "100%", objectFit: "cover" }}
+                />
+                <IllustrativeImageDisclosure
+                  asset={imageAsset}
+                  className="absolute bottom-4 right-4 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.65rem] font-black uppercase tracking-[0.14em] text-white backdrop-blur-xl"
                 />
               </div>
             </div>

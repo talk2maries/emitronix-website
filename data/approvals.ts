@@ -1,3 +1,5 @@
+import type { GeneratedImageKey } from "@/data/generatedImages";
+
 export type ApprovalService = {
   slug: string;
   href: string;
@@ -14,12 +16,14 @@ export type ApprovalService = {
   whyChoose: string[];
   related: string[];
   keywords: string[];
+  generatedImage: GeneratedImageKey;
 };
 
 export const approvalServices: ApprovalService[] = [
   {
     slug: "dubai-municipality-approval",
     href: "/dubai-municipality-approval",
+    generatedImage: "approvals.dubai-municipality-approval-planning",
     menuLabel: "Dubai Municipality Approval",
     seoTitle: "Dubai Municipality Approval Services | Emitronix Contracting LLC",
     metaDescription:
@@ -66,6 +70,7 @@ export const approvalServices: ApprovalService[] = [
   {
     slug: "dda-approvals",
     href: "/dda-approvals",
+    generatedImage: "approvals.dda-approval-coordination-dubai",
     menuLabel: "DDA Approvals",
     seoTitle: "DDA Approval Services Dubai | Dubai Development Authority Approvals",
     metaDescription:
@@ -112,6 +117,7 @@ export const approvalServices: ApprovalService[] = [
   {
     slug: "dcd-approvals",
     href: "/dcd-approvals",
+    generatedImage: "approvals.dcd-fire-safety-approval-dubai",
     menuLabel: "DCD Approvals",
     seoTitle: "DCD Approval Services Dubai | Dubai Civil Defence Approval Support",
     metaDescription:
@@ -158,6 +164,7 @@ export const approvalServices: ApprovalService[] = [
   {
     slug: "dewa-approvals",
     href: "/dewa-approvals",
+    generatedImage: "approvals.dewa-approval-electrical-coordination-dubai",
     menuLabel: "DEWA Approvals",
     seoTitle: "DEWA Approval Services Dubai | DEWA NOC and Submission Support",
     metaDescription:
@@ -204,6 +211,7 @@ export const approvalServices: ApprovalService[] = [
   {
     slug: "trakhees-approvals",
     href: "/trakhees-approvals",
+    generatedImage: "approvals.trakhees-approval-warehouse-dubai",
     menuLabel: "Trakhees Approvals",
     seoTitle: "Trakhees Approval Services Dubai | Free Zone Approval Support",
     metaDescription:
@@ -250,6 +258,7 @@ export const approvalServices: ApprovalService[] = [
   {
     slug: "difc-approvals",
     href: "/difc-approvals",
+    generatedImage: "approvals.difc-fit-out-approval-dubai",
     menuLabel: "DIFC Approvals",
     seoTitle: "DIFC Approval Services Dubai | Permit and Fit-Out Approval Support",
     metaDescription:
@@ -296,6 +305,7 @@ export const approvalServices: ApprovalService[] = [
   {
     slug: "concordia-dmcc-approvals",
     href: "/concordia-dmcc-approvals",
+    generatedImage: "approvals.concordia-dmcc-approval-dubai",
     menuLabel: "Concordia-DMCC Approvals Process",
     seoTitle: "Concordia DMCC Approval Process Dubai | JLT Approval Support",
     metaDescription:
@@ -342,6 +352,7 @@ export const approvalServices: ApprovalService[] = [
   {
     slug: "rta-approval",
     href: "/rta-approval",
+    generatedImage: "approvals.rta-approval-noc-dubai",
     menuLabel: "RTA Approval",
     seoTitle: "RTA Approval Dubai | Road Access & NOC Support",
     metaDescription:

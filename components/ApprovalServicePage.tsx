@@ -4,6 +4,7 @@ import { approvalServices, type ApprovalService } from "@/data/approvals";
 import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { buildApprovalExpandedFaqs, getApprovalDeepContent } from "@/data/serviceDeepContent";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
 import { trustContentLastReviewedIso, trustContentLastReviewedLabel } from "@/data/trustCenter";
 import { CTA } from "./CTA";
@@ -59,8 +60,8 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     href: "https://u.ae/en/information-and-services/justice-safety-and-the-law/building-safety",
   };
   const pageUrl = absoluteUrl(service.href);
-  const imageUrl = absoluteUrl("/images/dubai-authority-approval-contractor.webp");
-  const illustrativeImageAlt = `Illustrative stock image accompanying the ${service.menuLabel} guide; not evidence of an Emitronix project, team or approval`;
+  const approvalImage = getGeneratedImage(service.generatedImage);
+  const imageUrl = absoluteUrl(approvalImage.desktop.src);
   const relatedPages = service.related
     .map((slug) => approvalServices.find((item) => item.slug === slug))
     .filter((item): item is ApprovalService => Boolean(item));
@@ -129,8 +130,8 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     url: imageUrl,
     contentUrl: imageUrl,
     name: `Illustrative image for the ${service.menuLabel} guide`,
-    caption: illustrativeImageAlt,
-    description: illustrativeImageAlt,
+    caption: approvalImage.alt,
+    description: approvalImage.alt,
   };
   const webPageJsonLd = {
     "@context": "https://schema.org",
@@ -184,8 +185,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
         eyebrow={service.eyebrow}
         title={service.h1}
         description={service.heroText}
-        image="/images/dubai-authority-approval-contractor.webp"
-        imageAlt={illustrativeImageAlt}
+        imageAsset={approvalImage}
         primaryCta={{ label: "Request Approval Support", href: "/contact" }}
         secondaryCta={{ label: "All Approvals", href: "/approval" }}
         metrics={[

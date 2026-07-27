@@ -1,17 +1,20 @@
 import { ArrowRight, BadgeCheck, Building2, ClipboardCheck, Factory, FileCheck2, Landmark, Layers3, MessageCircle, PhoneCall, ShieldCheck, Sparkles, Warehouse } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
 import { CTA } from "@/components/CTA";
 import { ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { HomeSignatureHero } from "@/components/HomeSignatureHero";
 import { CommandCenter, ImagePanel, PremiumLink, PremiumSectionHeading } from "@/components/Premium";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
 import { ServiceCard } from "@/components/ServiceCard";
 import { blogImageAlt, blogPosts } from "@/data/blog";
+import { getGeneratedImage } from "@/data/generatedImages";
 import {
   absoluteUrl,
   authorities,
-  brandAssets,
   complianceHighlights,
   homeFaqs,
   services,
@@ -42,8 +45,8 @@ export const generateMetadata = createMetadataResolver({
     "Interior Fit-Out Dubai",
     "Authority Approvals Dubai",
   ],
-  image: brandAssets.socialCard,
-  imageAlt: "Emitronix — Building the Future",
+  image: getGeneratedImage("home.dubai-construction-company-hero").og!.src,
+  imageAlt: getGeneratedImage("home.dubai-construction-company-hero").alt,
 });
 
 const intelligenceFeatures = [
@@ -237,14 +240,16 @@ export default function HomePage() {
         <div className="container-pad">
           <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div className="relative min-h-[520px] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-white shadow-luxe">
-              <Image
-                src="/images/about-construction-coordination-dubai.webp"
-                alt="Illustrative stock image of construction coordination in Dubai"
-                fill
-                loading="lazy"
+              <ResponsiveIllustrativeImage
+                asset={getGeneratedImage("home.project-control-coordination")}
                 sizes="(min-width: 1024px) 46vw, 100vw"
-                className="object-cover"
+                className="absolute inset-0 block h-full w-full"
+                imageClassName="h-full w-full object-cover"
+                imageStyle={{ height: "100%", objectFit: "cover" }}
               />
+              <p className="absolute right-5 top-5 z-10 rounded-full border border-white/70 bg-white/90 px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.14em] text-charcoal shadow-sm">
+                <IllustrativeImageDisclosure asset={getGeneratedImage("home.project-control-coordination")} />
+              </p>
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,31,58,0.02)_0%,rgba(11,31,58,0.68)_100%)]" />
               <div className="absolute left-5 right-5 top-5 flex flex-wrap gap-2">
                 {["Authority approvals", "Civil delivery", "MEP coordination"].map((item) => (
@@ -311,8 +316,7 @@ export default function HomePage() {
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <ImagePanel
-            src="/images/warehouse-construction-dubai.webp"
-            alt="Warehouse construction Dubai steel structure quality and safety planning"
+            asset={getGeneratedImage("home.quality-safety-inspection")}
             label="Quality and safety"
             title="Quality is planned before it is inspected."
           />
@@ -448,7 +452,14 @@ export default function HomePage() {
             {latestArticles.map((post) => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="luxury-card overflow-hidden rounded-[1.5rem]">
                 <div className="relative h-52 bg-brand-soft">
-                  <Image src={post.image} alt={blogImageAlt(post)} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover" />
+                  <ResponsiveIllustrativeImage
+                    asset={getGeneratedImage(post.generatedImage)}
+                    alt={blogImageAlt(post)}
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="absolute inset-0 h-full w-full"
+                    imageClassName="h-full w-full object-cover"
+                    imageStyle={{ height: "100%", objectFit: "cover" }}
+                  />
                 </div>
                 <div className="p-6">
                   <p className="premium-kicker">{post.category}</p>
@@ -492,7 +503,9 @@ export default function HomePage() {
             url: absoluteUrl("/"),
             description:
               "Premium homepage for Emitronix Contracting LLC, a Dubai construction company for civil contracting, building construction, warehouses, villas, interior fit-out and authority approvals.",
-            primaryImageOfPage: absoluteUrl("/images/dubai-building-contracting-company.webp"),
+            primaryImageOfPage: absoluteUrl(
+              getGeneratedImage("home.dubai-construction-company-hero").og!.src,
+            ),
             provider: {
               "@id": absoluteUrl("/#organization"),
               name: site.legalName,

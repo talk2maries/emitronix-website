@@ -12,9 +12,13 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { CareerApplicationForm } from "@/components/CareerApplicationForm";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
@@ -30,8 +34,8 @@ export const generateMetadata = createMetadataResolver({
     "site supervisor jobs Dubai",
     "project management careers UAE",
   ],
-  image: "/images/civil-contractor-dubai-construction-site.webp",
-  imageAlt: "Construction careers in Dubai with Emitronix Contracting LLC",
+  image: getGeneratedImage("team.construction-team-dubai").og!.src,
+  imageAlt: getGeneratedImage("team.construction-team-dubai").alt,
 });
 
 type CareerCard = {
@@ -163,15 +167,18 @@ export default function CareersPage() {
               </div>
 
               <div className="relative min-h-[420px] overflow-hidden rounded-[2.25rem] border border-brand/[0.15] bg-pearl shadow-luxe lg:min-h-[560px]">
-                <Image
-                  src="/images/civil-contractor-dubai-construction-site.webp"
-                  alt="Illustrative stock image of construction professionals planning site work"
-                  fill
+                <ResponsiveIllustrativeImage
+                  asset={getGeneratedImage("team.construction-team-dubai")}
                   priority
                   sizes="(min-width: 1024px) 52vw, 100vw"
-                  className="object-cover"
+                  className="absolute inset-0 block h-full w-full"
+                  imageClassName="h-full w-full object-cover"
+                  imageStyle={{ height: "100%", objectFit: "cover" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/88 via-white/32 to-transparent" />
+                <p className="absolute right-5 top-5 rounded-full border border-white/70 bg-white/90 px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.14em] text-charcoal shadow-sm">
+                  <IllustrativeImageDisclosure asset={getGeneratedImage("team.construction-team-dubai")} />
+                </p>
                 <div className="absolute bottom-5 left-5 right-5 rounded-[1.5rem] border border-white/70 bg-white/[0.82] p-5 shadow-panel backdrop-blur-2xl">
                   <p className="premium-kicker">Dubai, UAE</p>
                   <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal">Construction roles built around discipline, trust and site clarity.</h2>

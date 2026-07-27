@@ -4,6 +4,7 @@ import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { blogPosts } from "@/data/blog";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, services, stats } from "@/data/site";
 
@@ -12,8 +13,8 @@ export const generateMetadata = createMetadataResolver({
   description:
     "Practical Dubai knowledge for construction, civil engineering, MEP, electrical, fit-out, warehouses, approvals, planning, QA/QC and site safety.",
   path: "/resources",
-  image: "/images/dubai-authority-approval-contractor.webp",
-  imageAlt: "Illustrative stock image of construction drawings and project documents",
+  image: getGeneratedImage("company.construction-technical-resources-dubai-hero").og!.src,
+  imageAlt: getGeneratedImage("company.construction-technical-resources-dubai-hero").alt,
 });
 
 const topics = [
@@ -183,8 +184,7 @@ export default function ResourcesPage() {
         eyebrow="Knowledge Center"
         title="Practical construction and engineering knowledge for Dubai projects."
         description="Plain-language pathways across civil engineering, MEP, electrical, fit-out, warehouses, commercial and industrial buildings, renovation, approvals, planning, safety and quality."
-        image="/images/dubai-authority-approval-contractor.webp"
-        imageAlt="Illustrative stock image of construction drawings and project documents"
+        imageAsset={getGeneratedImage("company.construction-technical-resources-dubai-hero")}
         primaryCta={{ label: "Explore Topics", href: "#topic-directory" }}
         secondaryCta={{ label: "Read Articles", href: "/blog" }}
         metrics={stats}

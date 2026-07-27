@@ -3,6 +3,7 @@ import { CTA } from "@/components/CTA";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, navItems, services, stats } from "@/data/site";
 
@@ -13,6 +14,8 @@ export const generateMetadata = createMetadataResolver({
   path: "/html-sitemap",
   keywords: ["Emitronix sitemap", "Dubai construction services sitemap", "construction company Dubai pages"],
 });
+
+const sitemapImage = getGeneratedImage("company.construction-technical-resources-dubai-hero");
 
 const pageGroups = [
   {
@@ -78,8 +81,7 @@ export default function HtmlSitemapPage() {
         eyebrow="Sitemap"
         title="Browse Emitronix construction resources."
         description="A clean index of Emitronix Contracting LLC pages for Dubai construction services, authority approvals, project resources and civil construction articles."
-        image="/images/dubai-building-contracting-company.webp"
-        imageAlt="Emitronix Dubai construction website sitemap and resource index"
+        imageAsset={sitemapImage}
         primaryCta={{ label: "View Services", href: "/services" }}
         secondaryCta={{ label: "Contact Emitronix", href: "/contact" }}
         metrics={stats}

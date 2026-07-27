@@ -1,3 +1,5 @@
+import type { GeneratedImageKey } from "@/data/generatedImages";
+
 export type ProjectCategory = "Civil Works" | "MEP Works" | "Interior Fit-Out" | "Commercial Renovation" | "Maintenance" | "Authority Approvals";
 export type ProjectFilter = "All" | ProjectCategory;
 
@@ -11,6 +13,7 @@ export type PortfolioProject = {
   image: string;
   imageAlt: string;
   imageTitle: string;
+  generatedImage: GeneratedImageKey;
 };
 
 export const verifiedCaseStudyPublicationRequirements = [
@@ -41,9 +44,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "A premium residential renovation profile for owners upgrading layouts, finishes, services and authority-sensitive modifications with disciplined site control.",
-    image: "/images/project-villa-building-works-dubai-modern.webp",
-    imageAlt: "Illustrative stock image of a modern villa for residential renovation planning",
-    imageTitle: "Illustrative villa renovation planning scenario",
+    image: "/images/generated/projects/villa-renovation-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing a Dubai villa renovation; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated villa renovation planning scenario",
+    generatedImage: "projects.villa-renovation-planning-dubai",
   },
   {
     title: "Warehouse civil and MEP planning scenario",
@@ -53,9 +57,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "A logistics facility upgrade profile for Dubai industrial operators needing civil works, MEP coordination and practical handover planning inside an active warehouse environment.",
-    image: "/images/project-warehouse-industrial-dubai.webp",
-    imageAlt: "Illustrative stock image of warehouse racking for civil and MEP planning",
-    imageTitle: "Illustrative warehouse upgrade planning scenario",
+    image: "/images/generated/projects/warehouse-civil-mep-upgrade-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing civil and MEP upgrades to a Dubai warehouse; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated warehouse upgrade planning scenario",
+    generatedImage: "projects.warehouse-civil-mep-upgrade-planning-dubai",
   },
   {
     title: "Commercial office fit-out planning scenario",
@@ -65,9 +70,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "A commercial office fit-out profile shaped for Dubai business districts where programme control, finish quality and approvals coordination matter.",
-    image: "/images/project-office-fit-out-dubai.webp",
-    imageAlt: "Illustrative stock image of a glass office corridor for fit-out planning",
-    imageTitle: "Illustrative office fit-out planning scenario",
+    image: "/images/generated/projects/commercial-office-fit-out-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing a commercial office fit-out in Dubai; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated office fit-out planning scenario",
+    generatedImage: "projects.commercial-office-fit-out-planning-dubai",
   },
   {
     title: "Building maintenance planning scenario",
@@ -77,9 +83,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "A maintenance profile for commercial and light-industrial properties that need fast diagnosis, clean execution and clear close-out communication.",
-    image: "/images/project-building-maintenance-dubai.webp",
-    imageAlt: "Illustrative stock image of electrical-panel inspection for maintenance planning",
-    imageTitle: "Illustrative building maintenance planning scenario",
+    image: "/images/generated/projects/building-maintenance-inspection-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing a building maintenance inspection in Dubai; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated building maintenance planning scenario",
+    generatedImage: "projects.building-maintenance-inspection-planning-dubai",
   },
   {
     title: "Utility approval coordination scenario",
@@ -89,9 +96,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "An authority coordination profile for projects where utility requirements, submission clarity and contractor readiness must stay aligned.",
-    image: "/images/project-authority-approvals-dubai.webp",
-    imageAlt: "Illustrative stock image of drawings used to explain approval coordination",
-    imageTitle: "Illustrative utility approval coordination scenario",
+    image: "/images/generated/projects/utility-approval-coordination-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing utility approval coordination in Dubai; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated utility approval coordination scenario",
+    generatedImage: "projects.utility-approval-coordination-planning-dubai",
   },
   {
     title: "Retail renovation planning scenario",
@@ -101,9 +109,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "A retail renovation profile for tenant and landlord teams improving customer-facing space while protecting working hours, finishes and authority visibility.",
-    image: "/images/project-commercial-renovation-dubai.webp",
-    imageAlt: "Illustrative stock image of a commercial interior used for renovation planning",
-    imageTitle: "Illustrative retail renovation planning scenario",
+    image: "/images/generated/projects/retail-renovation-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing a retail renovation in Dubai; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated retail renovation planning scenario",
+    generatedImage: "projects.retail-renovation-planning-dubai",
   },
   {
     title: "Industrial facility modification scenario",
@@ -113,9 +122,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "An industrial modification profile for free-zone facilities where operational continuity, safety and civil execution need a controlled delivery rhythm.",
-    image: "/images/project-warehouse-industrial-dubai.webp",
-    imageAlt: "Illustrative stock image of an industrial interior for modification planning",
-    imageTitle: "Illustrative industrial modification planning scenario",
+    image: "/images/generated/projects/industrial-facility-modification-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing modifications to a Dubai industrial facility; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated industrial modification planning scenario",
+    generatedImage: "projects.industrial-facility-modification-planning-dubai",
   },
   {
     title: "MEP interface coordination scenario",
@@ -125,9 +135,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "A Dubai South coordination profile for projects that need MEP decisions connected early with drawings, civil works, ceiling zones and close-out evidence.",
-    image: "/images/project-mep-coordination-dubai.webp",
-    imageAlt: "Illustrative stock image of electrical conduits for MEP interface planning",
-    imageTitle: "Illustrative MEP coordination planning scenario",
+    image: "/images/generated/projects/mep-interface-coordination-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing MEP interface coordination in a Dubai facility; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated MEP coordination planning scenario",
+    generatedImage: "projects.mep-interface-coordination-planning-dubai",
   },
   {
     title: "Authority and NOC coordination scenario",
@@ -137,9 +148,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "An approvals profile for owners and consultants who need documentation, comments, inspections and construction readiness managed in one clear track.",
-    image: "/images/about-construction-coordination-dubai.webp",
-    imageAlt: "Illustrative stock image of a site team used to explain approval coordination",
-    imageTitle: "Illustrative authority coordination planning scenario",
+    image: "/images/generated/projects/authority-noc-coordination-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing authority and NOC coordination in Dubai; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated authority coordination planning scenario",
+    generatedImage: "projects.authority-noc-coordination-planning-dubai",
   },
   {
     title: "Civil repair and maintenance scenario",
@@ -149,9 +161,10 @@ export const portfolioProjects: PortfolioProject[] = [
     status: "Illustrative planning scenario — not a case study",
     description:
       "A Dubai repair profile for warehouses and commercial assets needing reliable civil maintenance with practical scheduling and site housekeeping.",
-    image: "/images/project-civil-works-dubai.webp",
-    imageAlt: "Illustrative stock image of reinforcement coordination for civil repair planning",
-    imageTitle: "Illustrative civil repair and maintenance scenario",
+    image: "/images/generated/projects/civil-repair-maintenance-planning-dubai-desktop.webp",
+    imageAlt: "Illustrative AI-generated planning scenario showing civil repair and maintenance works in Dubai; not evidence of an Emitronix project.",
+    imageTitle: "Illustrative AI-generated civil repair and maintenance scenario",
+    generatedImage: "projects.civil-repair-maintenance-planning-dubai",
   },
 ];
 

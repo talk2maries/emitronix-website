@@ -4,8 +4,13 @@ import Link from "next/link";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
 import { CareerApplicationForm } from "@/components/CareerApplicationForm";
 import { ContactForm } from "@/components/ContactForm";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { arabicUi, type ArabicPageData } from "@/data/arabic";
 import { blogPosts } from "@/data/blog";
+import {
+  findGeneratedImageBySrc,
+  type GeneratedImageAsset,
+} from "@/data/generatedImages";
 import { site, whatsappUrl } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
@@ -18,10 +23,40 @@ function formatArabicDate(date: string) {
   }).format(new Date(`${date}T00:00:00Z`));
 }
 
+function arabicImageDisclosure(asset: GeneratedImageAsset) {
+  if (
+    asset.category === "approvals" ||
+    asset.disclosure.includes("authority")
+  ) {
+    return "صورة توضيحية مولدة بالذكاء الاصطناعي؛ ليست صورة أو موافقة أو تأييدا من جهة رسمية، وليست صورة لمشروع Emitronix.";
+  }
+
+  if (asset.disclosure.includes("People shown")) {
+    return "صورة توضيحية مولدة بالذكاء الاصطناعي؛ الأشخاص الظاهرون تمثيليون وليسوا موظفي Emitronix.";
+  }
+
+  if (
+    asset.category === "projects" ||
+    asset.disclosure.includes("planning scenario")
+  ) {
+    return "سيناريو تخطيط توضيحي مولد بالذكاء الاصطناعي؛ ليس دليلا على مشروع Emitronix.";
+  }
+
+  if (
+    asset.category === "blog" ||
+    asset.disclosure.includes("editorial")
+  ) {
+    return "صورة تحريرية توضيحية مولدة بالذكاء الاصطناعي؛ ليست دليلا على مشروع Emitronix.";
+  }
+
+  return "صورة توضيحية مولدة بالذكاء الاصطناعي؛ ليست صورة لمشروع Emitronix.";
+}
+
 export function ArabicSitePage({ page }: { page: ArabicPageData }) {
   const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
   const primaryCta = page.primaryCta ?? { label: arabicUi.quote, href: "/ar/contact" };
   const secondaryCta = page.secondaryCta ?? { label: arabicUi.whatsapp, href: whatsappUrl };
+  const heroImage = findGeneratedImageBySrc(page.image);
   const blogPost =
     page.kind === "blog-post"
       ? blogPosts.find((post) => `/blog/${post.slug}` === page.path)
@@ -31,16 +66,33 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
   return (
     <article lang="ar-AE" dir="rtl" className="bg-white text-charcoal">
       <section className="relative isolate overflow-hidden bg-brand-dark text-white">
-        <Image
-          src={page.image}
-          alt={page.imageAlt}
-          fill
-          priority
-          sizes="100vw"
-          className="absolute inset-0 z-0 object-cover"
-        />
+        {heroImage ? (
+          <ResponsiveIllustrativeImage
+            asset={heroImage}
+            alt={page.imageAlt}
+            priority
+            sizes="100vw"
+            className="absolute inset-0 z-0 block h-full w-full"
+            imageClassName="h-full w-full object-cover"
+            imageStyle={{ height: "100%", objectFit: "cover" }}
+          />
+        ) : (
+          <Image
+            src={page.image}
+            alt={page.imageAlt}
+            fill
+            priority
+            sizes="100vw"
+            className="absolute inset-0 z-0 object-cover"
+          />
+        )}
         <div className="absolute inset-0 z-10 bg-[linear-gradient(270deg,rgba(11,31,58,0.94)_0%,rgba(18,58,115,0.76)_52%,rgba(25,73,145,0.26)_100%)]" />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(11,31,58,0.10)_0%,rgba(11,31,58,0.72)_100%)]" />
+        {heroImage ? (
+          <p className="absolute right-4 top-4 z-30 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.64rem] font-black leading-5 text-white backdrop-blur-xl sm:right-8 sm:max-w-xl lg:top-24">
+            {arabicImageDisclosure(heroImage)}
+          </p>
+        ) : null}
         <div className="container-pad relative z-30 flex min-h-[680px] items-end pb-14 pt-36">
           <div className="max-w-5xl">
             {page.path !== "/" ? (
@@ -134,27 +186,49 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
 
               {section.cards?.length ? (
                 <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                  {section.cards.map((card) => (
-                    <article key={card.title} className="group overflow-hidden rounded-[1.5rem] border border-brand/10 bg-white shadow-panel transition hover:-translate-y-1 hover:shadow-luxe">
-                      {card.image ? (
-                        <div className="relative h-56 overflow-hidden">
-                          <Image
-                            src={card.image}
-                            alt={card.imageAlt ?? card.title}
-                            fill
-                            loading="lazy"
-                            sizes="(min-width: 1280px) 31vw, (min-width: 768px) 48vw, 100vw"
-                            className="object-cover transition duration-700 group-hover:scale-105"
-                          />
+                  {section.cards.map((card) => {
+                    const cardImage = card.image
+                      ? findGeneratedImageBySrc(card.image)
+                      : undefined;
+
+                    return (
+                      <article key={card.title} className="group overflow-hidden rounded-[1.5rem] border border-brand/10 bg-white shadow-panel transition hover:-translate-y-1 hover:shadow-luxe">
+                        {card.image ? (
+                          <div className="relative h-56 overflow-hidden">
+                            {cardImage ? (
+                              <ResponsiveIllustrativeImage
+                                asset={cardImage}
+                                alt={card.imageAlt ?? card.title}
+                                sizes="(min-width: 1280px) 31vw, (min-width: 768px) 48vw, 100vw"
+                                className="absolute inset-0 block h-full w-full"
+                                imageClassName="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                                imageStyle={{ height: "100%", objectFit: "cover" }}
+                              />
+                            ) : (
+                              <Image
+                                src={card.image}
+                                alt={card.imageAlt ?? card.title}
+                                fill
+                                loading="lazy"
+                                sizes="(min-width: 1280px) 31vw, (min-width: 768px) 48vw, 100vw"
+                                className="object-cover transition duration-700 group-hover:scale-105"
+                              />
+                            )}
+                            {cardImage ? (
+                              <p className="absolute right-3 top-3 max-w-[calc(100%-1.5rem)] rounded-2xl border border-white/70 bg-white/90 px-3 py-1.5 text-[0.58rem] font-black leading-4 text-charcoal shadow-sm">
+                                {arabicImageDisclosure(cardImage)}
+                              </p>
+                            ) : null}
+                          </div>
+                        ) : null}
+                        <div className="p-6">
+                          <CheckCircle2 className="h-7 w-7 text-brand" />
+                          <h3 className="mt-5 text-2xl font-black leading-tight tracking-tight text-charcoal">{card.title}</h3>
+                          <p className="mt-4 text-sm leading-7 text-steel">{card.body}</p>
                         </div>
-                      ) : null}
-                      <div className="p-6">
-                        <CheckCircle2 className="h-7 w-7 text-brand" />
-                        <h3 className="mt-5 text-2xl font-black leading-tight tracking-tight text-charcoal">{card.title}</h3>
-                        <p className="mt-4 text-sm leading-7 text-steel">{card.body}</p>
-                      </div>
-                    </article>
-                  ))}
+                      </article>
+                    );
+                  })}
                 </div>
               ) : null}
             </div>

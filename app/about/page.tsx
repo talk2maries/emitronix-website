@@ -4,6 +4,7 @@ import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site, stats, whyChoose } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
 import { createMetadataResolver } from "@/data/seo";
@@ -14,7 +15,8 @@ export const generateMetadata = createMetadataResolver({
     "Learn about Emitronix Contracting LLC, a Dubai contracting company for civil construction, approvals, fit-out, villa, warehouse and commercial projects.",
   path: "/about",
   keywords: ["Emitronix Dubai", "Dubai contracting company", "civil construction company UAE", "authority approvals Dubai"],
-  image: "/images/about-construction-coordination-dubai.webp",
+  image: getGeneratedImage("company.engineering-coordination-dubai-hero").og!.src,
+  imageAlt: getGeneratedImage("company.engineering-coordination-dubai-hero").alt,
 });
 
 const operatingPrinciples = [
@@ -102,8 +104,7 @@ export default function AboutPage() {
         eyebrow="About Emitronix"
         title="A premium Dubai contractor built around clarity."
         description={`${site.legalName} brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.`}
-        image="/images/about-construction-coordination-dubai.webp"
-        imageAlt="Illustrative stock image of a construction team reviewing site information"
+        imageAsset={getGeneratedImage("company.engineering-coordination-dubai-hero")}
         primaryCta={{ label: "Talk to Emitronix", href: "/contact" }}
         secondaryCta={{ label: "Explore Services", href: "/services" }}
         metrics={stats}
@@ -130,8 +131,7 @@ export default function AboutPage() {
             </div>
           </div>
           <ImagePanel
-            src="/images/about-civil-works-dubai.webp"
-            alt="Illustrative stock image of civil works coordination"
+            asset={getGeneratedImage("company.civil-site-review-dubai")}
             label="Site coordination"
             title="Civil works, fit-out and approval-ready delivery."
           />

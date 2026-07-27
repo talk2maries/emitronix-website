@@ -557,7 +557,7 @@ type MetadataInput = {
 
 export function createTrustMetadata({ path, title, description }: MetadataInput): Metadata {
   const url = absoluteUrl(path);
-  const imageUrl = absoluteUrl("/images/dubai-building-contracting-company.webp");
+  const imageUrl = absoluteUrl("/images/generated/social/emitronix-construction-dubai-og.webp");
 
   return {
     title: { absolute: title },
@@ -581,7 +581,9 @@ export function createTrustMetadata({ path, title, description }: MetadataInput)
       images: [
         {
           url: imageUrl,
-          alt: "Illustrative stock image accompanying an Emitronix company-information page; not project evidence",
+          width: 1200,
+          height: 630,
+          alt: "Illustrative AI-generated Dubai construction image accompanying an Emitronix company-information page; not project evidence",
         },
       ],
     },

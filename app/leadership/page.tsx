@@ -21,16 +21,22 @@ import Link from "next/link";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { PremiumSectionHeading } from "@/components/Premium";
 import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
+import {
   founderProfile,
   leadershipFunctions,
   leadershipPublicationGate,
 } from "@/data/authority";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
 const pageUrl = absoluteUrl("/leadership");
 const pageDescription =
   "Review the named founder profile and the role-based construction delivery functions presented by Emitronix Contracting LLC.";
+const leadershipImage = getGeneratedImage("team.engineering-leadership-site-review");
 
 export const metadata: Metadata = {
   title: {
@@ -58,8 +64,10 @@ export const metadata: Metadata = {
     description: pageDescription,
     images: [
       {
-        url: absoluteUrl("/images/dubai-building-contracting-company.webp"),
-        alt: "Illustrative stock image accompanying Emitronix leadership functions; not a team portrait or project image",
+        url: absoluteUrl(leadershipImage.og!.src),
+        width: leadershipImage.og!.width,
+        height: leadershipImage.og!.height,
+        alt: leadershipImage.alt,
       },
     ],
   },
@@ -67,7 +75,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Leadership & Delivery Functions | ${site.name}`,
     description: pageDescription,
-    images: [absoluteUrl("/images/dubai-building-contracting-company.webp")],
+    images: [absoluteUrl(leadershipImage.og!.src)],
   },
 };
 
@@ -148,7 +156,21 @@ export default function LeadershipPage() {
                 </p>
               </div>
 
-              <aside className="luxury-surface rounded-[2rem] p-6 sm:p-8">
+              <div className="grid gap-5">
+                <figure className="relative aspect-[3/2] overflow-hidden rounded-[2rem] border border-brand/[0.15] bg-brand-soft shadow-luxe">
+                  <ResponsiveIllustrativeImage
+                    asset={leadershipImage}
+                    priority
+                    sizes="(min-width: 1024px) 38vw, 100vw"
+                    className="absolute inset-0 block h-full w-full"
+                    imageClassName="h-full w-full object-cover"
+                    imageStyle={{ height: "100%", objectFit: "cover" }}
+                  />
+                  <figcaption className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/60 bg-white/90 px-4 py-3 text-[0.65rem] font-black uppercase tracking-[0.14em] text-charcoal shadow-sm backdrop-blur-xl">
+                    <IllustrativeImageDisclosure asset={leadershipImage} />
+                  </figcaption>
+                </figure>
+                <aside className="luxury-surface rounded-[2rem] p-6 sm:p-8">
                 <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand text-white shadow-blue">
                   <Users className="h-7 w-7" aria-hidden="true" />
                 </span>
@@ -161,7 +183,8 @@ export default function LeadershipPage() {
                 <Link href={founderProfile.profilePath} className="premium-button mt-6 w-full">
                   View founder profile <ArrowRight className="h-4 w-4" />
                 </Link>
-              </aside>
+                </aside>
+              </div>
             </div>
           </div>
         </section>

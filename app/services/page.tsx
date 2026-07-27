@@ -6,6 +6,7 @@ import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { CommandCenter, PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { ServiceCard } from "@/components/ServiceCard";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, authorities, localSeoBlocks, services, site, stats, whatsappUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
@@ -15,7 +16,8 @@ export const generateMetadata = createMetadataResolver({
     "Explore Emitronix civil contracting, interior fit-out, villa, warehouse, commercial building and authority approval services in Dubai, UAE.",
   path: "/services",
   keywords: ["civil construction services Dubai", "building contractor Dubai", "authority approval Dubai", "interior fit-out Dubai"],
-  image: "/images/warehouse-construction-dubai.webp",
+  image: getGeneratedImage("services.construction-services-dubai-hero").og!.src,
+  imageAlt: getGeneratedImage("services.construction-services-dubai-hero").alt,
 });
 
 const serviceCommandItems = [
@@ -98,8 +100,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="A complete construction platform for Dubai projects."
         description="Emitronix aligns civil contracting, fit-out delivery and authority approval coordination so project owners can move from scope definition to handover with clearer control."
-        image="/images/warehouse-construction-dubai.webp"
-        imageAlt="Warehouse construction Dubai and industrial building delivery"
+        imageAsset={getGeneratedImage("services.construction-services-dubai-hero")}
         primaryCta={{ label: "Request Consultation", href: "/contact" }}
         secondaryCta={{ label: "Scope Planning Library", href: "/projects" }}
         metrics={stats}

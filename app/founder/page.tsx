@@ -16,12 +16,14 @@ import Link from "next/link";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { PremiumSectionHeading } from "@/components/Premium";
 import { founderProfile } from "@/data/authority";
+import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
 
 const pageUrl = absoluteUrl(founderProfile.profilePath);
 const pageDescription =
   "Meet Marieswaran Sadaiappan, Founder & Managing Director of Emitronix Contracting LLC, and review the professional themes published for this profile.";
+const founderContextImage = getGeneratedImage("team.engineering-leadership-site-review");
 
 export const metadata: Metadata = {
   title: {
@@ -49,8 +51,10 @@ export const metadata: Metadata = {
     description: pageDescription,
     images: [
       {
-        url: absoluteUrl("/images/dubai-building-contracting-company.webp"),
-        alt: "Illustrative stock image accompanying the Emitronix founder profile; not a portrait or project image",
+        url: absoluteUrl(founderContextImage.og!.src),
+        width: founderContextImage.og!.width,
+        height: founderContextImage.og!.height,
+        alt: "Illustrative AI-generated leadership context image; not a portrait of the founder, an Emitronix employee or an Emitronix project.",
       },
     ],
   },
@@ -58,7 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `Marieswaran Sadaiappan | ${site.name}`,
     description: pageDescription,
-    images: [absoluteUrl("/images/dubai-building-contracting-company.webp")],
+    images: [absoluteUrl(founderContextImage.og!.src)],
   },
 };
 

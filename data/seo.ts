@@ -17,9 +17,9 @@ type PageMetadataInput = {
   imageAlt?: string;
 };
 
-const defaultImage = "/images/dubai-building-contracting-company.webp";
+const defaultImage = brandAssets.socialCard;
 const defaultImageAlt =
-  "Illustrative stock image accompanying an Emitronix construction guide; not evidence of an Emitronix project or team";
+  "Illustrative AI-generated image of a clean commercial and warehouse construction site in Dubai; not an Emitronix project photograph.";
 const MAX_TITLE_LENGTH = 70;
 const MAX_META_KEYWORDS = 12;
 
@@ -70,15 +70,22 @@ export function createPageMetadata({
         "en-AE": url,
         "x-default": url,
       };
-  const imageUrl = absoluteUrl(image);
+  const socialImage =
+    image.startsWith("/images/generated/") && image.endsWith("-desktop.webp")
+      ? image.replace(/-desktop\.webp$/, "-og.webp")
+      : image;
+  const imageUrl = absoluteUrl(socialImage);
   const isBrandImage = image === brandAssets.socialCard || image === brandAssets.logoPng;
+  const isGeneratedImage = image.startsWith("/images/generated/");
   const resolvedImageAlt = isBrandImage
     ? imageAlt
     : /^illustrative\b/i.test(imageAlt)
       ? imageAlt
-      : `Illustrative stock image accompanying this Emitronix page; not evidence of an Emitronix project or team. ${imageAlt}`;
+      : isGeneratedImage
+        ? `Illustrative AI-generated image accompanying this Emitronix page; not evidence of an Emitronix project or team. ${imageAlt}`
+        : `Illustrative image accompanying this Emitronix page; not evidence of an Emitronix project or team. ${imageAlt}`;
   const imageDimensions =
-    image === brandAssets.socialCard
+    socialImage === brandAssets.socialCard || /-og\.webp$/i.test(socialImage)
       ? { width: 1200, height: 630 }
       : { width: 1672, height: 941 };
 
@@ -141,7 +148,16 @@ export async function applySeoOverrides(base: Metadata, pagePath: string): Promi
       title: override.ogTitle || override.metaTitle || undefined,
       description: override.ogDescription || override.metaDescription || undefined,
       ...(override.ogImage
-        ? { images: [{ url: override.ogImage.startsWith("http") ? override.ogImage : absoluteUrl(override.ogImage), width: 1672, height: 941 }] }
+        ? {
+            images: [
+              {
+                url: override.ogImage.startsWith("http") ? override.ogImage : absoluteUrl(override.ogImage),
+                ...(/(?:-og\.webp|emitronix-construction-dubai-og\.webp)$/i.test(override.ogImage)
+                  ? { width: 1200, height: 630 }
+                  : {}),
+              },
+            ],
+          }
         : {}),
     };
     merged.twitter = {

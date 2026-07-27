@@ -1,6 +1,10 @@
 import { ArrowRight } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import {
+  IllustrativeImageDisclosure,
+  ResponsiveIllustrativeImage,
+} from "@/components/ResponsiveIllustrativeImage";
+import { getGeneratedImage } from "@/data/generatedImages";
 import type { Service } from "@/data/site";
 
 type ServiceCardProps = {
@@ -9,20 +13,20 @@ type ServiceCardProps = {
 
 export function ServiceCard({ service }: ServiceCardProps) {
   const Icon = service.icon;
+  const image = getGeneratedImage(service.generatedImage);
 
   return (
     <article className="group overflow-hidden rounded-[1.75rem] border border-brand/10 bg-white shadow-panel transition duration-500 hover:-translate-y-2 hover:border-brand/30 hover:shadow-luxe">
       <div className="relative aspect-[16/11] overflow-hidden">
-        <Image
-          src={service.image}
-          alt={`Illustrative stock image accompanying the ${service.title} service summary; not project evidence`}
-          fill
-          loading="lazy"
+        <ResponsiveIllustrativeImage
+          asset={image}
           sizes="(min-width: 1024px) 20vw, (min-width: 640px) 45vw, 100vw"
-          className="object-cover transition duration-500 group-hover:scale-105"
+          className="absolute inset-0 block h-full w-full"
+          imageClassName="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          imageStyle={{ height: "100%", objectFit: "cover" }}
         />
         <p className="absolute right-3 top-3 rounded-full border border-white/70 bg-white/90 px-3 py-1.5 text-[0.6rem] font-black uppercase tracking-[0.14em] text-charcoal shadow-sm">
-          Illustrative stock image
+          <IllustrativeImageDisclosure asset={image} />
         </p>
         <div className="absolute inset-0 bg-gradient-to-t from-white/[0.65] via-transparent to-transparent" />
         <div className="absolute bottom-5 left-5 grid h-14 w-14 place-items-center rounded-2xl border border-white/70 bg-white/[0.92] text-brand shadow-panel backdrop-blur-xl">
