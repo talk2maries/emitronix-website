@@ -2,7 +2,10 @@ import type { MetadataRoute } from "next";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
 import { absoluteUrl, services, site } from "@/data/site";
-import { trustContentLastReviewedIso } from "@/data/trustCenter";
+import {
+  faqContentLastReviewedIso,
+  trustContentLastReviewedIso,
+} from "@/data/trustCenter";
 import { readSiteFiles } from "@/lib/adminStore";
 import { hasArabicPage, toArabicPath, toEnglishPath } from "@/lib/i18n";
 
@@ -28,7 +31,11 @@ const coreRoutes: RouteRecord[] = [
   { path: "/careers", priority: 0.5 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.8 },
   { path: "/resources", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/faqs", priority: 0.7 },
+  {
+    path: "/faqs",
+    priority: 0.7,
+    lastModified: faqContentLastReviewedIso,
+  },
   { path: "/locations", priority: 0.7 },
   { path: "/locations/dubai", priority: 0.8 },
   { path: "/contact", priority: 0.8 },

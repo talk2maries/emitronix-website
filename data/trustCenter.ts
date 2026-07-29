@@ -3,6 +3,8 @@ import { absoluteUrl, services, site } from "@/data/site";
 
 export const trustContentLastReviewedIso = "2026-07-24";
 export const trustContentLastReviewedLabel = "24 July 2026";
+export const faqContentLastReviewedIso = "2026-07-29";
+export const faqContentLastReviewedLabel = "29 July 2026";
 export const managementVerificationNotice = "Management verification required before publication.";
 
 export type TrustLink = {
@@ -442,8 +444,49 @@ export const trustPolicyPages = {
   accessibility: accessibilityPolicy,
 } as const;
 
+export const faqCategories = [
+  {
+    id: "company",
+    label: "Company and service area",
+    title: "About Emitronix Contracting LLC",
+    description:
+      "Published company identity, Dubai location, service areas and direct contact information.",
+  },
+  {
+    id: "services",
+    label: "Construction services",
+    title: "Choosing the right construction service",
+    description:
+      "A practical starting point for civil, warehouse, villa, commercial, industrial, fit-out and coordinated delivery enquiries.",
+  },
+  {
+    id: "approvals",
+    label: "Dubai approvals",
+    title: "Dubai authority approval coordination",
+    description:
+      "General guidance on approval pathways, responsibilities and the project information needed before the route can be confirmed.",
+  },
+  {
+    id: "planning",
+    label: "Quotes and planning",
+    title: "Project enquiries, quotations and planning",
+    description:
+      "What to prepare before contacting a contractor and why cost, programme and site-visit requirements remain project-specific.",
+  },
+  {
+    id: "trust",
+    label: "Content and verification",
+    title: "Website content, review and verification",
+    description:
+      "How to interpret general website guidance, identify illustrative material and report information that may need correction.",
+  },
+] as const;
+
+export type FaqCategoryId = (typeof faqCategories)[number]["id"];
+
 export const publicFaqs = [
   {
+    category: "company",
     question: "What does Emitronix do?",
     answer: site.description,
     links: [
@@ -452,61 +495,211 @@ export const publicFaqs = [
     ],
   },
   {
-    question: "Where is Emitronix located?",
+    category: "company",
+    question: "Where is Emitronix Contracting LLC located in Dubai?",
     answer: `${site.legalName} publishes ${site.location} as its verified website location.`,
     links: [{ label: "Dubai location guide", href: "/locations/dubai" }],
   },
   {
+    category: "company",
     question: "Which areas does Emitronix serve?",
     answer: `The verified website service areas are ${site.serviceArea.join(", ")}. Whether a particular project is suitable depends on its scope, location, documents and delivery requirements.`,
     links: [{ label: "Service areas", href: "/locations" }],
   },
   {
+    category: "company",
     question: "How can I contact Emitronix?",
     answer: `Call ${site.phone}, email ${site.email}, or use the website contact form. Published business hours are ${site.hours}.`,
     links: [{ label: "Contact page", href: "/contact" }],
   },
   {
-    question: "What should I include in a project enquiry?",
+    category: "services",
+    question: "Which Emitronix construction service should I choose first?",
     answer:
-      "Include the project location, asset type, intended use, required scope, available drawings, current authority or landlord status, preferred programme and any known site constraints. Do not send passwords or unnecessary personal data.",
-    links: [{ label: "Prepare an enquiry", href: "/contact" }],
+      "Start with civil contracting for building and civil works, main contracting for coordinated multi-trade delivery, the relevant warehouse, villa, commercial or industrial page for an asset-specific enquiry, interior fit-out or renovation for an existing space, and authority approvals when submissions or inspections are the main concern. The final service route is confirmed after the location, scope and available documents are reviewed.",
+    links: [
+      { label: "Compare construction services", href: "/services" },
+      { label: "Discuss the right route", href: "/contact" },
+    ],
   },
   {
+    category: "services",
+    question: "Does Emitronix support warehouse construction in Dubai?",
+    answer:
+      "Warehouse construction is a published Emitronix service for logistics, storage, light-industrial and operational facilities. Early review should cover intended use, loading, access, fire-safety interfaces, utilities, location and handover requirements.",
+    links: [
+      { label: "Warehouse construction", href: "/warehouse-construction" },
+      { label: "Industrial buildings", href: "/industrial-buildings" },
+    ],
+  },
+  {
+    category: "services",
+    question: "Does Emitronix support villa construction and renovation?",
+    answer:
+      "Villa construction and building renovation are published service pathways. A useful enquiry identifies whether the work is a new villa, extension, structural modification, refurbishment or interior scope and includes the current drawings and authority status where available.",
+    links: [
+      { label: "Villa construction", href: "/villa-construction" },
+      { label: "Building renovation", href: "/building-renovation" },
+    ],
+  },
+  {
+    category: "services",
+    question: "Does Emitronix provide interior fit-out in Dubai?",
+    answer:
+      "Interior fit-out is a published service for commercial, retail, hospitality and residential spaces. The route can involve layout, finishes, civil and MEP interfaces, landlord requirements, authority exposure, working-hour constraints and handover planning.",
+    links: [{ label: "Interior fit-out", href: "/interior" }],
+  },
+  {
+    category: "services",
+    question: "Can civil works, fit-out, approvals and project management be coordinated together?",
+    answer:
+      "Many project enquiries cross civil, structural, fit-out, MEP, authority and handover interfaces. Emitronix reviews the available scope and documents to clarify which service pathways need coordination. The final responsibilities, appointments and exclusions remain project-specific.",
+    links: [
+      { label: "Main contracting", href: "/main-contracting" },
+      { label: "Project management", href: "/project-management" },
+    ],
+  },
+  {
+    category: "services",
+    question: "What is the difference between design and build and turnkey construction?",
+    answer:
+      "The published design-and-build pathway connects the brief, design development, buildability, approvals and construction planning. The turnkey pathway focuses on an integrated route through scope, procurement, site execution, specialist interfaces and completion-ready handover. What either term includes must be defined in the project-specific scope and contract.",
+    links: [
+      { label: "Design and build", href: "/design-build" },
+      { label: "Turnkey construction", href: "/turnkey-construction" },
+    ],
+  },
+  {
+    category: "approvals",
     question: "Does Emitronix support authority coordination?",
     answer:
       "Authority approval support is included among the verified core services. The authority, submission route and responsibilities must be confirmed for the specific location, asset and scope.",
     links: [{ label: "Approval support", href: "/approval" }],
   },
   {
+    category: "approvals",
+    question: "Which Dubai authority approval routes are covered on the website?",
+    answer:
+      "The published approval pathways cover Dubai Municipality, Dubai Development Authority, Dubai Civil Defence, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA coordination. The relevant pathway depends on the project location, proposed use, scope, consultant responsibilities and current authority requirements.",
+    links: [
+      { label: "View approval services", href: "/approval" },
+      { label: "Dubai Municipality approval", href: "/dubai-municipality-approval" },
+    ],
+  },
+  {
+    category: "approvals",
+    question: "Are Dubai approval requirements the same for every project?",
+    answer:
+      "No. Requirements can vary by jurisdiction, building or unit, intended use, civil or structural change, fire and life-safety scope, utilities, access, landlord or master-developer rules, consultant appointment and the stage of the project.",
+    links: [{ label: "Review approval pathways", href: "/approval" }],
+  },
+  {
+    category: "approvals",
+    question: "Can approval coordination be combined with construction or fit-out?",
+    answer:
+      "It can be coordinated when the project scope requires connected construction, fit-out, utility, fire-safety or close-out work. The appointed consultant, contractor, owner, landlord and authority responsibilities must still be documented for the specific project.",
+    links: [
+      { label: "Construction services", href: "/services" },
+      { label: "Authority approvals", href: "/approval" },
+    ],
+  },
+  {
+    category: "approvals",
+    question: "Does website information guarantee an authority approval or NOC?",
+    answer:
+      "No. Website content explains general coordination pathways and does not guarantee an approval, permit, NOC, inspection result or authority decision. Current requirements and outcomes depend on the submitted project information and the relevant approving parties.",
+    links: [
+      { label: "Website disclaimer", href: "/disclaimer" },
+      { label: "Technical review policy", href: "/technical-review-policy" },
+    ],
+  },
+  {
+    category: "planning",
+    question: "What should I include in a construction project enquiry?",
+    answer:
+      "Include the project location, asset type, intended use, required scope, available drawings, current authority or landlord status, preferred programme and known site constraints. Do not send passwords, credentials or unnecessary personal data.",
+    links: [{ label: "Submit a project enquiry", href: "/contact" }],
+  },
+  {
+    category: "planning",
+    question: "Which documents help Emitronix review a quotation request?",
+    answer:
+      "Useful starting information can include current drawings, site or unit details, photographs, intended use, consultant information, available NOCs or authority comments, landlord or master-developer requirements and the preferred programme. The exact document list depends on the service and project stage.",
+    links: [
+      { label: "Contact Emitronix", href: "/contact" },
+      { label: "Browse project planning resources", href: "/resources" },
+    ],
+  },
+  {
+    category: "planning",
+    question: "How much does construction cost in Dubai?",
+    answer:
+      "A reliable price cannot be established from a generic website figure. Cost depends on the drawings, quantities, site condition, access, structural and MEP requirements, material choices, authority comments, procurement lead times, programme and scope exclusions. A quotation requires project-specific review.",
+    links: [{ label: "Request a quotation review", href: "/contact" }],
+  },
+  {
+    category: "planning",
+    question: "How long does a construction or fit-out project take?",
+    answer:
+      "Programme depends on design maturity, approvals, procurement, site access, working restrictions, inspections, scope volume and stakeholder decision speed. Published timeline explanations are planning guidance, not a commitment for a particular project.",
+    links: [
+      { label: "Project management", href: "/project-management" },
+      { label: "Information limits", href: "/disclaimer" },
+    ],
+  },
+  {
+    category: "planning",
+    question: "Can I request a site visit before receiving a quotation?",
+    answer:
+      "The contact page includes a site-visit request pathway. Share the location, scope, current documents, site-access details and the reason a visit is needed. Availability and the appropriate next step must be confirmed after the enquiry is reviewed.",
+    links: [{ label: "Request a site visit", href: "/contact?intent=site-visit" }],
+  },
+  {
+    category: "trust",
     question: "Is website content professional engineering or legal advice?",
     answer:
       "No. Website content is general information and does not replace project-specific advice, approved drawings, calculations, permits, contracts or instructions from appointed professionals and relevant authorities.",
     links: [{ label: "Read the disclaimer", href: "/disclaimer" }],
   },
   {
+    category: "trust",
     question: "How is technical website content reviewed?",
     answer:
       "Editorial review checks clarity, consistency and source boundaries. Higher-risk engineering, construction, safety or authority content calls for an additional subject-matter review. Neither process replaces a project appointment.",
     links: [{ label: "Technical review policy", href: "/technical-review-policy" }],
   },
   {
+    category: "trust",
     question: "How can I report an error?",
     answer: `Send the page URL, disputed wording and supporting context to ${site.email}, or use the contact page.`,
     links: [{ label: "Corrections policy", href: "/corrections-policy" }],
   },
   {
-    question: "Are website timelines and cost factors quotations?",
+    category: "trust",
+    question: "Which Emitronix business details are published for verification?",
     answer:
-      "No. General timelines, checklists and cost factors are indicative explanations. A project-specific scope, price, programme and responsibility matrix must be confirmed through the applicable project documents.",
-    links: [{ label: "Website disclaimer", href: "/disclaimer" }],
+      `The website publishes the legal name ${site.legalName}, the location ${site.location}, phone ${site.phone}, email ${site.email}, business hours and service areas. Registration identifiers, map coordinates or external profile links are published only after management verification rather than being inferred.`,
+    links: [
+      { label: "Company information", href: "/company-information" },
+      { label: "Dubai location", href: "/locations/dubai" },
+    ],
   },
   {
-    question: "Where can I find registration identifiers, an office map or a Google Business Profile link?",
-    answer: managementVerificationNotice,
-    links: [{ label: "Location transparency", href: "/locations/dubai" }],
+    category: "trust",
+    question: "Are website images and project profiles evidence of completed Emitronix work?",
+    answer:
+      "Treat imagery and planning profiles as illustrative unless a page explicitly identifies verified project provenance and publication consent. The website does not use representative imagery, scenarios or profiles as proof of a completed project, client relationship or employee identity.",
+    links: [
+      { label: "Scope planning library", href: "/projects" },
+      { label: "Website disclaimer", href: "/disclaimer" },
+    ],
   },
-] as const;
+] as const satisfies ReadonlyArray<{
+  category: FaqCategoryId;
+  question: string;
+  answer: string;
+  links: ReadonlyArray<{ label: string; href: string }>;
+}>;
 
 const selectedDubaiServiceHrefs = new Set([
   "/civil",
@@ -608,6 +801,7 @@ type PageJsonLdInput = {
   breadcrumbs: BreadcrumbItem[];
   pageType?: "WebPage" | "CollectionPage" | "FAQPage";
   faqs?: ReadonlyArray<{ question: string; answer: string }>;
+  dateModified?: string;
 };
 
 export function createTrustPageJsonLd({
@@ -617,6 +811,7 @@ export function createTrustPageJsonLd({
   breadcrumbs,
   pageType = "WebPage",
   faqs,
+  dateModified = trustContentLastReviewedIso,
 }: PageJsonLdInput) {
   const url = absoluteUrl(path);
   const pageNode = {
@@ -629,7 +824,7 @@ export function createTrustPageJsonLd({
     about: { "@id": `${site.url}/#organization` },
     breadcrumb: { "@id": `${url}#breadcrumb` },
     inLanguage: "en-AE",
-    dateModified: trustContentLastReviewedIso,
+    dateModified,
     ...(pageType === "FAQPage" && faqs
       ? {
           mainEntity: faqs.map((faq) => ({

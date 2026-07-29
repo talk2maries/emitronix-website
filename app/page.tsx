@@ -435,6 +435,15 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+          <div className="mt-8 text-center">
+            <Link
+              href="/faqs"
+              className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand"
+            >
+              Browse all Dubai construction FAQs
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -476,23 +485,6 @@ export default function HomePage() {
       </section>
 
       <CTA />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: homeFaqs.map((faq) => ({
-              "@type": "Question",
-              name: faq.question,
-              acceptedAnswer: {
-                "@type": "Answer",
-                text: faq.answer,
-              },
-            })),
-          }),
-        }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

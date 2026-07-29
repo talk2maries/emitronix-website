@@ -6,9 +6,11 @@ import { CTA } from "@/components/CTA";
 import { ContactForm } from "@/components/ContactForm";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { FeatureGrid, ImagePanel, PageHero, PremiumSectionHeading } from "@/components/Premium";
+import { ServiceVideoShowcase } from "@/components/ServiceVideoShowcase";
 import { approvalServices } from "@/data/approvals";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { buildServiceExpandedFaqs, getServiceDeepContent } from "@/data/serviceDeepContent";
+import { getServiceVideo } from "@/data/serviceVideos";
 import {
   absoluteUrl,
   services as allServices,
@@ -37,6 +39,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const pageUrl = absoluteUrl(service.href);
   const primaryImageUrl = absoluteUrl(service.image);
   const serviceImage = getGeneratedImage(service.generatedImage);
+  const serviceVideo = getServiceVideo(service.href);
   const relatedLinks = service.relatedHrefs.map((href) => {
     const relatedService = allServices.find((item) => item.href === href);
     const relatedApproval = approvalServices.find((item) => item.href === href);
@@ -71,6 +74,9 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     },
   ];
   const tableOfContents = [
+    ...(serviceVideo
+      ? [{ label: "Visual Briefing", href: "#warehouse-video" }]
+      : []),
     { label: "Overview", href: "#overview" },
     { label: "Answers", href: "#answers" },
     { label: "Topical Map", href: "#topical-authority" },
@@ -141,6 +147,13 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     mainEntity: {
       "@id": `${pageUrl}#service`,
     },
+    ...(serviceVideo
+      ? {
+          video: {
+            "@id": `${pageUrl}#service-video`,
+          },
+        }
+      : {}),
   };
   const serviceJsonLd = {
     "@context": "https://schema.org",
@@ -199,6 +212,30 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       name: item,
     })),
   };
+  const videoJsonLd = serviceVideo
+    ? {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "@id": `${pageUrl}#service-video`,
+        name: serviceVideo.title,
+        description: `${serviceVideo.description} ${serviceVideo.disclosure}`,
+        thumbnailUrl: absoluteUrl(serviceVideo.posterSrc),
+        contentUrl: absoluteUrl(serviceVideo.mp4Src),
+        uploadDate: serviceVideo.uploadDate,
+        duration: serviceVideo.duration,
+        width: serviceVideo.width,
+        height: serviceVideo.height,
+        inLanguage: "en-AE",
+        isFamilyFriendly: true,
+        representativeOfPage: true,
+        publisher: {
+          "@id": absoluteUrl("/#organization"),
+        },
+        mainEntityOfPage: {
+          "@id": `${pageUrl}#webpage`,
+        },
+      }
+    : null;
 
   return (
     <>
@@ -245,6 +282,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           </div>
         </div>
       </section>
+
+      {serviceVideo ? <ServiceVideoShowcase asset={serviceVideo} /> : null}
 
       <section className="section-pad bg-white">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
@@ -799,6 +838,9 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
+      {videoJsonLd ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoJsonLd) }} />
+      ) : null}
     </>
   );
 }

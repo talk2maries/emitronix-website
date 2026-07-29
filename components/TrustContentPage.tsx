@@ -55,12 +55,14 @@ export function TrustPageHero({
   title,
   summary,
   breadcrumbs,
+  lastReviewedLabel = trustContentLastReviewedLabel,
   children,
 }: {
   eyebrow: string;
   title: string;
   summary: string;
   breadcrumbs: Array<{ label: string; href?: string }>;
+  lastReviewedLabel?: string;
   children?: ReactNode;
 }) {
   return (
@@ -83,7 +85,7 @@ export function TrustPageHero({
               <div>
                 <p className="text-xs font-black uppercase tracking-[0.18em] text-brand">Content record</p>
                 <p className="mt-2 text-sm font-bold text-charcoal">Editorial owner: {site.legalName}</p>
-                <p className="mt-2 text-sm font-bold text-charcoal">Last reviewed {trustContentLastReviewedLabel}</p>
+                <p className="mt-2 text-sm font-bold text-charcoal">Last reviewed {lastReviewedLabel}</p>
                 <p className="mt-1 text-sm leading-6 text-steel">English-language public information</p>
               </div>
             </div>
