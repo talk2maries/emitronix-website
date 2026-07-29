@@ -15,6 +15,12 @@ import {
   type CookieConsentConfig,
   type CookieLanguage,
 } from "@/data/cookieConsentDefaults";
+import {
+  applyConsentTransition,
+  scheduleReloadAfterConsentUpdate,
+  shouldBlockRevokedTrackingRequest,
+  type RevokedConsentCategories,
+} from "@/lib/cookieConsentRuntime";
 
 type StoredConsent = {
   version: number;
@@ -51,9 +57,10 @@ declare global {
 const CONSENT_STORAGE_KEY = "emitronix_cookie_consent";
 const LANGUAGE_STORAGE_KEY = "emitronix_language";
 const SETTINGS_EVENT = "emitronix:open-cookie-settings";
+let restoreActiveTrackingGuard: (() => void) | null = null;
+let consentReloadScheduled = false;
 
 const integrationIds = {
-  ga: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
   meta: process.env.NEXT_PUBLIC_META_PIXEL_ID,
   linkedin: process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID,
   clarity: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID,
@@ -74,22 +81,48 @@ const extraScripts = {
   performance: parseScriptUrls(process.env.NEXT_PUBLIC_COOKIE_PERFORMANCE_SCRIPT_URLS),
 };
 
+function getLocalStorageValue(key: string) {
+  try {
+    return window.localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function setLocalStorageValue(key: string, value: string) {
+  try {
+    window.localStorage.setItem(key, value);
+  } catch {
+    // Consent Mode is already updated before persistence is attempted. The
+    // first-party consent cookie remains available as a storage fallback.
+  }
+}
+
 function getCookieValue(name: string) {
   if (typeof document === "undefined") return null;
-  const match = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(`${name}=`));
-  return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : null;
+  try {
+    const match = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(`${name}=`));
+    return match ? decodeURIComponent(match.split("=").slice(1).join("=")) : null;
+  } catch {
+    return null;
+  }
 }
 
 function setConsentCookie(consent: StoredConsent, expiryDays: number) {
   const secure = window.location.protocol === "https:" ? "; Secure" : "";
   const maxAge = Math.max(1, expiryDays) * 24 * 60 * 60;
-  document.cookie = `${CONSENT_STORAGE_KEY}=${encodeURIComponent(JSON.stringify(consent))}; Max-Age=${maxAge}; Path=/; SameSite=Lax${secure}`;
+  try {
+    document.cookie = `${CONSENT_STORAGE_KEY}=${encodeURIComponent(JSON.stringify(consent))}; Max-Age=${maxAge}; Path=/; SameSite=Lax${secure}`;
+  } catch {
+    // Some privacy modes block cookie writes. The in-memory consent state and
+    // Consent Mode update still take effect for the current document.
+  }
 }
 
 function detectLanguage(): CookieLanguage {
-  const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
+  const stored = getLocalStorageValue(LANGUAGE_STORAGE_KEY);
   if (stored === "ar" || stored === "en") return stored;
   if (window.location.pathname === "/ar" || window.location.pathname.startsWith("/ar/")) return "ar";
   const htmlLang = document.documentElement.lang.toLowerCase();
@@ -98,9 +131,8 @@ function detectLanguage(): CookieLanguage {
 }
 
 function getStoredConsent(config: CookieConsentConfig): StoredConsent | null {
-  const raw = window.localStorage.getItem(CONSENT_STORAGE_KEY) || getCookieValue(CONSENT_STORAGE_KEY);
-  if (!raw) return null;
-
+  const parseStoredConsent = (raw: string | null): StoredConsent | null => {
+    if (!raw) return null;
   try {
     const parsed = JSON.parse(raw) as Partial<StoredConsent>;
     if (!parsed.expiresAt || !parsed.categories || parsed.version !== config.version) return null;
@@ -118,6 +150,12 @@ function getStoredConsent(config: CookieConsentConfig): StoredConsent | null {
   } catch {
     return null;
   }
+  };
+
+  return (
+    parseStoredConsent(getLocalStorageValue(CONSENT_STORAGE_KEY)) ||
+    parseStoredConsent(getCookieValue(CONSENT_STORAGE_KEY))
+  );
 }
 
 function isCategoryEnabled(category: CookieCategory) {
@@ -175,40 +213,41 @@ function loadExtraScripts(prefix: string, urls: string[]) {
   urls.forEach((url, index) => injectScript(`${prefix}-${index}`, url));
 }
 
-function loadConsentScripts(categories: ConsentCategoryMap) {
-  updateGoogleConsent(categories);
-
-  if (categories.analytics && integrationIds.ga) {
-    injectScript("emitronix-ga", `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(integrationIds.ga)}`, () => {
-      window.gtag?.("js", new Date());
-      window.gtag?.("config", integrationIds.ga, { anonymize_ip: true });
-    });
-  }
+function loadGrantedIntegrationScripts(categories: ConsentCategoryMap) {
+  // This is normally a no-op because a successful downgrade reloads the page.
+  // If navigation was blocked, a later grant must restore the old document's
+  // temporary transport wrappers before activating allowed integrations.
+  restoreActiveTrackingGuard?.();
+  consentReloadScheduled = false;
 
   if (categories.marketing && integrationIds.meta) {
-    if (!window.fbq) {
-      const queuedFbq: QueuedTrackingFunction = (...args: unknown[]) => {
-        if (queuedFbq.callMethod) {
-          queuedFbq.callMethod(...args);
-        } else {
-          queuedFbq.queue?.push(args);
-        }
-      };
-      queuedFbq.queue = [];
-      queuedFbq.loaded = true;
-      queuedFbq.version = "2.0";
-      window.fbq = queuedFbq;
-      window._fbq = queuedFbq;
+    if (!document.getElementById("emitronix-meta-pixel")) {
+      if (!window.fbq) {
+        const queuedFbq: QueuedTrackingFunction = (...args: unknown[]) => {
+          if (queuedFbq.callMethod) {
+            queuedFbq.callMethod(...args);
+          } else {
+            queuedFbq.queue?.push(args);
+          }
+        };
+        queuedFbq.queue = [];
+        queuedFbq.loaded = true;
+        queuedFbq.version = "2.0";
+        window.fbq = queuedFbq;
+        window._fbq = queuedFbq;
+      }
+      window.fbq("init", integrationIds.meta);
+      window.fbq("track", "PageView");
+      injectScript("emitronix-meta-pixel", "https://connect.facebook.net/en_US/fbevents.js");
     }
-    window.fbq("init", integrationIds.meta);
-    window.fbq("track", "PageView");
-    injectScript("emitronix-meta-pixel", "https://connect.facebook.net/en_US/fbevents.js");
   }
 
   if (categories.marketing && integrationIds.linkedin) {
     window._linkedin_partner_id = integrationIds.linkedin;
     window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-    window._linkedin_data_partner_ids.push(integrationIds.linkedin);
+    if (!window._linkedin_data_partner_ids.includes(integrationIds.linkedin)) {
+      window._linkedin_data_partner_ids.push(integrationIds.linkedin);
+    }
     injectScript("emitronix-linkedin-insight", "https://snap.licdn.com/li.lms-analytics/insight.min.js");
   }
 
@@ -218,7 +257,16 @@ function loadConsentScripts(categories: ConsentCategoryMap) {
       window.clarity.q = window.clarity.q || [];
       window.clarity.q.push(args);
     };
-    window.clarity("consent");
+    try {
+      window.clarity("consentv2", {
+        ad_Storage: categories.marketing ? "granted" : "denied",
+        analytics_Storage:
+          categories.analytics || categories.performance ? "granted" : "denied",
+      });
+    } catch {
+      // A provider error must not prevent the remaining consented integrations
+      // from loading.
+    }
     injectScript("emitronix-clarity", `https://www.clarity.ms/tag/${encodeURIComponent(integrationIds.clarity)}`);
   }
 
@@ -239,15 +287,288 @@ function loadConsentScripts(categories: ConsentCategoryMap) {
   if (categories.performance) loadExtraScripts("emitronix-extra-performance", extraScripts.performance);
 }
 
-function sendConsentEvent(action: ConsentAction, categories: ConsentCategoryMap) {
-  void fetch("/api/cookie-consent/consent", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+function getCookieNames() {
+  try {
+    return document.cookie
+      .split(";")
+      .map((item) => item.trim().split("=")[0])
+      .filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+function getCookieDomains() {
+  const hostname = window.location.hostname;
+  if (!hostname || hostname === "localhost" || /^[\d.:]+$/.test(hostname)) return [null];
+
+  const parts = hostname.split(".");
+  const registrableDomain = parts.length > 1 ? parts.slice(-2).join(".") : hostname;
+  return Array.from(new Set<null | string>([null, hostname, `.${registrableDomain}`]));
+}
+
+function expireCookies(cookieNamePatterns: RegExp[]) {
+  const secure = window.location.protocol === "https:" ? "; Secure" : "";
+
+  getCookieNames()
+    .filter((name) => cookieNamePatterns.some((pattern) => pattern.test(name)))
+    .forEach((name) => {
+      getCookieDomains().forEach((domain) => {
+        const domainAttribute = domain ? `; Domain=${domain}` : "";
+        try {
+          document.cookie = `${name}=; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; Path=/; SameSite=Lax${secure}${domainAttribute}`;
+        } catch {
+          // Continue clearing any other visible tracking identifiers.
+        }
+      });
+    });
+}
+
+function clearRevokedTrackingState(
+  revoked: RevokedConsentCategories,
+  nextCategories: ConsentCategoryMap,
+) {
+  if (revoked.analytics) {
+    expireCookies([/^_ga(?:_|$)/, /^_gid$/, /^_gat(?:_|$)/]);
+  }
+
+  if (revoked.marketing) {
+    expireCookies([/^_gac_/, /^_gcl_/, /^_fbp$/, /^_fbc$/]);
+    try {
+      window.fbq?.("consent", "revoke");
+    } catch {
+      // Continue with queue and cookie cleanup if a provider stub fails.
+    }
+    if (window.fbq?.queue) window.fbq.queue.length = 0;
+    if (window._linkedin_data_partner_ids) window._linkedin_data_partner_ids.length = 0;
+  }
+
+  if (revoked.analytics || revoked.performance) {
+    if (window.clarity?.q) window.clarity.q.length = 0;
+    if (window.hj?.q) window.hj.q.length = 0;
+
+    if (!nextCategories.analytics && !nextCategories.performance) {
+      expireCookies([/^_cl/, /^_hj/]);
+    }
+  }
+
+  if (window.clarity) {
+    try {
+      window.clarity("consentv2", {
+        ad_Storage: nextCategories.marketing ? "granted" : "denied",
+        analytics_Storage:
+          nextCategories.analytics || nextCategories.performance ? "granted" : "denied",
+      });
+    } catch {
+      // Reload remains scheduled even if a provider API is unavailable.
+    }
+  }
+}
+
+function shouldBlockTrackingRequest(
+  input: string | URL,
+  revoked: RevokedConsentCategories,
+) {
+  const revokedExtraScriptUrls = [
+    ...(revoked.analytics ? extraScripts.analytics : []),
+    ...(revoked.marketing ? extraScripts.marketing : []),
+    ...(revoked.functional ? extraScripts.functional : []),
+    ...(revoked.performance ? extraScripts.performance : []),
+  ];
+
+  return shouldBlockRevokedTrackingRequest({
+    input,
+    pageUrl: window.location.href,
+    revoked,
+    revokedExtraScriptUrls,
+  });
+}
+
+function installRevokedTrackingGuard(revoked: RevokedConsentCategories) {
+  restoreActiveTrackingGuard?.();
+  const restorers: Array<() => void> = [];
+
+  try {
+    const originalFetch = window.fetch;
+    const guardedFetch = ((input: RequestInfo | URL, init?: RequestInit) => {
+      const requestUrl =
+        typeof input === "string" || input instanceof URL ? input : input.url;
+      if (shouldBlockTrackingRequest(requestUrl, revoked)) {
+        return Promise.resolve(new Response(null, { status: 204 }));
+      }
+      return originalFetch.call(window, input, init);
+    }) as typeof window.fetch;
+    window.fetch = guardedFetch;
+    restorers.push(() => {
+      if (window.fetch === guardedFetch) window.fetch = originalFetch;
+    });
+  } catch {
+    // Continue installing the remaining guards, then apply denied consent.
+  }
+
+  if (typeof window.navigator.sendBeacon === "function") {
+    const originalSendBeacon = window.navigator.sendBeacon.bind(window.navigator);
+    try {
+      const originalDescriptor = Object.getOwnPropertyDescriptor(
+        window.navigator,
+        "sendBeacon",
+      );
+      const guardedSendBeacon = (url: string | URL, data?: BodyInit | null) => {
+        if (shouldBlockTrackingRequest(url, revoked)) return true;
+        return originalSendBeacon(url, data);
+      };
+      Object.defineProperty(window.navigator, "sendBeacon", {
+        configurable: true,
+        value: guardedSendBeacon,
+      });
+      restorers.push(() => {
+        if (window.navigator.sendBeacon !== guardedSendBeacon) return;
+        if (originalDescriptor) {
+          Object.defineProperty(window.navigator, "sendBeacon", originalDescriptor);
+        } else {
+          Reflect.deleteProperty(window.navigator, "sendBeacon");
+        }
+      });
+    } catch {
+      // Some browsers expose a non-configurable sendBeacon method. Consent
+      // still updates before the bounded reload in those browsers.
+    }
+  }
+
+  if (typeof window.XMLHttpRequest === "function") {
+    const blockedRequests = new WeakSet<XMLHttpRequest>();
+    const originalOpen = window.XMLHttpRequest.prototype.open;
+    const originalSend = window.XMLHttpRequest.prototype.send;
+
+    const guardedOpen = function guardedOpen(
+      this: XMLHttpRequest,
+      method: string,
+      url: string | URL,
+      async = true,
+      username?: string | null,
+      password?: string | null,
+    ) {
+      blockedRequests.delete(this);
+      if (shouldBlockTrackingRequest(url, revoked)) blockedRequests.add(this);
+      return Reflect.apply(originalOpen, this, [method, url, async, username, password]);
+    } as typeof window.XMLHttpRequest.prototype.open;
+
+    const guardedSend = function guardedSend(
+      this: XMLHttpRequest,
+      body?: Document | XMLHttpRequestBodyInit | null,
+    ) {
+      if (blockedRequests.has(this)) return;
+      return originalSend.call(this, body);
+    };
+
+    try {
+      window.XMLHttpRequest.prototype.open = guardedOpen;
+      window.XMLHttpRequest.prototype.send = guardedSend;
+      restorers.push(() => {
+        if (window.XMLHttpRequest.prototype.open === guardedOpen) {
+          window.XMLHttpRequest.prototype.open = originalOpen;
+        }
+        if (window.XMLHttpRequest.prototype.send === guardedSend) {
+          window.XMLHttpRequest.prototype.send = originalSend;
+        }
+      });
+    } catch {
+      if (window.XMLHttpRequest.prototype.open === guardedOpen) {
+        window.XMLHttpRequest.prototype.open = originalOpen;
+      }
+      if (window.XMLHttpRequest.prototype.send === guardedSend) {
+        window.XMLHttpRequest.prototype.send = originalSend;
+      }
+    }
+  }
+
+  const imageSrc = Object.getOwnPropertyDescriptor(
+    window.HTMLImageElement.prototype,
+    "src",
+  );
+  if (imageSrc?.get && imageSrc.set) {
+    try {
+      const guardedImageSrc: PropertyDescriptor = {
+        configurable: imageSrc.configurable,
+        enumerable: imageSrc.enumerable,
+        get: imageSrc.get,
+        set(value: string) {
+          imageSrc.set?.call(
+            this,
+            shouldBlockTrackingRequest(value, revoked)
+              ? "data:image/gif;base64,R0lGODlhAQABAAD/ACw="
+              : value,
+          );
+        },
+      };
+      Object.defineProperty(
+        window.HTMLImageElement.prototype,
+        "src",
+        guardedImageSrc,
+      );
+      restorers.push(() => {
+        const current = Object.getOwnPropertyDescriptor(
+          window.HTMLImageElement.prototype,
+          "src",
+        );
+        if (current?.set === guardedImageSrc.set) {
+          Object.defineProperty(window.HTMLImageElement.prototype, "src", imageSrc);
+        }
+      });
+    } catch {
+      // Consent update and the other available guards still proceed.
+    }
+  }
+
+  let restored = false;
+  restoreActiveTrackingGuard = () => {
+    if (restored) return;
+    restored = true;
+    restorers.reverse().forEach((restore) => {
+      try {
+        restore();
+      } catch {
+        // A third party may have replaced the property after the guard.
+      }
+    });
+    restoreActiveTrackingGuard = null;
+  };
+}
+
+function scheduleConsentAwareReload() {
+  if (consentReloadScheduled) return;
+  consentReloadScheduled = true;
+  scheduleReloadAfterConsentUpdate({
+    schedule: (callback, delayMs) => {
+      try {
+        window.setTimeout(callback, delayMs);
+      } catch {
+        callback();
+      }
     },
-    body: JSON.stringify({ action, categories }),
-    keepalive: true,
-  }).catch(() => undefined);
+    reload: () => {
+      try {
+        window.location.reload();
+      } catch {
+        // Keep the narrow tracking guard active if navigation is unavailable.
+      }
+    },
+  });
+}
+
+function sendConsentEvent(action: ConsentAction, categories: ConsentCategoryMap) {
+  try {
+    void fetch("/api/cookie-consent/consent", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ action, categories }),
+      keepalive: true,
+    }).catch(() => undefined);
+  } catch {
+    // Consent is already persisted; reporting must never block the choice.
+  }
 }
 
 function policyHref(key: "cookie" | "privacy" | "terms", language: CookieLanguage) {
@@ -267,6 +588,7 @@ export function CookieConsentManager() {
   const preferencesCloseButtonRef = useRef<HTMLButtonElement>(null);
   const customizeButtonRef = useRef<HTMLButtonElement>(null);
   const returnFocusRef = useRef<HTMLElement | null>(null);
+  const appliedCategoriesRef = useRef<ConsentCategoryMap | null>(null);
   const [config, setConfig] = useState<CookieConsentConfig>(defaultCookieConsentConfig);
   const [loaded, setLoaded] = useState(false);
   const [language, setLanguage] = useState<CookieLanguage>("en");
@@ -294,12 +616,16 @@ export function CookieConsentManager() {
         if (stored) {
           setLanguage(stored.language);
           setDraftCategories(stored.categories);
-          loadConsentScripts(stored.categories);
+          appliedCategoriesRef.current = stored.categories;
+          updateGoogleConsent(stored.categories);
+          loadGrantedIntegrationScripts(stored.categories);
           setShowBanner(false);
         } else {
-          setDraftCategories(getDefaultConsentCategories());
+          const defaultCategories = getDefaultConsentCategories();
+          setDraftCategories(defaultCategories);
+          appliedCategoriesRef.current = defaultCategories;
           setShowBanner(nextConfig.enabled);
-          updateGoogleConsent(getDefaultConsentCategories());
+          updateGoogleConsent(defaultCategories);
         }
         setLoaded(true);
       })
@@ -309,11 +635,16 @@ export function CookieConsentManager() {
         if (stored) {
           setLanguage(stored.language);
           setDraftCategories(stored.categories);
-          loadConsentScripts(stored.categories);
+          appliedCategoriesRef.current = stored.categories;
+          updateGoogleConsent(stored.categories);
+          loadGrantedIntegrationScripts(stored.categories);
           setShowBanner(false);
         } else {
+          const defaultCategories = getDefaultConsentCategories();
+          setDraftCategories(defaultCategories);
+          appliedCategoriesRef.current = defaultCategories;
           setShowBanner(defaultCookieConsentConfig.enabled);
-          updateGoogleConsent(getDefaultConsentCategories());
+          updateGoogleConsent(defaultCategories);
         }
         setLoaded(true);
       });
@@ -391,27 +722,31 @@ export function CookieConsentManager() {
     const focusTarget = showPreferences ? returnFocusRef.current : null;
     const previousConsent = getStoredConsent(config);
     const consent = buildConsentRecord(config, language, categories);
-    const revokedPreviouslyGrantedCategory = Boolean(
-      previousConsent &&
-        cookieCategoryIds.some(
-          (id) => id !== "necessary" && previousConsent.categories[id] && !consent.categories[id],
-        ),
-    );
+    const transition = applyConsentTransition({
+      previousCategories: previousConsent?.categories || appliedCategoriesRef.current,
+      nextCategories: consent.categories,
+      clearAllOptionalState: cookieCategoryIds
+        .filter((id) => id !== "necessary")
+        .every((id) => !consent.categories[id]),
+      prepareRevocation: installRevokedTrackingGuard,
+      updateConsent: updateGoogleConsent,
+      persistConsent: () => {
+        setLocalStorageValue(CONSENT_STORAGE_KEY, JSON.stringify(consent));
+        setLocalStorageValue(LANGUAGE_STORAGE_KEY, language);
+        setConsentCookie(consent, config.consentExpiryDays);
+        appliedCategoriesRef.current = consent.categories;
+        setDraftCategories(consent.categories);
+        sendConsentEvent(action, consent.categories);
+        setShowBanner(false);
+        setShowPreferences(false);
+      },
+      clearRevokedState: clearRevokedTrackingState,
+      loadGrantedScripts: loadGrantedIntegrationScripts,
+      scheduleReload: scheduleConsentAwareReload,
+    });
 
-    window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(consent));
-    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-    setConsentCookie(consent, config.consentExpiryDays);
-    setDraftCategories(consent.categories);
-    sendConsentEvent(action, consent.categories);
-    setShowBanner(false);
-    setShowPreferences(false);
+    if (transition.reloadScheduled) return;
 
-    if (revokedPreviouslyGrantedCategory) {
-      window.location.reload();
-      return;
-    }
-
-    loadConsentScripts(consent.categories);
     window.requestAnimationFrame(() => {
       if (focusTarget?.isConnected) focusTarget.focus();
     });
@@ -440,7 +775,7 @@ export function CookieConsentManager() {
 
   function changeLanguage(nextLanguage: CookieLanguage) {
     setLanguage(nextLanguage);
-    window.localStorage.setItem(LANGUAGE_STORAGE_KEY, nextLanguage);
+    setLocalStorageValue(LANGUAGE_STORAGE_KEY, nextLanguage);
   }
 
   function closePreferences() {
