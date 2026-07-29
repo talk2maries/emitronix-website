@@ -54,7 +54,7 @@ const SETTINGS_EVENT = "emitronix:open-cookie-settings";
 
 const integrationIds = {
   ga: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
-  gtm: process.env.NEXT_PUBLIC_GTM_ID,
+  gtm: process.env.NEXT_PUBLIC_GTM_ID?.trim() || "GTM-MSM8MPD6",
   meta: process.env.NEXT_PUBLIC_META_PIXEL_ID,
   linkedin: process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID,
   clarity: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID,
