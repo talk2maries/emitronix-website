@@ -37,6 +37,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https:",
       `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https:`,
       `connect-src 'self' https:${isDevelopment ? " ws:" : ""}`,
+      "frame-src 'self' https://www.googletagmanager.com",
       "worker-src 'self' blob:",
       "upgrade-insecure-requests",
     ].join("; "),

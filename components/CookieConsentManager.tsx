@@ -54,7 +54,6 @@ const SETTINGS_EVENT = "emitronix:open-cookie-settings";
 
 const integrationIds = {
   ga: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID,
-  gtm: process.env.NEXT_PUBLIC_GTM_ID?.trim() || "GTM-MSM8MPD6",
   meta: process.env.NEXT_PUBLIC_META_PIXEL_ID,
   linkedin: process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID,
   clarity: process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID,
@@ -172,10 +171,6 @@ function injectScript(id: string, src: string, onLoad?: () => void) {
   document.head.appendChild(script);
 }
 
-function hasScriptWithSrc(src: string) {
-  return Array.from(document.scripts).some((script) => script.src === src);
-}
-
 function loadExtraScripts(prefix: string, urls: string[]) {
   urls.forEach((url, index) => injectScript(`${prefix}-${index}`, url));
 }
@@ -188,15 +183,6 @@ function loadConsentScripts(categories: ConsentCategoryMap) {
       window.gtag?.("js", new Date());
       window.gtag?.("config", integrationIds.ga, { anonymize_ip: true });
     });
-  }
-
-  if ((categories.analytics || categories.marketing) && integrationIds.gtm) {
-    const gtmSrc = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(integrationIds.gtm)}`;
-    if (!hasScriptWithSrc(gtmSrc)) {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
-      injectScript("emitronix-gtm", gtmSrc);
-    }
   }
 
   if (categories.marketing && integrationIds.meta) {

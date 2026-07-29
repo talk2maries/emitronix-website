@@ -14,6 +14,7 @@ import {
   site,
   whatsappUrl,
 } from "@/data/site";
+import { googleTagManagerId } from "@/lib/googleTagManager";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
@@ -26,6 +27,14 @@ const inter = Inter({
   display: "optional",
   variable: "--font-inter",
 });
+
+const googleTagManagerBootstrap = `
+(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer',${JSON.stringify(googleTagManagerId)});
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -226,8 +235,25 @@ gtag('consent', 'default', {
 `,
           }}
         />
+        <script
+          id="emitronix-google-tag-manager"
+          dangerouslySetInnerHTML={{
+            __html: googleTagManagerBootstrap,
+          }}
+        />
       </head>
       <body className="min-h-screen antialiased">
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${encodeURIComponent(googleTagManagerId)}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+            title="Google Tag Manager"
+            aria-hidden="true"
+            tabIndex={-1}
+          />
+        </noscript>
         <a href="#main-content" className="skip-link">
           <span className="skip-link-label-en" lang="en-AE">Skip to main content</span>
           <span className="skip-link-label-ar" lang="ar-AE" dir="rtl">تخطي إلى المحتوى الرئيسي</span>
