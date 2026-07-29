@@ -52,7 +52,7 @@ export const metadata: Metadata = {
         url: absoluteUrl(brandAssets.socialCard),
         width: 1200,
         height: 630,
-        alt: "Illustrative AI-generated Dubai commercial and warehouse construction scene; not an Emitronix project photograph.",
+        alt: "Dubai commercial building and warehouse construction scene",
       },
     ],
   },

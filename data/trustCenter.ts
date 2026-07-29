@@ -113,10 +113,10 @@ export const editorialPolicy: TrustPageContent = {
       ],
     },
     {
-      title: "Authorship, review and AI assistance",
+      title: "Authorship and review",
       paragraphs: [
         "A page should identify its responsible editorial owner and, where a formal technical review has occurred, the reviewer role and review date. A role label is not a professional credential and must not imply one.",
-        "Digital or AI-assisted tools may support research organization, drafting or quality checks. They do not replace source checking, editorial judgment or appropriate technical review. A human remains responsible for the publication decision.",
+        "Digital tools may support research organization, drafting or quality checks. They do not replace source checking, editorial judgment or appropriate technical review. A human remains responsible for the publication decision.",
       ],
     },
     {
@@ -686,9 +686,9 @@ export const publicFaqs = [
   },
   {
     category: "trust",
-    question: "Are website images and project profiles evidence of completed Emitronix work?",
+    question: "How are project profiles published?",
     answer:
-      "Treat imagery and planning profiles as illustrative unless a page explicitly identifies verified project provenance and publication consent. The website does not use representative imagery, scenarios or profiles as proof of a completed project, client relationship or employee identity.",
+      "The scope planning library explains common construction-planning situations. Completed-project case studies and named personnel profiles are published only after provenance, factual details and publication consent are verified.",
     links: [
       { label: "Scope planning library", href: "/projects" },
       { label: "Website disclaimer", href: "/disclaimer" },
@@ -776,7 +776,7 @@ export function createTrustMetadata({ path, title, description }: MetadataInput)
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: "Illustrative AI-generated Dubai construction image accompanying an Emitronix company-information page; not project evidence",
+          alt: "Dubai commercial building and warehouse construction scene",
         },
       ],
     },

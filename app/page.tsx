@@ -5,10 +5,7 @@ import { CTA } from "@/components/CTA";
 import { ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { HomeSignatureHero } from "@/components/HomeSignatureHero";
 import { CommandCenter, ImagePanel, PremiumLink, PremiumSectionHeading } from "@/components/Premium";
-import {
-  IllustrativeImageDisclosure,
-  ResponsiveIllustrativeImage,
-} from "@/components/ResponsiveIllustrativeImage";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { ServiceCard } from "@/components/ServiceCard";
 import { blogImageAlt, blogPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
@@ -19,7 +16,6 @@ import {
   homeFaqs,
   services,
   site,
-  stats,
   verifiedMetrics,
   whatsappUrl,
 } from "@/data/site";
@@ -114,13 +110,14 @@ const qualitySignals = [
 ];
 
 const latestArticles = blogPosts.slice(0, 3);
+const homepageVerifiedMetrics = verifiedMetrics.slice(1);
 
 export default function HomePage() {
   const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
 
   return (
     <>
-      <HomeSignatureHero metrics={stats} />
+      <HomeSignatureHero />
 
       <AnswerEngineSummary
         question="Who is Emitronix for Dubai construction projects?"
@@ -174,8 +171,8 @@ export default function HomePage() {
               Request a Site Visit <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
-          <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {verifiedMetrics.map((metric) => {
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {homepageVerifiedMetrics.map((metric) => {
               const Icon = metric.icon;
               return (
                 <article key={metric.label} className="luxury-card rounded-[1.5rem] p-6">
@@ -247,9 +244,6 @@ export default function HomePage() {
                 imageClassName="h-full w-full object-cover"
                 imageStyle={{ height: "100%", objectFit: "cover" }}
               />
-              <p className="absolute right-5 top-5 z-10 rounded-full border border-white/70 bg-white/90 px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.14em] text-charcoal shadow-sm">
-                <IllustrativeImageDisclosure asset={getGeneratedImage("home.project-control-coordination")} />
-              </p>
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,31,58,0.02)_0%,rgba(11,31,58,0.68)_100%)]" />
               <div className="absolute left-5 right-5 top-5 flex flex-wrap gap-2">
                 {["Authority approvals", "Civil delivery", "MEP coordination"].map((item) => (

@@ -90,12 +90,6 @@ export function ServiceVideoShowcase({ asset }: ServiceVideoShowcaseProps) {
             })}
           </div>
 
-          <p
-            id="warehouse-video-disclosure"
-            className="mt-6 rounded-2xl border border-brand/[0.15] bg-white px-5 py-4 text-xs font-bold uppercase leading-5 tracking-[0.08em] text-charcoal/75"
-          >
-            {asset.disclosure}
-          </p>
         </div>
 
         <figure className="mx-auto w-full max-w-[29rem]">
@@ -112,15 +106,12 @@ export function ServiceVideoShowcase({ asset }: ServiceVideoShowcaseProps) {
               height={asset.height}
               className="aspect-[9/16] w-full rounded-[1.8rem] bg-brand-dark object-cover"
               aria-label={asset.ariaLabel}
-              aria-describedby="warehouse-video-caption warehouse-video-disclosure"
+              aria-describedby="warehouse-video-caption"
             >
               <source src={asset.webmSrc} type="video/webm" />
               <source src={asset.mp4Src} type="video/mp4" />
               Your browser does not support embedded video.
             </video>
-            <span className="pointer-events-none absolute right-5 top-5 rounded-full border border-white/25 bg-brand-dark/80 px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.13em] text-white backdrop-blur-md">
-              Representative view
-            </span>
           </div>
           <figcaption
             id="warehouse-video-caption"

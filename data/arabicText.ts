@@ -59,18 +59,6 @@ const commonText: Record<string, string> = {
   "Request Support": "اطلب الدعم",
   "Request Approval Support": "اطلب دعم الموافقات",
   "Request a Site Visit": "اطلب زيارة للموقع",
-  "Illustrative stock image — not project evidence": "صورة توضيحية من مصدر صور عام — وليست دليلا على مشروع",
-  "Illustrative stock image": "صورة توضيحية من مصدر صور عام",
-  "Illustrative AI-generated image. Not an Emitronix project photograph.":
-    "صورة توضيحية مولدة بالذكاء الاصطناعي. ليست صورة لمشروع Emitronix.",
-  "Illustrative AI-generated image. People shown are representative and are not Emitronix employees.":
-    "صورة توضيحية مولدة بالذكاء الاصطناعي. الأشخاص الظاهرون تمثيليون وليسوا موظفي Emitronix.",
-  "Illustrative AI-generated image. Not an authority image, approval, endorsement or Emitronix project photograph.":
-    "صورة توضيحية مولدة بالذكاء الاصطناعي. ليست صورة أو موافقة أو تأييدا من جهة رسمية، وليست صورة لمشروع Emitronix.",
-  "Illustrative AI-generated planning scenario. Not evidence of an Emitronix project.":
-    "سيناريو تخطيط توضيحي مولد بالذكاء الاصطناعي. ليس دليلا على مشروع Emitronix.",
-  "Illustrative AI-generated editorial image. Not evidence of an Emitronix project.":
-    "صورة تحريرية توضيحية مولدة بالذكاء الاصطناعي. ليست دليلا على مشروع Emitronix.",
   "Project planning summary": "ملخص تخطيط المشروع",
   "Civil, MEP, approval and fit-out questions to align before site execution.":
     "أسئلة الأعمال المدنية والأنظمة الكهروميكانيكية والموافقات والتشطيبات التي ينبغي تنسيقها قبل التنفيذ في الموقع.",
@@ -549,8 +537,8 @@ function makeTextMap() {
     map[service.description] = serviceArabicDescription(title);
     map[service.details] = serviceArabicDescription(title);
     map[service.searchIntent] = `${title} في دبي`;
-    map[service.imageAlt] = `صورة توضيحية مولدة بالذكاء الاصطناعي مرافقة لدليل ${title}؛ وليست صورة لمشروع Emitronix، والأشخاص الظاهرون إن وجدوا تمثيليون`;
-    map[service.imageTitle] = `صورة توضيحية مولدة بالذكاء الاصطناعي لدليل ${title}`;
+    map[service.imageAlt] = `مشهد ${title} في دبي`;
+    map[service.imageTitle] = `${title} في دبي`;
     service.highlights.forEach((item, index) => {
       map[item] = ["وضوح النطاق", "تنسيق الموقع والجهات", "جاهزية التسليم"][index % 3];
     });
@@ -670,8 +658,8 @@ function makeTextMap() {
     map[post.metaDescription] = `دليل عربي عملي حول ${title} لمساعدة ملاك المشاريع والاستشاريين على فهم النطاق والموافقات والتسليم في دبي.`;
     map[post.excerpt] = `ملخص عملي حول ${title} مع نقاط تساعد على التخطيط والقرار قبل بدء الأعمال في دبي والإمارات.`;
     map[post.category] = commonText[post.category] ?? "مقالات البناء";
-    map[post.imageAlt] = `صورة تحريرية توضيحية مولدة بالذكاء الاصطناعي لمقال ${title}؛ وليست دليلا على مشروع Emitronix`;
-    map[post.imageTitle] = `صورة تحريرية توضيحية لمقال ${title}`;
+    map[post.imageAlt] = `صورة مرافقة لمقال ${title}`;
+    map[post.imageTitle] = `دليل ${title}`;
     post.categories.forEach((category) => {
       map[category] = commonText[category] ?? "مقالات البناء";
     });
@@ -723,8 +711,8 @@ function makeTextMap() {
     map[project.scope] = `نطاق يشمل ${commonText[project.category] ?? "أعمال المشروع"} مع تنسيق الموقع والرسومات وواجهات الجهات والتسليم.`;
     map[project.status] = commonText[project.status] ?? "ملف تمثيلي";
     map[project.description] = projectArabicDescription(project.category);
-    map[project.imageAlt] = `سيناريو تخطيط توضيحي مولد بالذكاء الاصطناعي في دبي ضمن ${commonText[project.category] ?? "أعمال البناء"}؛ وليس دليلا على مشروع Emitronix`;
-    map[project.imageTitle] = `سيناريو تخطيط توضيحي: ${map[project.title]}`;
+    map[project.imageAlt] = `مشهد تخطيط في دبي ضمن ${commonText[project.category] ?? "أعمال البناء"}`;
+    map[project.imageTitle] = `تخطيط: ${map[project.title]}`;
   }
 
   // Hand-written page copy translations take precedence over generated entries.

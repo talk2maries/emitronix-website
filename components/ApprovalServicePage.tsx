@@ -129,7 +129,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
     "@id": `${pageUrl}#primaryimage`,
     url: imageUrl,
     contentUrl: imageUrl,
-    name: `Illustrative image for the ${service.menuLabel} guide`,
+    name: `${service.menuLabel} coordination image`,
     caption: approvalImage.alt,
     description: approvalImage.alt,
   };

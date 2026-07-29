@@ -31,10 +31,7 @@ import {
 } from "lucide-react";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { ContactForm } from "@/components/ContactForm";
-import {
-  IllustrativeImageDisclosure,
-  ResponsiveIllustrativeImage,
-} from "@/components/ResponsiveIllustrativeImage";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { getGeneratedImage, type GeneratedImageAsset } from "@/data/generatedImages";
 import { applySeoOverrides, createPageMetadata } from "@/data/seo";
 import { absoluteUrl, site, whatsappUrl } from "@/data/site";
@@ -1705,7 +1702,7 @@ function JsonLd() {
         contentUrl: absoluteUrl(heroImage),
         name: "DEWA approval coordination in Dubai",
         caption: heroImageAsset.alt,
-        description: heroImageAsset.disclosure,
+        description: "Electrical design and utility coordination for a Dubai building project.",
       },
       {
         "@type": "ImageObject",
@@ -1714,7 +1711,7 @@ function JsonLd() {
         contentUrl: absoluteUrl(inspectionImage),
         name: "DEWA LV inspection and testing Dubai",
         caption: inspectionImageAsset.alt,
-        description: inspectionImageAsset.disclosure,
+        description: "Electrical inspection preparation with switchgear and testing equipment.",
       },
       {
         "@type": "ImageObject",
@@ -1723,7 +1720,7 @@ function JsonLd() {
         contentUrl: absoluteUrl(cableImage),
         name: "DEWA HV and LV cable works Dubai",
         caption: cableImageAsset.alt,
-        description: cableImageAsset.disclosure,
+        description: "Protected electrical cable installation and utility-route coordination.",
       },
       {
         "@type": "VideoObject",
@@ -1760,9 +1757,6 @@ export default function DewaApprovalsPage() {
         />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(11,31,58,0.96)_0%,rgba(18,58,115,0.82)_45%,rgba(11,31,58,0.42)_100%)]" />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(11,31,58,0.08)_0%,rgba(11,31,58,0.76)_100%)]" />
-        <p className="absolute right-4 top-4 z-20 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.64rem] font-black uppercase leading-4 tracking-[0.16em] text-white backdrop-blur-xl sm:right-8 lg:top-24">
-          <IllustrativeImageDisclosure asset={heroImageAsset} />
-        </p>
         <div className="container-pad relative z-20 grid min-h-[740px] gap-10 pt-32 lg:grid-cols-[0.98fr_0.62fr] lg:items-end lg:pb-24 lg:pt-40">
           <div className="max-w-5xl pb-16 lg:pb-0">
             <p className="text-xs font-black uppercase tracking-[0.28em] text-brand-sky">
@@ -1908,8 +1902,8 @@ export default function DewaApprovalsPage() {
           </div>
           <ImageFeature
             asset={inspectionImageAsset}
-            title="Illustrative LV switchgear image"
-            caption={`${inspectionImageAsset.disclosure} In general, switchgear, test records, labels and access should align before an inspection request.`}
+            title="LV switchgear inspection preparation"
+            caption="In general, switchgear, test records, labels and access should align before an inspection request."
           />
         </div>
       </section>
@@ -1989,8 +1983,8 @@ export default function DewaApprovalsPage() {
         <div className="container-pad grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
           <ImageFeature
             asset={cableImageAsset}
-            title="Illustrative cable-routing image"
-            caption={`${cableImageAsset.disclosure} Cable routes, NOCs, utility conflicts and inspection evidence generally need early planning.`}
+            title="Cable-route coordination"
+            caption="Cable routes, NOCs, utility conflicts and inspection evidence generally need early planning."
           />
           <div>
             <SectionIntro

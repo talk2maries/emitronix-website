@@ -267,8 +267,8 @@ export const services: Service[] = [
     details:
       "Complete civil contracting for G+4 buildings, villas, warehouses, commercial and industrial developments across Dubai and the UAE.",
     image: "/images/generated/services/civil-contracting-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of civil contracting works with concrete, drainage and utility coordination in Dubai; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated civil contracting scene",
+    imageAlt: "Civil works with concrete, drainage and utility coordination in Dubai",
+    imageTitle: "Civil contracting works in Dubai",
     generatedImage: "services.civil-contracting-dubai",
     icon: Building2,
     highlights: ["G+4 buildings", "Villas and warehouses", "Commercial and industrial works"],
@@ -295,8 +295,8 @@ export const services: Service[] = [
     details:
       "Main contracting in Dubai for owners and consultants who need one coordinated construction partner for scope control, procurement, site execution, authority visibility and handover readiness.",
     image: "/images/generated/services/main-contracting-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of coordinated main contracting activity on a clean commercial building site in Dubai; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated main contracting scene",
+    imageAlt: "Coordinated construction activity on a commercial building site in Dubai",
+    imageTitle: "Main contracting activity in Dubai",
     generatedImage: "services.main-contracting-dubai",
     icon: HardHat,
     highlights: ["Single-point coordination", "Consultant and authority alignment", "Handover-focused delivery"],
@@ -323,8 +323,8 @@ export const services: Service[] = [
     details:
       "Warehouse construction in Dubai for logistics, storage, light industrial and operational facilities requiring civil works, fire-safety visibility, utility coordination and handover planning.",
     image: "/images/generated/services/warehouse-construction-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of a modern warehouse under construction in a Dubai industrial area; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated warehouse construction scene",
+    imageAlt: "Modern warehouse under construction in a Dubai industrial area",
+    imageTitle: "Warehouse construction in Dubai",
     generatedImage: "services.warehouse-construction-dubai",
     icon: Warehouse,
     highlights: ["Logistics and storage facilities", "Fire-safety and utility coordination", "DIP, JAFZA and Dubai South focus"],
@@ -357,8 +357,8 @@ export const services: Service[] = [
     details:
       "Industrial building contractor support in Dubai and the UAE for factories, workshops, logistics buildings and operational assets requiring practical civil, structural and authority coordination.",
     image: "/images/generated/services/industrial-construction-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of a clean light-industrial construction facility in Dubai; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated industrial construction scene",
+    imageAlt: "Light-industrial facility under construction in Dubai",
+    imageTitle: "Industrial construction in Dubai",
     generatedImage: "services.industrial-construction-dubai",
     icon: Factory,
     highlights: ["Factory and workshop planning", "Operational civil works", "Utility and fire-safety interfaces"],
@@ -385,8 +385,8 @@ export const services: Service[] = [
     details:
       "Commercial building contractor services in Dubai for offices, showrooms, retail buildings and business facilities where quality, authority readiness and handover planning matter.",
     image: "/images/generated/services/commercial-construction-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of a contemporary commercial building construction site in Dubai; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated commercial construction scene",
+    imageAlt: "Contemporary commercial building under construction in Dubai",
+    imageTitle: "Commercial building construction in Dubai",
     generatedImage: "services.commercial-construction-dubai",
     icon: BriefcaseBusiness,
     highlights: ["Office and showroom buildings", "Retail and business assets", "Premium handover planning"],
@@ -413,8 +413,8 @@ export const services: Service[] = [
     details:
       "Villa construction in Dubai for owners seeking disciplined civil works, structural coordination, finishing quality, authority awareness and a premium residential delivery experience.",
     image: "/images/generated/services/villa-construction-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of a contemporary villa under construction in Dubai; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated villa construction scene",
+    imageAlt: "Contemporary villa under construction in Dubai",
+    imageTitle: "Villa construction in Dubai",
     generatedImage: "services.villa-construction-dubai",
     icon: Home,
     highlights: ["Luxury villa construction", "Renovation and additions", "Finishing and authority awareness"],
@@ -441,8 +441,8 @@ export const services: Service[] = [
     details:
       "Premium interior fit-out solutions for offices, retail spaces, restaurants, villas and residential developments.",
     image: "/images/generated/services/interior-fit-out-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of a premium commercial interior fit-out in progress in Dubai; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated interior fit-out scene",
+    imageAlt: "Commercial interior fit-out in progress in Dubai",
+    imageTitle: "Interior fit-out in Dubai",
     generatedImage: "services.interior-fit-out-dubai",
     icon: Sparkles,
     highlights: ["Commercial fit-out", "Retail and hospitality", "Residential interiors"],
@@ -469,8 +469,8 @@ export const services: Service[] = [
     details:
       "Building renovation in Dubai for owners and tenants upgrading villas, commercial units, warehouses and existing buildings with civil, fit-out and authority-aware coordination.",
     image: "/images/generated/services/building-renovation-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of carefully managed building renovation works in Dubai; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated building renovation scene",
+    imageAlt: "Building renovation works in progress in Dubai",
+    imageTitle: "Building renovation in Dubai",
     generatedImage: "services.building-renovation-dubai",
     icon: Wrench,
     highlights: ["Civil modifications", "Renovation and upgrades", "Authority-aware changes"],
@@ -497,8 +497,8 @@ export const services: Service[] = [
     details:
       "Structural works in Dubai for construction, renovation, warehouse, villa and commercial projects requiring disciplined engineering coordination, approved drawings and controlled site execution.",
     image: "/images/generated/services/structural-works-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of reinforced concrete and structural works on a Dubai construction site; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated structural works scene",
+    imageAlt: "Reinforced concrete and structural works on a Dubai construction site",
+    imageTitle: "Structural works in Dubai",
     generatedImage: "services.structural-works-dubai",
     icon: Hammer,
     highlights: ["Concrete and steel works", "Structural modifications", "Engineering coordination"],
@@ -525,8 +525,8 @@ export const services: Service[] = [
     details:
       "Design and build in Dubai for owners seeking a practical route from concept and scope definition to authority-aware construction planning, delivery coordination and handover readiness.",
     image: "/images/generated/services/design-build-contractor-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of architects and engineers coordinating design and construction in Dubai; people shown are representative.",
-    imageTitle: "Illustrative AI-generated design-and-build coordination scene",
+    imageAlt: "Architects and engineers coordinating design and construction in Dubai",
+    imageTitle: "Design-and-build coordination in Dubai",
     generatedImage: "services.design-build-contractor-dubai",
     icon: Ruler,
     highlights: ["Concept to construction", "Buildability-led planning", "Authority-aware design route"],
@@ -553,8 +553,8 @@ export const services: Service[] = [
     details:
       "Turnkey construction in Dubai for owners who need integrated planning, procurement, civil works, fit-out coordination, authority visibility and handover under a single organized delivery pathway.",
     image: "/images/generated/services/turnkey-construction-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image representing a coordinated turnkey building delivery in Dubai; not an Emitronix project photograph.",
-    imageTitle: "Illustrative AI-generated turnkey construction scene",
+    imageAlt: "Coordinated turnkey building construction in Dubai",
+    imageTitle: "Turnkey construction in Dubai",
     generatedImage: "services.turnkey-construction-dubai",
     icon: Layers3,
     highlights: ["Integrated delivery route", "Procurement and execution control", "Completion-ready handover"],
@@ -581,8 +581,8 @@ export const services: Service[] = [
     details:
       "Construction project management in Dubai for owners and consultants who need clearer scope control, program visibility, stakeholder communication, authority tracking and handover readiness.",
     image: "/images/generated/services/project-management-dubai-desktop.webp",
-    imageAlt: "Illustrative AI-generated image of construction project management and progress coordination in Dubai; people shown are representative.",
-    imageTitle: "Illustrative AI-generated project management scene",
+    imageAlt: "Engineers reviewing construction progress on a Dubai building site",
+    imageTitle: "Construction project management in Dubai",
     generatedImage: "services.project-management-dubai",
     icon: ClipboardCheck,
     highlights: ["Scope and program control", "Stakeholder communication", "Handover readiness tracking"],
@@ -641,11 +641,12 @@ export type Project = {
 export const projects: Project[] = [];
 
 export const heroBadges = [
-  { title: "Civil", label: "Building Contracting", icon: Building2 },
-  { title: "Villas", label: "Residential Construction", icon: HardHat },
-  { title: "Warehouses", label: "Industrial Projects", icon: Landmark },
-  { title: "Authority", label: "Approval Coordination", icon: ShieldCheck },
-  { title: "Interior", label: "Fit-Out Works", icon: Sparkles },
+  { title: "G+4", label: "Building Contracting", href: "/civil", icon: Building2 },
+  { title: "Interior", label: "Fit-Out Works", href: "/interior", icon: Sparkles },
+  { title: "MEP", label: "Project Coordination", href: "/services", icon: Layers3 },
+  { title: "Warehouses", label: "Industrial Construction", href: "/warehouse-construction", icon: Warehouse },
+  { title: "Authority", label: "Approval Coordination", href: "/approval", icon: ShieldCheck },
+  { title: "Civil", label: "Structural Works", href: "/structural-works", icon: Hammer },
 ];
 
 export const stats = [

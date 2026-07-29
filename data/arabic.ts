@@ -119,7 +119,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "تدعم Emitronix Contracting LLC المقاولات المدنية، البناء، المستودعات، الفلل، التشطيبات الداخلية، تنسيق MEP وموافقات الجهات في دبي والإمارات.",
     image: getGeneratedImage("home.dubai-construction-company-hero").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لفريق موقع تمثيلي بملابس سلامة تحمل شعار Emitronix أمام برج قيد الإنشاء ورافعة برجية في دبي؛ وليست صورة لمشروع حقيقي",
+      "فريق موقع يرتدي معدات السلامة أمام برج قيد الإنشاء ورافعة برجية في دبي",
     primaryCta: { label: "اطلب عرض سعر", href: "/ar/contact" },
     secondaryCta: { label: "استكشف الخدمات", href: "/ar/services" },
     sections: [
@@ -153,7 +153,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "تجمع Emitronix Contracting LLC بين المقاولات المدنية، البناء، التشطيبات الداخلية وتنسيق موافقات الجهات لخدمة العملاء في دبي ودولة الإمارات.",
     image: getGeneratedImage("company.engineering-coordination-dubai-hero").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لفريق هندسي تمثيلي يراجع أعمال موقع في دبي؛ الأشخاص الظاهرون ليسوا موظفي Emitronix",
+      "مهندسون يراجعون أعمال موقع إنشائي في دبي",
     sections: [
       {
         eyebrow: "معيار الشركة",
@@ -181,7 +181,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "تنسق Emitronix أعمال المقاولات المدنية، التشطيبات الداخلية وموافقات الجهات حتى ينتقل العميل من تحديد النطاق إلى التسليم بثقة أوضح.",
     image: getGeneratedImage("services.construction-services-dubai-hero").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لخدمات البناء والأعمال المدنية والصناعية وMEP في دبي، وليست صورة لمشروع Emitronix",
+      "أعمال بناء مدنية وصناعية وتنسيق MEP في دبي",
     sections: [
       {
         eyebrow: "الخدمات الأساسية",
@@ -215,7 +215,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "نساعد ملاك المشاريع والاستشاريين في ترتيب متطلبات المستندات، التعليقات، الجاهزية للتفتيش وربط الموافقات بالتنفيذ في الموقع.",
     image: getGeneratedImage("approvals.dubai-authority-approvals-coordination").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لتنسيق موافقات البناء في دبي؛ ليست صورة أو موافقة أو تأييدا من جهة رسمية",
+      "مراجعة رسومات ومستندات تنسيق موافقات البناء في دبي",
     sections: [
       {
         eyebrow: "قائمة الموافقات",
@@ -238,7 +238,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "استخدم هذه الصفحة للاستفسارات المتعلقة بمقالات البناء والمقاولات والتشطيبات والمستودعات والفلل وإدارة المشاريع وموافقات الجهات في دبي.",
     image: getGeneratedImage("company.construction-technical-resources-dubai-hero").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لمراجعة معلومات إنشائية عامة في دبي، وليست صورة لمشروع Emitronix",
+      "مراجعة معلومات ورسومات إنشائية في مكتب بدبي",
     primaryCta: { label: "تواصل مع Emitronix", href: "/ar/contact" },
     secondaryCta: { label: "اقرأ المدونة", href: "/ar/blog" },
     sections: [
@@ -260,7 +260,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "تعرض هذه الصفحة سيناريوهات تخطيط توضيحية للأعمال المدنية وتنسيق MEP والتجديدات والتشطيبات والموافقات والمستودعات. وهي ليست دراسات حالة لمشاريع مكتملة لدى Emitronix.",
     image: getGeneratedImage("projects.portfolio-planning-dubai-hero").desktop.src,
     imageAlt:
-      "سيناريو تخطيط توضيحي مولد بالذكاء الاصطناعي لنطاقات بناء متنوعة في دبي، وليس دليلا على مشروع نفذته Emitronix",
+      "مشهد تخطيط لنطاقات بناء متنوعة في دبي",
     sections: [
       {
         eyebrow: "تخطيط النطاق",
@@ -273,7 +273,7 @@ const commonPages: Record<string, ArabicPageData> = {
           title: arabicProjectTitle(project.title),
           body: `${arabicProjectDescription(project.category)} هذا مثال توضيحي لتخطيط النطاق وليس دراسة حالة لمشروع مكتمل.`,
           image: getGeneratedImage(project.generatedImage).desktop.src,
-          imageAlt: `سيناريو تخطيط توضيحي مولد بالذكاء الاصطناعي لـ ${arabicProjectTitle(project.title)} في دبي، وليس دليلا على مشروع نفذته Emitronix`,
+          imageAlt: `مشهد تخطيط لـ ${arabicProjectTitle(project.title)} في دبي`,
         })),
       },
     ],
@@ -286,7 +286,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "تخدم Emitronix بيئات مشاريع مختلفة في دبي والإمارات مثل الفلل، المستودعات، المباني التجارية، التجزئة، الضيافة والأصول الصناعية.",
     image: getGeneratedImage("company.dubai-construction-industries-hero").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لمستودعات ومبان تجارية ومنشآت صناعية حديثة في دبي، وليست صورة لمشروع Emitronix",
+      "مستودعات ومبان تجارية ومنشآت صناعية حديثة في دبي",
     sections: [
       {
         eyebrow: "قطاعات العمل",
@@ -311,7 +311,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "نرحب بملفات الهندسة المدنية، التنفيذ، الإشراف، إدارة المشاريع، التنسيق الفني والتشطيبات في دبي ودولة الإمارات.",
     image: getGeneratedImage("team.construction-team-dubai").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لفريق إنشاءات تمثيلي يرتدي معدات الوقاية في موقع نظيف بدبي؛ الأشخاص ليسوا موظفي Emitronix",
+      "فريق إنشاءات يرتدي معدات الوقاية في موقع نظيف بدبي",
     form: "career",
     sections: [
       {
@@ -331,7 +331,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "مقالات عربية حول المقاولات المدنية، المستودعات، الفلل، المباني التجارية، التشطيبات، موافقات دبي وإدارة المشاريع.",
     image: getGeneratedImage("blog.civil-construction-dubai-guide-2026").desktop.src,
     imageAlt:
-      "صورة تحريرية توضيحية مولدة بالذكاء الاصطناعي لدليل الأعمال المدنية في دبي، وليست دليلا على مشروع Emitronix",
+      "مشهد تخطيط للأعمال المدنية في دبي",
     sections: [
       {
         eyebrow: "أحدث المقالات",
@@ -354,7 +354,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "مداخل سريعة لفهم الخدمات، الموافقات، سيناريوهات تخطيط النطاق، المقالات وطرق التواصل مع Emitronix في دبي.",
     image: getGeneratedImage("company.construction-technical-resources-dubai-hero").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لرسومات وأدوات تنسيق فني في مكتب مشروع بدبي، من دون بيانات مشروع مقروءة",
+      "رسومات وأدوات تنسيق فني في مكتب مشروع بدبي",
     sections: [
       {
         eyebrow: "روابط مفيدة",
@@ -379,7 +379,7 @@ const commonPages: Record<string, ArabicPageData> = {
     description: "روابط منظمة للوصول إلى صفحات الخدمات، مكتبة تخطيط النطاق، الموافقات، السياسات والمدونة باللغتين.",
     image: getGeneratedImage("company.construction-technical-resources-dubai-hero").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لموارد موقع Emitronix الإنشائية في دبي، وليست صورة لمشروع",
+      "رسومات وأدوات تنسيق فني لموارد البناء في دبي",
     sections: [
       {
         eyebrow: "الصفحات الرئيسية",
@@ -405,7 +405,7 @@ const commonPages: Record<string, ArabicPageData> = {
       "شارك متطلبات الأعمال المدنية أو التشطيبات أو التجديد أو موافقات الجهات. أرسل الموقع والنطاق والجدول الزمني وحالة الموافقات الحالية.",
     image: getGeneratedImage("company.dubai-project-consultation-hero").desktop.src,
     imageAlt:
-      "صورة توضيحية مولدة بالذكاء الاصطناعي لاجتماع استشارة مع مهندسين تمثيليين لمشروع بناء في دبي؛ الأشخاص ليسوا موظفي Emitronix",
+      "اجتماع استشارة هندسية لمشروع بناء في دبي",
     form: "contact",
     sections: [
       {
@@ -1261,7 +1261,7 @@ export function getArabicPageByEnglishPath(path: string): ArabicPageData | null 
       title: `${title} في دبي`,
       description: `دعم احترافي لخدمة ${title} في دبي مع تنسيق الرسومات، الموقع، الجهات، MEP، التنفيذ وجاهزية التسليم.`,
       image: image.desktop.src,
-      imageAlt: `صورة توضيحية مولدة بالذكاء الاصطناعي لخدمة ${title} في دبي، وليست صورة لمشروع Emitronix`,
+      imageAlt: `مشهد ${title} في دبي`,
       primaryCta: { label: "اطلب عرض سعر", href: "/ar/contact" },
       secondaryCta: { label: "مكتبة تخطيط النطاق", href: "/ar/projects" },
       sections: arabicServiceSections[service.href],
@@ -1279,7 +1279,7 @@ export function getArabicPageByEnglishPath(path: string): ArabicPageData | null 
       title,
       description: `تنسيق ${title} لمشاريع البناء والتشطيبات والتعديلات في دبي مع مراجعة المستندات والتعليقات وجاهزية التفتيش.`,
       image: image.desktop.src,
-      imageAlt: `صورة توضيحية مولدة بالذكاء الاصطناعي لتنسيق ${title} في دبي؛ ليست صورة أو موافقة أو تأييدا من الجهة الرسمية`,
+      imageAlt: `مراجعة مستندات ورسومات تنسيق ${title} في دبي`,
       primaryCta: { label: "اطلب دعم الموافقات", href: "/ar/contact" },
       secondaryCta: { label: "كل الموافقات", href: "/ar/approval" },
       sections: arabicApprovalSections[approval.href],
@@ -1370,7 +1370,7 @@ function arabicBlogPage(post: BlogPost): ArabicPageData {
     title,
     description: `دليل عربي عملي حول ${title} لأصحاب المشاريع والاستشاريين، مع توضيح قرارات التخطيط والموافقات والتنفيذ والتسليم في دبي.`,
     image: image.desktop.src,
-    imageAlt: `صورة تحريرية توضيحية مولدة بالذكاء الاصطناعي لمقال «${title}»، وليست دليلا على مشروع Emitronix`,
+    imageAlt: `صورة مرافقة لمقال «${title}»`,
     primaryCta: { label: "ناقش مشروعك", href: "/ar/contact" },
     secondaryCta: { label: "عودة إلى المدونة", href: "/ar/blog" },
     sections: arabicBlogSections[post.slug],

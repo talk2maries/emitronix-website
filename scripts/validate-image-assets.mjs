@@ -178,11 +178,11 @@ for (const [key, asset] of entries) {
       `${key} must match its declared category and id (${asset.category}.${asset.id})`,
     );
   }
-  if (!/^Illustrative AI-generated\b/.test(asset.alt ?? "")) {
-    failures.push(`${key} alt text must identify the image as AI-generated`);
+  if (typeof asset.alt !== "string" || asset.alt.trim().length < 20) {
+    failures.push(`${key} must include concise, descriptive alt text`);
   }
-  if (!/AI-generated/i.test(asset.disclosure ?? "")) {
-    failures.push(`${key} disclosure must identify the image as AI-generated`);
+  if (Object.prototype.hasOwnProperty.call(asset, "disclosure")) {
+    failures.push(`${key} must not include a public image disclosure field`);
   }
 
   if (seenIds.has(asset.id)) {

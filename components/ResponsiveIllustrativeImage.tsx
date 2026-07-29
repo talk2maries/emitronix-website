@@ -1,5 +1,5 @@
 import { getImageProps } from "next/image";
-import type { CSSProperties, HTMLAttributes } from "react";
+import type { CSSProperties } from "react";
 import type { GeneratedImageAsset } from "@/data/generatedImages";
 
 const DEFAULT_SIZES =
@@ -96,11 +96,7 @@ export function ResponsiveIllustrativeImage({
   }
 
   return (
-    <picture
-      className={className}
-      data-generated-image={asset.id}
-      data-image-disclosure={asset.disclosure}
-    >
+    <picture className={className}>
       {mobileSource ? (
         <source
           media={mobileMedia}
@@ -118,15 +114,4 @@ export function ResponsiveIllustrativeImage({
       />
     </picture>
   );
-}
-
-type IllustrativeImageDisclosureProps = {
-  asset: GeneratedImageAsset;
-} & HTMLAttributes<HTMLSpanElement>;
-
-export function IllustrativeImageDisclosure({
-  asset,
-  ...props
-}: IllustrativeImageDisclosureProps) {
-  return <span {...props}>{asset.disclosure}</span>;
 }

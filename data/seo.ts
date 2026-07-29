@@ -19,7 +19,7 @@ type PageMetadataInput = {
 
 const defaultImage = brandAssets.socialCard;
 const defaultImageAlt =
-  "Illustrative AI-generated image of a clean commercial and warehouse construction site in Dubai; not an Emitronix project photograph.";
+  "Commercial and warehouse construction in Dubai";
 const MAX_TITLE_LENGTH = 70;
 const MAX_META_KEYWORDS = 12;
 
@@ -75,15 +75,6 @@ export function createPageMetadata({
       ? image.replace(/-desktop\.webp$/, "-og.webp")
       : image;
   const imageUrl = absoluteUrl(socialImage);
-  const isBrandImage = image === brandAssets.socialCard || image === brandAssets.logoPng;
-  const isGeneratedImage = image.startsWith("/images/generated/");
-  const resolvedImageAlt = isBrandImage
-    ? imageAlt
-    : /^illustrative\b/i.test(imageAlt)
-      ? imageAlt
-      : isGeneratedImage
-        ? `Illustrative AI-generated image accompanying this Emitronix page; not evidence of an Emitronix project or team. ${imageAlt}`
-        : `Illustrative image accompanying this Emitronix page; not evidence of an Emitronix project or team. ${imageAlt}`;
   const imageDimensions =
     socialImage === brandAssets.socialCard || /-og\.webp$/i.test(socialImage)
       ? { width: 1200, height: 630 }
@@ -115,7 +106,7 @@ export function createPageMetadata({
           url: imageUrl,
           width: imageDimensions.width,
           height: imageDimensions.height,
-          alt: resolvedImageAlt,
+          alt: imageAlt,
         },
       ],
     },

@@ -20,10 +20,7 @@ import {
 import Link from "next/link";
 import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { PremiumSectionHeading } from "@/components/Premium";
-import {
-  IllustrativeImageDisclosure,
-  ResponsiveIllustrativeImage,
-} from "@/components/ResponsiveIllustrativeImage";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import {
   founderProfile,
   leadershipFunctions,
@@ -166,9 +163,6 @@ export default function LeadershipPage() {
                     imageClassName="h-full w-full object-cover"
                     imageStyle={{ height: "100%", objectFit: "cover" }}
                   />
-                  <figcaption className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/60 bg-white/90 px-4 py-3 text-[0.65rem] font-black uppercase tracking-[0.14em] text-charcoal shadow-sm backdrop-blur-xl">
-                    <IllustrativeImageDisclosure asset={leadershipImage} />
-                  </figcaption>
                 </figure>
                 <aside className="luxury-surface rounded-[2rem] p-6 sm:p-8">
                 <span className="grid h-14 w-14 place-items-center rounded-2xl bg-brand text-white shadow-blue">

@@ -54,7 +54,7 @@ export const metadata: Metadata = {
         url: absoluteUrl(founderContextImage.og!.src),
         width: founderContextImage.og!.width,
         height: founderContextImage.og!.height,
-        alt: "Illustrative AI-generated leadership context image; not a portrait of the founder, an Emitronix employee or an Emitronix project.",
+        alt: "Construction leaders reviewing site activity in Dubai",
       },
     ],
   },

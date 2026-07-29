@@ -5,10 +5,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { blogImageAlt, type BlogPostSummary } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
-import {
-  IllustrativeImageDisclosure,
-  ResponsiveIllustrativeImage,
-} from "@/components/ResponsiveIllustrativeImage";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 
 type BlogKnowledgeHubProps = {
   posts: BlogPostSummary[];
@@ -61,10 +58,6 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
           className="absolute inset-0 z-0 h-full w-full"
           imageClassName="h-full w-full object-cover"
           imageStyle={{ height: "100%", objectFit: "cover" }}
-        />
-        <IllustrativeImageDisclosure
-          asset={featuredAsset}
-          className="absolute right-4 top-4 z-30 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.68rem] font-black uppercase leading-4 tracking-[0.18em] text-white backdrop-blur-xl sm:right-8 lg:top-24"
         />
         <div className="absolute inset-0 z-10 bg-[linear-gradient(90deg,rgba(11,31,58,0.94)_0%,rgba(18,58,115,0.76)_52%,rgba(25,73,145,0.36)_100%)]" />
         <div className="absolute inset-0 z-20 opacity-35 [background-image:linear-gradient(rgba(255,255,255,0.13)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px)] [background-size:48px_48px]" />

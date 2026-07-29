@@ -1,9 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import {
-  IllustrativeImageDisclosure,
-  ResponsiveIllustrativeImage,
-} from "@/components/ResponsiveIllustrativeImage";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { getGeneratedImage } from "@/data/generatedImages";
 import type { Service } from "@/data/site";
 
@@ -25,9 +22,6 @@ export function ServiceCard({ service }: ServiceCardProps) {
           imageClassName="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           imageStyle={{ height: "100%", objectFit: "cover" }}
         />
-        <p className="absolute right-3 top-3 rounded-full border border-white/70 bg-white/90 px-3 py-1.5 text-[0.6rem] font-black uppercase tracking-[0.14em] text-charcoal shadow-sm">
-          <IllustrativeImageDisclosure asset={image} />
-        </p>
         <div className="absolute inset-0 bg-gradient-to-t from-white/[0.65] via-transparent to-transparent" />
         <div className="absolute bottom-5 left-5 grid h-14 w-14 place-items-center rounded-2xl border border-white/70 bg-white/[0.92] text-brand shadow-panel backdrop-blur-xl">
           <Icon size={25} strokeWidth={1.8} />

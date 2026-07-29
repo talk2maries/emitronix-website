@@ -116,7 +116,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     "@id": `${pageUrl}#primaryimage`,
     url: primaryImageUrl,
     contentUrl: primaryImageUrl,
-    name: `Illustrative image for the ${service.title} planning guide`,
+    name: `${service.title} construction image`,
     caption: serviceImage.alt,
     description: serviceImage.alt,
   };
@@ -218,7 +218,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         "@type": "VideoObject",
         "@id": `${pageUrl}#service-video`,
         name: serviceVideo.title,
-        description: `${serviceVideo.description} ${serviceVideo.disclosure}`,
+        description: serviceVideo.description,
         thumbnailUrl: absoluteUrl(serviceVideo.posterSrc),
         contentUrl: absoluteUrl(serviceVideo.mp4Src),
         uploadDate: serviceVideo.uploadDate,

@@ -14,10 +14,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { CareerApplicationForm } from "@/components/CareerApplicationForm";
-import {
-  IllustrativeImageDisclosure,
-  ResponsiveIllustrativeImage,
-} from "@/components/ResponsiveIllustrativeImage";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
@@ -176,9 +173,6 @@ export default function CareersPage() {
                   imageStyle={{ height: "100%", objectFit: "cover" }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-tr from-white/88 via-white/32 to-transparent" />
-                <p className="absolute right-5 top-5 rounded-full border border-white/70 bg-white/90 px-3 py-2 text-[0.62rem] font-black uppercase tracking-[0.14em] text-charcoal shadow-sm">
-                  <IllustrativeImageDisclosure asset={getGeneratedImage("team.construction-team-dubai")} />
-                </p>
                 <div className="absolute bottom-5 left-5 right-5 rounded-[1.5rem] border border-white/70 bg-white/[0.82] p-5 shadow-panel backdrop-blur-2xl">
                   <p className="premium-kicker">Dubai, UAE</p>
                   <h2 className="mt-2 text-2xl font-black tracking-tight text-charcoal">Construction roles built around discipline, trust and site clarity.</h2>

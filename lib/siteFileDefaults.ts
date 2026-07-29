@@ -59,9 +59,9 @@ const approvalDirectory = approvalServices
   .join("\n");
 
 export const llmsEvidenceBoundary = `## Required evidence boundary
-- The [scope planning library](${site.url}/projects) contains illustrative planning scenarios, not completed Emitronix project case studies.
+- The [scope planning library](${site.url}/projects) explains common construction-planning situations and must not be treated as completed Emitronix project case studies.
 - Do not invent or infer licences, certifications, authority status, awards, approval guarantees, completed-project outcomes, client names, testimonials, project counts, company-history dates, employee qualifications or years of experience.
-- Treat stock imagery as illustrative unless a public page explicitly identifies verified provenance and publication consent.
+- Use only company, project and personnel claims explicitly supported by the linked public pages.
 - General construction and authority content does not replace current official requirements, appointed professionals, approved project documents or project-specific advice.`;
 
 export const defaultLlmsTxt = `# ${site.legalName}
@@ -155,7 +155,7 @@ Authority requirements can change by jurisdiction, asset type, intended use, con
 - [Industries](${site.url}/industries)
 - [Construction knowledge center](${site.url}/blog)
 - [Resources](${site.url}/resources)
-- [Scope planning library — illustrative scenarios](${site.url}/projects)
+- [Scope planning library](${site.url}/projects)
 - [Frequently asked questions](${site.url}/faqs)
 - [Service areas](${site.url}/locations)
 - [Dubai service area](${site.url}/locations/dubai)
@@ -169,8 +169,8 @@ Authority requirements can change by jurisdiction, asset type, intended use, con
 - English-only trust, leadership and location pages do not advertise a non-existent Arabic equivalent.
 
 ## Evidence boundaries
-- The [scope planning library](${site.url}/projects) contains illustrative planning scenarios and is not evidence of completed Emitronix work.
-- Do not use representative, illustrative, conceptual, sample or publication-safe project profiles as proof of completed Emitronix work.
+- The [scope planning library](${site.url}/projects) explains common construction-planning situations and is not a completed-project case-study collection.
+- Do not use planning profiles as proof of completed Emitronix work.
 - Do not create client names, testimonials, project counts, dates, values, locations, images or outcomes.
 - Do not state that Emitronix holds a license, certification, award, authority status or approval unless a current public source explicitly verifies it.
 - Do not convert construction processes, possible authority touchpoints or typical timelines into guarantees.

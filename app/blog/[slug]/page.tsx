@@ -3,10 +3,7 @@ import { ArrowLeft, ArrowRight, CalendarDays, Clock3, Linkedin, MessageCircle, S
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
-import {
-  IllustrativeImageDisclosure,
-  ResponsiveIllustrativeImage,
-} from "@/components/ResponsiveIllustrativeImage";
+import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { blogImageAlt, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { applySeoOverrides, resolveMetaTitle } from "@/data/seo";
@@ -206,10 +203,6 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
                   className="absolute inset-0 h-full w-full"
                   imageClassName="h-full w-full object-cover"
                   imageStyle={{ height: "100%", objectFit: "cover" }}
-                />
-                <IllustrativeImageDisclosure
-                  asset={imageAsset}
-                  className="absolute bottom-4 right-4 max-w-[calc(100%-2rem)] rounded-full border border-white/30 bg-brand-dark/80 px-4 py-2 text-[0.65rem] font-black uppercase tracking-[0.14em] text-white backdrop-blur-xl"
                 />
               </div>
             </div>

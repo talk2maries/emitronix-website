@@ -2,7 +2,6 @@ export type ServiceVideoAsset = {
   title: string;
   eyebrow: string;
   description: string;
-  disclosure: string;
   caption: string;
   ariaLabel: string;
   posterSrc: `/images/${string}`;
@@ -21,15 +20,13 @@ export type ServiceVideoAsset = {
 export const serviceVideos = {
   "/warehouse-construction": {
     title: "Warehouse mezzanine floor steel structure",
-    eyebrow: "Representative visual briefing",
+    eyebrow: "Technical visual briefing",
     description:
       "A focused view of a warehouse mezzanine steel frame, corrugated metal deck, bolted connections and access stair for early scope discussions.",
-    disclosure:
-      "Representative footage and AI-assisted visualization. This sequence is not evidence of a completed Emitronix project.",
     caption:
-      "Silent visual sequence showing representative steel columns, beams, metal decking, bolted connections, access stairs and guarded mezzanine edges. Final structural design, fire and life-safety requirements, loading, approvals and site conditions must be confirmed for each project.",
+      "Silent visual sequence showing steel columns, beams, metal decking, bolted connections, access stairs and guarded mezzanine edges. Final structural design, fire and life-safety requirements, loading, approvals and site conditions must be confirmed for each project.",
     ariaLabel:
-      "Representative warehouse mezzanine floor steel structure visual sequence",
+      "Warehouse mezzanine floor steel structure visual sequence",
     posterSrc:
       "/images/video/warehouse-mezzanine-steel-structure-video-poster.webp",
     mp4Src:
@@ -44,7 +41,7 @@ export const serviceVideos = {
       {
         title: "Steel frame coordination",
         description:
-          "Representative columns, primary beams and secondary members help frame early discussions about geometry, access and interfaces.",
+          "Columns, primary beams and secondary members help frame early discussions about geometry, access and interfaces.",
       },
       {
         title: "Deck and connections",
