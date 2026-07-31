@@ -5,7 +5,7 @@ import { site, trustPillars, whatsappUrl } from "@/data/site";
 const icons = [Users, Clock, ShieldCheck, BadgeCheck];
 
 export function CTA() {
-  const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
+  const phoneHref = site.phoneHref;
 
   return (
     <section className="relative overflow-hidden bg-white py-16 lg:py-24">
@@ -42,11 +42,11 @@ export function CTA() {
                 <Link href="/contact?intent=site-visit" className="premium-button-light">
                   Request a Site Visit <CalendarCheck size={18} />
                 </Link>
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-                  WhatsApp Us <MessageCircle size={18} />
-                </a>
                 <a href={phoneHref} className="premium-button-light">
                   Call Now <PhoneCall size={18} />
+                </a>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+                  WhatsApp Us <MessageCircle size={18} />
                 </a>
               </div>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, Search, Sparkles, X } from "lucide-react";
+import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, Phone, Search, Sparkles, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -23,6 +23,7 @@ export type HeaderApprovalLink = {
 
 export type HeaderContact = {
   phone: string;
+  phoneHref: string;
   email: string;
   location: string;
 };
@@ -191,6 +192,18 @@ export function HeaderClient({
           : "border-brand/[0.08] bg-white/[0.82] shadow-none backdrop-blur-xl"
       }`}
     >
+      <div className="border-b border-brand/[0.08] bg-brand-soft/70">
+        <div className="container-pad flex h-8 items-center justify-center min-[1440px]:justify-end">
+          <a
+            href={contact.phoneHref}
+            className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wide text-brand transition hover:text-brand-deep focus-ring"
+          >
+            <Phone className="h-3.5 w-3.5" aria-hidden="true" />
+            <span>{isArabic ? "هاتف المكتب" : "Office"}</span>
+            <span dir="ltr">{contact.phone}</span>
+          </a>
+        </div>
+      </div>
       <div className="container-pad">
         <div className="flex h-20 items-center justify-between gap-4 transition-[height] duration-500">
           <Link
@@ -201,13 +214,13 @@ export function HeaderClient({
           >
             <BrandLogo
               className="block shrink-0"
-              imageClassName="h-12 w-auto object-contain sm:h-14 lg:h-16 min-[1400px]:h-12 2xl:h-14"
-              sizes="(min-width: 1536px) 240px, (min-width: 1400px) 206px, (min-width: 1024px) 274px, (min-width: 640px) 240px, 206px"
+              imageClassName="h-12 w-auto object-contain sm:h-14 lg:h-16 min-[1440px]:h-12 2xl:h-14"
+              sizes="(min-width: 1536px) 240px, (min-width: 1440px) 206px, (min-width: 1024px) 274px, (min-width: 640px) 240px, 206px"
               priority
             />
           </Link>
 
-          <nav className="hidden items-center gap-1 min-[1400px]:flex" aria-label="Primary navigation">
+          <nav className="hidden items-center gap-1 min-[1440px]:flex" aria-label="Primary navigation">
             {currentNavItems.map((item) => {
               const active = isActive(item.href);
               const baseClass = `inline-flex items-center gap-1 rounded-full px-4 py-2.5 text-xs font-black uppercase tracking-wide transition focus-ring ${
@@ -349,7 +362,7 @@ export function HeaderClient({
             })}
           </nav>
 
-          <div className="hidden items-center gap-3 min-[1400px]:flex">
+          <div className="hidden items-center gap-3 min-[1440px]:flex">
             <Link
               href="/search"
               className="grid h-11 w-11 place-items-center rounded-full border border-brand/[0.15] bg-white text-brand transition hover:bg-brand-soft focus-ring"
@@ -379,7 +392,7 @@ export function HeaderClient({
           <button
             ref={mobileMenuButtonRef}
             type="button"
-            className="grid h-12 w-12 place-items-center rounded-full border border-brand/[0.15] bg-white/[0.9] text-charcoal shadow-sm backdrop-blur-xl transition hover:border-brand/[0.35] hover:bg-brand-soft hover:text-brand focus-ring min-[1400px]:hidden"
+            className="grid h-12 w-12 place-items-center rounded-full border border-brand/[0.15] bg-white/[0.9] text-charcoal shadow-sm backdrop-blur-xl transition hover:border-brand/[0.35] hover:bg-brand-soft hover:text-brand focus-ring min-[1440px]:hidden"
             onClick={() => setOpen((value) => !value)}
             aria-expanded={open}
             aria-controls="mobile-navigation-menu"
@@ -391,7 +404,7 @@ export function HeaderClient({
       </div>
 
       {open ? (
-        <div className="border-t border-brand/[0.15] bg-white/[0.96] shadow-luxe backdrop-blur-2xl min-[1400px]:hidden">
+        <div className="border-t border-brand/[0.15] bg-white/[0.96] shadow-luxe backdrop-blur-2xl min-[1440px]:hidden">
           <nav id="mobile-navigation-menu" className="container-pad grid gap-2 py-5" aria-label="Mobile navigation">
             {currentNavItems.map((item) => {
               const active = isActive(item.href);
@@ -491,7 +504,7 @@ export function HeaderClient({
               {copy.language}
             </Link>
             <div className="mt-3 grid gap-2 border-t border-brand/[0.15] pt-4 text-sm font-bold text-steel">
-              <a href={`tel:${contact.phone.replace(/\s/g, "")}`}>{contact.phone}</a>
+              <a href={contact.phoneHref} dir="ltr">{contact.phone}</a>
               <a href={`mailto:${contact.email}`}>{contact.email}</a>
               <span>{isArabic ? "مجمع دبي للاستثمار 02، دبي، الإمارات" : contact.location}</span>
             </div>

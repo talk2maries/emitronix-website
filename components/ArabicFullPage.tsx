@@ -129,7 +129,7 @@ export function ArabicFullPage({ page, children }: ArabicFullPageProps) {
               provider: {
                 "@id": absoluteUrl("/#organization"),
                 name: site.legalName,
-                telephone: site.phone,
+                telephone: site.phoneE164,
                 email: site.email,
                 url: site.url,
               },

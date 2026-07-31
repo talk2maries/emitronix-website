@@ -101,7 +101,7 @@ export function TrustBar({
 }: {
   eyebrow: string;
   title: string;
-  points: string[];
+  points: Array<string | { label: string; href: string }>;
 }) {
   return (
     <section className="bg-white py-10">
@@ -112,12 +112,24 @@ export function TrustBar({
             <h2 className="mt-3 text-3xl font-black tracking-tight text-charcoal sm:text-4xl">{title}</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
-            {points.map((point) => (
-              <div key={point} className="flex items-center gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4 shadow-sm">
-                <CheckCircle2 className="h-5 w-5 shrink-0 text-brand" />
-                <span className="text-sm font-black text-charcoal">{point}</span>
-              </div>
-            ))}
+            {points.map((point) => {
+              const label = typeof point === "string" ? point : point.label;
+              const className = "flex items-center gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4 shadow-sm";
+              const content = (
+                <>
+                  <CheckCircle2 className="h-5 w-5 shrink-0 text-brand" />
+                  <span className="text-sm font-black text-charcoal">{label}</span>
+                </>
+              );
+
+              return typeof point === "string" ? (
+                <div key={label} className={className}>{content}</div>
+              ) : (
+                <a key={label} href={point.href} className={`${className} transition hover:border-brand/30 hover:bg-brand-soft focus-ring`}>
+                  {content}
+                </a>
+              );
+            })}
           </div>
         </div>
       </div>

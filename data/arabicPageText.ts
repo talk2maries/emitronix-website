@@ -765,8 +765,8 @@ export const arabicPageStaticText: Record<string, string> = {
     "إجابات لملاك المشاريع والاستشاريين الذين يجهزون استفسار بناء أو موافقات في دبي.",
   "What is the fastest way to contact Emitronix?":
     "ما أسرع طريقة للتواصل مع Emitronix؟",
-  "Call +971559828492 or email info@emitronix.ae. The website form also prepares a structured project enquiry email.":
-    "اتصل على +971559828492 أو راسل info@emitronix.ae. كما يجهز نموذج الموقع رسالة استفسار مشروع منظمة.",
+  "Use the office Call button or email info@emitronix.ae. With consent, the website form sends a structured project enquiry to the company's follow-up system.":
+    "استخدم زر الاتصال بالمكتب أو راسل info@emitronix.ae. وبموافقتك، يرسل نموذج الموقع استفسار مشروع منظما إلى نظام المتابعة الخاص بالشركة.",
   "What should I include in a construction enquiry?":
     "ماذا أذكر في استفسار البناء؟",
   "Include project location, asset type, drawings available, authority status, intended service, site condition, preferred timeline and any existing authority comments.":

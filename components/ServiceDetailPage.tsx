@@ -34,7 +34,7 @@ function labelFromHref(href: string) {
 
 export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const Icon = service.icon;
-  const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
+  const phoneHref = site.phoneHref;
   const deepContent = getServiceDeepContent(service);
   const expandedFaqs = buildServiceExpandedFaqs(service);
   const pageUrl = absoluteUrl(service.href);
@@ -175,7 +175,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     provider: {
       "@id": absoluteUrl("/#organization"),
       name: site.legalName,
-      telephone: site.phone,
+      telephone: site.phoneE164,
       email: site.email,
       url: site.url,
     },
@@ -321,11 +321,11 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
               <Link href="/contact?intent=site-visit" className="premium-button-light">
                 Request a Site Visit <CalendarCheck className="h-4 w-4" />
               </Link>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-                WhatsApp Us <MessageCircle className="h-4 w-4" />
-              </a>
               <a href={phoneHref} className="premium-button-light">
                 Call Now <PhoneCall className="h-4 w-4" />
+              </a>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+                WhatsApp Us <MessageCircle className="h-4 w-4" />
               </a>
             </div>
           </div>

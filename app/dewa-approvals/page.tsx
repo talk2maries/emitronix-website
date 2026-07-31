@@ -46,7 +46,7 @@ const heroImage = heroImageAsset.desktop.src;
 const inspectionImage = inspectionImageAsset.desktop.src;
 const cableImage = cableImageAsset.desktop.src;
 const videoUrl = "/videos/dewa-approval-dubai-workflow.mp4";
-const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
+const phoneHref = site.phoneHref;
 
 const dewaKeywords = [
   "DEWA approval Dubai",
@@ -1445,7 +1445,7 @@ const dewaFaqs: FaqItem[] = [
     category: "Emitronix",
     question: "How do I contact Emitronix for DEWA approval?",
     answer:
-      `Call ${site.phone}, WhatsApp the team through the website, email ${site.email}, or submit the contact form with project location, drawings, load requirement and current authority status.`,
+      `Use the office Call Now action, WhatsApp the team through the website, email ${site.email}, or submit the contact form with project location, drawings, load requirement and current authority status.`,
   },
 ];
 
@@ -1479,11 +1479,11 @@ function CtaButtons({ compact = false }: { compact?: boolean }) {
       <Link href="/contact?intent=site-visit&service=dewa-approval" className="premium-button-light">
         Request Site Visit <CalendarCheck className="h-4 w-4" />
       </Link>
-      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-        WhatsApp Us <MessageCircle className="h-4 w-4" />
-      </a>
       <a href={phoneHref} className="premium-button-light">
         Call Now <PhoneCall className="h-4 w-4" />
+      </a>
+      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+        WhatsApp Us <MessageCircle className="h-4 w-4" />
       </a>
     </div>
   );
@@ -2238,14 +2238,14 @@ export default function DewaApprovalsPage() {
             />
             <div className="mt-8 grid gap-3">
               {[
-                `Call: ${site.phone}`,
-                `Email: ${site.email}`,
-                `Location: ${site.location}`,
-                `Hours: ${site.hours}`,
+                { label: `Call: ${site.phone}`, href: site.phoneHref },
+                { label: `Email: ${site.email}`, href: `mailto:${site.email}` },
+                { label: `Location: ${site.location}`, href: undefined },
+                { label: `Hours: ${site.hours}`, href: undefined },
               ].map((item) => (
-                <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-platinum p-4 text-sm font-bold leading-6 text-charcoal">
+                <div key={item.label} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-platinum p-4 text-sm font-bold leading-6 text-charcoal">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
-                  {item}
+                  {item.href ? <a href={item.href} className="transition hover:text-brand">{item.label}</a> : item.label}
                 </div>
               ))}
             </div>

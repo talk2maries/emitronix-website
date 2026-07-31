@@ -26,7 +26,8 @@ The following values are centralized in `data/site.ts` and are the current sourc
 - Website: https://emitronix.ae
 - Published location: Dubai Investment Park 02, Dubai, UAE
 - Email: info@emitronix.ae
-- Phone: +971559828492
+- Primary office phone: +971 4 824 0002
+- Secondary mobile/WhatsApp: +971 55 982 8492
 - Published hours: Monday to Saturday, 8:00 AM to 6:00 PM
 - Published service areas: Dubai, Abu Dhabi, Sharjah and the United Arab Emirates
 
@@ -81,7 +82,7 @@ The following values are centralized in `data/site.ts` and are the current sourc
 | Low | The branded not-found and global error experience exists but must be tested for semantic status, metadata and keyboard behavior. | `app/not-found.tsx`, `app/error.tsx`, `app/global-error.tsx`, `components/ErrorPageShell.tsx`, middleware | A visually correct error page can still return the wrong status or expose indexable metadata. | Run direct and client-navigation error tests, confirm 404 status and noindex behavior, and retain accessible recovery links. |
 | Low | Mobile navigation and the article enquiry panel require keyboard and responsive-overflow verification that static linting does not provide. | `components/HeaderClient.tsx`, `components/BlogEnquiryPopup.tsx` | Escape-key failures or horizontally clipped form controls create accessibility and conversion friction. | Close menus and prompts on Escape with focus restoration where a trigger exists, connect controls with ARIA attributes and browser-test the panel at representative breakpoints. |
 | Low | Social profiles are intentionally empty. | `data/site.ts`, Organization schema, footer | Missing verified `sameAs` references limits entity corroboration but invented profiles would be worse. | Add only management-confirmed official profile URLs and then reuse them in footer and Organization schema. |
-| Low | The current business phone is stored without display spacing. | `data/site.ts` and contact components | This does not affect dialing but is less readable and can create inconsistent presentation if formatted locally. | Store a canonical phone and derive a human-readable display format consistently, without changing the verified number. |
+| Low | Phone display, dialing and WhatsApp routing depend on distinct office and mobile formats. | `data/site.ts` and contact components | Local formatting or deriving WhatsApp from the office number could create contact-channel drift. | Keep the formatted primary office number, E.164 value and `tel:` URI centralized, and continue deriving WhatsApp only from the secondary mobile value. |
 | Low | Existing validation is comprehensive but there is no dedicated unit-test script. | `package.json`, validation scripts | Regressions are caught mainly through integration/build checks. | Add focused tests only when introducing testable helper behavior; continue using type-check, build and route validators as release gates. |
 
 ## Post-implementation status

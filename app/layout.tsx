@@ -117,6 +117,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const organizationId = absoluteUrl("/#organization");
+  const officeContactId = absoluteUrl("/#office-contact");
+  const mobileContactId = absoluteUrl("/#mobile-contact");
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -130,7 +132,7 @@ export default function RootLayout({
         image: absoluteUrl(brandAssets.socialCard),
         description: site.description,
         email: site.email,
-        telephone: site.phone,
+        telephone: site.phoneE164,
         sameAs: socialLinks.map((item) => item.href),
         founder: {
           "@id": absoluteUrl("/founder#person"),
@@ -156,14 +158,10 @@ export default function RootLayout({
             closes: "18:00",
           },
         ],
-        contactPoint: {
-          "@type": "ContactPoint",
-          telephone: site.phone,
-          email: site.email,
-          contactType: "customer service",
-          areaServed: "AE",
-          availableLanguage: ["English"],
-        },
+        contactPoint: [
+          { "@id": officeContactId },
+          { "@id": mobileContactId },
+        ],
         hasOfferCatalog: {
           "@type": "OfferCatalog",
           name: "Dubai contracting and approval services",
@@ -181,6 +179,33 @@ export default function RootLayout({
             },
           })),
         },
+      },
+      {
+        "@type": "ContactPoint",
+        "@id": officeContactId,
+        name: "Emitronix primary office contact",
+        telephone: site.phoneE164,
+        email: site.email,
+        contactType: "customer service",
+        areaServed: {
+          "@type": "Country",
+          name: "United Arab Emirates",
+        },
+        availableLanguage: ["English", "Arabic"],
+        url: absoluteUrl("/contact"),
+      },
+      {
+        "@type": "ContactPoint",
+        "@id": mobileContactId,
+        name: "Emitronix secondary mobile and WhatsApp contact",
+        telephone: site.mobileE164,
+        contactType: "customer service",
+        areaServed: {
+          "@type": "Country",
+          name: "United Arab Emirates",
+        },
+        availableLanguage: ["English", "Arabic"],
+        url: whatsappUrl,
       },
       {
         "@type": "WebSite",
@@ -270,7 +295,7 @@ gtag('consent', 'default', {
         <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>
         <Footer />
         <CookieConsentManager />
-        <FloatingActions phone={site.phone} whatsappUrl={whatsappUrl} />
+        <FloatingActions phoneHref={site.phoneHref} whatsappUrl={whatsappUrl} />
       </body>
     </html>
   );

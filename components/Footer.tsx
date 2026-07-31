@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, MessageCircle, Phone, Smartphone } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -41,6 +41,7 @@ export function Footer() {
         startProjectTitle: "Bring engineering clarity to your next Dubai build.",
         quote: "Request a Quote",
         whatsapp: "WhatsApp Us",
+        callOffice: "Call Office",
         footerTagline: "Construction, engineering and project information for Dubai and the UAE",
       };
   const currentSectorLinks = isArabic
@@ -76,6 +77,9 @@ export function Footer() {
                 <Link href={localizedPath("/contact", locale)} className="premium-button">
                   {labels.quote} <ArrowRight className="h-4 w-4" />
                 </Link>
+                <a href={site.phoneHref} className="premium-button-light">
+                  {labels.callOffice} <Phone className="h-4 w-4" />
+                </a>
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
                   {labels.whatsapp} <MessageCircle className="h-4 w-4" />
                 </a>
@@ -195,7 +199,17 @@ export function Footer() {
               <ul className="mt-5 grid gap-4 text-sm font-bold text-steel">
                 <li className="flex gap-3">
                   <Phone className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
-                  <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="transition hover:text-brand">{site.phone}</a>
+                  <span>
+                    <span className="block text-xs uppercase tracking-wide text-brand">{isArabic ? "هاتف المكتب" : "Office"}</span>
+                    <a href={site.phoneHref} dir="ltr" className="mt-1 block transition hover:text-brand">{site.phone}</a>
+                  </span>
+                </li>
+                <li className="flex gap-3">
+                  <Smartphone className="mt-0.5 h-4 w-4 shrink-0 text-brand" />
+                  <span>
+                    <span className="block text-xs uppercase tracking-wide text-brand">{isArabic ? "الهاتف المحمول" : "Mobile"}</span>
+                    <a href={site.mobileHref} dir="ltr" className="mt-1 block transition hover:text-brand">{site.mobile}</a>
+                  </span>
                 </li>
                 <li className="flex gap-3">
                   <Mail className="mt-0.5 h-4 w-4 shrink-0 text-brand" />

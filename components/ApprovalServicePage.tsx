@@ -52,7 +52,7 @@ const authoritySources: Record<string, { label: string; href: string }> = {
 };
 
 export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
-  const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
+  const phoneHref = site.phoneHref;
   const deepContent = getApprovalDeepContent(service);
   const approvalFaqs = buildApprovalExpandedFaqs(service);
   const authoritySource = authoritySources[service.slug] ?? {
@@ -100,7 +100,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       "@id": absoluteUrl("/#organization"),
       name: site.legalName,
       url: site.url,
-      telephone: site.phone,
+      telephone: site.phoneE164,
       email: site.email,
     },
     mainEntityOfPage: {
@@ -312,11 +312,11 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
               <Link href="/contact?intent=site-visit" className="premium-button-light">
                 Request a Site Visit <CalendarCheck className="h-4 w-4" />
               </Link>
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-                WhatsApp Us <MessageCircle className="h-4 w-4" />
-              </a>
               <a href={phoneHref} className="premium-button-light">
                 Call Now <PhoneCall className="h-4 w-4" />
+              </a>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+                WhatsApp Us <MessageCircle className="h-4 w-4" />
               </a>
             </div>
           </div>

@@ -277,9 +277,14 @@ export const companyFacts = {
   ] satisfies AuthorityDetail[],
   contact: [
     {
-      label: "Phone",
+      label: "Office phone",
       value: site.phone,
-      href: `tel:${site.phone.replace(/\s/g, "")}`,
+      href: site.phoneHref,
+    },
+    {
+      label: "Secondary mobile",
+      value: site.mobile,
+      href: site.mobileHref,
     },
     {
       label: "Email",

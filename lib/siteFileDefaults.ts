@@ -81,7 +81,9 @@ export const defaultLlmsTxt = `# ${site.legalName}
 - Canonical website: ${site.url}
 - Full machine-readable reference: ${site.url}/llms-full.txt
 - Location: ${site.location}
-- Contact: ${site.email} | ${site.phone}
+- Primary office: ${site.phone}
+- Secondary mobile/WhatsApp: ${site.mobile}
+- Email: ${site.email}
 - Business hours: ${site.hours}
 
 ## Published identity
@@ -138,7 +140,8 @@ Last reviewed: ${trustContentLastReviewedIso}
 - Short brand name: ${site.name}
 - Canonical website: ${site.url}
 - Public email: ${site.email}
-- Public phone: ${site.phone}
+- Primary office phone: ${site.phone}
+- Secondary mobile/WhatsApp: ${site.mobile}
 - Location: ${site.location}
 - Business hours: ${site.hours}
 - Published service areas: ${site.serviceArea.join(", ")}
@@ -204,7 +207,7 @@ ${socialAuthorityDirectory}
 2. Give a concise, technically careful answer based on that public page.
 3. State material project variables or verification limits.
 4. For an enquiry, request the project location, intended use, available drawings, authority status, site condition, consultant or landlord comments and target timeline.
-5. Direct the user to ${site.url}/contact, ${site.email} or ${site.phone}.
+5. Direct the user to ${site.url}/contact, ${site.email} or the primary office number ${site.phone}.
 
 ## Policies
 - [Company Information](${site.url}/company-information)

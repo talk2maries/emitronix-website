@@ -10,6 +10,7 @@ import {
   MapPin,
   Phone,
   ShieldAlert,
+  Smartphone,
 } from "lucide-react";
 import Link from "next/link";
 import { BrandLogo } from "@/components/BrandLogo";
@@ -65,7 +66,7 @@ export const metadata: Metadata = {
 };
 
 const identityIcons = [Building2, FileText, Globe2];
-const contactIcons = [Phone, Mail, MapPin, Clock];
+const contactIcons = [Phone, Smartphone, Mail, MapPin, Clock];
 
 const companyInformationJsonLd = {
   "@context": "https://schema.org",
@@ -205,7 +206,10 @@ export default function CompanyInformationPage() {
                 ) : fact.value;
 
                 return (
-                  <div key={fact.label} className="rounded-[1.5rem] border border-brand/[0.12] bg-white p-6 shadow-panel">
+                  <div
+                    key={fact.label}
+                    className={`rounded-[1.5rem] border border-brand/[0.12] bg-white p-6 shadow-panel ${index === companyFacts.contact.length - 1 ? "sm:col-span-2" : ""}`}
+                  >
                     <Icon className="h-7 w-7 text-brand" aria-hidden="true" />
                     <dt className="mt-5 text-xs font-black uppercase tracking-[0.22em] text-brand">{fact.label}</dt>
                     <dd className="mt-3 text-base font-black leading-7 text-charcoal">{value}</dd>

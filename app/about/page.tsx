@@ -105,7 +105,7 @@ export default function AboutPage() {
         title="A premium Dubai contractor built around clarity."
         description={`${site.legalName} brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.`}
         imageAsset={getGeneratedImage("company.engineering-coordination-dubai-hero")}
-        primaryCta={{ label: "Talk to Emitronix", href: "/contact" }}
+        primaryCta={{ label: "Talk to Emitronix", href: site.phoneHref }}
         secondaryCta={{ label: "Explore Services", href: "/services" }}
         metrics={stats}
       />
@@ -186,7 +186,7 @@ export default function AboutPage() {
         points={[
           site.legalName,
           site.location,
-          site.phone,
+          { label: site.phone, href: site.phoneHref },
           site.email,
         ]}
       />

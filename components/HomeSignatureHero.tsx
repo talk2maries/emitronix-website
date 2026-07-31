@@ -126,6 +126,9 @@ export function HomeSignatureHero() {
             <Link href="/contact" className="premium-button">
               Request a Quote <ArrowRight className="h-4 w-4" />
             </Link>
+            <a href={site.phoneHref} className="premium-button-light">
+              Call Now <PhoneCall className="h-4 w-4" />
+            </a>
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
               WhatsApp Us <MessageCircle className="h-4 w-4" />
             </a>
@@ -133,7 +136,7 @@ export function HomeSignatureHero() {
 
           <div className="mt-10 grid max-w-3xl gap-3 sm:grid-cols-3">
             {[
-              { label: "Call now", icon: PhoneCall, href: `tel:${site.phone.replace(/\s/g, "")}` },
+              { label: "Call now", icon: PhoneCall, href: site.phoneHref },
               { label: "Authority visibility", icon: FileCheck2 },
               { label: "Civil + fit-out control", icon: Layers3 },
             ].map((item) => {

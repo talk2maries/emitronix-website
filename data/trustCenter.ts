@@ -347,7 +347,7 @@ export const disclaimerPolicy: TrustPageContent = {
       title: "Website availability and enquiries",
       paragraphs: [
         "The website may be updated, corrected or temporarily unavailable. An online enquiry is not an accepted project appointment or contractual instruction.",
-        `For a project conversation, contact ${site.legalName} using ${site.email} or ${site.phone}.`,
+        `For a project conversation, contact ${site.legalName} using ${site.email} or the published primary office number.`,
       ],
     },
   ],
@@ -410,7 +410,7 @@ export const accessibilityPolicy: TrustPageContent = {
     {
       title: "Request an accessible alternative",
       paragraphs: [
-        `If content or a website function is difficult to use, email ${site.email} or call ${site.phone}. Include the page address, the task you were trying to complete and the format or assistance that would help.`,
+        `If content or a website function is difficult to use, email ${site.email} or use the published primary office number. Include the page address, the task you were trying to complete and the format or assistance that would help.`,
         `The published business hours are ${site.hours}.`,
       ],
     },
@@ -509,7 +509,7 @@ export const publicFaqs = [
   {
     category: "company",
     question: "How can I contact Emitronix?",
-    answer: `Call ${site.phone}, email ${site.email}, or use the website contact form. Published business hours are ${site.hours}.`,
+    answer: `Use the published primary office number, email ${site.email}, or use the website contact form. Published business hours are ${site.hours}.`,
     links: [{ label: "Contact page", href: "/contact" }],
   },
   {
@@ -678,7 +678,7 @@ export const publicFaqs = [
     category: "trust",
     question: "Which Emitronix business details are published for verification?",
     answer:
-      `The website publishes the legal name ${site.legalName}, the location ${site.location}, phone ${site.phone}, email ${site.email}, business hours and service areas. Registration identifiers, map coordinates or external profile links are published only after management verification rather than being inferred.`,
+      `The website publishes the legal name ${site.legalName}, the location ${site.location}, primary office phone, secondary mobile/WhatsApp contact, email ${site.email}, business hours and service areas. Registration identifiers, map coordinates or external profile links are published only after management verification rather than being inferred.`,
     links: [
       { label: "Company information", href: "/company-information" },
       { label: "Dubai location", href: "/locations/dubai" },

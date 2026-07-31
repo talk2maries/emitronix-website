@@ -1,4 +1,4 @@
-import { ClipboardCheck, FileText, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ClipboardCheck, FileText, Mail, MapPin, MessageCircle, Phone, Smartphone } from "lucide-react";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
@@ -8,8 +8,7 @@ import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
   title: "Contact Emitronix Dubai",
-  description:
-    "Contact Emitronix Contracting LLC in Dubai for civil contracting, villa construction, warehouse projects, authority approvals and interior fit-out enquiries.",
+  description: `Call Emitronix Contracting LLC in Dubai at ${site.phone} for civil contracting, villa, warehouse, authority approval and interior fit-out enquiries.`,
   path: "/contact",
   keywords: ["contact Emitronix Dubai", "Dubai contracting quote", "civil contractor contact", "Dubai Municipality approval contractor"],
   image: getGeneratedImage("company.dubai-project-consultation-hero").og!.src,
@@ -17,7 +16,8 @@ export const generateMetadata = createMetadataResolver({
 });
 
 const contactSignals = [
-  { label: "Phone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}`, icon: Phone },
+  { label: "Office Phone", value: site.phone, href: site.phoneHref, icon: Phone },
+  { label: "Mobile", value: site.mobile, href: site.mobileHref, icon: Smartphone },
   { label: "WhatsApp", value: "Chat with Emitronix", href: whatsappUrl, icon: MessageCircle },
   { label: "Email", value: site.email, href: `mailto:${site.email}`, icon: Mail },
   { label: "Location", value: site.location, href: "/contact", icon: MapPin },
@@ -51,7 +51,7 @@ const contactProcess = [
 const contactFaqs = [
   {
     question: "What is the fastest way to contact Emitronix?",
-    answer: `Call ${site.phone} or email ${site.email}. With consent, the website form sends a structured project enquiry to the company's follow-up system.`,
+    answer: `Use the office Call button or email ${site.email}. With consent, the website form sends a structured project enquiry to the company's follow-up system.`,
   },
   {
     question: "What should I include in a construction enquiry?",
@@ -90,6 +90,7 @@ const contactPageJsonLd = {
   isPartOf: { "@id": absoluteUrl("/#website") },
   about: { "@id": absoluteUrl("/#organization") },
   sameAs: socialLinks.map((item) => item.href),
+  mainEntity: { "@id": absoluteUrl("/#office-contact") },
   breadcrumb: { "@id": `${absoluteUrl("/contact")}#breadcrumb` },
   inLanguage: "en-AE",
 };
@@ -103,7 +104,7 @@ export default function ContactPage() {
         title="Start a premium Dubai project conversation."
         description="Share your civil construction, fit-out, renovation or authority approval requirements. Include the project location, scope, timeline and current approval status."
         imageAsset={getGeneratedImage("company.dubai-project-consultation-hero")}
-        primaryCta={{ label: "Call Emitronix", href: `tel:${site.phone.replace(/\s/g, "")}` }}
+        primaryCta={{ label: "Call Emitronix", href: site.phoneHref }}
         secondaryCta={{ label: "Email Team", href: `mailto:${site.email}` }}
       />
 
@@ -115,7 +116,7 @@ export default function ContactPage() {
               title="Talk to Emitronix."
               description="Reach out for tender invitations, site assessments, authority approval coordination or design-and-build support."
             />
-            <div className="mt-8 grid gap-4">
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {contactSignals.map((item) => {
                 const Icon = item.icon;
                 return (
@@ -124,7 +125,7 @@ export default function ContactPage() {
                     href={item.href}
                     target={item.href.startsWith("http") ? "_blank" : undefined}
                     rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="luxury-card flex gap-4 rounded-[1.5rem] p-5"
+                    className={`luxury-card flex gap-4 rounded-[1.5rem] p-5 ${item.label === "Location" ? "sm:col-span-2" : ""}`}
                   >
                     <Icon className="mt-1 h-5 w-5 shrink-0 text-brand" />
                     <span>
@@ -164,15 +165,24 @@ export default function ContactPage() {
       </section>
 
       <section className="blue-grid section-pad text-charcoal">
-        <div className="container-pad grid gap-5 md:grid-cols-4">
+        <div className="container-pad grid gap-5 md:grid-cols-2 xl:grid-cols-5">
           {contactItems.map((item) => {
             const Icon = item.icon;
-            return (
-              <article key={item.label} className="rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-5 backdrop-blur-xl">
+            const cardContent = (
+              <>
                 <Icon className="h-7 w-7 text-brand" />
                 <h2 className="mt-5 text-lg font-black tracking-tight">{item.label}</h2>
                 <p className="mt-2 text-sm leading-6 text-steel">{item.value}</p>
-              </article>
+              </>
+            );
+            const cardClassName = "rounded-[1.5rem] border border-brand/[0.12] bg-white/[0.82] p-5 backdrop-blur-xl";
+
+            return item.href ? (
+              <a href={item.href} key={item.label} className={`${cardClassName} transition hover:-translate-y-0.5 hover:border-brand/30`}>
+                {cardContent}
+              </a>
+            ) : (
+              <article key={item.label} className={cardClassName}>{cardContent}</article>
             );
           })}
         </div>
@@ -197,7 +207,7 @@ export default function ContactPage() {
         eyebrow="Contact trust"
         title="Consistent published contact details."
         points={[
-          site.phone,
+          { label: site.phone, href: site.phoneHref },
           site.email,
           site.location,
           site.hours,

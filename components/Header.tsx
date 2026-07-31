@@ -14,6 +14,7 @@ export function Header() {
       arabicApprovalServices={approvalServices.map(({ slug, href }) => ({ slug, menuLabel: arabicApprovalTitle(href), href }))}
       contact={{
         phone: site.phone,
+        phoneHref: site.phoneHref,
         email: site.email,
         location: site.location,
       }}

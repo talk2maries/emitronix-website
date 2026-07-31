@@ -21,7 +21,7 @@ function formatArabicDate(date: string) {
 }
 
 export function ArabicSitePage({ page }: { page: ArabicPageData }) {
-  const phoneHref = `tel:${site.phone.replace(/\s/g, "")}`;
+  const phoneHref = site.phoneHref;
   const primaryCta = page.primaryCta ?? { label: arabicUi.quote, href: "/ar/contact" };
   const secondaryCta = page.secondaryCta ?? { label: arabicUi.whatsapp, href: whatsappUrl };
   const heroImage = findGeneratedImageBySrc(page.image);
@@ -79,6 +79,10 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
                 {primaryCta.label}
                 <ArrowLeft className="h-4 w-4" />
               </Link>
+              <a href={phoneHref} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/15 px-6 py-3.5 text-sm font-black uppercase tracking-wide text-white shadow-sm backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-brand focus-ring">
+                {arabicUi.callNow}
+                <Phone className="h-4 w-4" />
+              </a>
               {secondaryCta.href.startsWith("http") ? (
                 <a href={secondaryCta.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/15 px-6 py-3.5 text-sm font-black uppercase tracking-wide text-white shadow-sm backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-brand focus-ring">
                   {secondaryCta.label}
@@ -90,10 +94,6 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
                   <ArrowLeft className="h-4 w-4" />
                 </Link>
               )}
-              <a href={phoneHref} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 bg-white/15 px-6 py-3.5 text-sm font-black uppercase tracking-wide text-white shadow-sm backdrop-blur-xl transition duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-brand focus-ring">
-                {arabicUi.callNow}
-                <Phone className="h-4 w-4" />
-              </a>
             </div>
           </div>
         </div>
@@ -112,7 +112,12 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
                 <Icon className="mt-1 h-5 w-5 shrink-0 text-brand" />
                 <span>
                   <span className="block text-xs font-black uppercase tracking-wide text-brand">{item.label}</span>
-                  <span className="mt-2 block text-sm font-bold leading-6 text-charcoal">{item.value}</span>
+                  <span
+                    dir={item.href.startsWith("tel:") ? "ltr" : undefined}
+                    className="mt-2 block text-sm font-bold leading-6 text-charcoal"
+                  >
+                    {item.value}
+                  </span>
                 </span>
               </a>
             );
@@ -284,13 +289,13 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
                   : "أرسل الموقع، الرسومات المتاحة، حالة الموافقات، نطاق العمل والجدول الزمني المطلوب."}
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-                  {arabicUi.whatsapp}
-                  <MessageCircle className="h-4 w-4" />
-                </a>
                 <a href={phoneHref} className="premium-button-light">
                   {arabicUi.callNow}
                   <Phone className="h-4 w-4" />
+                </a>
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+                  {arabicUi.whatsapp}
+                  <MessageCircle className="h-4 w-4" />
                 </a>
               </div>
             </div>
@@ -319,13 +324,13 @@ export function ArabicSitePage({ page }: { page: ArabicPageData }) {
               {arabicUi.contactTeam}
               <ArrowLeft className="h-4 w-4" />
             </Link>
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
-              {arabicUi.whatsapp}
-              <MessageCircle className="h-4 w-4" />
-            </a>
             <a href={phoneHref} className="premium-button-light">
               {arabicUi.callNow}
               <Phone className="h-4 w-4" />
+            </a>
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="premium-button-light">
+              {arabicUi.whatsapp}
+              <MessageCircle className="h-4 w-4" />
             </a>
           </div>
         </div>

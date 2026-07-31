@@ -4,7 +4,7 @@ This appendix covers all 38 Arabic URLs currently present in the generated sitem
 
 ## Evidence and measurement boundaries
 
-- Verified identity and public facts come from `data/site.ts`: **Emitronix Contracting LLC**, `https://emitronix.ae`, Dubai Investment Park 02, Dubai, UAE, `+971559828492`, `info@emitronix.ae`, Monday–Saturday 8:00 AM–6:00 PM, and the published Dubai/UAE service scope.
+- Verified identity and public facts come from `data/site.ts`: **Emitronix Contracting LLC**, `https://emitronix.ae`, Dubai Investment Park 02, Dubai, UAE, primary office `+971 4 824 0002`, secondary mobile/WhatsApp `+971 55 982 8492`, `info@emitronix.ae`, Monday–Saturday 8:00 AM–6:00 PM, and the published Dubai/UAE service scope.
 - Published services include civil contracting, main contracting, warehouse, industrial and commercial building construction, villa construction, interior fit-out, renovation, structural works, design-build, turnkey construction, project management and authority-coordination support.
 - Authority terms below describe **coordination/support**, not approval guarantees, authority endorsement, contractor registration or certification.
 - `DIP`, `JAFZA`, Dubai South, Jebel Ali, Al Quoz and Business Bay occur in repository content and may be used as natural contextual modifiers. Dubai Industrial City, DSO and a broader DMCC/JLT local-service claim require verification before a dedicated page is published.

@@ -25,6 +25,7 @@ export const arabicFooterLabels = {
   startProjectTitle: "امنح مشروعك القادم في دبي وضوحا هندسيا من البداية.",
   quote: "اطلب عرض سعر",
   whatsapp: "واتساب",
+  callOffice: "اتصل بالمكتب",
   footerTagline: "شركة مقاولات في دبي | مقاول أعمال مدنية | تنسيق موافقات الجهات",
 };
 
@@ -416,7 +417,7 @@ const commonPages: Record<string, ArabicPageData> = {
         eyebrow: "دبي، الإمارات",
         title: "تواصل مع Emitronix.",
         body: [
-          `الهاتف: ${site.phone}`,
+          "استخدم رقم هاتف المكتب المنشور للتواصل المباشر مع فريق Emitronix.",
           `البريد الإلكتروني: ${site.email}`,
           `الموقع: ${site.location}`,
           "تساعد تفاصيل المشروع المبكرة على تحديد ما إذا كان المسار المناسب مدنيا أو داخليا أو مرتبطا بالموافقات أو يجمع بينها.",

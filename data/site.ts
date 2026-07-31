@@ -19,6 +19,7 @@ import {
   Phone,
   Ruler,
   ShieldCheck,
+  Smartphone,
   Sparkles,
   Users,
   Warehouse,
@@ -26,6 +27,9 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import type { GeneratedImageKey } from "@/data/generatedImages";
+
+const officePhoneE164 = "+97148240002";
+const mobilePhoneE164 = "+971559828492";
 
 export const site = {
   name: "Emitronix",
@@ -36,7 +40,12 @@ export const site = {
   url: "https://emitronix.ae",
   location: "Dubai Investment Park 02, Dubai, UAE",
   email: "info@emitronix.ae",
-  phone: "+971559828492",
+  phone: "+971 4 824 0002",
+  phoneE164: officePhoneE164,
+  phoneHref: `tel:${officePhoneE164}`,
+  mobile: "+971 55 982 8492",
+  mobileE164: mobilePhoneE164,
+  mobileHref: `tel:${mobilePhoneE164}`,
   hours: "Mon - Sat 8:00 AM - 6:00 PM",
   serviceArea: ["Dubai", "Abu Dhabi", "Sharjah", "United Arab Emirates"],
 };
@@ -54,7 +63,7 @@ export const brandAssets = {
   appIcon512: "/icons/emitronix-icon-512.png",
 } as const;
 
-export const whatsappUrl = `https://wa.me/${site.phone.replace(/\D/g, "")}`;
+export const whatsappUrl = `https://wa.me/${site.mobileE164.replace(/^\+/, "")}`;
 
 export const absoluteUrl = (path: string) => {
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
@@ -87,10 +96,11 @@ export const navItems: NavItem[] = [
 ];
 
 export const contactItems = [
-  { label: "Phone", value: site.phone, href: `tel:${site.phone.replace(/\s/g, "")}`, icon: Phone },
+  { label: "Office Phone", value: site.phone, href: site.phoneHref, icon: Phone },
+  { label: "Mobile", value: site.mobile, href: site.mobileHref, icon: Smartphone },
   { label: "Email", value: site.email, href: `mailto:${site.email}`, icon: Mail },
   { label: "Location", value: site.location, href: "/locations/dubai", icon: MapPin },
-  { label: "Hours", value: site.hours, href: "/contact", icon: Clock },
+  { label: "Hours", value: site.hours, href: undefined, icon: Clock },
 ];
 
 export const socialLinks: Array<{ label: string; href: string; icon: LucideIcon }> = [

@@ -204,7 +204,7 @@ export function ContactStrip() {
   return (
     <section className="border-y border-brand/[0.10] bg-white py-10">
       <div className="container-pad grid gap-4 sm:grid-cols-3">
-        <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="flex items-start gap-3 rounded-2xl p-3 transition hover:bg-brand-soft">
+        <a href={site.phoneHref} className="flex items-start gap-3 rounded-2xl p-3 transition hover:bg-brand-soft">
           <Phone className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
           <span>
             <span className="block text-xs font-black uppercase tracking-wide text-steel">Phone</span>
@@ -293,7 +293,7 @@ export function TrustPolicyPage({ content }: { content: TrustPageContent }) {
                   <Mail className="h-5 w-5 text-brand" aria-hidden="true" />
                   {site.email}
                 </a>
-                <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="mt-4 flex items-center gap-3 font-bold text-charcoal">
+                <a href={site.phoneHref} className="mt-4 flex items-center gap-3 font-bold text-charcoal">
                   <Phone className="h-5 w-5 text-brand" aria-hidden="true" />
                   {site.phone}
                 </a>

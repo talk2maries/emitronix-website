@@ -178,7 +178,7 @@ export function PolicyContentPage({
                 <p className="mt-4 text-base leading-8 text-steel">{complianceLabels[language].contact}</p>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <a href={`mailto:${site.email}`} className="premium-button-light">{site.email}</a>
-                  <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="premium-button">{site.phone}</a>
+                  <a href={site.phoneHref} className="premium-button">{site.phone}</a>
                 </div>
               </section>
             </div>
