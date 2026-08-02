@@ -110,6 +110,10 @@ export const arabicBlogTitles: Record<string, string> = {
   "construction-cost-saving-tips-dubai": "نصائح لتقليل تكلفة البناء في دبي دون التأثير على الجودة",
 };
 
+function translatedBlogPosts() {
+  return blogPosts.filter((post) => post.slug in arabicBlogTitles);
+}
+
 const commonPages: Record<string, ArabicPageData> = {
   "/": {
     path: "/",
@@ -339,7 +343,7 @@ const commonPages: Record<string, ArabicPageData> = {
         body: [
           "اختر مقالا لفهم المتطلبات العملية قبل بدء التنفيذ أو طلب عرض السعر.",
         ],
-        links: blogPosts.map((post) => ({
+        links: translatedBlogPosts().map((post) => ({
           label: arabicBlogTitle(post),
           href: `/ar/blog/${post.slug}`,
         })),
@@ -1208,7 +1212,7 @@ export const englishBaseRoutes = [
   "/terms-and-conditions",
   ...services.map((service) => service.href),
   ...allServiceAliasPaths(),
-  ...blogPosts.map((post) => `/blog/${post.slug}`),
+  ...translatedBlogPosts().map((post) => `/blog/${post.slug}`),
   ...approvalServices.map((service) => service.href),
 ];
 
@@ -1237,7 +1241,7 @@ export function arabicPathLabel(arabicPath: string) {
   if (service) return arabicServiceTitle(service.href);
   if (arabicServiceTitles[englishPath]) return arabicServiceTitles[englishPath];
   if (arabicApprovalTitles[englishPath]) return arabicApprovalTitles[englishPath];
-  const blogPost = blogPosts.find((post) => `/blog/${post.slug}` === englishPath);
+  const blogPost = translatedBlogPosts().find((post) => `/blog/${post.slug}` === englishPath);
   if (blogPost) return arabicBlogTitle(blogPost);
   if (englishPath === "/cookie-policy") return "سياسة ملفات تعريف الارتباط";
   if (englishPath === "/privacy-policy") return "سياسة الخصوصية";
@@ -1286,7 +1290,7 @@ export function getArabicPageByEnglishPath(path: string): ArabicPageData | null 
     };
   }
 
-  const blogPost = blogPosts.find((post) => `/blog/${post.slug}` === cleanPath);
+  const blogPost = translatedBlogPosts().find((post) => `/blog/${post.slug}` === cleanPath);
   if (blogPost) return arabicBlogPage(blogPost);
 
   return null;
@@ -1304,7 +1308,7 @@ export function getArabicMetadata(page: ArabicPageData): Metadata {
   const imageHeight = socialImage?.height ?? 941;
   const article =
     page.kind === "blog-post"
-      ? blogPosts.find((post) => `/blog/${post.slug}` === page.path)
+      ? translatedBlogPosts().find((post) => `/blog/${post.slug}` === page.path)
       : undefined;
 
   return {

@@ -8,7 +8,7 @@ import { blogImageAlt, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } fr
 import { getGeneratedImage } from "@/data/generatedImages";
 import { applySeoOverrides, resolveMetaTitle } from "@/data/seo";
 import { absoluteUrl, services, site } from "@/data/site";
-import { toArabicPath } from "@/lib/i18n";
+import { hasArabicPage, toArabicPath } from "@/lib/i18n";
 import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
 
 type BlogArticlePageProps = {
@@ -49,6 +49,20 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
   const imageAsset = getGeneratedImage(post.generatedImage);
   const socialImage = imageAsset.og ?? imageAsset.desktop;
   const imageUrl = absoluteUrl(socialImage.src);
+  const path = `/blog/${post.slug}`;
+  const languages = hasArabicPage(path)
+    ? {
+        en: url,
+        ar: absoluteUrl(toArabicPath(path)),
+        "en-AE": url,
+        "ar-AE": absoluteUrl(toArabicPath(path)),
+        "x-default": url,
+      }
+    : {
+        en: url,
+        "en-AE": url,
+        "x-default": url,
+      };
 
   const base: Metadata = {
     title: {
@@ -58,13 +72,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
     keywords: post.targetKeywords,
     alternates: {
       canonical: url,
-      languages: {
-        en: url,
-        ar: absoluteUrl(toArabicPath(`/blog/${post.slug}`)),
-        "en-AE": url,
-        "ar-AE": absoluteUrl(toArabicPath(`/blog/${post.slug}`)),
-        "x-default": url,
-      },
+      languages,
     },
     robots: {
       index: true,

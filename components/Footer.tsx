@@ -8,7 +8,7 @@ import { CookieSettingsFooterButton } from "@/components/CookieConsentManager";
 import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
 import { approvalServices } from "@/data/approvals";
 import { arabicApprovalTitle, arabicFooterLabels, arabicNavItems, arabicServiceTitle } from "@/data/arabic";
-import { navItems, services, site, whatsappUrl } from "@/data/site";
+import { navItems, services, site, socialLinks, whatsappUrl } from "@/data/site";
 import { isArabicPath, localizedPath } from "@/lib/i18n";
 
 const sectorLinks = [
@@ -206,6 +206,28 @@ export function Footer() {
                   <span>{isArabic ? "مجمع دبي للاستثمار 02، دبي، الإمارات" : site.location}</span>
                 </li>
               </ul>
+              {!isArabic && socialLinks.length > 0 ? (
+                <div className="mt-6">
+                  <h4 className="text-xs font-black uppercase tracking-[0.2em] text-charcoal">Follow Emitronix</h4>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {socialLinks.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <a
+                          key={item.href}
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Emitronix on ${item.label}`}
+                          className="grid h-10 w-10 place-items-center rounded-xl border border-brand/[0.12] bg-brand-soft text-brand transition hover:border-brand/30 hover:bg-brand hover:text-white"
+                        >
+                          <Icon className="h-4 w-4" aria-hidden="true" />
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
 

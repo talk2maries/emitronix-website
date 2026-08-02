@@ -5,6 +5,7 @@ import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
 import { createPageMetadata } from "@/data/seo";
 import { navItems, services } from "@/data/site";
+import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 
 type SearchPageProps = {
   searchParams: Promise<{ q?: string }>;
@@ -85,6 +86,20 @@ const searchIndex: SearchResult[] = [
     description: service.metaDescription,
     category: "Approval",
     keywords: service.keywords,
+  })),
+  ...warehouseAuthorityPages.map((page) => ({
+    title: page.title,
+    href: page.href,
+    description: page.metaDescription,
+    category: "Warehouse",
+    keywords: [
+      page.keyword,
+      page.category,
+      "Warehouse Construction Dubai",
+      "Warehouse Contractor Dubai",
+      "Industrial Contractor Dubai",
+      "Authority Approvals Dubai",
+    ],
   })),
   ...blogPosts.map((post) => ({
     title: post.title,

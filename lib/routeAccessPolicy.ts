@@ -1,3 +1,5 @@
+import { warehouseBlogSlugs } from "@/data/warehouseRoutes";
+
 const servicePaths = [
   "/civil",
   "/main-contracting",
@@ -46,6 +48,14 @@ const blogArticlePaths = [
   "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
   "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
   "/blog/choose-best-building-contractor-dubai",
+  ...warehouseBlogSlugs.map((slug) => `/blog/${slug}`),
+];
+
+const translatedBlogArticlePaths = [
+  "/blog/complete-guide-civil-construction-dubai-2026",
+  "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
+  "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
+  "/blog/choose-best-building-contractor-dubai",
 ] as const;
 
 const arabicCommonPaths = [
@@ -73,7 +83,7 @@ const knownArabicPaths = new Set<string>([
   ...servicePaths.map((path) => `/ar${path}`),
   ...serviceAliasPaths.map((path) => `/ar${path}`),
   ...approvalPaths.map((path) => `/ar${path}`),
-  ...blogArticlePaths.map((path) => `/ar${path}`),
+  ...translatedBlogArticlePaths.map((path) => `/ar${path}`),
 ]);
 
 /**

@@ -6,6 +6,7 @@ import { blogPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, navItems, services, stats } from "@/data/site";
+import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 
 export const generateMetadata = createMetadataResolver({
   title: "HTML Sitemap",
@@ -54,6 +55,10 @@ const pageGroups = [
       { label: "Authority Approvals Hub", href: "/approval" },
       ...approvalServices.map((service) => ({ label: service.menuLabel, href: service.href })),
     ],
+  },
+  {
+    title: "Warehouse construction authority silo",
+    links: warehouseAuthorityPages.map((page) => ({ label: page.title, href: page.href })),
   },
   {
     title: "Construction knowledge center",

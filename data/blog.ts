@@ -1,5 +1,6 @@
 import { absoluteUrl, site } from "@/data/site";
 import type { GeneratedImageKey } from "@/data/generatedImages";
+import { warehouseBlogPosts } from "@/data/warehouseSeo";
 
 export const blogCategories = [
   "Civil Construction",
@@ -96,7 +97,7 @@ export function toBlogPostSummary(post: BlogPost): BlogPostSummary {
 
 export const blogImageAlt = (post: Pick<BlogPost, "imageAlt">) => post.imageAlt;
 
-export const blogPosts: BlogPost[] = [
+const coreBlogPosts: BlogPost[] = [
   {
     slug: "complete-guide-civil-construction-dubai-2026",
     title: "Complete Guide to Civil Construction in Dubai (2026)",
@@ -1294,6 +1295,8 @@ export const draftStrategicBlogPosts: DraftBlogPost[] = [
     relatedSlugs: ["choose-best-building-contractor-dubai", "main-contractor-vs-general-contractor-dubai", "complete-guide-civil-construction-dubai-2026"],
   }),
 ];
+
+export const blogPosts: BlogPost[] = [...coreBlogPosts, ...warehouseBlogPosts];
 
 export const getBlogPost = (slug: string) => blogPosts.find((post) => post.slug === slug);
 

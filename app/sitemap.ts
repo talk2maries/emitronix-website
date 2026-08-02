@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
 import { absoluteUrl, services, site } from "@/data/site";
+import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 import {
   faqContentLastReviewedIso,
   trustContentLastReviewedIso,
@@ -18,6 +19,19 @@ type RouteRecord = {
   priority?: number;
 };
 
+const sitemapTranslatedBlogPaths = new Set([
+  "/blog/complete-guide-civil-construction-dubai-2026",
+  "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
+  "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
+  "/blog/choose-best-building-contractor-dubai",
+]);
+
+function hasSitemapArabicPage(path: string) {
+  const englishPath = toEnglishPath(path);
+  if (englishPath.startsWith("/warehouse/")) return false;
+  if (englishPath.startsWith("/blog/")) return sitemapTranslatedBlogPaths.has(englishPath);
+  return hasArabicPage(englishPath);
+}
 const coreRoutes: RouteRecord[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/about", priority: 0.8, lastModified: trustContentLastReviewedIso },
@@ -53,7 +67,7 @@ const coreRoutes: RouteRecord[] = [
 function languageAlternates(path: string) {
   const englishPath = toEnglishPath(path);
   const englishUrl = absoluteUrl(englishPath);
-  if (!hasArabicPage(englishPath)) {
+  if (!hasSitemapArabicPage(englishPath)) {
     return {
       en: englishUrl,
       "en-AE": englishUrl,
@@ -107,7 +121,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   for (const path of [...excluded]) {
     const englishPath = toEnglishPath(path);
     excluded.add(englishPath);
-    if (hasArabicPage(englishPath)) excluded.add(toArabicPath(englishPath));
+    if (hasSitemapArabicPage(englishPath)) excluded.add(toArabicPath(englishPath));
   }
 
   const extras = (siteFiles.sitemapExtraUrls || "")
@@ -129,6 +143,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
       lastModified: trustContentLastReviewedIso,
     })),
+    ...warehouseAuthorityPages.map((page) => ({
+      path: page.href,
+      priority: 0.78,
+      lastModified: trustContentLastReviewedIso,
+    })),
     ...blogPosts.map((post) => ({
       path: `/blog/${post.slug}`,
       lastModified: post.modifiedDate,
@@ -141,11 +160,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((path) => {
       const englishPath = toEnglishPath(path);
       if (!knownCanonicalPaths.has(englishPath)) return false;
-      return path === englishPath || (hasArabicPage(englishPath) && path === toArabicPath(englishPath));
+      return path === englishPath || (hasSitemapArabicPage(englishPath) && path === toArabicPath(englishPath));
     })
     .map((path) => ({ path, priority: 0.5 }));
   const arabicRecords = englishRecords
-    .filter((record) => hasArabicPage(record.path))
+    .filter((record) => hasSitemapArabicPage(record.path))
     .map((record) => ({
       ...record,
       path: toArabicPath(record.path),

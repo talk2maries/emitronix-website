@@ -3,7 +3,7 @@ import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/Con
 import { ContactForm } from "@/components/ContactForm";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { getGeneratedImage } from "@/data/generatedImages";
-import { absoluteUrl, contactItems, site, whatsappUrl } from "@/data/site";
+import { absoluteUrl, contactItems, site, socialLinks, whatsappUrl } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
@@ -89,6 +89,7 @@ const contactPageJsonLd = {
   description: "Published contact details and project enquiry route for Emitronix Contracting LLC.",
   isPartOf: { "@id": absoluteUrl("/#website") },
   about: { "@id": absoluteUrl("/#organization") },
+  sameAs: socialLinks.map((item) => item.href),
   breadcrumb: { "@id": `${absoluteUrl("/contact")}#breadcrumb` },
   inLanguage: "en-AE",
 };
@@ -133,6 +134,26 @@ export default function ContactPage() {
                   </a>
                 );
               })}
+            </div>
+            <div className="mt-6 rounded-[1.5rem] border border-brand/[0.14] bg-brand-soft p-5">
+              <h2 className="text-sm font-black uppercase tracking-[0.2em] text-charcoal">Official profiles</h2>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {socialLinks.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-brand/[0.12] bg-white px-4 py-2 text-xs font-black uppercase tracking-wide text-brand transition hover:border-brand/30 hover:bg-brand hover:text-white"
+                    >
+                      <Icon className="h-4 w-4" aria-hidden="true" />
+                      {item.label}
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

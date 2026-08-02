@@ -12,6 +12,7 @@ import {
   brandLogoImageObject,
   services,
   site,
+  socialLinks,
   whatsappUrl,
 } from "@/data/site";
 import { googleTagManagerId } from "@/lib/googleTagManager";
@@ -130,6 +131,7 @@ export default function RootLayout({
         description: site.description,
         email: site.email,
         telephone: site.phone,
+        sameAs: socialLinks.map((item) => item.href),
         founder: {
           "@id": absoluteUrl("/founder#person"),
         },
@@ -190,6 +192,11 @@ export default function RootLayout({
           "@id": organizationId,
         },
         inLanguage: ["en-AE", "ar-AE"],
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${site.url}/search?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
       },
     ],
   };

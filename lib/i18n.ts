@@ -28,7 +28,15 @@ const englishOnlyPaths = [
   "/locations",
   "/search",
   "/technical-review-policy",
+  "/warehouse",
 ];
+
+const translatedBlogPaths = new Set([
+  "/blog/complete-guide-civil-construction-dubai-2026",
+  "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
+  "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
+  "/blog/choose-best-building-contractor-dubai",
+]);
 
 function pathnameOnly(value: string) {
   return value.split(/[?#]/, 1)[0] || "/";
@@ -36,6 +44,7 @@ function pathnameOnly(value: string) {
 
 export function hasArabicPage(pathname: string) {
   const englishPath = toEnglishPath(pathnameOnly(pathname));
+  if (englishPath.startsWith("/blog/")) return translatedBlogPaths.has(englishPath);
   return !englishOnlyPaths.some((path) => englishPath === path || englishPath.startsWith(`${path}/`));
 }
 

@@ -4,6 +4,7 @@ import {
   Building2,
   ClipboardCheck,
   Clock,
+  ExternalLink,
   Factory,
   FileCheck2,
   Flame,
@@ -92,7 +93,33 @@ export const contactItems = [
   { label: "Hours", value: site.hours, href: "/contact", icon: Clock },
 ];
 
-export const socialLinks: Array<{ label: string; href: string; icon: LucideIcon }> = [];
+export const socialLinks: Array<{ label: string; href: string; icon: LucideIcon }> = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=61591789313979",
+    icon: ExternalLink,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/emitronix-contracting-llc",
+    icon: ExternalLink,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/etnxllc/",
+    icon: ExternalLink,
+  },
+  {
+    label: "X",
+    href: "https://x.com/etnxllc",
+    icon: ExternalLink,
+  },
+  {
+    label: "Pinterest",
+    href: "https://pin.it/5MhLO8Rme",
+    icon: ExternalLink,
+  },
+];
 
 export type Service = {
   title: string;

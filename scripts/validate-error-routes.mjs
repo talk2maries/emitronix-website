@@ -75,11 +75,33 @@ const approvalPagePaths = [
   "/rta-approval",
 ];
 
-const blogPagePaths = [
+const translatedBlogPagePaths = [
   "/blog/complete-guide-civil-construction-dubai-2026",
   "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
   "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
   "/blog/choose-best-building-contractor-dubai",
+];
+
+const generatedBlogPagePaths = [
+  "/blog/warehouse-construction-dubai-planning-guide",
+  "/blog/warehouse-authority-approvals-dubai-approval-checklist",
+  "/blog/warehouse-cost-planning-dubai-cost-factors",
+];
+
+const blogPagePaths = [
+  ...translatedBlogPagePaths,
+  ...generatedBlogPagePaths,
+];
+
+const warehouseSiloPagePaths = [
+  "/warehouse/warehouse-construction-dubai",
+  "/warehouse/warehouse-contractors-dubai",
+  "/warehouse/warehouse-design-build",
+  "/warehouse/warehouse-authority-approvals",
+  "/warehouse/warehouse-dewa-approvals",
+  "/warehouse/warehouse-dcd-approvals",
+  "/warehouse/warehouse-fit-out",
+  "/warehouse/warehouse-turnkey-contractor",
 ];
 
 const arabicCommonPagePaths = [
@@ -129,12 +151,13 @@ const validPagePaths = Array.from(new Set([
   "/search",
   "/guest-post",
   ...servicePagePaths,
+  ...warehouseSiloPagePaths,
   ...approvalPagePaths,
   ...blogPagePaths,
   ...arabicCommonPagePaths,
   ...servicePagePaths.map((path) => `/ar${path}`),
   ...approvalPagePaths.map((path) => `/ar${path}`),
-  ...blogPagePaths.map((path) => `/ar${path}`),
+  ...translatedBlogPagePaths.map((path) => `/ar${path}`),
 ]));
 
 const permanentRedirects = [
@@ -560,3 +583,4 @@ if (failures.length > 0) {
 } else {
   console.log(`Route validation passed (${checks} checks).`);
 }
+

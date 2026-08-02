@@ -19,6 +19,7 @@ import {
   whatsappUrl,
 } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
+import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
@@ -40,6 +41,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const primaryImageUrl = absoluteUrl(service.image);
   const serviceImage = getGeneratedImage(service.generatedImage);
   const serviceVideo = getServiceVideo(service.href);
+  const isWarehouseService = service.href === "/warehouse-construction";
   const relatedLinks = service.relatedHrefs.map((href) => {
     const relatedService = allServices.find((item) => item.href === href);
     const relatedApproval = approvalServices.find((item) => item.href === href);
@@ -752,6 +754,31 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           "Responsive enquiry and handover focus",
         ]}
       />
+
+      {isWarehouseService ? (
+        <section id="warehouse-authority-silo" className="section-pad soft-section">
+          <div className="container-pad">
+            <PremiumSectionHeading
+              eyebrow="Warehouse authority silo"
+              title="Warehouse construction pages for deeper Dubai project planning."
+              description="Use these supporting pages to explore warehouse construction, civil works, steel structures, authority approvals, fit-out, maintenance and handover topics with stronger internal context."
+              align="center"
+            />
+            <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {warehouseAuthorityPages.map((page) => (
+                <Link key={page.href} href={page.href} className="luxury-card rounded-[1.35rem] p-5">
+                  <p className="premium-kicker">{page.category}</p>
+                  <h2 className="mt-3 text-xl font-black leading-snug text-charcoal">{page.title}</h2>
+                  <p className="mt-3 text-sm leading-7 text-steel">{page.metaDescription}</p>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+                    Open topic <ArrowRight className="h-4 w-4" />
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       <section className="section-pad bg-white">
         <div className="container-pad">
