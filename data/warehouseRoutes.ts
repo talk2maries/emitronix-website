@@ -109,6 +109,29 @@ export const warehouseBlogClusterSeeds = [
   "Warehouse Project Management Dubai",
 ] as const;
 
+export const warehouseBlogResourceSlugs = {
+  "Warehouse Construction Dubai": "warehouse-construction-dubai",
+  "Warehouse Contractors Dubai": "warehouse-contractors-dubai",
+  "Industrial Warehouse Construction UAE": "industrial-warehouse-construction",
+  "Steel Warehouse Construction Dubai": "steel-warehouse-construction",
+  "Warehouse Design and Build Dubai": "warehouse-design-build",
+  "Warehouse Authority Approvals Dubai": "warehouse-authority-approvals",
+  "Warehouse DEWA Approvals": "warehouse-dewa-approvals",
+  "Warehouse DCD Approvals": "warehouse-dcd-approvals",
+  "Warehouse Dubai Municipality Approvals": "warehouse-dm-approvals",
+  "Cold Storage Warehouse Construction": "cold-storage-warehouse",
+  "Logistics Warehouse Construction": "logistics-warehouse",
+  "Warehouse Fit Out Dubai": "warehouse-fit-out",
+  "Warehouse Renovation Dubai": "warehouse-renovation",
+  "Warehouse Flooring Dubai": "warehouse-flooring",
+  "Warehouse Fire Fighting Dubai": "warehouse-fire-fighting",
+  "Warehouse MEP Coordination Dubai": "warehouse-mep",
+  "Factory Construction UAE": "factory-construction",
+  "Industrial Building Construction Dubai": "industrial-building-construction",
+  "Warehouse Cost Planning Dubai": "warehouse-cost-guide",
+  "Warehouse Project Management Dubai": "warehouse-project-management",
+} as const satisfies Record<(typeof warehouseBlogClusterSeeds)[number], string>;
+
 export const warehouseBlogAngles = [
   { suffix: "Planning Guide", slugSuffix: "planning-guide", intent: "plan the project before contractor appointment" },
   { suffix: "Approval Checklist", slugSuffix: "approval-checklist", intent: "understand authority approval and document readiness" },

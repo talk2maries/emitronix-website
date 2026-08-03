@@ -1,6 +1,7 @@
 import type { BlogPost } from "@/data/blog";
 import type { GeneratedImageKey } from "@/data/generatedImages";
 import {
+  warehouseBlogResourceSlugs,
   warehouseBlogTopics,
   warehouseSiloTopics,
   type WarehouseSiloTopic,
@@ -377,12 +378,16 @@ function makePage(topic: WarehouseSiloTopic, index: number): WarehouseAuthorityP
 export const warehouseAuthorityPages: WarehouseAuthorityPage[] = warehouseSiloTopics.map(makePage);
 
 function matchingWarehousePage(keyword: string) {
-  const normalized = keyword.toLowerCase();
-  return (
-    warehouseAuthorityPages.find((page) => normalized.includes(page.slug.replace(/-/g, " ").replace("uae", "").trim())) ??
-    warehouseAuthorityPages.find((page) => normalized.includes(page.title.toLowerCase().split(" ")[0])) ??
-    warehouseAuthorityPages[0]
-  );
+  const resourceSlug = warehouseBlogResourceSlugs[
+    keyword as keyof typeof warehouseBlogResourceSlugs
+  ];
+  const resourcePage = warehouseAuthorityPages.find((page) => page.slug === resourceSlug);
+
+  if (!resourcePage) {
+    throw new Error(`Missing warehouse resource mapping for blog topic: ${keyword}`);
+  }
+
+  return resourcePage;
 }
 
 function warehouseArticleLens(angle: (typeof warehouseBlogTopics)[number]["angle"]) {
@@ -777,4 +782,3 @@ function makeBlogPost(topic: (typeof warehouseBlogTopics)[number], index: number
 }
 
 export const warehouseBlogPosts: BlogPost[] = warehouseBlogTopics.map(makeBlogPost);
-
