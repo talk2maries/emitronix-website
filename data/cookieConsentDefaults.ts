@@ -64,11 +64,11 @@ export const cookieCategoryIds: CookieCategoryId[] = ["necessary", "analytics", 
 
 export const cookieLanguages: CookieLanguage[] = ["en", "ar"];
 
-const updatedAt = "2026-07-24T00:00:00.000Z";
+const updatedAt = "2026-08-03T00:00:00.000Z";
 
 export const defaultCookieConsentConfig: CookieConsentConfig = {
   enabled: true,
-  version: 1,
+  version: 2,
   consentExpiryDays: 180,
   updatedAt,
   banner: {
@@ -180,7 +180,7 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
         ar: "وظيفية",
       },
       description: {
-        en: "Remembers optional preferences such as language, display choices and enhanced website features.",
+        en: "Remembers optional preferences such as language, display choices and enhanced website features, including the Zoho SalesIQ live chat widget when you allow it.",
         ar: "تتذكر التفضيلات الاختيارية مثل اللغة وخيارات العرض والميزات المحسنة للموقع.",
       },
     },

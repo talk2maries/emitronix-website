@@ -184,6 +184,34 @@ test("Google collection is blocked for every Google-mapped consent downgrade", (
   );
 });
 
+test("Zoho SalesIQ requests are blocked when functional consent is revoked", () => {
+  const pageUrl = "https://www.emitronix.ae/";
+  const revoked = {
+    analytics: false,
+    marketing: false,
+    functional: true,
+    performance: false,
+    any: true,
+  };
+
+  assert.equal(
+    shouldBlockRevokedTrackingRequest({
+      input: "https://salesiq.zohopublic.com/widget?wc=siq-example",
+      pageUrl,
+      revoked,
+    }),
+    true,
+  );
+  assert.equal(
+    shouldBlockRevokedTrackingRequest({
+      input: "https://emitronix.ae/images/logo.png",
+      pageUrl,
+      revoked,
+    }),
+    false,
+  );
+});
+
 test("standard GTM bootstrap and noscript exist once without a consent-loader duplicate", async () => {
   const [layout, consentManager] = await Promise.all([
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
@@ -196,6 +224,9 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
   assert.equal(layout.match(/googletagmanager\.com\/ns\.html/g)?.length, 1);
   assert.equal(consentManager.match(/googletagmanager\.com\/gtm\.js/g)?.length || 0, 0);
   assert.equal(consentManager.match(/googletagmanager\.com\/gtag\/js/g)?.length || 0, 0);
+  assert.equal(layout.match(/salesiq\.zohopublic\.com\/widget/g)?.length || 0, 0);
+  assert.equal(consentManager.match(/siq1f4b2e5df11f8540e8c42cce8cfbf087ee91508d4eaaccfbcd68dc760569131fdba231f665cae37d10855c73a0668462/g)?.length || 0, 1);
+  assert.match(consentManager, /loadSalesIqWidget\(\)/);
   for (const field of [
     "ad_storage",
     "analytics_storage",
@@ -210,4 +241,12 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
     layout.indexOf('id="emitronix-google-consent-default"') <
       layout.indexOf('id="emitronix-google-tag-manager"'),
   );
+});
+test("floating action opens Zoho chat instead of the call button", async () => {
+  const floatingActions = await readFile(new URL("../components/FloatingActions.tsx", import.meta.url), "utf8");
+
+  assert.match(floatingActions, /Open Emitronix Zoho chatbot/);
+  assert.match(floatingActions, /Live Chat/);
+  assert.equal(/Call Now/.test(floatingActions), false);
+  assert.equal(/href=\{`tel:/.test(floatingActions), false);
 });

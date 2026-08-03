@@ -1,11 +1,32 @@
 "use client";
 
-import { PhoneCall } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { isArabicPath } from "@/lib/i18n";
 import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
 
-export function FloatingActions({ phone, whatsappUrl }: { phone: string; whatsappUrl: string }) {
+
+type SalesIqLauncherWindow = Window & {
+  EmitronixJyothika?: {
+    open?: () => boolean | void;
+  };
+};
+
+const COOKIE_SETTINGS_EVENT = "emitronix:open-cookie-settings";
+
+const arabicLabels = {
+  whatsapp: "\u062a\u062d\u062f\u062b \u0645\u0639 Emitronix \u0639\u0628\u0631 \u0648\u0627\u062a\u0633\u0627\u0628",
+  needHelp: "\u062a\u062d\u062a\u0627\u062c \u0645\u0633\u0627\u0639\u062f\u0629\u061f",
+  openChat: "\u0627\u0641\u062a\u062d \u062f\u0631\u062f\u0634\u0629 Emitronix",
+  liveChat: "\u062f\u0631\u062f\u0634\u0629 \u0645\u0628\u0627\u0634\u0631\u0629",
+};
+
+function openZohoChat() {
+  const opened = (window as SalesIqLauncherWindow).EmitronixJyothika?.open?.();
+  if (!opened) window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT));
+}
+
+export function FloatingActions({ whatsappUrl }: { phone?: string; whatsappUrl: string }) {
   const pathname = useHydrationSafePathname(usePathname());
   const isArabic = isArabicPath(pathname);
 
@@ -15,7 +36,7 @@ export function FloatingActions({ phone, whatsappUrl }: { phone: string; whatsap
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={isArabic ? "تحدث مع Emitronix عبر واتساب" : "Chat with Emitronix on WhatsApp"}
+        aria-label={isArabic ? arabicLabels.whatsapp : "Chat with Emitronix on WhatsApp"}
         className="fixed bottom-5 left-5 z-[99999] flex items-center gap-3 rounded-full"
       >
         <span className="grid h-14 w-14 place-items-center rounded-full bg-[#25D366] text-white shadow-xl shadow-brand/[0.15] ring-4 ring-white transition hover:scale-105 sm:h-16 sm:w-16">
@@ -24,21 +45,22 @@ export function FloatingActions({ phone, whatsappUrl }: { phone: string; whatsap
           </svg>
         </span>
         <span className="hidden rounded-full border border-brand/[0.15] bg-white/[0.92] px-4 py-3 text-sm font-black uppercase tracking-wide text-charcoal shadow-xl shadow-brand/[0.12] backdrop-blur-xl sm:block">
-          {isArabic ? "تحتاج مساعدة؟" : "Need Help?"}
+          {isArabic ? arabicLabels.needHelp : "Need Help?"}
         </span>
       </a>
-      <a
-        href={`tel:${phone.replace(/\s/g, "")}`}
-        aria-label={isArabic ? "اتصل ب Emitronix" : "Call Emitronix"}
+      <button
+        type="button"
+        onClick={openZohoChat}
+        aria-label={isArabic ? arabicLabels.openChat : "Open Emitronix Zoho chatbot"}
         className="fixed bottom-5 right-5 z-[99999] flex items-center gap-3 rounded-full"
       >
         <span className="grid h-14 w-14 place-items-center rounded-full bg-brand text-white shadow-xl shadow-brand/[0.18] ring-4 ring-white transition hover:scale-105 sm:h-16 sm:w-16">
-          <PhoneCall className="h-7 w-7" />
+          <MessageCircle className="h-7 w-7" />
         </span>
         <span className="hidden rounded-full border border-brand/[0.15] bg-white/[0.92] px-4 py-3 text-sm font-black uppercase tracking-wide text-charcoal shadow-xl shadow-brand/[0.12] backdrop-blur-xl sm:block">
-          {isArabic ? "اتصل الآن" : "Call Now"}
+          {isArabic ? arabicLabels.liveChat : "Live Chat"}
         </span>
-      </a>
+      </button>
     </>
   );
 }

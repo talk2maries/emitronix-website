@@ -40,6 +40,33 @@ type QueuedTrackingFunction = ((...args: unknown[]) => void) & {
   q?: unknown[];
 };
 
+type SalesIqVisibilityState = "show" | "hide";
+
+type ZohoSalesIqApi = {
+  ready?: () => void;
+  floatbutton?: {
+    visible?: (state: SalesIqVisibilityState) => void;
+    click?: () => void;
+  };
+  floatwindow?: {
+    visible?: (state: SalesIqVisibilityState) => void;
+  };
+  chatwindow?: {
+    visible?: (state: SalesIqVisibilityState) => void;
+  };
+  visitor?: {
+    info?: (details: Record<string, string>) => void;
+    customaction?: (action: string) => void;
+  };
+};
+
+type EmitronixJyothikaApi = {
+  open: () => boolean;
+  hide: () => void;
+  refreshPageContext: () => void;
+  isReady: () => boolean;
+};
+
 declare global {
   interface Window {
     dataLayer?: unknown[];
@@ -51,6 +78,10 @@ declare global {
     clarity?: QueuedTrackingFunction;
     hj?: QueuedTrackingFunction;
     _hjSettings?: { hjid: number; hjsv: number };
+    $zoho?: {
+      salesiq?: ZohoSalesIqApi;
+    };
+    EmitronixJyothika?: EmitronixJyothikaApi;
   }
 }
 
@@ -80,6 +111,18 @@ const extraScripts = {
   functional: parseScriptUrls(process.env.NEXT_PUBLIC_COOKIE_FUNCTIONAL_SCRIPT_URLS),
   performance: parseScriptUrls(process.env.NEXT_PUBLIC_COOKIE_PERFORMANCE_SCRIPT_URLS),
 };
+
+const SALESIQ_WIDGET_URL =
+  "https://salesiq.zohopublic.com/widget?wc=siq1f4b2e5df11f8540e8c42cce8cfbf087ee91508d4eaaccfbcd68dc760569131fdba231f665cae37d10855c73a0668462";
+const SALESIQ_SCRIPT_ID = "zsiqscript";
+const SALESIQ_ALLOWED_HOSTS = ["emitronix.ae", "www.emitronix.ae"];
+const SALESIQ_EXCLUDED_PATHS = ["/admin", "/api", "/dashboard", "/preview", "/_next"];
+const SALESIQ_PROACTIVE_ACTION = "emitronix_proactive";
+const SALESIQ_PROACTIVE_DELAY_MS = 10000;
+const SALESIQ_PROACTIVE_KEY = "emitronix_salesiq_proactive_v1";
+let salesIqProactiveFiredInMemory = false;
+let salesIqOpenRequested = false;
+let salesIqReadyHandlerInstalled = false;
 
 function getLocalStorageValue(key: string) {
   try {
@@ -213,6 +256,214 @@ function loadExtraScripts(prefix: string, urls: string[]) {
   urls.forEach((url, index) => injectScript(`${prefix}-${index}`, url));
 }
 
+function cleanSalesIqPath(pathname: string) {
+  const path = pathname.charAt(0) === "/" ? pathname : `/${pathname}`;
+  return path.replace(/^\/(?:en|ar)(?=\/|$)/i, "") || "/";
+}
+
+function salesIqPathIsExcluded(pathname: string) {
+  const path = cleanSalesIqPath(pathname).replace(/\/+$/, "") || "/";
+  return SALESIQ_EXCLUDED_PATHS.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
+}
+
+function salesIqLocationIsAllowed() {
+  return (
+    SALESIQ_ALLOWED_HOSTS.includes(window.location.hostname.toLowerCase()) &&
+    !salesIqPathIsExcluded(window.location.pathname)
+  );
+}
+
+function salesIqPublicPageUrl() {
+  return `${window.location.origin}${window.location.pathname}`;
+}
+
+function getSafeReferrerOrigin() {
+  if (!document.referrer) return "";
+  try {
+    return new URL(document.referrer).origin;
+  } catch {
+    return "";
+  }
+}
+
+function getSalesIqApi() {
+  return window.$zoho?.salesiq;
+}
+
+function setSalesIqFloatButtonVisibility(state: SalesIqVisibilityState) {
+  try {
+    getSalesIqApi()?.floatbutton?.visible?.(state);
+  } catch {
+    // The custom Emitronix launcher remains visible even if the provider API is unavailable.
+  }
+}
+
+function syncSalesIqPageContext() {
+  const api = getSalesIqApi();
+  if (!api) return;
+
+  setSalesIqFloatButtonVisibility("hide");
+  if (!salesIqLocationIsAllowed()) return;
+
+  try {
+    api.visitor?.info?.({
+      "Page URL": salesIqPublicPageUrl(),
+      "Page Path": window.location.pathname,
+      "Page Title": document.title,
+      Referrer: getSafeReferrerOrigin(),
+    });
+  } catch {
+    // Page context is helpful for agents, but chat availability must not depend on it.
+  }
+}
+
+function openSalesIqWindow() {
+  const api = getSalesIqApi();
+  if (!api || !salesIqLocationIsAllowed()) return false;
+
+  syncSalesIqPageContext();
+  let opened = false;
+  try {
+    if (api.floatwindow?.visible) {
+      api.floatwindow.visible("show");
+      opened = true;
+    }
+  } catch {
+    // Try the alternate chat window API below.
+  }
+  try {
+    if (api.chatwindow?.visible) {
+      api.chatwindow.visible("show");
+      opened = true;
+    }
+  } catch {
+    // Some SalesIQ accounts expose only floatwindow.
+  }
+  try {
+    if (api.floatbutton?.click) {
+      api.floatbutton.click();
+      opened = true;
+    }
+  } catch {
+    // Keep using the visible window APIs when click is unavailable.
+  }
+  setSalesIqFloatButtonVisibility("hide");
+  return opened;
+}
+
+function hideSalesIqWidget() {
+  try {
+    getSalesIqApi()?.floatwindow?.visible?.("hide");
+  } catch {
+    // Continue hiding any other exposed widget controls.
+  }
+  try {
+    getSalesIqApi()?.chatwindow?.visible?.("hide");
+  } catch {
+    // Continue hiding the native floating button.
+  }
+  setSalesIqFloatButtonVisibility("hide");
+}
+
+function fireSalesIqProactiveActionOnce() {
+  const api = getSalesIqApi();
+  if (!salesIqLocationIsAllowed() || !api?.visitor?.customaction) return;
+
+  try {
+    if (window.sessionStorage.getItem(SALESIQ_PROACTIVE_KEY) === "1") return;
+    window.sessionStorage.setItem(SALESIQ_PROACTIVE_KEY, "1");
+  } catch {
+    if (salesIqProactiveFiredInMemory) return;
+    salesIqProactiveFiredInMemory = true;
+  }
+
+  try {
+    api.visitor.customaction(SALESIQ_PROACTIVE_ACTION);
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "emitronix_salesiq_proactive",
+      event_source: "jyothika_embed",
+    });
+  } catch {
+    // Ignore provider errors so the page stays usable.
+  }
+}
+
+function loadSalesIqWidget() {
+  const zohoContainer = (window.$zoho = window.$zoho || {});
+  const salesiq = (zohoContainer.salesiq = zohoContainer.salesiq || {});
+
+  window.EmitronixJyothika = {
+    open: () => {
+      salesIqOpenRequested = true;
+      if (openSalesIqWindow()) return true;
+      if (document.getElementById(SALESIQ_SCRIPT_ID)) return true;
+      return false;
+    },
+    hide: hideSalesIqWidget,
+    refreshPageContext: syncSalesIqPageContext,
+    isReady: () => Boolean(getSalesIqApi()?.visitor || getSalesIqApi()?.floatwindow || getSalesIqApi()?.chatwindow),
+  };
+
+  if (!salesIqLocationIsAllowed()) {
+    hideSalesIqWidget();
+    return;
+  }
+
+  if (!salesIqReadyHandlerInstalled) {
+    const previousReady = salesiq.ready;
+    salesiq.ready = () => {
+      if (typeof previousReady === "function") previousReady();
+      syncSalesIqPageContext();
+      if (salesIqOpenRequested) openSalesIqWindow();
+      window.setTimeout(fireSalesIqProactiveActionOnce, SALESIQ_PROACTIVE_DELAY_MS);
+    };
+    salesIqReadyHandlerInstalled = true;
+  }
+
+  if (
+    document.getElementById(SALESIQ_SCRIPT_ID) ||
+    document.querySelector(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`)
+  ) {
+    syncSalesIqPageContext();
+    return;
+  }
+
+  injectScript(SALESIQ_SCRIPT_ID, SALESIQ_WIDGET_URL, syncSalesIqPageContext);
+}
+
+function clearStorageByPatterns(storage: Storage, patterns: RegExp[]) {
+  try {
+    for (let index = storage.length - 1; index >= 0; index -= 1) {
+      const key = storage.key(index);
+      if (key && patterns.some((pattern) => pattern.test(key))) storage.removeItem(key);
+    }
+  } catch {
+    // Browser privacy settings can block storage access.
+  }
+}
+
+function clearSalesIqState() {
+  hideSalesIqWidget();
+  salesIqOpenRequested = false;
+  salesIqReadyHandlerInstalled = false;
+  salesIqProactiveFiredInMemory = false;
+
+  document.getElementById(SALESIQ_SCRIPT_ID)?.remove();
+  document
+    .querySelectorAll(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`)
+    .forEach((script) => script.remove());
+
+  expireCookies([/^zsiq/i, /^zab/i, /^salesiq/i, /^zoho/i, /^ls_csr/i, /^LS_CSRF_TOKEN$/]);
+  clearStorageByPatterns(window.localStorage, [/zoho/i, /salesiq/i, /zsiq/i, /zab/i]);
+  clearStorageByPatterns(window.sessionStorage, [/zoho/i, /salesiq/i, /zsiq/i, /zab/i, /^emitronix_salesiq/i]);
+
+  if (window.$zoho?.salesiq) {
+    window.$zoho.salesiq = {};
+  }
+  window.EmitronixJyothika = undefined;
+}
+
 function loadGrantedIntegrationScripts(categories: ConsentCategoryMap) {
   // This is normally a no-op because a successful downgrade reloads the page.
   // If navigation was blocked, a later grant must restore the old document's
@@ -283,7 +534,10 @@ function loadGrantedIntegrationScripts(categories: ConsentCategoryMap) {
 
   if (categories.analytics) loadExtraScripts("emitronix-extra-analytics", extraScripts.analytics);
   if (categories.marketing) loadExtraScripts("emitronix-extra-marketing", extraScripts.marketing);
-  if (categories.functional) loadExtraScripts("emitronix-extra-functional", extraScripts.functional);
+  if (categories.functional) {
+    loadExtraScripts("emitronix-extra-functional", extraScripts.functional);
+    loadSalesIqWidget();
+  }
   if (categories.performance) loadExtraScripts("emitronix-extra-performance", extraScripts.performance);
 }
 
@@ -341,6 +595,10 @@ function clearRevokedTrackingState(
     }
     if (window.fbq?.queue) window.fbq.queue.length = 0;
     if (window._linkedin_data_partner_ids) window._linkedin_data_partner_ids.length = 0;
+  }
+
+  if (revoked.functional) {
+    clearSalesIqState();
   }
 
   if (revoked.analytics || revoked.performance) {

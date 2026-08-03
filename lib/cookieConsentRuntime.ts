@@ -206,6 +206,13 @@ export function shouldBlockRevokedTrackingRequest({
     return true;
   }
 
+  if (
+    revoked.functional &&
+    ["salesiq.zohopublic.com", "zohopublic.com", "zohostatic.com", "zohocdn.com"].some(hostnameMatches)
+  ) {
+    return true;
+  }
+
   return revokedExtraScriptUrls.some((configuredUrl) => {
     try {
       return new URL(configuredUrl).hostname.toLowerCase() === hostname;
