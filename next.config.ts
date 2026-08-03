@@ -98,6 +98,12 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.emitronix.ae" }],
+        destination: "https://emitronix.ae/:path*",
+        permanent: true,
+      },
+      {
         source: "/approvals",
         destination: "/approval",
         permanent: true,
