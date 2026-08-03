@@ -276,7 +276,7 @@ const commonPages: Record<string, ArabicPageData> = {
         ],
         cards: portfolioProjects.slice(0, 9).map((project) => ({
           title: arabicProjectTitle(project.title),
-          body: `${arabicProjectDescription(project.category)} هذا مثال توضيحي لتخطيط النطاق وليس دراسة حالة لمشروع مكتمل.`,
+          body: `${arabicProjectDescription(project.category)} يستخدم سيناريو «${arabicProjectTitle(project.title)}» للتخطيط فقط، ولا يثبت تنفيذ مشروع مكتمل لدى Emitronix.`,
           image: getGeneratedImage(project.generatedImage).desktop.src,
           imageAlt: `مشهد تخطيط لـ ${arabicProjectTitle(project.title)} في دبي`,
         })),
@@ -1383,15 +1383,17 @@ function arabicBlogPage(post: BlogPost): ArabicPageData {
 }
 
 function arabicProjectTitle(title: string) {
-  if (title.includes("Villa")) return "أعمال تجديد فيلا في دبي";
-  if (title.includes("Warehouse")) return "ترقية مدنية وكهروميكانيكية لمستودع";
-  if (title.includes("Office")) return "أعمال تشطيبات مكتب";
-  if (title.includes("Maintenance")) return "أعمال صيانة مبنى";
-  if (title.includes("DEWA")) return "دعم موافقة DEWA";
-  if (title.includes("Shop")) return "تجديد محل تجاري";
-  if (title.includes("Industrial")) return "تعديل منشأة صناعية";
-  if (title.includes("MEP")) return "تنسيق أعمال MEP";
-  if (title.includes("Authority")) return "دعم موافقات وNOC";
+  const normalized = title.toLowerCase();
+  if (normalized.includes("villa")) return "سيناريو تخطيط تجديد فيلا في دبي";
+  if (normalized.includes("warehouse")) return "سيناريو تخطيط أعمال مدنية وMEP لمستودع";
+  if (normalized.includes("office")) return "سيناريو تخطيط تشطيبات مكتب تجاري";
+  if (normalized.includes("building maintenance")) return "سيناريو تخطيط صيانة مبنى تجاري";
+  if (normalized.includes("utility approval")) return "سيناريو تنسيق موافقات خدمات المرافق";
+  if (normalized.includes("retail")) return "سيناريو تخطيط تجديد مساحة تجزئة";
+  if (normalized.includes("industrial")) return "سيناريو تخطيط تعديل منشأة صناعية";
+  if (normalized.includes("mep interface")) return "سيناريو تنسيق واجهات أعمال MEP";
+  if (normalized.includes("authority")) return "سيناريو تنسيق موافقات الجهات وNOC";
+  if (normalized.includes("civil repair")) return "سيناريو تخطيط إصلاحات وصيانة مدنية";
   return "أعمال مدنية وصيانة في دبي";
 }
 

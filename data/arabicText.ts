@@ -593,7 +593,7 @@ function makeTextMap() {
     map[`How Emitronix approaches ${service.shortTitle}.`] = `كيف تتعامل Emitronix مع ${title}.`;
     map[`${service.title} across Dubai project environments.`] = `${title} عبر مختلف بيئات المشاريع في دبي.`;
     map[
-      `${service.title} support for project owners who need clear scope, construction planning, authority visibility and premium communication before site commitments are made.`
+      `${service.title} support for project owners who need clear scope, construction planning, authority visibility and decision-led communication before site commitments are made.`
     ] = `دعم ${title} لملاك المشاريع الذين يحتاجون وضوح النطاق وتخطيط الإنشاءات ورؤية الموافقات وتواصلا احترافيا قبل الالتزام بأعمال الموقع.`;
     map[`${service.title} with authority-ready control.`] = `${title} مع ضبط جاهز لمتطلبات الجهات.`;
     map[`${service.title} support for owners, consultants and commercial teams.`] = `دعم ${title} للملاك والاستشاريين والفرق التجارية.`;

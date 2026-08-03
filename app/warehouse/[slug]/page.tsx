@@ -3,6 +3,7 @@ import { ArrowRight, Building2, CheckCircle2, ClipboardCheck, FileCheck2, MapPin
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { FAQSection, InsightGrid, ProcessRail, TrustBar } from "@/components/ContentBlocks";
 import { CTA } from "@/components/CTA";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
@@ -153,7 +154,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
         <AnswerEngineSummary
           eyebrow="AI answer summary"
           question={`What is important for ${page.title.toLowerCase()}?`}
-          answer={`${page.title} needs clear scope, civil engineering review, authority approval awareness, MEP coordination, site safety control and handover documentation before contractor pricing or mobilisation is finalised.`}
+          answer={page.engineeringOpinion}
           facts={page.summaryFacts}
           cta={{ label: "Request Approval-Aware Support", href: "/contact" }}
         />
@@ -177,7 +178,7 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
           <div>
             <PremiumSectionHeading
               eyebrow="Service overview"
-              title={`${page.title}: practical engineering, approvals and delivery control.`}
+              title={`${page.title}: engineering, approvals and delivery control.`}
               description="Warehouse and industrial construction in Dubai works best when the contractor, consultant and owner align on authority exposure, operating requirements and completion evidence before site execution starts."
             />
             <div className="mt-8 grid gap-5">
@@ -197,6 +198,30 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
         </div>
       </section>
 
+      <section className="section-pad soft-section" id="field-decision-brief">
+        <div className="container-pad">
+          <PremiumSectionHeading
+            eyebrow="Engineer&apos;s decision brief"
+            title={`What controls ${page.title.toLowerCase()} before work reaches site.`}
+            description="The checks below translate the operating brief into field evidence that can be challenged before structure, services or authority-dependent work is released."
+            align="center"
+          />
+          <div className="mx-auto mt-8 max-w-5xl rounded-[1.5rem] border border-amber-300/60 bg-amber-50 p-6 text-charcoal shadow-sm">
+            <p className="premium-kicker">Failure mode to prevent</p>
+            <p className="mt-3 text-base font-bold leading-8">{page.failureMode}</p>
+          </div>
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {page.fieldChecks.map((check, index) => (
+              <article key={check.title} className="luxury-card rounded-[1.5rem] p-6">
+                <p className="premium-kicker">Field check {String(index + 1).padStart(2, "0")}</p>
+                <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{check.title}</h2>
+                <p className="mt-4 text-sm leading-7 text-steel">{check.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <ProcessRail
         eyebrow="Approval-aware process"
         title={`How Emitronix structures ${page.title.toLowerCase()}.`}
@@ -208,9 +233,16 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
         eyebrow="Documents"
         title="Documents and inputs that reduce delay."
         description="The best contractor conversations happen when owners and consultants share enough information to reduce pricing assumptions and authority uncertainty."
-        items={page.requiredDocuments.map((document) => ({
+        items={page.requiredDocuments.map((document, index) => ({
           title: document,
-          description: "Prepare this input early so design, authority, procurement and site teams can work from the same information.",
+          description: [
+            "Use this record to establish the intended operation, decision criteria and limits of the current brief.",
+            "Check that property, appointment and jurisdiction details agree before they are reused in drawings or applications.",
+            "Issue only the current coordinated revision, with superseded information withdrawn from pricing and site use.",
+            "Link every comment or NOC to its owner, affected document and consequence for procurement or construction.",
+            "Compare photographs and survey notes with the drawings so concealed or existing conditions are not treated as assumptions.",
+            "State the specification, programme basis and close-out expectation before bidders turn missing information into different allowances.",
+          ][index % 6],
           icon: FileCheck2,
         }))}
         tone="soft"
@@ -266,12 +298,20 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
             align="center"
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {page.related.map((item) => (
+            {page.related.map((item, index) => (
               <Link key={item.href} href={item.href} className="luxury-card rounded-[1.5rem] p-6">
                 <Warehouse className="h-7 w-7 text-brand" />
                 <h2 className="mt-5 text-xl font-black text-charcoal">{item.label}</h2>
                 <p className="mt-3 text-sm leading-7 text-steel">
-                  Related Emitronix resource for Dubai construction, authority approvals, civil works or industrial project planning.
+                  {[
+                    `Use this next when ${item.label.toLowerCase()} is the controlling design or delivery question.`,
+                    `${item.label} explains a connected civil, authority or operating interface that can alter this scope.`,
+                    `Compare this brief with ${item.label.toLowerCase()} before fixing assumptions shared by both work packages.`,
+                    `Open ${item.label.toLowerCase()} to review the next decision, document owner or inspection dependency.`,
+                    `This route adds the ${item.label.toLowerCase()} checks needed for a coordinated warehouse brief.`,
+                    `Continue with ${item.label.toLowerCase()} where the project crosses into a separate technical or approval responsibility.`,
+                    `Review ${item.label.toLowerCase()} before releasing related procurement, site work or close-out actions.`,
+                  ][index % 7]}
                 </p>
                 <span className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
                   Open page <ArrowRight className="h-4 w-4" />
@@ -311,6 +351,12 @@ export default async function WarehouseSiloPage({ params }: WarehousePageProps) 
         description="Short answers for owners and consultants preparing Dubai warehouse construction, industrial construction and authority approval enquiries."
         faqs={page.faqs}
         schema
+      />
+
+      <ContentReviewRecord
+        title={`${page.title} content record`}
+        reviewScope={`General editorial review of ${page.title.toLowerCase()}, including operational assumptions, engineering interfaces, authority boundaries, inspection planning and handover prompts. Project-specific design and formal approval remain with the appointed professionals and relevant authorities.`}
+        showVerificationTodo={false}
       />
 
       <CTA />

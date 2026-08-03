@@ -6,11 +6,11 @@
  */
 export const arabicPageStaticText: Record<string, string> = {
   // ---------- Page H1 headlines ----------
-  "A premium Dubai contractor built around clarity.": "مقاول احترافي في دبي مبني على الوضوح.",
+  "A Dubai contractor built around scope clarity.": "مقاول في دبي يعتمد على وضوح نطاق العمل.",
   "Dubai approval services for construction projects.": "خدمات موافقات دبي لمشاريع البناء.",
   "Dubai construction insights for better project decisions.": "رؤى البناء في دبي لقرارات مشاريع أفضل.",
   "Build Your Career With Emitronix": "ابن مسيرتك المهنية مع Emitronix",
-  "Start a premium Dubai project conversation.": "ابدأ محادثة مشروع احترافية في دبي.",
+  "Start a practical Dubai project conversation.": "ابدأ مناقشة عملية لمشروعك في دبي.",
   "Browse Emitronix construction resources.": "تصفح موارد البناء من Emitronix.",
   "A complete construction platform for Dubai projects.": "منصة بناء متكاملة لمشاريع دبي.",
   "Built for Dubai's real estate, logistics and commercial economy.":
@@ -46,8 +46,8 @@ export const arabicPageStaticText: Record<string, string> = {
     "أوافق على أن تستخدم Emitronix تفاصيل استفساري للتواصل معي وإنشاء سجل متابعة في نظام إدارة العملاء.",
 
   // ---------- Home ----------
-  "Emitronix Contracting LLC delivers civil construction, building contracting, warehouse construction, villa construction, commercial fit-out and Dubai authority approval support with executive-level project clarity.":
-    "تقدم Emitronix Contracting LLC أعمال البناء المدنية ومقاولات المباني وإنشاء المستودعات والفلل والتشطيبات التجارية ودعم موافقات الجهات في دبي بوضوح إداري رفيع للمشاريع.",
+  "Emitronix Contracting LLC delivers civil construction, building contracting, warehouse construction, villa construction, commercial fit-out and Dubai authority approval support. The first review separates confirmed scope from drawings, approvals, site constraints and handover responsibilities before pricing or mobilisation.":
+    "تقدم Emitronix Contracting LLC أعمال البناء المدنية ومقاولات المباني وإنشاء المستودعات والفلل والتشطيبات التجارية ودعم موافقات الجهات في دبي. وتفصل المراجعة الأولى بين النطاق المؤكد ومتطلبات الرسومات والموافقات وقيود الموقع ومسؤوليات التسليم قبل التسعير أو بدء التجهيز للموقع.",
   "A Dubai construction partner for owners who value clarity before site work.":
     "شريك بناء في دبي للملاك الذين يقدرون الوضوح قبل بدء أعمال الموقع.",
   "Emitronix Contracting LLC supports civil construction, main contracting, warehouses, industrial buildings, commercial buildings, villas, building renovation, interior fit-out and authority-facing project coordination across Dubai and the UAE.":
@@ -83,7 +83,7 @@ export const arabicPageStaticText: Record<string, string> = {
   "Civil and fit-out control": "ضبط الأعمال المدنية والتشطيبات",
   "Structural, interior, MEP and documentation interfaces are coordinated through one practical delivery rhythm.":
     "تنسق الواجهات الإنشائية والداخلية وMEP والمستندات ضمن إيقاع تسليم عملي واحد.",
-  "Premium communication": "تواصل احترافي",
+  "Decision-led communication": "تواصل قائم على قرارات واضحة",
   "Owners, consultants and commercial teams get a calmer project experience through clear scope and decision visibility.":
     "يحصل الملاك والاستشاريون والفرق التجارية على تجربة مشروع أكثر هدوءا من خلال وضوح النطاق ورؤية القرارات.",
   "Dubai-ready handover": "تسليم جاهز لمتطلبات دبي",
@@ -122,8 +122,8 @@ export const arabicPageStaticText: Record<string, string> = {
   "Quality and safety": "الجودة والسلامة",
   "Quality & safety": "الجودة والسلامة",
   "Quality is planned before it is inspected.": "الجودة تخطط قبل أن تفتش.",
-  "A premium build depends on disciplined control points.":
-    "البناء الاحترافي يعتمد على نقاط تحكم منضبطة.",
+  "A coordinated build depends on disciplined control points.":
+    "يعتمد التنفيذ المنسق على نقاط ضبط منضبطة.",
   "Emitronix structures construction conversations around practical delivery controls: drawings, site sequencing, authority touchpoints, inspections, material decisions and close-out evidence.":
     "تنظم Emitronix حوارات البناء حول ضوابط تسليم عملية: الرسومات وتسلسل الموقع ونقاط التماس مع الجهات والتفتيش وقرارات المواد وأدلة الإغلاق.",
   "Scope, assumptions and exclusions clarified before execution.":
@@ -146,8 +146,14 @@ export const arabicPageStaticText: Record<string, string> = {
     "تعرض Emitronix خبرتها مع الجهات باحترافية: تؤكد متطلبات المشروع حسب الموقع ونطاق الاستشاري ومسار الجهة، من دون نشر ادعاءات غير موثقة عن التراخيص أو الشهادات أو الموافقات.",
   "Built for villas, warehouses, commercial assets and industrial operations.":
     "مصمم للفلل والمستودعات والأصول التجارية والعمليات الصناعية.",
-  "Emitronix supports project categories that require disciplined scope control, authority visibility and premium site communication.":
-    "تدعم Emitronix فئات المشاريع التي تتطلب ضبطا دقيقا للنطاق ورؤية للجهات وتواصلا احترافيا في الموقع.",
+  "The published scope covers civil and main contracting, warehouses, industrial and commercial buildings, villas, renovation, interior fit-out and authority-facing coordination in Dubai and the UAE.":
+    "يشمل النطاق المنشور المقاولات المدنية والرئيسية والمستودعات والمباني الصناعية والتجارية والفلل والتجديد والتشطيبات الداخلية والتنسيق المرتبط بالجهات في دبي والإمارات.",
+  "When comparing contractors, ask each team to identify missing information, approval dependencies, cross-trade interfaces and the records it will hand over. The answers show whether the proposal is based on the actual asset or only on a broad construction category.":
+    "عند مقارنة المقاولين، اطلب من كل فريق تحديد المعلومات الناقصة وتبعيات الموافقات وواجهات التخصصات والسجلات التي سيسلمها. وتبين الإجابات ما إذا كان العرض مبنيا على الأصل الفعلي أم على فئة بناء عامة فقط.",
+  "Emitronix supports project categories that require disciplined scope control, authority visibility and documented site communication.":
+    "تدعم Emitronix فئات المشاريع التي تتطلب ضبطا دقيقا للنطاق ورؤية للجهات وتواصلا موثقا في الموقع.",
+  "Each asset type creates a different controlling risk: resident expectations in villas, vehicle and slab demands in warehouses, tenant interfaces in commercial work, and process reliability in industrial facilities.":
+    "يفرض كل نوع من الأصول خطرا حاكما مختلفا: توقعات السكان في الفلل، ومتطلبات المركبات والبلاطات في المستودعات، وواجهات المستأجرين في الأعمال التجارية، واعتمادية العمليات في المنشآت الصناعية.",
   "Industrial Facilities": "المنشآت الصناعية",
   "Authority-Facing Projects": "المشاريع المرتبطة بالجهات",
   "Published company details and service pathways.":
@@ -164,10 +170,14 @@ export const arabicPageStaticText: Record<string, string> = {
     "ما أنواع مشاريع البناء التي تنفذها Emitronix في دبي؟",
   "Emitronix Contracting LLC supports civil contracting, G+4 buildings, villas, warehouses, interior fit-out and authority approval coordination for Dubai and UAE projects.":
     "تدعم Emitronix Contracting LLC المقاولات المدنية ومباني G+4 والفلل والمستودعات والتشطيبات الداخلية وتنسيق موافقات الجهات لمشاريع دبي والإمارات.",
+  "The published scope covers civil and building works, villas, warehouses, interior fit-out and authority-approval coordination. Each enquiry is reviewed against location, drawings, use, access and required professional appointments before suitability is confirmed.":
+    "يشمل النطاق المنشور الأعمال المدنية وأعمال المباني والفلل والمستودعات والتشطيبات الداخلية وتنسيق موافقات الجهات. ويراجع كل استفسار وفق الموقع والرسومات والاستخدام والوصول والتعيينات المهنية المطلوبة قبل تأكيد الملاءمة.",
   "Can Emitronix support Dubai authority approvals?":
     "هل تدعم Emitronix موافقات الجهات في دبي؟",
   "Yes. Emitronix coordinates approval workflows with authorities such as DEWA, Dubai Municipality, Dubai Civil Defence, RTA, Trakhees and Dubai Development Authority.":
     "نعم. تنسق Emitronix مسارات الموافقات مع جهات مثل DEWA وبلدية دبي والدفاع المدني دبي وRTA وتراخيص وسلطة دبي للتطوير.",
+  "Coordination enquiries can involve DEWA, Dubai Municipality, Dubai Civil Defence, RTA, Trakhees and Dubai Development Authority. The exact authority, formal submitter and consultant responsibility must be confirmed for the property and proposed work.":
+    "قد تشمل استفسارات التنسيق DEWA وبلدية دبي والدفاع المدني دبي وRTA وتراخيص وسلطة دبي للتطوير. ويجب تأكيد الجهة المحددة ومقدم الطلب الرسمي ومسؤولية الاستشاري للعقار والأعمال المقترحة.",
   "How can I request a construction quote in Dubai?":
     "كيف أطلب عرض سعر لأعمال بناء في دبي؟",
   "You can contact Emitronix through the website contact form, phone or email with your project location, scope, service required and enquiry details.":
@@ -176,18 +186,26 @@ export const arabicPageStaticText: Record<string, string> = {
     "هل تقدم Emitronix خدمات التشطيبات الداخلية؟",
   "Yes. Emitronix provides interior fit-out support for commercial, retail, office, villa and residential projects in Dubai and the UAE.":
     "نعم. تقدم Emitronix دعم التشطيبات الداخلية للمشاريع التجارية والتجزئة والمكاتب والفلل والمشاريع السكنية في دبي والإمارات.",
+  "Interior fit-out enquiries can cover commercial, retail, office, villa and residential spaces. A useful brief includes the existing and proposed layouts, landlord conditions, MEP capacities, fire-safety interfaces, finish schedule and target handover date.":
+    "قد تشمل استفسارات التشطيبات الداخلية المساحات التجارية والتجزئة والمكاتب والفلل والمساحات السكنية. ويتضمن الملخص المفيد المخططات القائمة والمقترحة وشروط المالك وقدرات MEP وواجهات السلامة من الحريق وجدول التشطيبات وتاريخ التسليم المستهدف.",
   "Does Emitronix support MEP contracting coordination in Dubai?":
     "هل تدعم Emitronix تنسيق مقاولات MEP في دبي؟",
   "Emitronix coordinates MEP-related site interfaces, inspection readiness and documentation alongside civil construction and interior fit-out project scopes in Dubai.":
     "تنسق Emitronix واجهات الموقع المرتبطة بأعمال MEP وجاهزية التفتيش والتوثيق إلى جانب نطاقات البناء المدني والتشطيبات الداخلية في دبي.",
+  "MEP interfaces can be coordinated alongside civil construction and fit-out, including service routes, builders' work, access, testing, inspection readiness and as-built records. Design responsibility remains with the correctly appointed professionals.":
+    "يمكن تنسيق واجهات MEP إلى جانب البناء المدني والتشطيبات، بما يشمل مسارات الخدمات وأعمال المقاول المدني والوصول والاختبارات وجاهزية التفتيش وسجلات حسب التنفيذ. وتبقى مسؤولية التصميم لدى المهنيين المعينين على نحو صحيح.",
   "Can Emitronix help with villa renovation approvals in Dubai?":
     "هل تساعد Emitronix في موافقات تجديد الفلل في دبي؟",
   "Yes. Emitronix supports villa renovation Dubai projects with civil works, fit-out coordination and authority approval planning where required.":
     "نعم. تدعم Emitronix مشاريع تجديد الفلل في دبي بالأعمال المدنية وتنسيق التشطيبات وتخطيط موافقات الجهات عند الحاجة.",
+  "Villa renovation may need authority planning when layouts, structure, external appearance, services or fire-safety conditions change. Review the approved baseline and proposed work before demolition or procurement begins.":
+    "قد يحتاج تجديد الفيلا إلى تخطيط مع الجهات عند تغيير المخططات أو الهيكل أو المظهر الخارجي أو الخدمات أو شروط السلامة من الحريق. راجع الأساس المعتمد والعمل المقترح قبل بدء الهدم أو التوريد.",
   "Do warehouse fit-out projects need authority approvals in Dubai?":
     "هل تحتاج مشاريع تجهيز المستودعات إلى موافقات الجهات في دبي؟",
   "Many warehouse fit-out Dubai projects require authority coordination depending on location, usage, fire safety, utilities and civil modifications. Emitronix helps organize the approval path.":
     "تتطلب كثير من مشاريع تجهيز المستودعات في دبي تنسيقا مع الجهات حسب الموقع والاستخدام والسلامة من الحريق والمرافق والتعديلات المدنية. وتساعد Emitronix في تنظيم مسار الموافقات.",
+  "Often, but the route depends on jurisdiction, lease conditions, intended storage or industrial use, fire strategy, utilities and civil modifications. Confirm those facts with the appointed consultant and relevant authority before relying on a generic checklist.":
+    "غالبا، لكن المسار يعتمد على جهة الاختصاص وشروط الإيجار والاستخدام التخزيني أو الصناعي المقصود واستراتيجية الحريق والمرافق والتعديلات المدنية. أكد هذه الحقائق مع الاستشاري المعين والجهة المختصة قبل الاعتماد على قائمة عامة.",
   "Latest articles": "أحدث المقالات",
   "Dubai construction guides for better owner decisions.":
     "أدلة البناء في دبي لقرارات مالك أفضل.",
@@ -203,8 +221,8 @@ export const arabicPageStaticText: Record<string, string> = {
     "قرارات الأعمال المدنية وMEP والموافقات والتشطيبات متوافقة قبل التنفيذ في الموقع.",
   "Trust-based construction delivery for Dubai projects.":
     "تسليم بناء قائم على الثقة لمشاريع دبي.",
-  "Emitronix focuses on coordinated engineering, authority readiness, practical site supervision and premium communication for owners and consultants.":
-    "تركز Emitronix على التنسيق الهندسي وجاهزية الجهات والإشراف العملي على الموقع والتواصل الاحترافي مع الملاك والاستشاريين.",
+  "Emitronix focuses on coordinated engineering, authority readiness, practical site supervision and decision-led communication for owners and consultants.":
+    "تركز Emitronix على التنسيق الهندسي وجاهزية الجهات والإشراف العملي على الموقع والتواصل القائم على قرارات واضحة مع الملاك والاستشاريين.",
   "Civil works, fit-out and approval-ready delivery.":
     "أعمال مدنية وتشطيبات وتسليم جاهز للموافقات.",
   "A calm delivery system for complex Dubai scopes.":
@@ -258,6 +276,8 @@ export const arabicPageStaticText: Record<string, string> = {
   "Does Emitronix handle approval coordination?": "هل تتولى Emitronix تنسيق الموافقات؟",
   "Yes. Emitronix supports Dubai authority coordination workflows connected to construction and fit-out scopes, including DM, DCD, DEWA, Trakhees, DDA and related authority interfaces where applicable.":
     "نعم. تدعم Emitronix مسارات تنسيق جهات دبي المرتبطة بنطاقات البناء والتشطيبات، بما في ذلك بلدية دبي وDCD وDEWA وتراخيص وDDA والواجهات ذات الصلة حسب الحالة.",
+  "Approval coordination can cover DM, DCD, DEWA, Trakhees, DDA and related interfaces when they apply to the location and work. The first review confirms jurisdiction, appointed-party duties, current drawings and the formal submission route.":
+    "قد يشمل تنسيق الموافقات بلدية دبي وDCD وDEWA وتراخيص وDDA والواجهات ذات الصلة عندما تنطبق على الموقع والأعمال. وتؤكد المراجعة الأولى جهة الاختصاص وواجبات الأطراف المعينة والرسومات الحالية ومسار التقديم الرسمي.",
   "Why is early scope clarity important?": "لماذا يعد وضوح النطاق المبكر مهما؟",
   "Early clarity helps owners and consultants understand drawings, approvals, civil interfaces, site constraints and handover requirements before they become expensive execution issues.":
     "يساعد الوضوح المبكر الملاك والاستشاريين على فهم الرسومات والموافقات والواجهات المدنية وقيود الموقع ومتطلبات التسليم قبل أن تتحول إلى مشكلات تنفيذ مكلفة.",
@@ -265,6 +285,8 @@ export const arabicPageStaticText: Record<string, string> = {
   // ---------- Approval hub ----------
   "Emitronix supports owners, consultants and tenants with structured document coordination, authority comment response and inspection readiness across key Dubai approval workflows.":
     "تدعم Emitronix الملاك والاستشاريين والمستأجرين بتنسيق منظم للمستندات والرد على تعليقات الجهات وجاهزية التفتيش عبر مسارات الموافقات الرئيسية في دبي.",
+  "Start by confirming jurisdiction, the approved baseline, proposed work and formal submission responsibility; then control comments, drawing revisions and inspection evidence in one record.":
+    "ابدأ بتأكيد جهة الاختصاص والأساس المعتمد والأعمال المقترحة ومسؤولية التقديم الرسمي؛ ثم اضبط التعليقات ومراجعات الرسومات وأدلة التفتيش في سجل واحد.",
   "Approval menu": "قائمة الموافقات",
   "Choose the authority workflow you need.": "اختر مسار الجهة الذي تحتاجه.",
   "Each page includes the process, documents commonly requested, related approvals and a Dubai-focused enquiry path.":
@@ -422,6 +444,10 @@ export const arabicPageStaticText: Record<string, string> = {
     "توائم Emitronix بين المقاولات المدنية وتسليم التشطيبات وتنسيق موافقات الجهات حتى ينتقل ملاك المشاريع من تحديد النطاق إلى التسليم بضبط أوضح.",
   "Civil, main contracting, warehouse, villa and fit-out scopes under one premium workflow.":
     "نطاقات الأعمال المدنية والمقاولات الرئيسية والمستودعات والفلل والتشطيبات ضمن منهجية عمل احترافية واحدة.",
+  "Civil, main contracting, warehouse, villa and fit-out scopes with visible responsibilities.":
+    "نطاقات الأعمال المدنية والمقاولات الرئيسية والمستودعات والفلل والتشطيبات بمسؤوليات واضحة.",
+  "Each service guide identifies the decisions, drawings, authority interfaces, site controls and handover evidence that should be defined before work advances.":
+    "يحدد كل دليل خدمة القرارات والرسومات وواجهات الجهات وضوابط الموقع وأدلة التسليم التي ينبغي تعريفها قبل تقدم الأعمال.",
   "Every service page is structured around Dubai search intent, practical project requirements, authority-aware execution and handover readiness.":
     "نظمت كل صفحة خدمة حول نية البحث في دبي والمتطلبات العملية للمشروع والتنفيذ الواعي بالجهات وجاهزية التسليم.",
   "Service enquiry": "استفسار عن الخدمة",
@@ -435,6 +461,8 @@ export const arabicPageStaticText: Record<string, string> = {
     "تعامل كل خدمة كنظام مشروع منسق.",
   "The premium value is not a single trade. It is the ability to connect scope, drawings, authority requirements, site sequencing and handover into a calmer delivery experience.":
     "القيمة الاحترافية ليست في تخصص واحد، بل في القدرة على ربط النطاق والرسومات ومتطلبات الجهات وتسلسل الموقع والتسليم في تجربة تنفيذ أكثر هدوءا.",
+  "The value lies in connecting scope, drawings, authority requirements, procurement, site sequence and close-out records before an unresolved interface becomes rework.":
+    "تكمن القيمة في ربط النطاق والرسومات ومتطلبات الجهات والتوريد وتسلسل الموقع وسجلات الإغلاق قبل أن تتحول الواجهة غير المحسومة إلى إعادة عمل.",
   "Project use, drawings, location, authority exposure and stakeholder responsibilities are clarified before execution planning.":
     "توضح استخدامات المشروع والرسومات والموقع ومتطلبات الجهات ومسؤوليات الأطراف قبل تخطيط التنفيذ.",
   "Civil works, fit-out, approvals, MEP interfaces and handover evidence are structured into one visible workflow.":
@@ -463,6 +491,8 @@ export const arabicPageStaticText: Record<string, string> = {
     "جهات دبي وواجهات الجهات التي ننسق معها.",
   "Authority scope depends on the project, location, usage and consultant responsibility. Emitronix helps keep that path organized.":
     "يعتمد نطاق الجهات على المشروع والموقع والاستخدام ومسؤولية الاستشاري، وتساعد Emitronix على إبقاء هذا المسار منظما.",
+  "The applicable route depends on location, use, proposed work and consultant responsibility. Confirm those facts before assigning submission dates or starting authority-dependent work.":
+    "يعتمد المسار المنطبق على الموقع والاستخدام والأعمال المقترحة ومسؤولية الاستشاري. أكد هذه الحقائق قبل تحديد تواريخ التقديم أو بدء أعمال تعتمد على موافقات الجهات.",
   "A connected workflow for construction, approvals and handover.":
     "مسار عمل مترابط للبناء والموافقات والتسليم.",
   "Civil contracting and G+4 scope": "مقاولات مدنية ونطاق مباني G+4",
@@ -479,10 +509,14 @@ export const arabicPageStaticText: Record<string, string> = {
   "Can multiple services be combined?": "هل يمكن الجمع بين عدة خدمات؟",
   "Yes. Many Dubai projects require combined civil works, fit-out coordination, MEP interfaces and approval support. Emitronix helps clarify the combined route during enquiry review.":
     "نعم. تتطلب كثير من مشاريع دبي جمعا بين الأعمال المدنية وتنسيق التشطيبات وواجهات MEP ودعم الموافقات، وتساعد Emitronix على توضيح المسار المشترك أثناء مراجعة الاستفسار.",
+  "Yes. Start by marking the boundaries between civil works, fit-out, MEP interfaces and approval tasks on the same scope schedule. The enquiry review then identifies design ownership, exclusions and the sequence in which each package can be released.":
+    "نعم. ابدأ بتحديد الحدود بين الأعمال المدنية والتشطيبات وواجهات MEP ومهام الموافقات في جدول نطاق واحد. ثم تحدد مراجعة الاستفسار ملكية التصميم والاستثناءات والتسلسل الذي يمكن به إصدار كل حزمة.",
   "Does Emitronix support warehouse and villa projects?":
     "هل تدعم Emitronix مشاريع المستودعات والفلل؟",
   "Yes. Emitronix supports villa, warehouse, commercial, industrial and fit-out project categories, subject to project scope, location and authority requirements.":
     "نعم. تدعم Emitronix فئات مشاريع الفلل والمستودعات والمشاريع التجارية والصناعية والتشطيبات، وفق نطاق المشروع وموقعه ومتطلبات الجهات.",
+  "Villa, warehouse, commercial, industrial and fit-out enquiries can be reviewed. Suitability depends on the actual scope, location, authority jurisdiction, site access and the professional appointments required for that project.":
+    "يمكن مراجعة استفسارات الفلل والمستودعات والمشاريع التجارية والصناعية والتشطيبات. وتعتمد الملاءمة على النطاق الفعلي والموقع وجهة الاختصاص والوصول إلى الموقع والتعيينات المهنية المطلوبة للمشروع.",
   "What information speeds up a service consultation?":
     "ما المعلومات التي تسرع استشارة الخدمة؟",
   "Project location, drawings, current approvals, intended use, site condition, authority comments and preferred timeline help the team understand the correct service path.":
@@ -781,8 +815,10 @@ export const arabicPageStaticText: Record<string, string> = {
     "تعتمد Emitronix دبي كمنطقة خدمتها الأساسية وتدعم الاستفسارات المرتبطة بالبناء المدني والتشطيبات الداخلية والفلل والمستودعات والأعمال التجارية وتنسيق الجهات.",
 
   // ---------- Industries ----------
-  "Emitronix supports project categories where premium communication, practical engineering, authority visibility and handover control matter.":
-    "تدعم Emitronix فئات المشاريع التي يهم فيها التواصل الاحترافي والهندسة العملية ورؤية الجهات وضبط التسليم.",
+  "Emitronix supports project categories where decision-led communication, practical engineering, authority visibility and handover control matter.":
+    "تدعم Emitronix فئات المشاريع التي يهم فيها التواصل القائم على قرارات واضحة والهندسة العملية ورؤية الجهات وضبط التسليم.",
+  "These project types reward early operating decisions, coordinated engineering, visible authority dependencies and close-out records prepared before handover pressure begins.":
+    "تستفيد هذه الأنواع من المشاريع من القرارات التشغيلية المبكرة والهندسة المنسقة ووضوح تبعيات الجهات وسجلات الإغلاق المعدة قبل بدء ضغط التسليم.",
   "Discuss Your Sector": "ناقش قطاعك",
   "Construction categories that need disciplined coordination.":
     "فئات بناء تحتاج تنسيقا منضبطا.",
@@ -790,6 +826,8 @@ export const arabicPageStaticText: Record<string, string> = {
     "يرتبط كل مسار قطاع بصفحة الخدمة أو الموافقة الأكثر صلة بالاستفسار.",
   "Villa construction, renovation and premium residential scopes where finishing, authority planning and site control must align.":
     "إنشاء الفلل والتجديد والنطاقات السكنية الفاخرة حيث يجب توافق التشطيبات وتخطيط الجهات وضبط الموقع.",
+  "Villa construction and renovation where structure, services, finish benchmarks, authority planning and occupied-neighbour controls must align.":
+    "إنشاء وتجديد الفلل حيث يجب توافق الهيكل والخدمات ومعايير التشطيبات وتخطيط الجهات وضوابط الجوار المشغول.",
   "Warehouses & Logistics": "المستودعات واللوجستيات",
   "Warehouse construction Dubai support for storage, distribution, industrial operations and free-zone environments.":
     "دعم إنشاء المستودعات في دبي للتخزين والتوزيع والعمليات الصناعية وبيئات المناطق الحرة.",
@@ -850,6 +888,8 @@ export const arabicPageStaticText: Record<string, string> = {
     "ما القطاعات التي تدعمها Emitronix في دبي؟",
   "Emitronix supports luxury villas, warehouses, logistics assets, commercial buildings, industrial facilities, retail and hospitality fit-out, and authority-facing project categories.":
     "تدعم Emitronix الفلل الفاخرة والمستودعات والأصول اللوجستية والمباني التجارية والمنشآت الصناعية وتشطيبات التجزئة والضيافة وفئات المشاريع المرتبطة بالجهات.",
+  "Enquiries can cover villas, warehouses, logistics assets, commercial buildings, industrial facilities, retail and hospitality fit-out, and authority-facing projects. Suitability is checked against the actual use, location, scope and appointment requirements.":
+    "قد تشمل الاستفسارات الفلل والمستودعات والأصول اللوجستية والمباني التجارية والمنشآت الصناعية وتشطيبات التجزئة والضيافة والمشاريع المرتبطة بالجهات. وتراجع الملاءمة وفق الاستخدام الفعلي والموقع والنطاق ومتطلبات التعيين.",
   "Do different industries need different approval paths?":
     "هل تحتاج القطاعات المختلفة مسارات موافقات مختلفة؟",
   "Yes. Approval paths depend on location, use, fire-safety requirements, utility needs, civil modifications, landlord rules and the authority jurisdiction for the property.":

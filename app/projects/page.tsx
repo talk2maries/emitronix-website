@@ -228,7 +228,7 @@ export default function ProjectsPage() {
               Have a real project to assess?
             </h2>
             <p className="mt-5 max-w-3xl text-base leading-8 text-steel">
-              Share the location, drawings, intended use, site condition, current authority comments and preferred timeline. Emitronix can then review the practical next step without relying on assumptions.
+              Share the location, drawings, intended use, site condition, current authority comments and preferred timeline. The review can then identify the first unresolved dependency instead of assuming the project is ready to price or start.
             </p>
             <Link href="/contact" className="premium-button mt-7">
               Submit project information <ArrowRight className="h-4 w-4" />

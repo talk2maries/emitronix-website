@@ -120,7 +120,7 @@ export function HomeSignatureHero() {
             Excellence in <span className="text-brand">Every Structure</span>
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-graphite sm:text-xl sm:leading-9">
-            Emitronix Contracting LLC delivers civil construction, building contracting, warehouse construction, villa construction, commercial fit-out and Dubai authority approval support with executive-level project clarity.
+            Emitronix Contracting LLC delivers civil construction, building contracting, warehouse construction, villa construction, commercial fit-out and Dubai authority approval support. The first review separates confirmed scope from drawings, approvals, site constraints and handover responsibilities before pricing or mobilisation.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link href="/contact" className="premium-button">

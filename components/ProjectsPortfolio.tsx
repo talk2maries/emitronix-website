@@ -176,7 +176,9 @@ export function ProjectsPortfolio() {
                       <Building2 className="mt-0.5 h-5 w-5 shrink-0 text-brand" />
                       <div>
                         <p className="text-[11px] font-black uppercase tracking-[0.22em] text-brand">Status</p>
-                        <p className="mt-1 text-sm font-bold leading-6 text-charcoal">{project.status}</p>
+                        <p className="mt-1 text-sm font-bold leading-6 text-charcoal">
+                          {project.title} <span aria-hidden="true">—</span> {project.status}
+                        </p>
                       </div>
                     </div>
                   </div>

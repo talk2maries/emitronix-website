@@ -2,7 +2,7 @@
 
 import { ArrowRight, CalendarDays, Clock3, Mail, Search, Tag } from "lucide-react";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { blogImageAlt, type BlogPostSummary } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
@@ -32,20 +32,20 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
   const featuredCards = posts.filter((post) => post.slug !== featured.slug).slice(0, 3);
   const recentPosts = [...posts].sort((a, b) => b.publishedDate.localeCompare(a.publishedDate)).slice(0, 4);
   const selectedGuides = posts.filter((post) => post.popular).slice(0, 4);
-
-  const filteredPosts = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
-    return posts.filter((post) => {
-      const categoryMatch = activeCategory === "All" || post.categories.includes(activeCategory);
-      const queryMatch =
-        normalizedQuery.length === 0 ||
-        [post.title, post.excerpt, post.category, ...post.categories, ...post.targetKeywords]
-          .join(" ")
-          .toLowerCase()
-          .includes(normalizedQuery);
-      return categoryMatch && queryMatch;
-    });
-  }, [activeCategory, posts, query]);
+  const normalizedQuery = query.trim().toLowerCase();
+  const defaultLibraryView = activeCategory === "All" && normalizedQuery.length === 0;
+  const spotlightSlugs = new Set([featured.slug, ...featuredCards.map((post) => post.slug)]);
+  const filteredPosts = posts.filter((post) => {
+    const categoryMatch = activeCategory === "All" || post.categories.includes(activeCategory);
+    const queryMatch =
+      normalizedQuery.length === 0 ||
+      [post.title, post.excerpt, post.category, ...post.categories, ...post.targetKeywords]
+        .join(" ")
+        .toLowerCase()
+        .includes(normalizedQuery);
+    const alreadyVisibleInSpotlight = defaultLibraryView && spotlightSlugs.has(post.slug);
+    return categoryMatch && queryMatch && !alreadyVisibleInSpotlight;
+  });
 
   return (
     <>
@@ -76,7 +76,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                 Dubai construction insights for better project decisions.
               </h1>
               <p className="mt-7 max-w-3xl text-lg font-medium leading-8 text-white/[0.86]">
-                Practical guidance on civil construction, building contracting, warehouse delivery, interior fit-out and Dubai authority approvals for owners, consultants and commercial teams.
+                Decision guides on civil construction, building contracting, warehouse delivery, interior fit-out and Dubai authority approvals for owners, consultants and commercial teams.
               </p>
             </div>
 
@@ -283,7 +283,7 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
                 Need a construction, fit-out or authority approval route for Dubai?
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-8 text-steel">
-                Share your location, drawings, approval status and timeline. Emitronix can help clarify the practical next step.
+                Share the location, drawings, approval status and timeline so the next coordination action can be identified.
               </p>
             </div>
             <Link href="/contact" className="premium-button">

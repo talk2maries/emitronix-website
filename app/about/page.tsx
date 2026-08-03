@@ -22,7 +22,7 @@ export const generateMetadata = createMetadataResolver({
 const operatingPrinciples = [
   {
     title: "Buildability before beauty",
-    description: "Premium project outcomes start with practical drawings, realistic sequencing, authority visibility and site constraints understood early.",
+    description: "Project outcomes improve when drawings, sequence, authority dependencies and site constraints are understood early.",
     icon: Building2,
   },
   {
@@ -62,7 +62,7 @@ const aboutFaqs = [
   {
     question: "Does Emitronix handle approval coordination?",
     answer:
-      "Yes. Emitronix supports Dubai authority coordination workflows connected to construction and fit-out scopes, including DM, DCD, DEWA, Trakhees, DDA and related authority interfaces where applicable.",
+      "Approval coordination can cover DM, DCD, DEWA, Trakhees, DDA and related interfaces when they apply to the location and work. The first review confirms jurisdiction, appointed-party duties, current drawings and the formal submission route.",
   },
   {
     question: "Why is early scope clarity important?",
@@ -102,7 +102,7 @@ export default function AboutPage() {
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
         eyebrow="About Emitronix"
-        title="A premium Dubai contractor built around clarity."
+        title="A Dubai contractor built around scope clarity."
         description={`${site.legalName} brings together civil contracting, building construction, interior fit-out and authority approval coordination for clients across Dubai and the UAE.`}
         imageAsset={getGeneratedImage("company.engineering-coordination-dubai-hero")}
         primaryCta={{ label: "Talk to Emitronix", href: site.phoneHref }}
@@ -116,7 +116,7 @@ export default function AboutPage() {
             <PremiumSectionHeading
               eyebrow="Company standard"
               title="Trust-based construction delivery for Dubai projects."
-              description="Emitronix focuses on coordinated engineering, authority readiness, practical site supervision and premium communication for owners and consultants."
+              description="The operating focus is coordinated engineering, authority readiness, site supervision and decision-led communication for owners and consultants."
             />
             <div className="mt-8 grid gap-4 sm:grid-cols-2">
               {whyChoose.map((item) => {
@@ -142,7 +142,7 @@ export default function AboutPage() {
         <div className="container-pad">
           <PremiumSectionHeading
             eyebrow="Operating principles"
-            title="A calm delivery system for complex Dubai scopes."
+            title="A delivery system that keeps complex Dubai scopes visible."
             description="The design of the company experience is simple: make the right information visible early, then keep the project moving with discipline."
             align="center"
             light
@@ -182,7 +182,7 @@ export default function AboutPage() {
 
       <TrustBar
         eyebrow="Company trust"
-        title="Clear facts, consistent contact data and practical scope language."
+        title="Verified facts, consistent contact data and specific scope language."
         points={[
           site.legalName,
           site.location,

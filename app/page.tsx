@@ -3,6 +3,7 @@ import Link from "next/link";
 import { AnswerEngineSummary } from "@/components/AnswerEngineSummary";
 import { CTA } from "@/components/CTA";
 import { ProcessRail, TrustBar } from "@/components/ContentBlocks";
+import { ContentReviewRecord } from "@/components/ContentReviewRecord";
 import { HomeSignatureHero } from "@/components/HomeSignatureHero";
 import { CommandCenter, ImagePanel, PremiumLink, PremiumSectionHeading } from "@/components/Premium";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
@@ -53,11 +54,11 @@ const intelligenceFeatures = [
   },
   {
     title: "Civil and fit-out control",
-    description: "Structural, interior, MEP and documentation interfaces are coordinated through one practical delivery rhythm.",
+    description: "Structural, interior, MEP and document interfaces are coordinated through one controlled delivery sequence.",
     icon: Layers3,
   },
   {
-    title: "Premium communication",
+    title: "Decision-led communication",
     description: "Clear scope, assumptions and decision ownership help owners, consultants and commercial teams coordinate project work.",
     icon: ShieldCheck,
   },
@@ -91,22 +92,49 @@ const commandItems = [
   {
     label: "03 / Execution",
     value: "Site decisions aligned",
-    description: "Civil, fit-out, MEP, procurement and handover actions are organized around one practical coordination rhythm.",
+    description: "Civil, fit-out, MEP, procurement and handover actions are organized by dependency and responsibility.",
   },
 ];
 
 const homeProcess = [
   "Understand the project location, asset type, drawings, timeline, site status and intended authority route.",
-  "Define the practical scope across civil works, fit-out, approvals, MEP interfaces and handover responsibilities.",
+  "Define scope boundaries across civil works, fit-out, approvals, MEP interfaces and handover responsibilities.",
   "Coordinate decisions with owners, consultants and site stakeholders before avoidable execution pressure appears.",
   "Move toward mobilization, inspection readiness and completion evidence with a clear Dubai delivery rhythm.",
 ];
 
 const qualitySignals = [
   "Scope, assumptions and exclusions clarified before execution.",
-  "Drawings, consultant comments and authority exposure tracked in one practical rhythm.",
+  "Track drawings, consultant comments and authority dependencies in one controlled record.",
   "Civil, structural, MEP, fit-out and handover interfaces reviewed before site pressure builds.",
   "Inspection readiness, snag closure and close-out documentation treated as part of delivery.",
+];
+
+const ownerDecisionBriefs = [
+  {
+    title: "Warehouse operations should shape the structure",
+    observation: "Rack reactions, forklift wheel loads, dock occupation, turning space and fire strategy can change the structural grid, slab and external works. A warehouse brief that states only area and clear height leaves the expensive decisions unresolved.",
+    action: "Record the goods profile, storage system, design vehicle, utility demand and expansion intent before freezing the civil brief.",
+    href: "/warehouse-construction",
+  },
+  {
+    title: "Villa renovation starts with discovery",
+    observation: "Existing drawings may not show later alterations, concealed services or the true condition of waterproofing and structure. Finishes selected before targeted surveys can lock the owner into avoidable redesign.",
+    action: "Inspect high-consequence areas, define opening-up needs and separate confirmed facts from assumptions before demolition and procurement.",
+    href: "/building-renovation",
+  },
+  {
+    title: "Authority comments are programme events",
+    observation: "A DM, DCD, DEWA, Trakhees or DDA comment can affect drawings, equipment, material orders, inspection dates and work already planned on site. Treating it as an isolated email hides the real delay path.",
+    action: "Assign every comment to an owner and affected document, then connect the response date to procurement and construction activities.",
+    href: "/approval",
+  },
+  {
+    title: "Fit-out handover is decided above the ceiling",
+    observation: "Fire stopping, access panels, dampers, detectors, drainage, power and supports converge in concealed zones. Closing those areas without a coordinated inspection creates rework when testing begins.",
+    action: "Use a ceiling close-up hold point that checks approved drawings, access, photographs, tests and outstanding snags before closure.",
+    href: "/interior",
+  },
 ];
 
 const latestArticles = blogPosts.slice(0, 3);
@@ -121,7 +149,7 @@ export default function HomePage() {
 
       <AnswerEngineSummary
         question="Who is Emitronix for Dubai construction projects?"
-        answer="Emitronix Contracting LLC is a Dubai construction company for owners, consultants and commercial teams that need civil contracting, building construction, villas, warehouses, interior fit-out and authority approval coordination connected through one practical delivery workflow."
+        answer="Owners, consultants and commercial teams can enquire about civil and building works, villas, warehouses, interior fit-out and authority coordination. Suitability is confirmed from the location, use, drawings, site condition and required appointments rather than from the project label alone."
         facts={[
           `Legal business name: ${site.legalName}`,
           `Primary location: ${site.location}`,
@@ -136,16 +164,16 @@ export default function HomePage() {
           <PremiumSectionHeading
             eyebrow="Company introduction"
             title="A Dubai construction partner for owners who value clarity before site work."
-            description="Emitronix Contracting LLC supports civil construction, main contracting, warehouses, industrial buildings, commercial buildings, villas, building renovation, interior fit-out and authority-facing project coordination across Dubai and the UAE."
+            description="The published scope covers civil and main contracting, warehouses, industrial and commercial buildings, villas, renovation, interior fit-out and authority-facing coordination in Dubai and the UAE."
           />
           <div className="grid gap-5 text-base leading-8 text-steel">
             <article className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
-              <h2 className="text-2xl font-black tracking-tight text-charcoal">Construction decisions in Dubai need practical sequencing.</h2>
+              <h2 className="text-2xl font-black tracking-tight text-charcoal">Construction decisions in Dubai need dependency-led sequencing.</h2>
               <p className="mt-4">
-                A premium contractor experience is not only about a polished proposal. It is about understanding the project location, asset use, drawings, consultant responsibilities, authority requirements, procurement constraints, site access and handover documentation before execution begins.
+                A useful contractor relationship is not defined by a polished proposal. It begins with the project location, asset use, drawings, consultant responsibilities, authority requirements, procurement constraints, site access and handover documentation before execution starts.
               </p>
               <p className="mt-4">
-                Emitronix is positioned for project owners, consultants and commercial teams comparing a civil contractor Dubai, main contractor Dubai, warehouse contractor Dubai, villa contractor Dubai or commercial construction company that can keep scope, approvals and site delivery connected.
+                When comparing contractors, ask each team to identify missing information, approval dependencies, cross-trade interfaces and the records it will hand over. The answers show whether the proposal is based on the actual asset or only on a broad construction category.
               </p>
             </article>
             <div className="grid gap-3 sm:grid-cols-2">
@@ -303,7 +331,7 @@ export default function HomePage() {
       <ProcessRail
         eyebrow="How projects start"
         title="From first enquiry to a clear Dubai project route."
-        description="The premium experience begins before a proposal. Emitronix turns early project information into a practical construction, fit-out or authority coordination pathway."
+        description="Useful project control begins before a proposal, when early project information is converted into a buildable construction, fit-out or authority-coordination route."
         steps={homeProcess}
       />
 
@@ -317,8 +345,8 @@ export default function HomePage() {
           <div>
             <PremiumSectionHeading
               eyebrow="Quality & safety"
-              title="A premium build depends on disciplined control points."
-              description="Emitronix structures construction conversations around practical delivery controls: drawings, site sequencing, authority touchpoints, inspections, material decisions and close-out evidence."
+              title="A coordinated build depends on disciplined control points."
+              description="Construction conversations are organized around delivery controls: drawings, site sequence, authority touchpoints, inspections, material decisions and close-out evidence."
             />
             <div className="mt-8 grid gap-3">
               {qualitySignals.map((signal) => (
@@ -328,6 +356,32 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-pad soft-section">
+        <div className="container-pad">
+          <PremiumSectionHeading
+            eyebrow="Owner decision notes"
+            title="Four early decisions that prevent expensive construction rework."
+            description="These briefing prompts are not project-specific design instructions. They show why operations, existing conditions, authority comments and inspection hold points belong in the first contractor conversation."
+            align="center"
+          />
+          <div className="mt-12 grid gap-5 md:grid-cols-2">
+            {ownerDecisionBriefs.map((brief, index) => (
+              <article key={brief.title} className="luxury-card rounded-[1.5rem] p-6 lg:p-8">
+                <p className="premium-kicker">Decision note {String(index + 1).padStart(2, "0")}</p>
+                <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{brief.title}</h2>
+                <p className="mt-4 text-sm leading-7 text-steel">{brief.observation}</p>
+                <p className="mt-4 rounded-2xl border border-brand/[0.12] bg-brand-soft p-4 text-sm font-bold leading-7 text-charcoal">
+                  Next project action: {brief.action}
+                </p>
+                <Link href={brief.href} className="mt-5 inline-flex items-center gap-2 text-sm font-black uppercase tracking-wide text-brand">
+                  Review the related service <ArrowRight className="h-4 w-4" />
+                </Link>
+              </article>
+            ))}
           </div>
         </div>
       </section>
@@ -383,7 +437,7 @@ export default function HomePage() {
           <PremiumSectionHeading
             eyebrow="Industries"
             title="Built for villas, warehouses, commercial assets and industrial operations."
-            description="Emitronix supports project categories that require disciplined scope control, authority visibility and premium site communication."
+            description="Each asset type creates a different controlling risk: resident expectations in villas, vehicle and slab demands in warehouses, tenant interfaces in commercial work, and process reliability in industrial facilities."
             align="center"
           />
           <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -411,6 +465,12 @@ export default function HomePage() {
           "Published authority coordination guides",
           "Direct contact and company information",
         ]}
+      />
+
+      <ContentReviewRecord
+        title="Homepage content ownership and review record"
+        reviewScope="General editorial review of published company facts, service descriptions, construction-planning guidance, authority boundaries and enquiry pathways. Project-specific design, calculations, approvals and contractual advice remain the responsibility of the appointed professionals and relevant authorities."
+        showVerificationTodo={false}
       />
 
       <section className="section-pad soft-section">
@@ -496,6 +556,24 @@ export default function HomePage() {
               "@id": absoluteUrl("/#organization"),
               name: site.legalName,
             },
+          }),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "@id": `${absoluteUrl("/")}#faq`,
+            mainEntity: homeFaqs.map((faq) => ({
+              "@type": "Question",
+              name: faq.question,
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+              },
+            })),
           }),
         }}
       />

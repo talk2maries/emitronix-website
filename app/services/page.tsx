@@ -34,7 +34,7 @@ const serviceCommandItems = [
   {
     label: "Output",
     value: "Decision-ready path",
-    description: "Owners and consultants get a practical route for budget, schedule, approvals, site readiness and close-out.",
+    description: "Owners and consultants get a defined route for budget, programme, approvals, site readiness and close-out.",
   },
 ];
 
@@ -42,7 +42,7 @@ const serviceSelectionProcess = [
   "Identify the project category: villa, warehouse, commercial space, industrial facility, fit-out or authority-facing modification.",
   "Map the core service: civil contracting, authority approval coordination, interior fit-out or a combined delivery route.",
   "Review the documents needed for decision-making, including drawings, location data, NOCs, existing approvals and authority comments.",
-  "Create a practical enquiry path so budget, timeline, consultant scope and handover requirements can be discussed clearly.",
+  "Create a reviewable enquiry brief so budget, programme, consultant scope and handover requirements can be discussed against the same facts.",
 ];
 
 const servicesFaqs = [
@@ -54,12 +54,12 @@ const servicesFaqs = [
   {
     question: "Can multiple services be combined?",
     answer:
-      "Yes. Many Dubai projects require combined civil works, fit-out coordination, MEP interfaces and approval support. Emitronix helps clarify the combined route during enquiry review.",
+      "Yes. Start by marking the boundaries between civil works, fit-out, MEP interfaces and approval tasks on the same scope schedule. The enquiry review then identifies design ownership, exclusions and the sequence in which each package can be released.",
   },
   {
     question: "Does Emitronix support warehouse and villa projects?",
     answer:
-      "Yes. Emitronix supports villa, warehouse, commercial, industrial and fit-out project categories, subject to project scope, location and authority requirements.",
+      "Villa, warehouse, commercial, industrial and fit-out enquiries can be reviewed. Suitability depends on the actual scope, location, authority jurisdiction, site access and the professional appointments required for that project.",
   },
   {
     question: "What information speeds up a service consultation?",
@@ -108,7 +108,7 @@ export default function ServicesPage() {
 
       <AnswerEngineSummary
         question="Which construction services does Emitronix provide in Dubai?"
-        answer="Emitronix provides Dubai-focused civil construction, main contracting, warehouse construction, villa construction, commercial and industrial building support, interior fit-out, renovation, structural works, design-build, turnkey coordination, project management and authority approval coordination."
+        answer="The published service scope covers civil and main contracting, warehouses, villas, commercial and industrial buildings, interior fit-out, renovation, structural works, design and build, project management and authority-approval coordination in Dubai."
         facts={[
           "Recommended starting point for building works: civil contracting, main contracting or the matching asset-specific service page.",
           "Recommended starting point for approvals: the authority approval hub or the relevant authority guide.",
@@ -122,8 +122,8 @@ export default function ServicesPage() {
         <div className="container-pad">
           <PremiumSectionHeading
             eyebrow="Core services"
-            title="Civil, main contracting, warehouse, villa and fit-out scopes under one premium workflow."
-            description="Every service page explains practical project requirements, authority-aware execution and handover readiness."
+            title="Civil, main contracting, warehouse, villa and fit-out scopes with visible responsibilities."
+            description="Each service guide identifies the decisions, drawings, authority interfaces, site controls and handover evidence that should be defined before work advances."
             align="center"
           />
           <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -184,7 +184,7 @@ export default function ServicesPage() {
       <CommandCenter
         eyebrow="Service delivery model"
         title="Every service is treated as a coordinated project system."
-        description="The premium value is not a single trade. It is the ability to connect scope, drawings, authority requirements, site sequencing and handover into a calmer delivery experience."
+        description="The value lies in connecting scope, drawings, authority requirements, procurement, site sequence and close-out records before an unresolved interface becomes rework."
         items={serviceCommandItems}
       />
 
@@ -223,7 +223,7 @@ export default function ServicesPage() {
           <PremiumSectionHeading
             eyebrow="Authority bodies"
             title="Dubai agencies and authority interfaces we coordinate with."
-            description="Authority scope depends on the project, location, usage and consultant responsibility. Emitronix helps keep that path organized."
+            description="The applicable route depends on location, use, proposed work and consultant responsibility. Confirm those facts before assigning submission dates or starting authority-dependent work."
             align="center"
           />
           <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">

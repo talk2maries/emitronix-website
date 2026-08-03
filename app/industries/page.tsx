@@ -10,7 +10,7 @@ import { createMetadataResolver } from "@/data/seo";
 export const generateMetadata = createMetadataResolver({
   title: "Dubai Construction Industries Served",
   description:
-    "Emitronix supports Dubai villas, warehouses, industrial buildings, commercial buildings, retail fit-out and authority-facing construction project categories.",
+    "Construction planning for Dubai villas, warehouses, industrial and commercial buildings, retail fit-out and authority-facing projects.",
   path: "/industries",
   keywords: ["villa construction Dubai", "warehouse construction Dubai", "commercial construction Dubai", "industrial building contractor Dubai"],
   image: getGeneratedImage("company.dubai-construction-industries-hero").og!.src,
@@ -20,7 +20,7 @@ export const generateMetadata = createMetadataResolver({
 const industries = [
   {
     title: "Luxury Villas",
-    description: "Villa construction, renovation and premium residential scopes where finishing, authority planning and site control must align.",
+    description: "Villa construction and renovation where structure, services, finish benchmarks, authority planning and occupied-neighbour controls must align.",
     icon: Home,
     href: "/civil",
   },
@@ -78,14 +78,14 @@ const industryProcess = [
   "Identify the asset type, operating use, location, authority jurisdiction and any landlord or master developer constraints.",
   "Match the sector to the right service path: civil contracting, fit-out, authority approvals or combined coordination.",
   "Clarify drawings, inspections, access, utility, fire-safety and handover requirements before project sequencing begins.",
-  "Convert the sector-specific risks into a practical enquiry conversation with Emitronix.",
+  "Convert sector-specific risks into an enquiry brief with named decisions and missing evidence.",
 ];
 
 const industryFaqs = [
   {
     question: "Which industries does Emitronix support in Dubai?",
     answer:
-      "Emitronix supports luxury villas, warehouses, logistics assets, commercial buildings, industrial facilities, retail and hospitality fit-out, and authority-facing project categories.",
+      "Enquiries can cover villas, warehouses, logistics assets, commercial buildings, industrial facilities, retail and hospitality fit-out, and authority-facing projects. Suitability is checked against the actual use, location, scope and appointment requirements.",
   },
   {
     question: "Do different industries need different approval paths?",
@@ -120,7 +120,7 @@ export default function IndustriesPage() {
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Industries" }]}
         eyebrow="Industries"
         title="Built for Dubai's real estate, logistics and commercial economy."
-        description="Emitronix supports project categories where premium communication, practical engineering, authority visibility and handover control matter."
+        description="These project types reward early operating decisions, coordinated engineering, visible authority dependencies and close-out records prepared before handover pressure begins."
         imageAsset={getGeneratedImage("company.dubai-construction-industries-hero")}
         primaryCta={{ label: "Discuss Your Sector", href: "/contact" }}
         secondaryCta={{ label: "Planning Library", href: "/projects" }}
@@ -162,7 +162,7 @@ export default function IndustriesPage() {
             <Building2 className="h-12 w-12 text-brand" />
             <h2 className="mt-6 text-4xl font-black tracking-tight">Dubai-first construction support.</h2>
             <p className="mt-4 text-base leading-8 text-steel">
-              Emitronix is positioned for project owners and consultants who need a practical, locally aware construction partner for civil, fit-out and approval-connected scopes.
+              Project owners and consultants can use the sector routes to connect civil, fit-out and approval work to the asset&apos;s operating and authority constraints.
             </p>
           </div>
         </div>
@@ -170,7 +170,7 @@ export default function IndustriesPage() {
 
       <InsightGrid
         eyebrow="Industry benefits"
-        title="Sector pages designed around practical Dubai project risks."
+        title="Sector pages organized around specific Dubai project risks."
         description="The same contractor can feel very different depending on the asset type. Emitronix frames each sector around the decisions that affect project momentum."
         items={industryBenefits}
         tone="soft"

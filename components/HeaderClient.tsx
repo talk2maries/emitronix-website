@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, Phone, Search, Sparkles, X } from "lucide-react";
+import { ArrowRight, Building2, ChevronDown, FileCheck2, Languages, Menu, Search, Sparkles, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -192,18 +192,6 @@ export function HeaderClient({
           : "border-brand/[0.08] bg-white/[0.82] shadow-none backdrop-blur-xl"
       }`}
     >
-      <div className="border-b border-brand/[0.08] bg-brand-soft/70">
-        <div className="container-pad flex h-8 items-center justify-center min-[1440px]:justify-end">
-          <a
-            href={contact.phoneHref}
-            className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wide text-brand transition hover:text-brand-deep focus-ring"
-          >
-            <Phone className="h-3.5 w-3.5" aria-hidden="true" />
-            <span>{isArabic ? "هاتف المكتب" : "Office"}</span>
-            <span dir="ltr">{contact.phone}</span>
-          </a>
-        </div>
-      </div>
       <div className="container-pad">
         <div className="flex h-20 items-center justify-between gap-4 transition-[height] duration-500">
           <Link

@@ -12,7 +12,7 @@ import { createMetadataResolver } from "@/data/seo";
 export const generateMetadata = createMetadataResolver({
   title: "Dubai Construction Blog & Knowledge Center",
   description:
-    "Premium Dubai construction blog with guides on civil contracting, warehouse construction, authority approvals, fit-out, DEWA, DCD, Trakhees and project management.",
+    "Practical Dubai construction guides on civil contracting, warehouse construction, authority approvals, fit-out, DEWA, DCD, Trakhees and project management.",
   path: "/blog",
   keywords: [
     "Dubai construction blog",

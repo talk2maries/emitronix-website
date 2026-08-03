@@ -516,7 +516,7 @@ export const publicFaqs = [
     category: "services",
     question: "Which Emitronix construction service should I choose first?",
     answer:
-      "Start with civil contracting for building and civil works, main contracting for coordinated multi-trade delivery, the relevant warehouse, villa, commercial or industrial page for an asset-specific enquiry, interior fit-out or renovation for an existing space, and authority approvals when submissions or inspections are the main concern. The final service route is confirmed after the location, scope and available documents are reviewed.",
+      "Use civil contracting for building and civil works, or main contracting when one programme must coordinate several trades. Choose the warehouse, villa, commercial or industrial page for an asset-specific enquiry; use fit-out or renovation for an existing space. Authority approval pages apply when submissions, NOCs or inspections are the main concern. The final route is confirmed after the location, scope and available documents are reviewed.",
     links: [
       { label: "Compare construction services", href: "/services" },
       { label: "Discuss the right route", href: "/contact" },

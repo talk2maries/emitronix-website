@@ -20,7 +20,7 @@ export function CTA() {
                 Get a quote, request a site visit or speak to Emitronix today.
               </h2>
               <p className="mt-5 max-w-xl text-sm leading-7 text-steel">
-                Share your project location, scope of work, drawings and authority status. Emitronix will help clarify the practical next step for civil construction, fit-out, renovation, warehouse, villa or approval coordination.
+                Share the project location, scope, drawings and authority status. These facts allow the first review to identify the next civil, fit-out, renovation, warehouse, villa or approval action.
               </p>
             </div>
             <div>

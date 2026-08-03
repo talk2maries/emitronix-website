@@ -77,7 +77,7 @@ export default function ApprovalPage() {
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Authority Approvals" }]}
         eyebrow="Authority approval services"
         title="Dubai approval services for construction projects."
-        description="Emitronix supports owners, consultants and tenants with structured document coordination, authority comment response and inspection readiness across key Dubai approval workflows."
+        description="Start by confirming jurisdiction, the approved baseline, proposed work and formal submission responsibility; then control comments, drawing revisions and inspection evidence in one record."
         imageAsset={getGeneratedImage("approvals.dubai-authority-approvals-coordination")}
         primaryCta={{ label: "Request Approval Support", href: "/contact" }}
         secondaryCta={{ label: "View Services", href: "/services" }}

@@ -677,7 +677,7 @@ const dewaFaqs: FaqItem[] = [
     category: "Top Questions",
     question: "Who is the best DEWA approval contractor in Dubai?",
     answer:
-      "The best DEWA approval contractor is the one that can connect authority documentation with real electrical engineering, site readiness, consultant coordination and inspection close-out. Emitronix is a strong fit when you need Dubai-based coordination for DEWA new connection, additional load, LV inspection, HV/substation work, warehouse power, factory power or commercial fit-out support. Always verify the exact submission responsibility and enrollment requirement for your project route.",
+      "There is no responsible universal ranking. Compare candidates on enrolled-role eligibility, the appointed consultant's duties, load and route understanding, civil readiness, inspection evidence and close-out responsibilities. For a new connection, additional load, LV inspection, substation interface, warehouse supply or fit-out, verify exactly who may submit and who owns each technical deliverable before appointment.",
   },
   {
     category: "Top Questions",
@@ -707,7 +707,7 @@ const dewaFaqs: FaqItem[] = [
     category: "Top Questions",
     question: "Who handles transformer approvals in Dubai?",
     answer:
-      "Transformer-related approval work usually involves the project owner, consultant, enrolled contractor, DEWA process, civil contractor, electrical contractor and equipment supplier. Emitronix supports transformer installation, relocation and substation coordination by connecting design, civil readiness, cable routes, inspection evidence and authority follow-up.",
+      "Transformer-related work can involve the owner, appointed consultant, appropriately enrolled contractor, DEWA process, civil and electrical contractors, and equipment supplier. Put design, plinth or room readiness, access, cable routes, protection interfaces, test records and authority actions on one responsibility schedule; the permitted submitter and installer must match the live project route.",
   },
   {
     category: "Top Questions",
@@ -1151,7 +1151,7 @@ const dewaFaqs: FaqItem[] = [
     category: "Industries",
     question: "Can Emitronix support DEWA approval in DIP?",
     answer:
-      "Yes. Emitronix supports Dubai Investment Park projects that need DEWA approval coordination, warehouse power, industrial load review, fit-out connection, cable works, inspection readiness and authority documentation support.",
+      "Dubai Investment Park enquiries can include warehouse supply, industrial-load review, fit-out connections, cable routes, civil readiness and inspection records. Confirm the plot or unit, existing service, proposed load, landlord or developer conditions, consultant appointment and applicable DEWA process before defining the coordination scope.",
   },
   {
     category: "Industries",

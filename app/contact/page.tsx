@@ -44,7 +44,7 @@ const enquiryGuidance = [
 const contactProcess = [
   "Submit the contact form, call or email with project details and the service path you believe is relevant.",
   "Include location, drawings, authority status, intended use, timeline and any current comments or constraints.",
-  "Emitronix can review the enquiry context and identify whether civil, fit-out, approval or combined coordination is the practical next step.",
+  "The enquiry review identifies whether civil, fit-out, approval or combined coordination is the appropriate next action.",
   "Urgent project requirements can be escalated through direct phone or email using the verified business contact details.",
 ];
 
@@ -101,7 +101,7 @@ export default function ContactPage() {
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
         eyebrow="Contact"
-        title="Start a premium Dubai project conversation."
+        title="Start with the facts that control the Dubai project."
         description="Share your civil construction, fit-out, renovation or authority approval requirements. Include the project location, scope, timeline and current approval status."
         imageAsset={getGeneratedImage("company.dubai-project-consultation-hero")}
         primaryCta={{ label: "Call Emitronix", href: site.phoneHref }}
@@ -199,7 +199,7 @@ export default function ContactPage() {
       <ProcessRail
         eyebrow="Contact process"
         title="A clearer first conversation for Dubai construction projects."
-        description="The contact experience is designed to turn an open enquiry into a practical project route."
+        description="The contact form turns an open enquiry into a reviewable project brief with location, scope, drawings and authority status."
         steps={contactProcess}
       />
 

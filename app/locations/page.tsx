@@ -59,7 +59,7 @@ export default function LocationsPage() {
       <div>
         <TrustPageHero
           eyebrow="Service areas"
-          title="Where Emitronix supports project enquiries"
+          title="Published service-area coverage for project enquiries"
           summary={`The verified website business record lists ${site.location} as the published location and identifies ${site.serviceArea.join(", ")} as service areas.`}
           breadcrumbs={[
             { label: "Home", href: "/" },

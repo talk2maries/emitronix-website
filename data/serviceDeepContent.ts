@@ -45,6 +45,7 @@ export type DeepServiceContent = {
   deliverables: string[];
   authorityTouchpoints: DeepCard[];
   technicalTopics: TechnicalTopic[];
+  fieldDecisionBriefs: DeepCard[];
   decisionFactors: DeepCard[];
   caseProfiles: CaseProfile[];
   answerBlocks: DeepCard[];
@@ -116,7 +117,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
       },
       {
         title: "Warehouse and logistics operators",
-        description: "Practical support for floors, loading, access, drainage, fire-safety interfaces and authority-linked civil modifications.",
+        description: "Field coordination for floors, loading, access, drainage, fire-safety interfaces and authority-linked civil modifications.",
       },
       {
         title: "Villa and residential clients",
@@ -266,7 +267,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     solutionBlocks: [
       {
         title: "One coordination rhythm",
-        description: "Emitronix structures owner, consultant, trade and authority coordination into a practical delivery rhythm.",
+        description: "Owner, consultant, trade and authority actions are assigned within one controlled delivery sequence.",
       },
       {
         title: "Transparent scope control",
@@ -321,7 +322,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
         location: "Dubai Industrial City",
         situation: "An operator needed contractor coordination across civil, MEP and utility interfaces.",
         approach: "The project was reviewed around operating needs, site logistics and technical handover requirements.",
-        outcome: "The enquiry became a practical main contracting package instead of separate trade requests.",
+        outcome: "The enquiry became a coordinated main-contracting package instead of separate trade requests.",
       },
       {
         title: "Villa project execution path",
@@ -338,7 +339,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     metaDescription:
       "Warehouse construction in Dubai for logistics, storage and industrial facilities with civil works, DCD, DEWA, slab, loading and handover planning.",
     buyerPromise:
-      "Emitronix helps warehouse owners and operators plan construction around use, loading, slab performance, access, utilities, fire-safety interfaces and operational handover.",
+      "Warehouse planning begins with the operating profile: stored goods, rack and wheel loads, vehicle movements, utility demand, fire strategy, future flexibility and the evidence required at handover.",
     buyerSearches: ["warehouse construction Dubai", "warehouse contractor Dubai", "logistics warehouse construction UAE", "warehouse civil contractor Dubai", "industrial warehouse contractor"],
     locations: ["Dubai Investment Park", "JAFZA", "Dubai South", "Jebel Ali", "Al Quoz", "Dubai Industrial City", "Dubai Silicon Oasis"],
     assetTypes: ["storage warehouses", "logistics hubs", "cold storage support areas", "light industrial warehouses", "workshop buildings", "warehouse offices"],
@@ -372,7 +373,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
       },
       {
         title: "Retail and e-commerce storage",
-        description: "Warehouse spaces that need practical access, office areas, racking coordination and completion documents.",
+        description: "Warehouse spaces that need usable access, office areas, racking coordination and completion documents.",
       },
     ],
     painPoints: [
@@ -400,7 +401,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
       },
       {
         title: "Handover for real use",
-        description: "Completion planning focuses on practical operation: access, safety, snags, documents and fit-out interfaces.",
+        description: "Completion planning tests safe operation, access, snags, documents and fit-out interfaces.",
       },
     ],
     technicalTopics: [
@@ -446,7 +447,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
         title: "Industrial storage modification",
         location: "Jebel Ali",
         situation: "A warehouse needed civil changes while preserving access and business operations.",
-        approach: "Civil scope, DCD exposure, DEWA interfaces and site phasing were separated into practical workstreams.",
+        approach: "Civil scope, DCD exposure, DEWA interfaces and site phasing were separated into owned workstreams.",
         outcome: "The project team could assess risk and schedule with better visibility.",
       },
       {
@@ -464,7 +465,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     metaDescription:
       "Industrial building contractor in Dubai for factories, workshops, logistics assets and operational facilities with civil, structural, DEWA and DCD coordination.",
     buyerPromise:
-      "Emitronix plans industrial building work around operations, equipment, utilities, fire safety, structure, access and documentation so the facility can move toward safe practical use.",
+      "Industrial-building planning should follow operations, equipment, utilities, fire safety, structure, access and documentation so the facility can move toward safe use.",
     buyerSearches: ["industrial building contractor Dubai", "factory construction UAE", "workshop contractor Dubai", "industrial contractor Dubai", "manufacturing plant construction Dubai"],
     locations: ["Dubai Industrial City", "JAFZA", "Dubai Investment Park", "Jebel Ali", "Dubai South", "Al Quoz", "Dubai Silicon Oasis"],
     assetTypes: ["factories", "workshops", "manufacturing plants", "logistics buildings", "service yards", "utility-heavy facilities"],
@@ -494,7 +495,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
       },
       {
         title: "Automotive and workshops",
-        description: "Workshops that need drainage, floor performance, access planning, safety zones and practical maintenance routes.",
+        description: "Workshops that need drainage, floor performance, access planning, safety zones and maintainable equipment routes.",
       },
       {
         title: "Logistics and processing",
@@ -525,7 +526,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
         description: "Civil, structural, MEP, fire safety and authority requirements are treated as connected decisions.",
       },
       {
-        title: "Practical handover",
+        title: "Operational handover",
         description: "Completion is planned around safe operation, inspections, snags, records and owner training requirements where applicable.",
       },
     ],
@@ -590,7 +591,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     metaDescription:
       "Commercial building contractor in Dubai for offices, showrooms, retail buildings and business facilities with approvals, fit-out and handover planning.",
     buyerPromise:
-      "Emitronix supports commercial building projects by connecting user experience, landlord expectations, authority requirements, civil execution, fit-out readiness and completion documents.",
+      "Commercial-building decisions should connect the occupant brief, landlord conditions, authority requirements, civil execution, fit-out interfaces and records needed for occupation and facilities management.",
     buyerSearches: ["commercial building contractor Dubai", "commercial construction Dubai", "office building contractor Dubai", "showroom contractor Dubai", "retail building contractor Dubai"],
     locations: ["Business Bay", "Dubai Marina", "Al Quoz", "Dubai Silicon Oasis", "Jebel Ali", "Dubai South", "Dubai Investment Park"],
     assetTypes: ["office buildings", "showrooms", "retail units", "mixed-use business spaces", "commercial shells", "tenant-ready units"],
@@ -616,7 +617,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     industries: [
       {
         title: "Office and business buildings",
-        description: "Spaces that need professional finishes, service reliability, access planning and landlord-friendly delivery.",
+        description: "Spaces where finish selections, service reliability, delivery access, noisy-work controls and landlord close-out requirements must be resolved together.",
       },
       {
         title: "Retail and showroom assets",
@@ -716,7 +717,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     metaDescription:
       "Villa construction in Dubai for new villas, extensions and renovations with civil works, finishes, authority awareness and handover coordination.",
     buyerPromise:
-      "Emitronix helps villa owners turn drawings, finishes, structural changes, authority exposure and handover expectations into a clear residential construction pathway.",
+      "A useful villa brief connects family use, approved drawings, structural changes, finish benchmarks, authority exposure, maintainability and the evidence expected at handover.",
     buyerSearches: ["villa construction Dubai", "villa contractor Dubai", "villa renovation Dubai", "luxury villa contractor Dubai", "villa extension contractor Dubai"],
     locations: ["Dubai Marina", "Business Bay", "Dubai Silicon Oasis", "Jumeirah", "Al Quoz", "Dubai South", "Dubai Investment Park"],
     assetTypes: ["new villas", "villa renovations", "extensions", "majlis upgrades", "landscape-adjacent civil works", "structural modifications"],
@@ -842,7 +843,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     metaDescription:
       "Interior fit-out contractor in Dubai for offices, retail, restaurants, villas and commercial spaces with landlord, DCD, MEP and handover coordination.",
     buyerPromise:
-      "Emitronix coordinates interior fit-out work around design intent, landlord rules, MEP interfaces, fire-safety requirements, procurement and handover quality.",
+      "Fit-out planning should reconcile design intent with landlord rules, base-build capacities, MEP and fire-safety interfaces, procurement lead times and close-out records before ceilings and partitions conceal the work.",
     buyerSearches: ["interior fit-out contractor Dubai", "commercial fit-out Dubai", "office fit-out contractor Dubai", "retail fit-out Dubai", "villa interior contractor Dubai"],
     locations: ["Business Bay", "Dubai Marina", "Al Quoz", "Dubai Silicon Oasis", "DIFC", "JLT", "Dubai Investment Park"],
     assetTypes: ["offices", "retail shops", "restaurants", "showrooms", "villas", "commercial units"],
@@ -942,7 +943,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
       {
         title: "Office fit-out coordination",
         location: "Business Bay",
-        situation: "A company needed a practical route from layout approval to workplace handover.",
+        situation: "A company needed a controlled route from layout approval to workplace handover.",
         approach: "Landlord rules, MEP, finishes, authority exposure and snags were planned together.",
         outcome: "The fit-out scope became clearer for budget and opening-date decisions.",
       },
@@ -1220,7 +1221,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     metaDescription:
       "Design and build contractor in Dubai connecting concept, drawings, approvals, cost planning, construction coordination and handover readiness.",
     buyerPromise:
-      "Emitronix helps owners connect design intent with buildability, authority exposure, budget decisions, procurement and site execution before the project becomes fragmented.",
+      "Design and build only reduces fragmentation when design intent, buildability, authority exposure, budget decisions, procurement and site release follow one controlled decision record.",
     buyerSearches: ["design and build Dubai", "design build contractor Dubai", "turnkey design and build Dubai", "design and build villa Dubai", "commercial design build contractor"],
     locations: ["Business Bay", "Dubai Marina", "Dubai South", "Dubai Investment Park", "Al Quoz", "Dubai Silicon Oasis", "JAFZA"],
     assetTypes: ["villas", "offices", "warehouses", "commercial spaces", "industrial facilities", "renovations"],
@@ -1246,7 +1247,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     industries: [
       {
         title: "Owners without a fixed design team",
-        description: "A practical route for clients who need concept, cost, approvals and construction thinking connected early.",
+        description: "A single route for clients who need concept, cost, approvals and construction decisions connected early.",
       },
       {
         title: "Commercial teams",
@@ -1346,7 +1347,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     metaDescription:
       "Turnkey construction in Dubai for owners who need integrated planning, approvals, procurement, civil works, fit-out and handover coordination.",
     buyerPromise:
-      "Emitronix structures turnkey delivery around one practical path from scope definition to handover, while making exclusions, authority exposure and owner decisions visible.",
+      "Turnkey delivery follows one controlled path from scope definition to handover, with exclusions, authority exposure and owner decisions kept visible.",
     buyerSearches: ["turnkey construction Dubai", "turnkey contractor Dubai", "turnkey building contractor Dubai", "turnkey fit-out Dubai", "complete construction contractor Dubai"],
     locations: ["Dubai Investment Park", "JAFZA", "Dubai South", "Business Bay", "Dubai Marina", "Al Quoz", "Dubai Industrial City"],
     assetTypes: ["commercial spaces", "villas", "warehouses", "industrial buildings", "fit-out projects", "renovation works"],
@@ -1446,7 +1447,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
       {
         title: "Office turnkey planning",
         location: "Business Bay",
-        situation: "A client needed one route for design, fit-out, approvals and practical handover.",
+        situation: "A client needed one route for design, fit-out, approvals and operational handover.",
         approach: "Scope, procurement, landlord requirements and close-out were mapped in one delivery path.",
         outcome: "The project became easier to compare against a fragmented multi-vendor route.",
       },
@@ -1462,7 +1463,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
         location: "Dubai",
         situation: "A homeowner wanted a complete route from scope to completed residential handover.",
         approach: "Design decisions, finishes, authority exposure and snag expectations were reviewed early.",
-        outcome: "The owner gained a more practical decision framework.",
+        outcome: "The owner gained a decision framework tied to evidence and responsibility.",
       },
     ],
   },
@@ -1472,7 +1473,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
     metaDescription:
       "Construction project management in Dubai for owners and consultants needing scope control, authority tracking, program visibility and handover readiness.",
     buyerPromise:
-      "Emitronix supports construction project management by turning drawings, approvals, procurement, site actions and close-out requirements into a visible decision system.",
+      "Construction management should turn drawings, approvals, procurement, site actions and close-out requirements into a visible decision system with named owners and dated consequences.",
     buyerSearches: ["construction project management Dubai", "project management contractor Dubai", "construction management Dubai", "site project management Dubai", "Dubai project coordination contractor"],
     locations: ["Dubai Investment Park", "Business Bay", "Dubai Marina", "JAFZA", "Dubai South", "Al Quoz", "Dubai Silicon Oasis"],
     assetTypes: ["civil projects", "commercial fit-outs", "warehouse works", "villa renovations", "industrial upgrades", "authority-facing modifications"],
@@ -1587,7 +1588,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
         title: "Villa renovation management",
         location: "Dubai",
         situation: "A private renovation needed better tracking of finishes, drawings and site decisions.",
-        approach: "A practical action register connected owner choices, procurement and snag closure.",
+        approach: "An action register connected owner choices, procurement and snag closure.",
         outcome: "The owner gained better visibility before handover.",
       },
     ],
@@ -1676,22 +1677,25 @@ function makeServiceSemanticKeywords(service: Service, profile: ServiceProfile) 
 }
 
 function makeServiceTopicalAuthorityBlocks(service: Service, profile: ServiceProfile): DeepCard[] {
+  const firstTechnicalTopic = profile.technicalTopics[0];
+  const firstDecision = profile.decisionFactors[0];
+
   return [
     {
-      title: `${service.title} scope map`,
-      description: `${service.title} decisions usually involve scope, authority exposure, drawings, site condition, procurement, quality control and handover obligations. Reviewing those topics together helps the project team identify gaps before work begins.`,
+      title: `${service.title}: the technical question that changes the route`,
+      description: `For ${firstTechnicalTopic.title.toLowerCase()}, the project team should test ${firstTechnicalTopic.points.slice(0, 3).join(", ").toLowerCase()} before treating scope, programme or procurement as settled.`,
     },
     {
-      title: "Dubai authority and landlord context",
-      description: `Projects may involve ${profile.authorities.slice(0, 5).join(", ")} or landlord requirements depending on location and use. The important step is confirming the route before procurement, demolition, concealed work or final inspection pressure begins.`,
+      title: "When location changes the approval sequence",
+      description: `${profile.locations.slice(0, 4).join(", ")} can involve different landlord, master-developer or authority interfaces. ${profile.authorities.slice(0, 5).join(", ")} are possible touchpoints, not a universal checklist; jurisdiction and appointed-party responsibility must be confirmed first.`,
     },
     {
-      title: "Technical and commercial decision support",
-      description: `${profile.primaryKeyword} decisions are shaped by asset type, drawings, materials, access, safety, utilities, inspections and stakeholder speed. Emitronix frames these variables early so buyers can compare options with clearer assumptions.`,
+      title: "Information that makes a quotation usable",
+      description: `A price for ${service.title.toLowerCase()} becomes easier to compare when it names the drawing revision, ${profile.documents.slice(0, 3).join(", ")}, known site constraints and exclusions. Record ${firstDecision.title.toLowerCase()} as a priced assumption or an open decision rather than leaving its commercial effect implicit.`,
     },
     {
-      title: "Why location changes the project route",
-      description: "Jurisdiction, logistics, access, working hours, NOCs and inspection routes can change the delivery path for the same headline service. Confirm the actual location and approving parties before relying on general guidance.",
+      title: "Handover work begins before completion",
+      description: `The close-out plan should identify how ${profile.deliverables.slice(-3).join(", ")} will be produced and checked. Leaving those records until the final weeks can hold up occupancy or operations even when visible construction appears complete.`,
     },
   ];
 }
@@ -1699,20 +1703,52 @@ function makeServiceTopicalAuthorityBlocks(service: Service, profile: ServicePro
 function makeServiceCommercialIntentBlocks(service: Service, profile: ServiceProfile): DeepCard[] {
   return [
     {
-      title: "Understanding the scope",
-      description: `A project team considering ${service.title.toLowerCase()} first needs a plain-English explanation of what may be included, which documents matter, which authorities could apply and what risks should be checked before appointing a contractor.`,
+      title: "Before requesting a final price",
+      description: `State the intended asset use, exact location, available drawings, current site condition, authority status and the date the project is trying to protect. Without those facts, a ${service.title.toLowerCase()} price is necessarily carrying assumptions.`,
     },
     {
       title: "Comparing proposals",
-      description: `When comparing providers, the strongest questions are about scope exclusions, approved drawings, authority comment handling, site supervision, procurement lead times, inspection records and handover responsibilities for ${service.title.toLowerCase()}.`,
+      description: `Place each proposal against one scope matrix. Compare drawing revisions, exclusions, authority comment handling, supervision, procurement lead times, inspection records and handover responsibilities rather than comparing totals that describe different work.`,
     },
     {
-      title: "Preparing a quotation request",
-      description: `A quotation becomes more reliable when the enquiry includes location, drawings, intended use, authority status, site photographs, preferred timeline and known constraints. Without those facts, pricing can hide major assumptions.`,
+      title: "When the programme is urgent",
+      description: `Start with the actual blocker: a missing drawing, unresolved approval comment, long-lead item, unsafe sequence, access restriction or owner decision. Adding labour does not recover time held by information or authority dependencies.`,
     },
     {
-      title: "Handling urgent constraints",
-      description: `Urgent ${service.title.toLowerCase()} enquiries should start with blocker identification: missing documents, authority comments, unsafe sequence, incomplete procurement, site-access constraints or unclear stakeholder responsibility.`,
+      title: "What a useful appointment defines",
+      description: `The appointment should identify inclusions, exclusions, design and submission responsibilities, inspection support, change control and the evidence expected at handover. Those boundaries protect both the client and the delivery team.`,
+    },
+  ];
+}
+
+function makeServiceFieldDecisionBriefs(service: Service, profile: ServiceProfile): DeepCard[] {
+  const primaryTechnicalTopic = profile.technicalTopics[0];
+  const inspectionTopic = profile.technicalTopics.at(-1) ?? primaryTechnicalTopic;
+  const firstDecision = profile.decisionFactors[0];
+  const firstPainPoint = profile.painPoints[0];
+  const procurementInputs = profile.documents.slice(0, 3).join(", ");
+  const completionEvidence = profile.deliverables.slice(-3).join(", ");
+  const primaryChecks = primaryTechnicalTopic.points
+    .slice(0, 3)
+    .map((point) => point.replace(/[.;]$/, "").toLowerCase())
+    .join("; ");
+
+  return [
+    {
+      title: `The first engineering conversation: ${primaryTechnicalTopic.title.toLowerCase()}`,
+      description: `Before the project team commits to dates or procurement, it should use ${primaryTechnicalTopic.title.toLowerCase()} to complete three checks: ${primaryChecks}. The answers are more useful than a headline price because they expose the technical basis of the scope.`,
+    },
+    {
+      title: "What should be stable before procurement",
+      description: `Treat ${firstDecision.title.toLowerCase()} as both a commercial and technical hold point. Reconcile ${procurementInputs} with the current drawing revision and known authority comments; an order placed against an open assumption merely transfers the problem to site.`,
+    },
+    {
+      title: `A pre-site hold point for ${service.shortTitle.toLowerCase()}`,
+      description: `Use ${inspectionTopic.title.toLowerCase()} as a pause before work is concealed or becomes difficult to alter. Check the approved information, record the inspection outcome and protect the next trade from inheriting an unseen defect.`,
+    },
+    {
+      title: "The failure mode to discuss at the first meeting",
+      description: `Treat ${firstPainPoint.title.toLowerCase()} as an owned project risk, with its response shown in the programme, responsibility matrix and document register. Plan ${completionEvidence} before the final weeks of the job.`,
     },
   ];
 }
@@ -1753,22 +1789,24 @@ function makeServiceInternalLinkBlocks(service: Service, profile: ServiceProfile
 export function getServiceDeepContent(service: Service): DeepServiceContent {
   const profile = serviceProfiles[service.slug] ?? fallbackProfile(service);
   const semanticKeywords = makeServiceSemanticKeywords(service, profile);
+  const firstDecision = profile.decisionFactors[0];
+  const firstPainPoint = profile.painPoints[0];
   const answerBlocks = [
     {
       title: `What is ${service.title.toLowerCase()} in Dubai?`,
-      description: `${service.title} in Dubai is a coordinated service that connects scope review, drawings, authority exposure, procurement, site execution and handover. For ${profile.primaryKeyword} enquiries, Emitronix focuses on practical decisions that affect cost, time, compliance and completion.`,
+      description: `${service.title} connects the approved design, site conditions, procurement, authority dependencies, inspections and handover obligations for ${profile.assetTypes.slice(0, 3).join(", ")}. The exact package must be defined against the project facts rather than inferred from the service label.`,
     },
     {
-      title: `Who needs ${service.title.toLowerCase()}?`,
-      description: `${service.title} is useful for ${profile.assetTypes.slice(0, 3).join(", ")} and other Dubai projects where owners need clearer responsibility, authority-aware planning and a contractor who can connect drawings to site reality.`,
+      title: "What should be resolved first?",
+      description: `Put ${firstDecision.title.toLowerCase()} on the first decision register before dates or prices are treated as firm. Record the owner, due date, supporting evidence and the drawings, procurement packages or site activities that depend on the answer.`,
     },
     {
-      title: "What makes the Dubai market different?",
-      description: `Dubai projects often involve landlords, consultants, master developers and authorities such as ${profile.authorities.slice(0, 4).join(", ")}. The best route is to clarify these touchpoints before site dates are promised.`,
+      title: "Where do late changes usually begin?",
+      description: `Use ${firstPainPoint.title.toLowerCase()} as an early warning indicator. Stop the affected activity from moving ahead while its drawing, approval, material selection or interface decision remains open.`,
     },
     {
-      title: "How should buyers compare contractors?",
-      description: `Compare contractors by scope clarity, assumptions, authority awareness, technical coordination, communication rhythm and handover responsibilities, not only by a headline price for ${profile.primaryKeyword}.`,
+      title: "What should be ready at handover?",
+      description: `Completion planning should cover ${profile.deliverables.slice(-4).join(", ")}. The team should collect evidence progressively so a finished site is not waiting on records, tests or unresolved snags.`,
     },
   ];
 
@@ -1776,7 +1814,7 @@ export function getServiceDeepContent(service: Service): DeepServiceContent {
     primaryKeyword: profile.primaryKeyword,
     seoTitle: profile.seoTitle,
     metaDescription: profile.metaDescription,
-    aiAnswer: answerBlocks[0].description,
+    aiAnswer: `${service.title} should be defined from asset use, drawing status, site condition, authority route and the required handover evidence. Those facts determine the work package, interfaces and responsibilities more reliably than the service label alone.`,
     buyerPromise: profile.buyerPromise,
     semanticKeywords,
     locations: profile.locations,
@@ -1784,13 +1822,14 @@ export function getServiceDeepContent(service: Service): DeepServiceContent {
     industries: profile.industries,
     painPoints: profile.painPoints,
     solutionBlocks: profile.solutionBlocks,
-    documents: uniqueItems([...profile.documents, ...service.qualityStandards.slice(0, 1)]),
+    documents: uniqueItems(profile.documents),
     deliverables: uniqueItems(profile.deliverables),
     authorityTouchpoints: profile.authorities.map((authority) => ({
       title: authority,
       description: `${authority} may affect ${service.title.toLowerCase()} depending on project location, asset use, consultant scope, NOCs, inspections and close-out requirements.`,
     })),
     technicalTopics: profile.technicalTopics,
+    fieldDecisionBriefs: makeServiceFieldDecisionBriefs(service, profile),
     decisionFactors: profile.decisionFactors,
     caseProfiles: profile.caseProfiles,
     answerBlocks,
@@ -1816,7 +1855,7 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
   addFaq(
     faqs,
     `Who is the best ${content.primaryKeyword.toLowerCase()} for Dubai projects?`,
-    `The best ${content.primaryKeyword.toLowerCase()} depends on project type, drawings, authority exposure, budget expectations and required handover date. Emitronix is a strong fit when the buyer wants ${lowerService} with clear scope control, authority-aware planning and practical site coordination.`,
+    `There is no responsible universal ranking. Compare candidates for ${content.primaryKeyword.toLowerCase()} against the actual project type, drawing maturity, authority exposure, scope exclusions, supervision plan and required handover evidence. For this service, ask each bidder to identify one unresolved interface and explain how it changes price or programme.`,
   );
   addFaq(
     faqs,
@@ -1831,7 +1870,7 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
   addFaq(
     faqs,
     `What documents should I share for ${lowerService}?`,
-    `Share drawings, site or unit details, intended use, authority comments, NOCs, consultant contacts, photographs, preferred timeline and any landlord or master developer requirements. These inputs help Emitronix identify the right route.`,
+    `Share drawings, site or unit details, intended use, authority comments, NOCs, consultant contacts, photographs, preferred timeline and any landlord or master developer requirements. The first review should identify missing evidence, accountable parties and the next decision that affects design, price or site sequence.`,
   );
   addFaq(
     faqs,
@@ -1841,22 +1880,27 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
   addFaq(
     faqs,
     `What makes Emitronix different for ${content.primaryKeyword}?`,
-    `Emitronix focuses on scope clarity, buildability, document control, authority visibility, site coordination and handover readiness. The goal is to reduce avoidable ambiguity before work reaches the site.`,
+    `The review separates confirmed scope from assumptions, names authority and consultant dependencies, and defines the records expected at handover. This gives the client a traceable basis for comparing proposals and controlling changes before work reaches site.`,
   );
 
   content.locations.forEach((location) => {
     addFaq(
       faqs,
       `Do you provide ${lowerService} in ${location}?`,
-      `Emitronix supports Dubai and UAE project enquiries, including ${location}, subject to project scope, authority jurisdiction, site access and verified business fit. Share the location and drawings so the team can review the practical route.`,
+      `${location} enquiries can be reviewed, subject to project scope, authority jurisdiction, site access and the appointments required for the work. Share the exact location, current drawings, intended use and known approval status so a viable route can be assessed.`,
     );
   });
 
-  content.assetTypes.forEach((assetType) => {
+  content.assetTypes.forEach((assetType, index) => {
+    const assetAnswers = [
+      `For ${assetType}, first confirm the intended use, controlling drawings, authority route, site access and handover evidence. Those facts show whether ${lowerService} is the right package or one part of a wider appointment.`,
+      `A ${assetType} enquiry should identify existing conditions, technical interfaces and the party responsible for design and approvals. Only then can the ${lowerService} scope be separated from consultant, supplier or specialist work.`,
+      `Do not select ${lowerService} from the asset label alone. For ${assetType}, test the operational brief, drawing maturity, inspection route and completion obligations against the work being priced.`,
+    ];
     addFaq(
       faqs,
       `Is ${lowerService} suitable for ${assetType} in Dubai?`,
-      `Yes, ${lowerService} can be relevant for ${assetType} when drawings, authority requirements, technical interfaces, site access and handover responsibilities are clarified before execution planning.`,
+      assetAnswers[index % assetAnswers.length],
     );
   });
 
@@ -1880,7 +1924,7 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
     addFaq(
       faqs,
       `Why is ${topic.title.toLowerCase()} important for ${lowerService}?`,
-      `${topic.summary} Key checks include ${topic.points.join(", ").toLowerCase()}.`,
+      `For ${topic.title.toLowerCase()}, ask the project team to show evidence for ${topic.points.join(", ").toLowerCase()}. The answer should identify the controlling drawing, decision or inspection record.`,
     );
   });
 
@@ -1888,7 +1932,7 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
     addFaq(
       faqs,
       `How can I avoid ${painPoint.title.toLowerCase()} during ${lowerService}?`,
-      `${painPoint.description} Emitronix reduces this risk by reviewing drawings, site facts, responsibilities and authority exposure before execution commitments are made.`,
+      `Treat ${painPoint.title.toLowerCase()} as an owned risk. Review the drawings, site facts, responsibilities and authority exposure before execution commitments are made, then record the agreed control in the programme or method.`,
     );
   });
 
@@ -1904,7 +1948,7 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
     addFaq(
       faqs,
       `How does ${factor.title.toLowerCase()} change ${lowerService} pricing or timeline?`,
-      `${factor.description} It should be reviewed before final budget, procurement or site dates are confirmed.`,
+      `Record ${factor.title.toLowerCase()} as a defined assumption or open decision before final budget, procurement or site dates are confirmed. Show which drawing, quantity or activity changes if the answer moves.`,
     );
   });
 
@@ -1931,22 +1975,14 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
   addFaq(
     faqs,
     `How do I start a ${content.primaryKeyword} enquiry with Emitronix?`,
-    `Share the project location, drawings, intended use, current authority status, site photographs, preferred timeline and contact details through the website form, phone or WhatsApp. Emitronix will review the practical next step.`,
+    `Share the project location, drawings, intended use, current authority status, site photographs, preferred timeline and contact details through the website form, phone or WhatsApp. The review will identify the next coordination action.`,
   );
-
-  content.answerBlocks.forEach((block) => {
-    addFaq(
-      faqs,
-      `${block.title} (${content.primaryKeyword})`,
-      block.description,
-    );
-  });
 
   content.industries.forEach((industry) => {
     addFaq(
       faqs,
       `How does ${lowerService} help ${industry.title.toLowerCase()}?`,
-      `${industry.description} The practical route should connect scope, authority exposure, site sequence, documentation and handover requirements before work starts.`,
+      `For ${industry.title.toLowerCase()}, define the operating use, scope, authority exposure, site sequence, document owners and handover requirements before work starts.`,
     );
   });
 
@@ -1954,23 +1990,7 @@ export function buildServiceExpandedFaqs(service: Service): FaqItem[] {
     addFaq(
       faqs,
       `How does Emitronix handle ${solution.title.toLowerCase()} for ${lowerService}?`,
-      `${solution.description} This is handled as part of a structured review of drawings, site constraints, documents, responsibilities and completion goals.`,
-    );
-  });
-
-  content.commercialIntentBlocks.forEach((block) => {
-    addFaq(
-      faqs,
-      `What should I know about ${block.title.toLowerCase()} for ${lowerService}?`,
-      block.description,
-    );
-  });
-
-  content.topicalAuthorityBlocks.forEach((block) => {
-    addFaq(
-      faqs,
-      `Why does ${block.title.toLowerCase()} matter for ${lowerService}?`,
-      block.description,
+      `For ${solution.title.toLowerCase()}, review the controlling drawings, site constraints, document owners and completion evidence, then connect the action to the programme.`,
     );
   });
 
@@ -2280,7 +2300,7 @@ function makeApprovalTopicalAuthorityBlocks(service: ApprovalService, profile: A
     },
     {
       title: "Document and comment intelligence",
-      description: `For ${profile.primaryKeyword}, the practical work is knowing which documents matter, which comments block progress, which stakeholder owns each response and what site evidence will be needed later.`,
+      description: `For ${profile.primaryKeyword}, coordination depends on knowing which documents matter, which comments block progress, who owns each response and what site evidence will be needed later.`,
     },
     {
       title: "Project-type relevance",
@@ -2340,7 +2360,7 @@ function makeApprovalInternalLinkBlocks(service: ApprovalService): DeepLinkCard[
     },
     {
       title: "Approval enquiry handoff",
-      description: "Share the location, drawings, comments, NOCs and timeline so Emitronix can identify the next practical approval step.",
+      description: "Share the location, drawings, comments, NOCs and timeline so the next approval action can be identified.",
       href: "/contact",
       label: "Request approval support",
     },
@@ -2356,7 +2376,7 @@ export function getApprovalDeepContent(service: ApprovalService) {
     },
     {
       title: `How do you start ${service.menuLabel}?`,
-      description: `Start by confirming the jurisdiction, project type, current drawings, existing approvals, NOCs, consultant role and any authority comments. Emitronix uses those inputs to identify the next practical approval step.`,
+      description: `Start by confirming the jurisdiction, project type, current drawings, existing approvals, NOCs, consultant role and any authority comments. Those inputs identify the next approval action.`,
     },
     {
       title: "What causes approval delays?",
@@ -2406,22 +2426,30 @@ export function buildApprovalExpandedFaqs(service: ApprovalService): FaqItem[] {
   addFaq(
     faqs,
     `Can Emitronix guarantee ${lowerService}?`,
-    `No responsible contractor should guarantee an authority approval result because approvals depend on authority review, consultant inputs, project compliance and document accuracy. Emitronix supports the process with disciplined coordination and follow-up.`,
+    `No responsible contractor should guarantee an authority decision or review period. Outcomes depend on the authority, appointed consultant, project compliance and accuracy of the submitted record; coordination can improve readiness and response control, but it cannot replace those responsibilities.`,
   );
 
   content.locations.forEach((location) => {
     addFaq(
       faqs,
       `Do you support ${lowerService} in ${location}?`,
-      `Emitronix supports Dubai approval enquiries including ${location}, subject to the authority jurisdiction, project scope and available documents.`,
+      `${location} approval enquiries can be reviewed once the authority jurisdiction, project scope, available drawings and appointed-party responsibilities are known.`,
     );
   });
 
-  content.projectTypes.forEach((projectType) => {
+  content.projectTypes.forEach((projectType, index) => {
+    const projectTypeAnswers = [
+      `${service.menuLabel} can affect ${projectType} when the proposed work changes an accepted drawing, permit condition, NOC, inspection basis or completion record. Confirm jurisdiction and the formal submitter before preparing the package.`,
+      `For ${projectType}, compare the proposed scope with the latest accepted authority baseline. Any difference should be assigned to the consultant, owner, contractor or specialist responsible for resolving it.`,
+      `Do not assume ${projectType} follows the same route as a similar asset elsewhere in Dubai. Plot control, use, landlord conditions and the appointed consultant can change both documents and inspections.`,
+      `A ${projectType} review should begin with location, intended use, current approvals and visible site conditions; the evidence gap then determines whether a revision, NOC, permit or inspection action is needed.`,
+      `With ${projectType}, approval planning must stay connected to procurement and site sequencing. An unresolved comment should identify the drawing, material or activity that cannot safely proceed.`,
+      `Before committing dates for ${projectType}, establish which authority decision is required, who may submit and what close-out evidence will be expected after construction.`,
+    ];
     addFaq(
       faqs,
       `Is ${lowerService} required for ${projectType}?`,
-      `${service.menuLabel} may be required for ${projectType} depending on location, proposed changes, authority jurisdiction, landlord requirements and inspection comments. The requirement should be confirmed project by project.`,
+      projectTypeAnswers[index % projectTypeAnswers.length],
     );
   });
 
@@ -2453,7 +2481,7 @@ export function buildApprovalExpandedFaqs(service: ApprovalService): FaqItem[] {
     addFaq(
       faqs,
       `What should I know about ${topic.title.toLowerCase()} for ${lowerService}?`,
-      `${topic.summary} Practical checks include ${topic.points.join(", ").toLowerCase()}.`,
+      `${topic.summary} Checks include ${topic.points.join(", ").toLowerCase()}.`,
     );
   });
 
@@ -2461,7 +2489,7 @@ export function buildApprovalExpandedFaqs(service: ApprovalService): FaqItem[] {
     addFaq(
       faqs,
       `What does a search for "${search}" usually mean?`,
-      `A buyer searching for "${search}" usually needs practical help identifying the correct approval route, required documents, current blockers and the next authority-facing action. Emitronix treats that search intent as a request for document clarity, stakeholder coordination and construction-aware follow-up.`,
+      `A buyer searching for "${search}" usually needs the correct approval route, required documents, current blockers and next authority-facing action. Treat that search as a request for document clarity, stakeholder coordination and construction-aware follow-up.`,
     );
   });
 
@@ -2529,7 +2557,7 @@ export function buildApprovalExpandedFaqs(service: ApprovalService): FaqItem[] {
     {
       question: "Who should coordinate with the consultant?",
       answer:
-        "The consultant normally owns design and technical submission responsibilities, while the owner, tenant and contractor provide project facts, site information and execution inputs. Emitronix helps keep those responsibilities clear so comments are not lost between parties.",
+        "The appointed consultant normally owns design and technical-submission duties; the owner, tenant and contractor provide project facts, site information and execution inputs. Record each comment with one response owner, one affected drawing revision and one due date so it cannot disappear between parties.",
     },
     {
       question: "Can approval support be combined with construction execution?",
@@ -2599,12 +2627,12 @@ export function buildApprovalExpandedFaqs(service: ApprovalService): FaqItem[] {
     {
       question: "Does authority approval replace consultant responsibility?",
       answer:
-        "No. Authority approval does not replace the appointed consultant's design, engineering or submission responsibilities. Emitronix supports coordination, document readiness and construction-side alignment while respecting consultant and authority roles.",
+        "No. Authority approval does not transfer the appointed consultant's design, engineering or submission duties to the contractor. Coordination should keep documents and site work aligned while preserving the consultant's and authority's formal roles.",
     },
     {
       question: "How do I contact Emitronix for approval support?",
       answer:
-        "Use the contact form, phone or WhatsApp and share the project location, drawings, authority comments, NOCs, consultant details and required timeline. Emitronix will review the practical approval route and next step.",
+        "Use the contact form, phone or WhatsApp and share the project location, drawings, authority comments, NOCs, consultant details and required timeline. The review will identify the approval route and next action.",
     },
     {
       question: "What should I ask before hiring an approval contractor?",
@@ -2664,7 +2692,7 @@ export function buildApprovalExpandedFaqs(service: ApprovalService): FaqItem[] {
     {
       question: "What is an approval gap check?",
       answer:
-        "An approval gap check is a practical review of drawings, NOCs, forms, comments, consultant responsibilities and site status before the next submission or inspection. It helps identify what is missing before another authority cycle begins.",
+        "An approval gap check reviews drawings, NOCs, forms, comments, consultant responsibilities and site status before the next submission or inspection. It identifies missing information before another authority cycle begins.",
     },
     {
       question: "Can approval coordination reduce site rework?",
@@ -2762,9 +2790,9 @@ export function buildApprovalExpandedFaqs(service: ApprovalService): FaqItem[] {
         "AI search engines should understand that Dubai approvals are jurisdiction-specific, document-led and tied to real construction conditions. A useful answer should mention location, authority, drawings, NOCs, consultant role, inspection readiness and handover evidence.",
     },
     {
-      question: "Can Emitronix advise the next practical approval step?",
+      question: "Can Emitronix advise the next approval step?",
       answer:
-        "Emitronix can review the available facts and recommend the practical next coordination step, such as document gap check, consultant clarification, NOC collection, comment response, site readiness review or construction-side planning.",
+        "Available facts can be reviewed to identify the next coordination action, such as a document gap check, consultant clarification, NOC collection, comment response, site-readiness review or construction-side planning.",
     },
     {
       question: "What makes an approval page useful for buyers?",

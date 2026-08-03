@@ -58,7 +58,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const audienceItems = [
     {
       title: "Dubai owners and developers",
-      description: `${service.title} support for project owners who need clear scope, construction planning, authority visibility and premium communication before site commitments are made.`,
+      description: `${service.title} support for project owners who need clear scope, construction planning, authority visibility and decision-led communication before site commitments are made.`,
       href: "/contact",
       label: "Request consultation",
     },
@@ -70,7 +70,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     },
     {
       title: "Commercial and industrial operators",
-      description: "Warehouses, factories, offices, showrooms and retail assets need practical sequencing, fire-safety visibility, utility coordination and business-ready handover.",
+      description: "Warehouses, factories, offices, showrooms and retail assets need dependency-led sequencing, fire-safety visibility, utility coordination and business-ready handover.",
       href: "/industries",
       label: "View industries",
     },
@@ -85,6 +85,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
     { label: "Documents", href: "#documents" },
     { label: "Methodology", href: "#methodology" },
     { label: "Knowledge", href: "#knowledge" },
+    { label: "Field Briefing", href: "#field-briefing" },
     { label: "Dubai Standards", href: "#dubai-standards" },
     { label: "Timeline & Cost", href: "#timeline-cost" },
     { label: "Mistakes", href: "#mistakes" },
@@ -291,8 +292,8 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         <div className="container-pad grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
           <PremiumSectionHeading
             eyebrow="Scope planning"
-            title={`A premium ${service.title.toLowerCase()} workflow for Dubai projects.`}
-            description="Review the scope, decision points, Dubai authority considerations, timeline variables, cost factors and practical mistakes before defining a project-specific brief."
+            title={`A controlled ${service.title.toLowerCase()} workflow for Dubai projects.`}
+            description="Review scope, decisions, Dubai authority considerations, programme variables, cost drivers and common failure modes before defining the project brief."
           />
           <div className="grid gap-5 sm:grid-cols-3">
             {service.highlights.map((highlight) => (
@@ -382,7 +383,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <section id="answers" className="section-pad bg-white">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Practical answers"
+            eyebrow="Direct answers"
             title={`${service.title} questions for owners and consultants.`}
             description={`These concise answers help owners comparing ${deepContent.primaryKeyword} understand scope, contractor selection, authority exposure and enquiry readiness before contacting Emitronix.`}
             align="center"
@@ -403,7 +404,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <PremiumSectionHeading
             eyebrow="Project context"
             title={`${service.title} decisions, risks and Dubai project context.`}
-            description="This section connects practical scope questions, possible approval exposure, technical interfaces and enquiry readiness."
+            description="This section connects scope questions, possible approval exposure, technical interfaces and enquiry readiness."
             align="center"
           />
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
@@ -449,7 +450,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             <PremiumSectionHeading
               eyebrow="Emitronix solution"
               title="How the risk is reduced before it reaches site."
-              description="The practical value is early clarity. The team checks facts before schedule, procurement and site commitments become expensive to change."
+              description="Early fact-checking protects the programme, procurement and site commitments from assumptions that become expensive to change."
             />
             <div className="mt-8 grid gap-4">
               {deepContent.solutionBlocks.map((item) => (
@@ -532,6 +533,26 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         </div>
       </section>
 
+      <section id="field-briefing" className="section-pad bg-white">
+        <div className="container-pad">
+          <PremiumSectionHeading
+            eyebrow="Field decision briefing"
+            title={`${service.title} decisions worth resolving before site pressure builds.`}
+            description="These notes connect design intent to procurement, inspections and handover. They are general planning prompts; the appointed professionals must confirm the project-specific design and authority requirements."
+            align="center"
+          />
+          <div className="mt-12 grid gap-5 md:grid-cols-2">
+            {deepContent.fieldDecisionBriefs.map((brief, index) => (
+              <article key={brief.title} className="luxury-card rounded-[1.5rem] p-6 lg:p-7">
+                <p className="premium-kicker">Decision {String(index + 1).padStart(2, "0")}</p>
+                <h2 className="mt-3 text-2xl font-black tracking-tight text-charcoal">{brief.title}</h2>
+                <p className="mt-4 text-sm leading-7 text-steel">{brief.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section id="methodology" className="blue-grid section-pad text-charcoal">
         <div className="container-pad grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div>
@@ -556,7 +577,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       <InsightGrid
         eyebrow="Industries served"
         title={`${service.title} across Dubai project environments.`}
-        description="The service is structured for the asset types most likely to require practical coordination between owners, consultants, authorities and site teams."
+        description="The service is structured for asset types that require coordinated decisions between owners, consultants, authorities and site teams."
         items={audienceItems}
         tone="soft"
       />
@@ -622,7 +643,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
         <div className="container-pad grid gap-8 lg:grid-cols-2">
           <article className="luxury-card rounded-[1.75rem] p-6 lg:p-8">
             <p className="premium-kicker">Quality standards</p>
-            <h2 className="mt-4 text-3xl font-black tracking-tight text-charcoal">What premium delivery control looks like.</h2>
+            <h2 className="mt-4 text-3xl font-black tracking-tight text-charcoal">What controlled delivery looks like.</h2>
             <div className="mt-6 grid gap-3">
               {service.qualityStandards.map((item) => (
                 <div key={item} className="flex gap-3 rounded-2xl border border-brand/[0.12] bg-white p-4">
@@ -735,7 +756,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           <PremiumSectionHeading
             eyebrow="Control points"
             title="A construction workflow that feels calm at decision speed."
-            description="The premium experience comes from visible coordination, practical documentation and authority-aware decision-making."
+            description="Useful delivery control comes from visible responsibilities, current documents and authority-aware decisions."
             align="center"
           />
           <div className="mt-12">
@@ -746,7 +767,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
 
       <TrustBar
         eyebrow="Trust section"
-        title="Premium coordination without inflated claims."
+        title="Defined coordination without inflated claims."
         points={[
           "Verified Dubai business details",
           "Clear scope and document tracking",
@@ -830,7 +851,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             <PremiumSectionHeading
               eyebrow="Quick quote"
               title={`Request ${service.shortTitle.toLowerCase()} consultation.`}
-              description={`Share your project location, drawings status, authority comments and timeline. Emitronix will review the ${service.title.toLowerCase()} enquiry and respond with the practical next step.`}
+              description={`Share your project location, drawing status, authority comments and timeline. The ${service.title.toLowerCase()} review will identify the next coordination action.`}
             />
             <div className="mt-6 grid gap-3">
               {["Project location and scope", "Drawings or authority status", "Preferred timeline and site access"].map((item) => (

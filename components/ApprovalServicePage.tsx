@@ -198,7 +198,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
 
       <AnswerEngineSummary
         question={`How does ${service.menuLabel} work in Dubai?`}
-        answer={deepContent.answerBlocks[0].description}
+        answer={`Begin by confirming the authority jurisdiction, appointed submitter and latest accepted project baseline. The next action should then respond to a named document gap, authority comment, NOC, inspection hold point or close-out requirement.`}
         facts={[
           `Common project types: ${deepContent.projectTypes.slice(0, 4).join(", ")}`,
           `Useful documents: ${deepContent.documents.slice(0, 4).join(", ")}`,
@@ -240,7 +240,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
                 <p key={paragraph}>{paragraph}</p>
               ))}
               <p>
-                This guide explains documents, authority risks, process details, technical notes, Dubai locations, project types, related approvals and frequently asked buyer questions so owners, tenants and consultants can prepare a stronger approval enquiry before contacting Emitronix, with clearer expectations for comments, inspections, close-out evidence, authority decisions and construction-side coordination.
+                Before requesting support, assemble the exact property or plot reference, current approved drawings, proposed change, appointed consultant, known NOCs, authority correspondence and photographs of any work already completed. These records allow the first review to identify jurisdiction, missing decisions and site-to-drawing conflicts instead of starting with an unreliable generic checklist.
               </p>
             </div>
           </div>
@@ -250,7 +250,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       <section id="approval-answers" className="section-pad soft-section">
         <div className="container-pad">
           <PremiumSectionHeading
-            eyebrow="Practical answers"
+            eyebrow="Direct answers"
             title={`${service.menuLabel} answers for Dubai project teams.`}
             description="These answers help owners, tenants and consultants understand the coordination route without oversimplifying authority requirements."
             align="center"
@@ -497,7 +497,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
       <InsightGrid
         eyebrow="Approval readiness"
         title={`${service.menuLabel} planning before submission pressure builds.`}
-        description="A premium approval experience is built around early visibility, document quality and construction-aware follow-up."
+        description="Reliable coordination begins when jurisdiction, document ownership, drawing revisions, site conditions and inspection evidence are visible to every responsible party."
         items={readinessItems}
         tone="soft"
       />
@@ -546,7 +546,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
 
       <TrustBar
         eyebrow="Authority trust"
-        title="A practical approval route for owners, tenants and consultants."
+        title="An approval route with visible owners, documents and hold points."
         points={[
           "Clear authority and appointment boundaries",
           "Document and comment tracking",
@@ -561,7 +561,7 @@ export function ApprovalServicePage({ service }: ApprovalServicePageProps) {
             <PremiumSectionHeading
               eyebrow="Quick quote"
               title={`Request ${service.menuLabel} support.`}
-              description="Share the project location, drawings, current comments, consultant details and required timeline so Emitronix can identify the next practical approval step."
+              description="Share the project location, drawings, current comments, consultant details and required timeline so the next approval action can be identified."
             />
             <div className="mt-6 grid gap-3">
               {["Authority comments and drawings", "Consultant or landlord requirements", "Site condition and inspection timeline"].map((item) => (

@@ -67,7 +67,7 @@ export function Footer() {
               <p className="mt-6 max-w-2xl text-lg leading-8 text-steel">
                 {isArabic
                   ? "شركة مقاولات متميزة في دبي للأعمال المدنية، تنسيق موافقات الجهات، التشطيبات الداخلية، الفلل، المستودعات ودعم المشاريع التجارية."
-                  : "Premium Dubai construction company for civil contracting, authority approval coordination, interior fit-out, villa, warehouse and commercial project support."}
+                  : "Dubai construction company for civil contracting, authority approval coordination, interior fit-out, villa, warehouse and commercial project support."}
               </p>
             </div>
             <div className="rounded-[2rem] border border-brand/[0.15] bg-white/80 p-6 text-charcoal shadow-panel backdrop-blur-xl">

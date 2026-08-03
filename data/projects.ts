@@ -43,7 +43,7 @@ export const portfolioProjects: PortfolioProject[] = [
     scope: "Villa renovation, civil alterations, finishing upgrades, wet-area works and MEP interface coordination.",
     status: "Illustrative planning scenario — not a case study",
     description:
-      "A premium residential renovation profile for owners upgrading layouts, finishes, services and authority-sensitive modifications with disciplined site control.",
+      "A residential renovation planning profile covering layout changes, finish benchmarks, existing services, occupied-site controls and authority-sensitive modifications.",
     image: "/images/generated/projects/villa-renovation-planning-dubai-desktop.webp",
     imageAlt: "Villa renovation planning scene in Dubai",
     imageTitle: "Villa renovation planning",
