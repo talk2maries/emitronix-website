@@ -243,10 +243,17 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
   );
 });
 test("floating action opens Zoho chat instead of the call button", async () => {
-  const floatingActions = await readFile(new URL("../components/FloatingActions.tsx", import.meta.url), "utf8");
+  const [floatingActions, consentManager] = await Promise.all([
+    readFile(new URL("../components/FloatingActions.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../components/CookieConsentManager.tsx", import.meta.url), "utf8"),
+  ]);
 
   assert.match(floatingActions, /Open Emitronix Zoho chatbot/);
   assert.match(floatingActions, /Live Chat/);
+  assert.match(floatingActions, /emitronix:request-zoho-chat/);
   assert.equal(/Call Now/.test(floatingActions), false);
   assert.equal(/href=\{`tel:/.test(floatingActions), false);
+  assert.match(consentManager, /SALESIQ_DEVELOPMENT_HOSTS = \["localhost", "127\.0\.0\.1", "::1"\]/);
+  assert.match(consentManager, /window\.addEventListener\(CHAT_REQUEST_EVENT, requestChat\)/);
+  assert.match(consentManager, /consent\.categories\.functional && salesIqOpenRequested/);
 });

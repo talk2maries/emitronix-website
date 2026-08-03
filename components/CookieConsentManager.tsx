@@ -88,6 +88,7 @@ declare global {
 const CONSENT_STORAGE_KEY = "emitronix_cookie_consent";
 const LANGUAGE_STORAGE_KEY = "emitronix_language";
 const SETTINGS_EVENT = "emitronix:open-cookie-settings";
+const CHAT_REQUEST_EVENT = "emitronix:request-zoho-chat";
 let restoreActiveTrackingGuard: (() => void) | null = null;
 let consentReloadScheduled = false;
 
@@ -116,6 +117,7 @@ const SALESIQ_WIDGET_URL =
   "https://salesiq.zohopublic.com/widget?wc=siq1f4b2e5df11f8540e8c42cce8cfbf087ee91508d4eaaccfbcd68dc760569131fdba231f665cae37d10855c73a0668462";
 const SALESIQ_SCRIPT_ID = "zsiqscript";
 const SALESIQ_ALLOWED_HOSTS = ["emitronix.ae", "www.emitronix.ae"];
+const SALESIQ_DEVELOPMENT_HOSTS = ["localhost", "127.0.0.1", "::1"];
 const SALESIQ_EXCLUDED_PATHS = ["/admin", "/api", "/dashboard", "/preview", "/_next"];
 const SALESIQ_PROACTIVE_ACTION = "emitronix_proactive";
 const SALESIQ_PROACTIVE_DELAY_MS = 10000;
@@ -267,8 +269,12 @@ function salesIqPathIsExcluded(pathname: string) {
 }
 
 function salesIqLocationIsAllowed() {
+  const hostname = window.location.hostname.toLowerCase();
+  const isLocalDevelopment =
+    process.env.NODE_ENV !== "production" && SALESIQ_DEVELOPMENT_HOSTS.includes(hostname);
+
   return (
-    SALESIQ_ALLOWED_HOSTS.includes(window.location.hostname.toLowerCase()) &&
+    (SALESIQ_ALLOWED_HOSTS.includes(hostname) || isLocalDevelopment) &&
     !salesIqPathIsExcluded(window.location.pathname)
   );
 }
@@ -920,8 +926,24 @@ export function CookieConsentManager() {
       setShowBanner(false);
     };
 
+    const requestChat = () => {
+      salesIqOpenRequested = true;
+
+      if (appliedCategoriesRef.current?.functional) {
+        loadSalesIqWidget();
+        window.EmitronixJyothika?.open();
+        return;
+      }
+
+      openSettings();
+    };
+
     window.addEventListener(SETTINGS_EVENT, openSettings);
-    return () => window.removeEventListener(SETTINGS_EVENT, openSettings);
+    window.addEventListener(CHAT_REQUEST_EVENT, requestChat);
+    return () => {
+      window.removeEventListener(SETTINGS_EVENT, openSettings);
+      window.removeEventListener(CHAT_REQUEST_EVENT, requestChat);
+    };
   }, []);
 
   useEffect(() => {
@@ -1002,6 +1024,12 @@ export function CookieConsentManager() {
       loadGrantedScripts: loadGrantedIntegrationScripts,
       scheduleReload: scheduleConsentAwareReload,
     });
+
+    if (consent.categories.functional && salesIqOpenRequested) {
+      window.EmitronixJyothika?.open();
+    } else if (!consent.categories.functional) {
+      salesIqOpenRequested = false;
+    }
 
     if (transition.reloadScheduled) return;
 

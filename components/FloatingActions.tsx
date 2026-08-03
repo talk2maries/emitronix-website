@@ -11,7 +11,7 @@ type SalesIqLauncherWindow = Window & {
   };
 };
 
-const COOKIE_SETTINGS_EVENT = "emitronix:open-cookie-settings";
+const CHAT_REQUEST_EVENT = "emitronix:request-zoho-chat";
 
 const arabicLabels = {
   whatsapp: "\u062a\u062d\u062f\u062b \u0645\u0639 Emitronix \u0639\u0628\u0631 \u0648\u0627\u062a\u0633\u0627\u0628",
@@ -22,7 +22,7 @@ const arabicLabels = {
 
 function openZohoChat() {
   const opened = (window as SalesIqLauncherWindow).EmitronixJyothika?.open?.();
-  if (!opened) window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT));
+  if (!opened) window.dispatchEvent(new Event(CHAT_REQUEST_EVENT));
 }
 
 export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
