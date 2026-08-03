@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageCircle, PhoneCall } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { isArabicPath } from "@/lib/i18n";
 import { useHydrationSafePathname } from "@/components/useHydrationSafePathname";
@@ -25,24 +25,12 @@ function openZohoChat() {
   if (!opened) window.dispatchEvent(new Event(COOKIE_SETTINGS_EVENT));
 }
 
-export function FloatingActions({ phoneHref, whatsappUrl }: { phoneHref: string; whatsappUrl: string }) {
+export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
   const pathname = useHydrationSafePathname(usePathname());
   const isArabic = isArabicPath(pathname);
 
   return (
     <>
-      <a
-        href={phoneHref}
-        aria-label={isArabic ? "اتصل ب Emitronix" : "Call Emitronix"}
-        className="fixed bottom-24 right-5 z-[99999] flex items-center gap-3 rounded-full"
-      >
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-brand text-white shadow-xl shadow-brand/[0.18] ring-4 ring-white transition hover:scale-105 sm:h-16 sm:w-16">
-          <PhoneCall className="h-7 w-7" />
-        </span>
-        <span className="hidden rounded-full border border-brand/[0.15] bg-white/[0.92] px-4 py-3 text-sm font-black uppercase tracking-wide text-charcoal shadow-xl shadow-brand/[0.12] backdrop-blur-xl sm:block">
-          {isArabic ? "اتصل الآن" : "Call Now"}
-        </span>
-      </a>
       <a
         href={whatsappUrl}
         target="_blank"

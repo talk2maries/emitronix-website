@@ -25,7 +25,7 @@ const positionalBaseUrl = args.find((value) => /^https?:\/\//i.test(value));
 const baseUrl = new URL(
   option("base-url", positionalBaseUrl || process.env.SEO_BASE_URL || "http://127.0.0.1:3000"),
 );
-const maxPages = positiveInteger(option("max-pages", process.env.SEO_MAX_PAGES), 200);
+const maxPages = positiveInteger(option("max-pages", process.env.SEO_MAX_PAGES), 500);
 const maxLinkChecks = positiveInteger(option("max-link-checks", process.env.SEO_MAX_LINK_CHECKS), 300);
 const concurrency = positiveInteger(option("concurrency", process.env.SEO_CONCURRENCY), 6);
 const requestTimeoutMs = positiveInteger(option("timeout-ms", process.env.SEO_TIMEOUT_MS), 12_000);

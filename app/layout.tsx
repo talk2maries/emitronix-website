@@ -295,7 +295,7 @@ gtag('consent', 'default', {
         <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>
         <Footer />
         <CookieConsentManager />
-        <FloatingActions phoneHref={site.phoneHref} whatsappUrl={whatsappUrl} />
+        <FloatingActions whatsappUrl={whatsappUrl} />
       </body>
     </html>
   );
