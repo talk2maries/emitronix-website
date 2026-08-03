@@ -1083,7 +1083,7 @@ export function CookieConsentManager() {
         aria-modal={showPreferences ? "true" : undefined}
         aria-labelledby={showPreferences ? preferencesTitleId : bannerTitleId}
         aria-describedby={showPreferences ? preferencesDescriptionId : bannerDescriptionId}
-        className="mx-auto max-w-6xl rounded-[1.75rem] border border-brand/[0.16] bg-white/[0.96] p-4 text-charcoal shadow-luxe backdrop-blur-2xl sm:p-5"
+        className="mx-auto max-h-[calc(100dvh-1.5rem)] max-w-6xl overflow-y-auto rounded-[1.75rem] border border-brand/[0.16] bg-white/[0.96] p-4 text-charcoal shadow-luxe backdrop-blur-2xl sm:max-h-[calc(100dvh-2.5rem)] sm:p-5"
       >
         {showPreferences ? (
           <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
