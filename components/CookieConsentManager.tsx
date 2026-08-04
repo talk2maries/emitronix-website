@@ -17,10 +17,13 @@ import {
 } from "@/data/cookieConsentDefaults";
 import {
   applyConsentTransition,
+  exposeConsentRuntimeVersion,
   scheduleReloadAfterConsentUpdate,
+  selectStoredConsentForRuntime,
   shouldBlockRevokedTrackingRequest,
   type RevokedConsentCategories,
 } from "@/lib/cookieConsentRuntime";
+import { pushSalesIqChatStart } from "@/lib/gtm/dataLayer";
 
 type StoredConsent = {
   version: number;
@@ -89,6 +92,7 @@ const CONSENT_STORAGE_KEY = "emitronix_cookie_consent";
 const LANGUAGE_STORAGE_KEY = "emitronix_language";
 const SETTINGS_EVENT = "emitronix:open-cookie-settings";
 const CHAT_REQUEST_EVENT = "emitronix:request-zoho-chat";
+const CONSENT_UPDATED_EVENT = "emitronix:consent-updated";
 let restoreActiveTrackingGuard: (() => void) | null = null;
 let consentReloadScheduled = false;
 
@@ -176,31 +180,24 @@ function detectLanguage(): CookieLanguage {
 }
 
 function getStoredConsent(config: CookieConsentConfig): StoredConsent | null {
-  const parseStoredConsent = (raw: string | null): StoredConsent | null => {
-    if (!raw) return null;
-  try {
-    const parsed = JSON.parse(raw) as Partial<StoredConsent>;
-    if (!parsed.expiresAt || !parsed.categories || parsed.version !== config.version) return null;
-    if (new Date(parsed.expiresAt).getTime() <= Date.now()) return null;
-    return {
-      version: parsed.version,
-      categories: cookieCategoryIds.reduce((result, id) => {
-        result[id] = id === "necessary" ? true : parsed.categories?.[id] === true;
-        return result;
-      }, {} as ConsentCategoryMap),
-      language: parsed.language === "ar" ? "ar" : "en",
-      updatedAt: parsed.updatedAt || new Date().toISOString(),
-      expiresAt: parsed.expiresAt,
-    };
-  } catch {
-    return null;
-  }
-  };
+  const parsed = selectStoredConsentForRuntime({
+    localStorageRaw: getLocalStorageValue(CONSENT_STORAGE_KEY),
+    cookieRaw: getCookieValue(CONSENT_STORAGE_KEY),
+    runtimeVersion: config.version,
+  });
+  if (!parsed) return null;
 
-  return (
-    parseStoredConsent(getLocalStorageValue(CONSENT_STORAGE_KEY)) ||
-    parseStoredConsent(getCookieValue(CONSENT_STORAGE_KEY))
-  );
+  return {
+    version: parsed.version,
+    categories: cookieCategoryIds.reduce((result, id) => {
+      const category = config.categories.find((item) => item.id === id);
+      result[id] = id === "necessary" ? true : Boolean(category?.enabled && parsed.categories[id]);
+      return result;
+    }, {} as ConsentCategoryMap),
+    language: parsed.language === "ar" ? "ar" : "en",
+    updatedAt: parsed.updatedAt || new Date().toISOString(),
+    expiresAt: parsed.expiresAt,
+  };
 }
 
 function isCategoryEnabled(category: CookieCategory) {
@@ -354,7 +351,20 @@ function openSalesIqWindow() {
     // Keep using the visible window APIs when click is unavailable.
   }
   setSalesIqFloatButtonVisibility("hide");
+  if (opened) pushSalesIqChatStart();
   return opened;
+}
+
+function dispatchConsentUpdated(
+  version: number,
+  categories: ConsentCategoryMap,
+  updatedAt?: string,
+) {
+  window.dispatchEvent(
+    new CustomEvent(CONSENT_UPDATED_EVENT, {
+      detail: { version, categories, ...(updatedAt ? { updatedAt } : {}) },
+    }),
+  );
 }
 
 function hideSalesIqWidget() {
@@ -874,8 +884,12 @@ export function CookieConsentManager() {
       .then((response) => response.json())
       .then((data: { config?: CookieConsentConfig }) => {
         if (cancelled) return;
-        const nextConfig = data.config || defaultCookieConsentConfig;
+        if (!data.config || !Number.isSafeInteger(data.config.version) || data.config.version < 1) {
+          throw new Error("Cookie consent configuration is unavailable.");
+        }
+        const nextConfig = data.config;
         setConfig(nextConfig);
+        exposeConsentRuntimeVersion(nextConfig.version);
         const stored = getStoredConsent(nextConfig);
         if (stored) {
           setLanguage(stored.language);
@@ -883,6 +897,7 @@ export function CookieConsentManager() {
           appliedCategoriesRef.current = stored.categories;
           updateGoogleConsent(stored.categories);
           loadGrantedIntegrationScripts(stored.categories);
+          dispatchConsentUpdated(nextConfig.version, stored.categories, stored.updatedAt);
           setShowBanner(false);
         } else {
           const defaultCategories = getDefaultConsentCategories();
@@ -890,26 +905,18 @@ export function CookieConsentManager() {
           appliedCategoriesRef.current = defaultCategories;
           setShowBanner(nextConfig.enabled);
           updateGoogleConsent(defaultCategories);
+          dispatchConsentUpdated(nextConfig.version, defaultCategories);
         }
         setLoaded(true);
       })
       .catch(() => {
         if (cancelled) return;
-        const stored = getStoredConsent(defaultCookieConsentConfig);
-        if (stored) {
-          setLanguage(stored.language);
-          setDraftCategories(stored.categories);
-          appliedCategoriesRef.current = stored.categories;
-          updateGoogleConsent(stored.categories);
-          loadGrantedIntegrationScripts(stored.categories);
-          setShowBanner(false);
-        } else {
-          const defaultCategories = getDefaultConsentCategories();
-          setDraftCategories(defaultCategories);
-          appliedCategoriesRef.current = defaultCategories;
-          setShowBanner(defaultCookieConsentConfig.enabled);
-          updateGoogleConsent(defaultCategories);
-        }
+        exposeConsentRuntimeVersion(null);
+        const defaultCategories = getDefaultConsentCategories();
+        setDraftCategories(defaultCategories);
+        appliedCategoriesRef.current = defaultCategories;
+        setShowBanner(defaultCookieConsentConfig.enabled);
+        updateGoogleConsent(defaultCategories);
         setLoaded(true);
       });
 
@@ -1014,6 +1021,7 @@ export function CookieConsentManager() {
         setLocalStorageValue(CONSENT_STORAGE_KEY, JSON.stringify(consent));
         setLocalStorageValue(LANGUAGE_STORAGE_KEY, language);
         setConsentCookie(consent, config.consentExpiryDays);
+        dispatchConsentUpdated(consent.version, consent.categories, consent.updatedAt);
         appliedCategoriesRef.current = consent.categories;
         setDraftCategories(consent.categories);
         sendConsentEvent(action, consent.categories);

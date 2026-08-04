@@ -3,6 +3,14 @@
 import { Loader2, Send, X } from "lucide-react";
 import Link from "next/link";
 import { FormEvent, useEffect, useState } from "react";
+import { AttributionHiddenFields, attributionFormValues } from "@/components/AttributionHiddenFields";
+import {
+  markGtmFormCompleted,
+  pushFormErrorEvent,
+  pushFormSubmitEvent,
+  pushServerConfirmedLead,
+  type ServerLeadResult,
+} from "@/lib/gtm/dataLayer";
 
 const DISMISSED_KEY = "emitronix-blog-enquiry-dismissed";
 
@@ -139,11 +147,20 @@ export function BlogEnquiryPopup({
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const serviceRequired = String(formData.get("serviceRequired") || "");
+    const submissionField = form.elements.namedItem("submissionId") as HTMLInputElement | null;
+    if (submissionField && !submissionField.value) submissionField.value = crypto.randomUUID();
+    if (submissionField?.value) formData.set("submissionId", submissionField.value);
+    const attributionValues = attributionFormValues(formData);
+    const submissionId = String(formData.get("submissionId") || "");
+    const serviceRequired = String(formData.get("service") || "");
     const message = String(formData.get("message") || "");
 
     setStatus("idle");
     setSending(true);
+    pushFormSubmitEvent("blog_enquiry_form", submissionId);
+
+    let failureType: "api" | "network" = "network";
+    let failureStatus: number | undefined;
 
     try {
       const response = await fetch("/api/contact", {
@@ -153,7 +170,7 @@ export function BlogEnquiryPopup({
         },
         body: JSON.stringify({
           name: formData.get("name") || "",
-          phone: formData.get("mobile") || "",
+          phone: formData.get("phone") || "",
           email: formData.get("email") || "",
           company: "",
           projectLocation: formData.get("projectLocation") || "",
@@ -161,22 +178,42 @@ export function BlogEnquiryPopup({
           message: [`Blog enquiry: ${articleTitle}`, `Service required: ${serviceRequired}`, "", message].join("\n"),
           consent: formData.get("consent") === "on",
           website: formData.get("website") || "",
+          formName: "blog_enquiry_form",
           pageUrl: window.location.href,
+          submissionId: formData.get("submissionId"),
+          ...attributionValues,
         }),
       });
 
-      if (!response.ok) {
+      const result = (await response.json().catch(() => ({}))) as ServerLeadResult;
+      if (!response.ok || !result.ok) {
+        failureType = "api";
+        failureStatus = response.status;
         throw new Error("SUBMISSION_FAILED");
       }
 
+      pushServerConfirmedLead({
+        result,
+        formName: "blog_enquiry_form",
+        attribution: attributionValues.attribution,
+      });
+      markGtmFormCompleted(form);
       setStatus("success");
       form.reset();
+      delete form.dataset.gtmStarted;
+      delete form.dataset.gtmInstance;
       window.sessionStorage.setItem(DISMISSED_KEY, "true");
       window.setTimeout(() => {
         setDismissed(true);
         setVisible(false);
       }, 1800);
     } catch {
+      pushFormErrorEvent({
+        formName: "blog_enquiry_form",
+        submissionId,
+        errorType: failureType,
+        httpStatus: failureStatus,
+      });
       setStatus("error");
     } finally {
       setSending(false);
@@ -210,8 +247,17 @@ export function BlogEnquiryPopup({
         </button>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-5 grid gap-3">
+      <form
+        action="/api/contact"
+        method="post"
+        data-gtm-form-name="blog_enquiry_form"
+        onSubmit={handleSubmit}
+        className="mt-5 grid gap-3"
+      >
         <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+        <input type="hidden" name="submissionId" defaultValue="" />
+        <input type="hidden" name="formName" value="blog_enquiry_form" readOnly />
+        <AttributionHiddenFields />
         <label className="grid gap-1.5 text-sm font-black text-charcoal">
           {text.name}
           <input required name="name" autoComplete="name" className={inputClass} placeholder={text.placeholders.name} />
@@ -219,7 +265,7 @@ export function BlogEnquiryPopup({
         <div className="grid gap-3 sm:grid-cols-2">
           <label className="grid gap-1.5 text-sm font-black text-charcoal">
             {text.mobile}
-            <input required type="tel" name="mobile" autoComplete="tel" className={inputClass} placeholder={text.placeholders.mobile} />
+            <input required type="tel" name="phone" autoComplete="tel" className={inputClass} placeholder={text.placeholders.mobile} />
           </label>
           <label className="grid gap-1.5 text-sm font-black text-charcoal">
             {text.email}
@@ -228,7 +274,7 @@ export function BlogEnquiryPopup({
         </div>
         <label className="grid gap-1.5 text-sm font-black text-charcoal">
           {text.service}
-          <select required name="serviceRequired" defaultValue="" className={inputClass}>
+          <select required name="service" defaultValue="" className={inputClass}>
             <option value="" disabled>
               {text.selectService}
             </option>

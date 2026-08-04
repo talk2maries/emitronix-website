@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "auditTimestampUtc": "2026-08-04T19:52:30.8100472Z",
+  "container": {
+    "accountName": "Emitronix Contracting LLC",
+    "containerName": "Emitronix.ae",
+    "publicId": "GTM-MSM8MPD6",
+    "website": "https://emitronix.ae"
+  },
+  "publishedResource": {
+    "url": "https://www.googletagmanager.com/gtm.js?id=GTM-MSM8MPD6",
+    "httpStatus": 200,
+    "utf8Bytes": 362630,
+    "sha256": "ee4633d8c26f12facc02d1e7bc013c1732cd245a480dfe787fe433aec956313b",
+    "restorableBackup": false
+  },
+  "observedIds": {
+    "gtm": ["GTM-MSM8MPD6"],
+    "ga4": ["G-43MXN4GKR2"],
+    "googleAds": []
+  },
+  "publishedTags": [
+    {
+      "compiledTagId": 3,
+      "type": "google_tag",
+      "destinationId": "G-43MXN4GKR2",
+      "trigger": "gtm.init",
+      "status": "published"
+    },
+    {
+      "compiledTagId": 7,
+      "type": "ga4_event",
+      "eventName": "form_submit",
+      "measurementId": "G-43MXN4GKR2",
+      "trigger": "element_visibility:div.bg-blue-50:once",
+      "status": "published_but_trigger_selector_absent_from_current_source"
+    }
+  ],
+  "autoEventListeners": [
+    {
+      "compiledTagId": 8,
+      "type": "link_click_listener",
+      "waitForTags": true,
+      "checkValidation": true,
+      "timeoutMs": 2000
+    },
+    {
+      "compiledTagId": 9,
+      "type": "element_visibility_listener",
+      "selector": "div.bg-blue-50",
+      "frequency": "once"
+    }
+  ],
+  "missingPublishedCapabilities": [
+    "verified_google_ads_destination",
+    "google_ads_website_lead_conversion",
+    "phone_click_event",
+    "whatsapp_click_event",
+    "email_click_event",
+    "salesiq_events",
+    "form_error_event",
+    "server_confirmed_generate_lead_trigger"
+  ],
+  "liveUiAudit": {
+    "workspaceChanges": "pending_browser_access",
+    "containerVersions": "pending_browser_access",
+    "restorableExport": "pending_browser_access",
+    "userFacingNames": "pending_browser_access",
+    "previewEvidence": "pending_approved_workspace_changes",
+    "conversionDiagnostics": "pending_approved_test"
+  }
+}

@@ -14,6 +14,95 @@ export type RevokedConsentCategories = {
   any: boolean;
 };
 
+export type RuntimeStoredConsent = {
+  version: number;
+  categories: Record<string, boolean>;
+  language?: string;
+  updatedAt?: string;
+  expiresAt: string;
+};
+
+declare global {
+  interface Window {
+    __emitronixConsentRuntimeVersion?: number;
+  }
+}
+
+function normalizedRuntimeVersion(value: unknown) {
+  return typeof value === "number" && Number.isSafeInteger(value) && value > 0
+    ? value
+    : null;
+}
+
+export function exposeConsentRuntimeVersion(version: unknown) {
+  const normalized = normalizedRuntimeVersion(version);
+  if (typeof window !== "undefined") {
+    if (normalized === null) delete window.__emitronixConsentRuntimeVersion;
+    else window.__emitronixConsentRuntimeVersion = normalized;
+  }
+  return normalized;
+}
+
+export function readConsentRuntimeVersion() {
+  if (typeof window === "undefined") return null;
+  return normalizedRuntimeVersion(window.__emitronixConsentRuntimeVersion);
+}
+
+export function parseStoredConsentForRuntime(
+  raw: string | null,
+  runtimeVersion: number | null,
+  now = Date.now(),
+): RuntimeStoredConsent | null {
+  const expectedVersion = normalizedRuntimeVersion(runtimeVersion);
+  if (!raw || expectedVersion === null) return null;
+
+  try {
+    const parsed = JSON.parse(raw) as Partial<RuntimeStoredConsent>;
+    const categories = parsed.categories;
+    const expiresAt = typeof parsed.expiresAt === "string" ? parsed.expiresAt : "";
+    const expiry = Date.parse(expiresAt);
+    if (
+      parsed.version !== expectedVersion ||
+      !categories ||
+      typeof categories !== "object" ||
+      Array.isArray(categories) ||
+      !Number.isFinite(expiry) ||
+      expiry <= now
+    ) {
+      return null;
+    }
+
+    return {
+      version: expectedVersion,
+      categories: Object.fromEntries(
+        Object.entries(categories).map(([key, value]) => [key, value === true]),
+      ),
+      expiresAt,
+      ...(typeof parsed.language === "string" ? { language: parsed.language } : {}),
+      ...(typeof parsed.updatedAt === "string" ? { updatedAt: parsed.updatedAt } : {}),
+    };
+  } catch {
+    return null;
+  }
+}
+
+export function selectStoredConsentForRuntime({
+  localStorageRaw,
+  cookieRaw,
+  runtimeVersion,
+  now = Date.now(),
+}: {
+  localStorageRaw: string | null;
+  cookieRaw: string | null;
+  runtimeVersion: number | null;
+  now?: number;
+}) {
+  return (
+    parseStoredConsentForRuntime(localStorageRaw, runtimeVersion, now) ||
+    parseStoredConsentForRuntime(cookieRaw, runtimeVersion, now)
+  );
+}
+
 type ApplyConsentTransitionOptions<TCategories extends RuntimeConsentCategories> = {
   previousCategories: TCategories | null;
   nextCategories: TCategories;

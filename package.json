@@ -9,6 +9,16 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "test:consent": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --test tests/cookie-consent-runtime.test.mjs",
+    "test:google-zoho": "node --import tsx --test tests/google-zoho/*.test.ts",
+    "migrate:google-zoho": "tsx scripts/migrate-google-zoho.ts",
+    "verify:zoho": "tsx scripts/verify-zoho.ts",
+    "verify:google-ads": "tsx scripts/verify-google-ads.ts",
+    "conversion:dry-run": "tsx scripts/conversion-dry-run.ts",
+    "conversion:worker": "tsx scripts/process-google-zoho-conversions.ts",
+    "conversion:diagnostics": "tsx scripts/process-google-zoho-conversions.ts --diagnostics",
+    "conversion:scheduler": "tsx scripts/run-google-zoho-scheduler.ts",
+    "integration:report": "tsx scripts/google-zoho-report.ts",
+    "integration:prune": "tsx scripts/prune-google-zoho.ts",
     "generate:brand-assets": "node scripts/generate-brand-assets.mjs",
     "validate:brand": "node scripts/validate-brand-assets.mjs",
     "validate:seo": "node scripts/validate-site.mjs",
@@ -21,25 +31,29 @@
     "validate:images:partial": "node scripts/validate-image-assets.mjs --allow-incomplete"
   },
   "dependencies": {
+    "better-sqlite3": "^12.11.1",
     "lucide-react": "^0.468.0",
     "next": "^15.5.21",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.17.0",
     "eslint-config-next": "^15.5.21",
-    "postcss": "^8.4.49",
+    "postcss": "^8.5.25",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.23.5",
     "typescript": "^5.7.2"
   },
   "overrides": {
     "next": {
-      "postcss": "8.5.22",
+      "postcss": "8.5.25",
       "sharp": "0.35.3"
     }
   }

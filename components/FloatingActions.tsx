@@ -35,6 +35,7 @@ export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        data-gtm-location="floating_whatsapp"
         aria-label={isArabic ? arabicLabels.whatsapp : "Chat with Emitronix on WhatsApp"}
         className="fixed bottom-5 left-5 z-[99999] flex items-center gap-3 rounded-full"
       >
@@ -50,6 +51,7 @@ export function FloatingActions({ whatsappUrl }: { whatsappUrl: string }) {
       <button
         type="button"
         onClick={openZohoChat}
+        data-gtm-location="floating_salesiq"
         aria-label={isArabic ? arabicLabels.openChat : "Open Emitronix Zoho chatbot"}
         className="fixed bottom-5 right-5 z-[99999] flex items-center gap-3 rounded-full"
       >

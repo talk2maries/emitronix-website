@@ -1,9 +1,11 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   applyConsentTransition,
+  parseStoredConsentForRuntime,
   scheduleReloadAfterConsentUpdate,
+  selectStoredConsentForRuntime,
   shouldBlockRevokedTrackingRequest,
 } from "../lib/cookieConsentRuntime.ts";
 
@@ -22,6 +24,65 @@ const rejected = {
   functional: false,
   performance: false,
 };
+
+const consentNow = Date.parse("2026-08-05T00:00:00.000Z");
+const validStoredConsent = {
+  version: 7,
+  categories: accepted,
+  language: "en",
+  updatedAt: "2026-08-04T23:00:00.000Z",
+  expiresAt: "2026-09-05T00:00:00.000Z",
+};
+
+async function readExecutableSources(directory) {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const sources = [];
+  for (const entry of entries) {
+    const url = new URL(`${entry.name}${entry.isDirectory() ? "/" : ""}`, directory);
+    if (entry.isDirectory()) sources.push(...await readExecutableSources(url));
+    else if (/\.(?:[cm]?[jt]sx?)$/.test(entry.name)) sources.push(await readFile(url, "utf8"));
+  }
+  return sources;
+}
+
+test("stored consent is denied until the authoritative runtime version matches", () => {
+  const raw = JSON.stringify(validStoredConsent);
+  assert.equal(parseStoredConsentForRuntime(raw, null, consentNow), null);
+  assert.equal(parseStoredConsentForRuntime(raw, 6, consentNow), null);
+  assert.equal(parseStoredConsentForRuntime(raw, 7, consentNow)?.version, 7);
+});
+
+test("malformed or stale local storage falls back to a valid consent cookie", () => {
+  const cookieRaw = JSON.stringify(validStoredConsent);
+  for (const localStorageRaw of [
+    "{malformed",
+    JSON.stringify({ ...validStoredConsent, version: 6 }),
+    JSON.stringify({ ...validStoredConsent, expiresAt: "2026-08-04T00:00:00.000Z" }),
+  ]) {
+    assert.deepEqual(
+      selectStoredConsentForRuntime({ localStorageRaw, cookieRaw, runtimeVersion: 7, now: consentNow }),
+      validStoredConsent,
+    );
+  }
+});
+
+test("all browser and server consent consumers use the authoritative runtime version", async () => {
+  const [manager, dataLayer, attributionBrowser, contactRoute] = await Promise.all([
+    readFile(new URL("../components/CookieConsentManager.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../lib/gtm/dataLayer.ts", import.meta.url), "utf8"),
+    readFile(new URL("../lib/googleZoho/attribution-browser.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/api/contact/route.ts", import.meta.url), "utf8"),
+  ]);
+
+  assert.ok(
+    manager.indexOf("exposeConsentRuntimeVersion(nextConfig.version)") <
+      manager.indexOf("getStoredConsent(nextConfig)"),
+  );
+  assert.match(dataLayer, /runtimeVersion: readConsentRuntimeVersion\(\)/);
+  assert.match(attributionBrowser, /runtimeVersion: readConsentRuntimeVersion\(\)/);
+  assert.match(contactRoute, /await getCookieConsentConfig\(\)/);
+  assert.match(contactRoute, /advertisingConsentCookie\(request, consentConfig\.version\)/);
+});
 
 function runTransition(previousCategories, nextCategories, clearAllOptionalState = false) {
   const calls = [];
@@ -237,10 +298,24 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
   ]) {
     assert.match(layout, new RegExp(`${field}: 'denied'`));
   }
+  assert.match(layout, /security_storage: 'granted'/);
+  assert.doesNotMatch(layout, /window\.localStorage\.getItem\('emitronix_cookie_consent'\)/);
   assert.ok(
     layout.indexOf('id="emitronix-google-consent-default"') <
       layout.indexOf('id="emitronix-google-tag-manager"'),
   );
+  assert.ok(layout.indexOf("<noscript>") < layout.indexOf('<a href="#main-content"'));
+
+  const executableSources = (
+    await Promise.all([
+      readExecutableSources(new URL("../app/", import.meta.url)),
+      readExecutableSources(new URL("../components/", import.meta.url)),
+      readExecutableSources(new URL("../lib/", import.meta.url)),
+    ])
+  ).flat().join("\n");
+  assert.equal(executableSources.match(/googletagmanager\.com\/gtm\.js/g)?.length, 1);
+  assert.equal(executableSources.match(/googletagmanager\.com\/ns\.html/g)?.length, 1);
+  assert.equal(executableSources.match(/googletagmanager\.com\/gtag\/js/g)?.length || 0, 0);
 });
 test("floating action opens Zoho chat instead of the call button", async () => {
   const [floatingActions, consentManager] = await Promise.all([

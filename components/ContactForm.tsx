@@ -3,6 +3,14 @@
 import { Loader2, Send } from "lucide-react";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { AttributionHiddenFields, attributionFormValues } from "@/components/AttributionHiddenFields";
+import {
+  markGtmFormCompleted,
+  pushFormErrorEvent,
+  pushFormSubmitEvent,
+  pushServerConfirmedLead,
+  type ServerLeadResult,
+} from "@/lib/gtm/dataLayer";
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -100,9 +108,18 @@ export function ContactForm({
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+    const submissionField = form.elements.namedItem("submissionId") as HTMLInputElement | null;
+    if (submissionField && !submissionField.value) submissionField.value = crypto.randomUUID();
+    if (submissionField?.value) formData.set("submissionId", submissionField.value);
+    const attributionValues = attributionFormValues(formData);
+    const submissionId = String(formData.get("submissionId") || "");
 
     setStatus("submitting");
     setMessage("");
+    pushFormSubmitEvent("contact_form", submissionId);
+
+    let failureType: "api" | "network" = "network";
+    let failureStatus: number | undefined;
 
     try {
       const response = await fetch("/api/contact", {
@@ -120,28 +137,57 @@ export function ContactForm({
           message: formData.get("message"),
           consent: formData.get("consent") === "on",
           website: formData.get("website"),
+          formName: "contact_form",
           pageUrl: window.location.href,
+          submissionId: formData.get("submissionId"),
+          ...attributionValues,
         }),
       });
 
-      const result = (await response.json().catch(() => ({}))) as { ok?: boolean; message?: string };
+      const result = (await response.json().catch(() => ({}))) as ServerLeadResult & { message?: string };
 
       if (!response.ok || !result.ok) {
+        failureType = "api";
+        failureStatus = response.status;
         throw new Error(result.message || text.error);
       }
 
+      pushServerConfirmedLead({
+        result,
+        formName: "contact_form",
+        attribution: attributionValues.attribution,
+      });
+      markGtmFormCompleted(form);
       form.reset();
+      delete form.dataset.gtmStarted;
+      delete form.dataset.gtmInstance;
       setStatus("success");
       setMessage(text.success);
     } catch (error) {
+      pushFormErrorEvent({
+        formName: "contact_form",
+        submissionId,
+        errorType: failureType,
+        httpStatus: failureStatus,
+      });
       setStatus("error");
       setMessage(error instanceof Error ? error.message : text.error);
     }
   }
 
   return (
-    <form dir={isArabic ? "rtl" : "ltr"} onSubmit={handleSubmit} className="luxury-surface rounded-[2rem] p-5 sm:p-7">
+    <form
+      action="/api/contact"
+      method="post"
+      data-gtm-form-name="contact_form"
+      dir={isArabic ? "rtl" : "ltr"}
+      onSubmit={handleSubmit}
+      className="luxury-surface rounded-[2rem] p-5 sm:p-7"
+    >
       <input name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
+      <input type="hidden" name="submissionId" defaultValue="" />
+      <input type="hidden" name="formName" value="contact_form" readOnly />
+      <AttributionHiddenFields />
       <div className="grid gap-5 sm:grid-cols-2">
         <label className="grid gap-2 text-sm font-black text-charcoal">
           {text.name}

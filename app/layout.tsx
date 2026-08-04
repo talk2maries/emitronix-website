@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { CookieConsentManager } from "@/components/CookieConsentManager";
+import { AttributionCapture } from "@/components/AttributionCapture";
 import { DocumentLocaleSync } from "@/components/DocumentLocaleSync";
 import { FloatingActions } from "@/components/FloatingActions";
+import { GtmEventBridge } from "@/components/GtmEventBridge";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import {
@@ -290,6 +292,12 @@ gtag('consent', 'default', {
           <span className="skip-link-label-en" lang="en-AE">Skip to main content</span>
           <span className="skip-link-label-ar" lang="ar-AE" dir="rtl">تخطي إلى المحتوى الرئيسي</span>
         </a>
+        <GtmEventBridge
+          phoneNumbers={[site.phoneE164, site.mobileE164]}
+          whatsappNumbers={[site.mobileE164]}
+          emailAddresses={[site.email]}
+        />
+        <AttributionCapture />
         <DocumentLocaleSync />
         <Header />
         <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>

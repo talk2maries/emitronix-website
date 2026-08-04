@@ -1,47 +1,19 @@
 # Zoho CRM Contact Form Setup
 
-The Emitronix contact form submits to `/api/contact`, which creates a Zoho CRM Lead from the server. Real Zoho credentials must be configured as environment variables only.
+The contact and article enquiry forms use `/api/contact` to create or update Zoho CRM Leads from the server. Credentials never enter browser code. Paid attribution is stored only after marketing consent, and an existing Lead Source is preserved during updates.
 
-## Required Environment Variables
+This page is retained as a short compatibility entry point. Use the current integration guides for setup:
 
-```bash
-ZOHO_CLIENT_ID="your-client-id"
-ZOHO_CLIENT_SECRET="your-client-secret"
-ZOHO_REFRESH_TOKEN="your-refresh-token"
-ZOHO_ACCOUNTS_URL="https://accounts.zoho.com"
-ZOHO_API_DOMAIN="https://www.zohoapis.com"
-ZOHO_CRM_MODULE="Leads"
-ZOHO_LEAD_SOURCE="Website Contact Form"
-```
+- [Architecture and audit](integrations/google-zoho/architecture.md)
+- [Zoho CRM fields and workflows](integrations/google-zoho/zoho-crm-setup.md)
+- [Field mapping](integrations/google-zoho/field-mapping.md)
+- [Deployment](integrations/google-zoho/deployment.md)
+- [Verification checklist](integrations/google-zoho/verification-checklist.md)
 
-## Zoho OAuth Notes
-
-- Authorize the Zoho app using the `info@emitronix.ae` Zoho CRM user.
-- The refresh token must be generated once through Zoho OAuth and stored only on the production server.
-- Use the Zoho data center that matches the CRM account. The current default is `.com`.
-- Do not commit `.env`, `.env.local`, access tokens, refresh tokens, client secrets or API keys.
-
-## Lead Field Mapping
-
-| Website field | Zoho CRM Lead field |
-| --- | --- |
-| Full name | First_Name, Last_Name |
-| Company | Company |
-| Email | Email |
-| Mobile | Phone, Mobile |
-| Service | Description |
-| Project location | Description |
-| Project details | Description |
-| Lead source | Lead_Source |
-
-## Deployment Check
-
-After adding the environment variables on the server:
+Start from `.env.example`, then run the read-only metadata check:
 
 ```bash
-npm run build
-pm2 restart emitronix-next
-pm2 save
+npm run verify:zoho
 ```
 
-Submit a test enquiry from `/contact`, then confirm a new Lead appears in Zoho CRM.
+Creating custom fields, enabling a Zoho workflow/webhook, sending a sample customer lead, restarting PM2, and deploying to production all require explicit administrator approval. A native unsigned webhook is not sufficient for the conversion endpoint; use the documented trusted custom function or gateway to compute its HMAC signature.

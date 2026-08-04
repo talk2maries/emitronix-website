@@ -37,7 +37,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https:",
       `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""} https:`,
       `connect-src 'self' https:${isDevelopment ? " ws:" : ""}`,
-      "frame-src 'self' https://www.googletagmanager.com",
+      "frame-src 'self' https://www.googletagmanager.com https://salesiq.zohopublic.com",
       "worker-src 'self' blob:",
       "upgrade-insecure-requests",
     ].join("; "),
@@ -82,6 +82,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   compress: true,
+  serverExternalPackages: ["better-sqlite3"],
   // Keep metadata in <head> for search, social, answer-engine and audit
   // crawlers without disabling metadata streaming for every human browser.
   htmlLimitedBots:

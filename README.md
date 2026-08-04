@@ -4,7 +4,7 @@ Premium corporate website for Emitronix Contracting LLC in Dubai, UAE.
 
 ## Stack
 
-- Next.js 15 App Router
+- Next.js 15 App Router (Node.js 20 or newer)
 - TypeScript
 - Tailwind CSS
 - Local optimized visual assets
@@ -55,34 +55,33 @@ You can also double-click `start-dev.cmd` from the project folder to launch the 
 npm run build
 ```
 
-## Zoho CRM Lead Integration
+## Google Ads and Zoho CRM Lead Integration
 
-The contact and article enquiry forms submit to the consent-checked server-side API route at `/api/contact`, which creates a follow-up record in the configured CRM. CRM credentials must stay server-side in environment variables and must never be exposed in browser code.
+Contact and article enquiry forms submit to `/api/contact`. The server validates consent and attribution, prevents duplicate processing in a durable SQLite ledger, and creates or updates the corresponding Zoho CRM Lead without overwriting an existing unrelated Lead Source. CRM-qualified milestones are queued through the signed Zoho webhook and remain Google Data Manager API dry-runs until live activation is explicitly approved.
 
-Create a local `.env.local` or production environment with:
+Copy the placeholders from `.env.example`; never commit real OAuth credentials, webhook secrets, or customer data. Use `ZOHO_ACCOUNTS_URL` for the organization's actual Zoho data centre. The API domain is taken from Zoho's OAuth token response rather than hard-coded.
+
+Operational commands:
 
 ```bash
-ZOHO_CLIENT_ID=your_zoho_client_id
-ZOHO_CLIENT_SECRET=your_zoho_client_secret
-ZOHO_REFRESH_TOKEN=your_zoho_refresh_token
-ZOHO_ACCOUNTS_BASE_URL=https://accounts.zoho.com
-ZOHO_CRM_API_BASE_URL=https://www.zohoapis.com
-ZOHO_CRM_API_VERSION=v2
-ZOHO_SERVICE_INTEREST_FIELD_API_NAME=
+npm run migrate:google-zoho
+npm run test:google-zoho
+npm run verify:zoho
+npm run verify:google-ads
+npm run conversion:dry-run
+npm run conversion:worker
+npm run conversion:diagnostics
+npm run conversion:scheduler
+npm run integration:report
+npm run integration:prune
 ```
 
-Use the Zoho accounts and API domains for the correct Zoho data center, for example `.com`, `.eu`, `.in`, or the value returned by Zoho OAuth. The OAuth app should have CRM lead creation access, such as `ZohoCRM.modules.Leads.CREATE` or a broader approved CRM module scope.
+Start with the [audit report](docs/integrations/google-zoho/audit-report.md), [implementation plan](docs/integrations/google-zoho/implementation-plan.md), and [architecture index](docs/integrations/google-zoho/architecture.md). Live Google Ads, GTM, Zoho workflow, scheduler, and deployment steps remain approval-gated.
 
-Field mapping:
+## Google Tag Manager Phase 2A
 
-- Full name: split into `First_Name` and mandatory `Last_Name`
-- Company: `Company`, using `Individual Enquiry` when omitted
-- Email: `Email`
-- Phone: `Phone`
-- Service: `Lead_Source`
-- Project Details: `Description`
-- Optional service custom field: set `ZOHO_SERVICE_INTEREST_FIELD_API_NAME` to a Zoho Lead field API name if the CRM has a dedicated service-interest field
+The website emits consent-aware, PII-safe form, lead, contact-click, SalesIQ and virtual-page events. `generate_lead` is sent only after the API confirms the Zoho create/update and is deduplicated using the backend lead ID. The live GTM container has not been modified or published.
 
-After updating environment variables, restart the Next.js process so the API route can read them.
+See the [Phase 2A GTM index](docs/integrations/gtm/README.md), [audit](docs/integrations/gtm/audit-report.md), [data-layer specification](docs/integrations/gtm/data-layer-specification.md), and [publishing checklist](docs/integrations/gtm/publishing-checklist.md).
 
 Update final production phone, email, social links and domain in `data/site.ts` before launch.

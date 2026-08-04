@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "type": "proposal_only_not_gtm_import_export",
+  "containerPublicId": "GTM-MSM8MPD6",
+  "publishAuthorized": false,
+  "knownIds": {
+    "ga4MeasurementId": "G-43MXN4GKR2",
+    "googleAdsConversionId": null
+  },
+  "canonicalLeadIdentity": {
+    "source": "server lead_submissions.id",
+    "websiteDataLayerFields": ["lead_id", "event_id"],
+    "websiteGoogleAdsTransactionIdVariable": "lead_id",
+    "zohoLogicalField": "websiteSubmissionId",
+    "offlineDataManagerTransactionId": "same lead_id for each separate funnel-stage action",
+    "browserSubmissionIdIsTransactionId": false
+  },
+  "requiredInputs": [
+    "verified_google_ads_conversion_id",
+    "website_lead_conversion_label",
+    "approved_phone_click_label_if_used",
+    "approved_whatsapp_click_label_if_used",
+    "approved_email_click_label_if_used",
+    "fresh_container_export",
+    "workspace_conflict_review"
+  ],
+  "variables": {
+    "constants": [
+      "VAR – Constant – GA4 Measurement ID",
+      "VAR – Constant – Google Ads Conversion ID",
+      "VAR – Constant – Website Lead Label",
+      "VAR – Constant – Phone Click Label",
+      "VAR – Constant – WhatsApp Click Label",
+      "VAR – Constant – Email Click Label",
+      "VAR – Constant – Currency"
+    ],
+    "dataLayerVersion2": [
+      "lead_id",
+      "submission_id",
+      "form_name",
+      "lead_source",
+      "lead_value",
+      "currency",
+      "gclid_available",
+      "gbraid_available",
+      "wbraid_available",
+      "match_type",
+      "device",
+      "network",
+      "page_location",
+      "page_path",
+      "page_referrer",
+      "click_url",
+      "phone_number",
+      "button_location",
+      "error_type",
+      "http_status",
+      "crm_action"
+    ],
+    "deferredBrowserVariables": {
+      "crm_lead_id": "server_only_identifier",
+      "campaign_id": "requires_deployment_allowlist",
+      "campaign_name": "untrusted_url_text",
+      "ad_group_id": "requires_deployment_allowlist",
+      "keyword": "untrusted_url_text",
+      "utm_source": "untrusted_url_text",
+      "utm_medium": "untrusted_url_text",
+      "utm_campaign": "untrusted_url_text",
+      "utm_term": "untrusted_url_text",
+      "utm_content": "untrusted_url_text"
+    }
+  },
+  "triggers": [
+    { "name": "TRG – Initialization – All Pages", "type": "initialization" },
+    { "name": "TRG – Custom Event – Virtual Page View", "event": "virtual_page_view" },
+    { "name": "TRG – Custom Event – Generate Lead", "event": "generate_lead", "condition": "lead_id is not empty" },
+    { "name": "TRG – Custom Event – CRM Lead Created", "event": "crm_lead_created" },
+    { "name": "TRG – Custom Event – Form Start", "event": "form_start" },
+    { "name": "TRG – Custom Event – Form Submit Attempt", "event": "form_submit" },
+    { "name": "TRG – Custom Event – Form Error", "event": "form_error" },
+    { "name": "TRG – Custom Event – Form Abandon", "event": "form_abandon" },
+    { "name": "TRG – Custom Event – Phone Click", "event": "phone_click" },
+    { "name": "TRG – Custom Event – WhatsApp Click", "event": "whatsapp_click" },
+    { "name": "TRG – Custom Event – Email Click", "event": "email_click" },
+    { "name": "TRG – Custom Event – SalesIQ Chat Start", "event": "salesiq_chat_start" },
+    { "name": "TRG – Custom Event – SalesIQ Lead Captured", "event": "salesiq_lead_captured" }
+  ],
+  "tags": [
+    {
+      "name": "TAG – Google Tag – All Pages",
+      "action": "reuse_and_connect_verified_ads_destination",
+      "trigger": "TRG – Initialization – All Pages",
+      "consent": ["built_in_google_consent"]
+    },
+    {
+      "name": "TAG – Google Ads – Website Lead",
+      "action": "create_after_ids_are_verified",
+      "trigger": "TRG – Custom Event – Generate Lead",
+      "transactionIdVariable": "lead_id",
+      "valueVariable": "lead_value",
+      "currencyVariable": "currency",
+      "consent": ["ad_storage", "ad_user_data"],
+      "goal": "primary_after_qa"
+    },
+    {
+      "name": "TAG – GA4 – Generate Lead",
+      "action": "create",
+      "trigger": "TRG – Custom Event – Generate Lead",
+      "consent": ["analytics_storage"],
+      "googleAdsImport": false
+    },
+    {
+      "name": "TAG – GA4 – Virtual Page View",
+      "action": "create_only_if_history_measurement_is_not_already_owned",
+      "trigger": "TRG – Custom Event – Virtual Page View",
+      "consent": ["analytics_storage"]
+    },
+    {
+      "name": "TAG – Google Ads – Phone Click",
+      "action": "create_paused_after_label_approval",
+      "trigger": "TRG – Custom Event – Phone Click",
+      "consent": ["ad_storage"],
+      "goal": "secondary"
+    },
+    {
+      "name": "TAG – Google Ads – WhatsApp Click",
+      "action": "create_paused_after_label_approval",
+      "trigger": "TRG – Custom Event – WhatsApp Click",
+      "consent": ["ad_storage"],
+      "goal": "secondary"
+    },
+    {
+      "name": "TAG – Google Ads – Email Click",
+      "action": "create_paused_after_label_approval",
+      "trigger": "TRG – Custom Event – Email Click",
+      "consent": ["ad_storage"],
+      "goal": "secondary"
+    },
+    {
+      "name": "TAG – GA4 – Form Lifecycle",
+      "action": "create_as_separate_ga4_event_tags_or_lookup",
+      "triggers": ["form_start", "form_submit", "form_error", "form_abandon"],
+      "consent": ["analytics_storage"],
+      "conversion": false
+    },
+    {
+      "name": "TAG – GA4 – Contact Clicks",
+      "action": "create_as_separate_ga4_event_tags_or_lookup",
+      "triggers": ["phone_click", "whatsapp_click", "email_click"],
+      "consent": ["analytics_storage"]
+    },
+    {
+      "name": "TAG – GA4 – SalesIQ Chat Start",
+      "action": "create_after_verified_callback_preview",
+      "trigger": "TRG – Custom Event – SalesIQ Chat Start",
+      "consent": ["analytics_storage"],
+      "goal": "secondary"
+    }
+  ],
+  "retireAfterReplacementPassesPreview": [
+    "published_ga4_form_submit_element_visibility_tag",
+    "published_div_bg_blue_50_element_visibility_trigger"
+  ],
+  "browserTagsProhibited": [
+    "qualified_lead",
+    "meeting_booked",
+    "quotation_submitted",
+    "deal_won",
+    "raw_customer_email",
+    "raw_customer_phone"
+  ]
+}
