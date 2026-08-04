@@ -41,9 +41,11 @@ type QueuedTrackingFunction = ((...args: unknown[]) => void) & {
 };
 
 type SalesIqVisibilityState = "show" | "hide";
+type SalesIqCookieCategory = "analytics" | "performance";
 
 type ZohoSalesIqApi = {
   ready?: () => void;
+  afterReady?: (...args: unknown[]) => void;
   floatbutton?: {
     visible?: (state: SalesIqVisibilityState) => void;
     click?: () => void;
@@ -57,6 +59,13 @@ type ZohoSalesIqApi = {
   visitor?: {
     info?: (details: Record<string, string>) => void;
     customaction?: (action: string) => void;
+  };
+  privacy?: {
+    updateCookieConsent?: (categories: SalesIqCookieCategory[]) => void;
+  };
+  tracking?: {
+    on?: () => void;
+    off?: () => void;
   };
 };
 
@@ -125,6 +134,9 @@ const SALESIQ_PROACTIVE_KEY = "emitronix_salesiq_proactive_v1";
 let salesIqProactiveFiredInMemory = false;
 let salesIqOpenRequested = false;
 let salesIqReadyHandlerInstalled = false;
+let salesIqConsentCategories: ConsentCategoryMap | null = null;
+let salesIqReadyFired = false;
+let salesIqAfterReadyFired = false;
 
 function getLocalStorageValue(key: string) {
   try {
@@ -395,7 +407,40 @@ function fireSalesIqProactiveActionOnce() {
   }
 }
 
-function loadSalesIqWidget() {
+function syncSalesIqCookieConsent() {
+  const api = getSalesIqApi();
+  const categories = salesIqConsentCategories;
+  if (!api || !categories) return;
+
+  const cookieConsent: SalesIqCookieCategory[] = [];
+  if (categories.analytics) cookieConsent.push("analytics");
+  if (categories.performance) cookieConsent.push("performance");
+
+  try {
+    api.privacy?.updateCookieConsent?.(cookieConsent);
+  } catch {
+    // Chat remains available even if SalesIQ rejects a cookie preference update.
+  }
+}
+
+function syncSalesIqTracking() {
+  const api = getSalesIqApi();
+  const categories = salesIqConsentCategories;
+  if (!api || !categories) return;
+
+  try {
+    if (categories.functional && categories.analytics) {
+      api.tracking?.on?.();
+    } else {
+      api.tracking?.off?.();
+    }
+  } catch {
+    // Tracking consent must not affect the visitor's ability to use the website.
+  }
+}
+
+function loadSalesIqWidget(categories: ConsentCategoryMap) {
+  salesIqConsentCategories = categories;
   const zohoContainer = (window.$zoho = window.$zoho || {});
   const salesiq = (zohoContainer.salesiq = zohoContainer.salesiq || {});
 
@@ -418,11 +463,19 @@ function loadSalesIqWidget() {
 
   if (!salesIqReadyHandlerInstalled) {
     const previousReady = salesiq.ready;
+    const previousAfterReady = salesiq.afterReady;
     salesiq.ready = () => {
       if (typeof previousReady === "function") previousReady();
+      salesIqReadyFired = true;
+      syncSalesIqTracking();
       syncSalesIqPageContext();
       if (salesIqOpenRequested) openSalesIqWindow();
       window.setTimeout(fireSalesIqProactiveActionOnce, SALESIQ_PROACTIVE_DELAY_MS);
+    };
+    salesiq.afterReady = (...args: unknown[]) => {
+      if (typeof previousAfterReady === "function") previousAfterReady(...args);
+      salesIqAfterReadyFired = true;
+      syncSalesIqCookieConsent();
     };
     salesIqReadyHandlerInstalled = true;
   }
@@ -431,6 +484,8 @@ function loadSalesIqWidget() {
     document.getElementById(SALESIQ_SCRIPT_ID) ||
     document.querySelector(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`)
   ) {
+    if (salesIqReadyFired) syncSalesIqTracking();
+    if (salesIqAfterReadyFired) syncSalesIqCookieConsent();
     syncSalesIqPageContext();
     return;
   }
@@ -454,6 +509,9 @@ function clearSalesIqState() {
   salesIqOpenRequested = false;
   salesIqReadyHandlerInstalled = false;
   salesIqProactiveFiredInMemory = false;
+  salesIqConsentCategories = null;
+  salesIqReadyFired = false;
+  salesIqAfterReadyFired = false;
 
   document.getElementById(SALESIQ_SCRIPT_ID)?.remove();
   document
@@ -542,7 +600,7 @@ function loadGrantedIntegrationScripts(categories: ConsentCategoryMap) {
   if (categories.marketing) loadExtraScripts("emitronix-extra-marketing", extraScripts.marketing);
   if (categories.functional) {
     loadExtraScripts("emitronix-extra-functional", extraScripts.functional);
-    loadSalesIqWidget();
+    loadSalesIqWidget(categories);
   }
   if (categories.performance) loadExtraScripts("emitronix-extra-performance", extraScripts.performance);
 }
@@ -603,7 +661,10 @@ function clearRevokedTrackingState(
     if (window._linkedin_data_partner_ids) window._linkedin_data_partner_ids.length = 0;
   }
 
-  if (revoked.functional) {
+  if (revoked.functional || revoked.analytics || revoked.performance) {
+    salesIqConsentCategories = nextCategories;
+    if (salesIqReadyFired) syncSalesIqTracking();
+    if (salesIqAfterReadyFired) syncSalesIqCookieConsent();
     clearSalesIqState();
   }
 
@@ -930,7 +991,7 @@ export function CookieConsentManager() {
       salesIqOpenRequested = true;
 
       if (appliedCategoriesRef.current?.functional) {
-        loadSalesIqWidget();
+        loadSalesIqWidget(appliedCategoriesRef.current);
         window.EmitronixJyothika?.open();
         return;
       }
