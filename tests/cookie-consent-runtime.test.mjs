@@ -226,7 +226,8 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
   assert.equal(consentManager.match(/googletagmanager\.com\/gtag\/js/g)?.length || 0, 0);
   assert.equal(layout.match(/salesiq\.zohopublic\.com\/widget/g)?.length || 0, 0);
   assert.equal(consentManager.match(/siq1f4b2e5df11f8540e8c42cce8cfbf087ee91508d4eaaccfbcd68dc760569131fdba231f665cae37d10855c73a0668462/g)?.length || 0, 1);
-  assert.match(consentManager, /loadSalesIqWidget\(\)/);
+  assert.match(consentManager, /function loadSalesIqWidget\(categories: ConsentCategoryMap\)/);
+  assert.match(consentManager, /loadSalesIqWidget\(categories\)/);
   for (const field of [
     "ad_storage",
     "analytics_storage",
@@ -242,6 +243,31 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
       layout.indexOf('id="emitronix-google-tag-manager"'),
   );
 });
+
+test("SalesIQ receives cookie consent and starts live visitor tracking only with analytics consent", async () => {
+  const consentManager = await readFile(
+    new URL("../components/CookieConsentManager.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(consentManager, /api\.privacy\?\.updateCookieConsent\?\.\(cookieConsent\)/);
+  assert.match(consentManager, /categories\.functional && categories\.analytics/);
+  assert.match(consentManager, /api\.tracking\?\.on\?\.\(\)/);
+  assert.match(consentManager, /api\.tracking\?\.off\?\.\(\)/);
+  assert.match(
+    consentManager,
+    /salesiq\.ready = \(\) => \{[\s\S]*?syncSalesIqTracking\(\);/,
+  );
+  assert.match(
+    consentManager,
+    /salesiq\.afterReady = \(\.\.\.args: unknown\[\]\) => \{[\s\S]*?syncSalesIqCookieConsent\(\);/,
+  );
+  assert.match(
+    consentManager,
+    /revoked\.functional \|\| revoked\.analytics \|\| revoked\.performance/,
+  );
+});
+
 test("floating action opens Zoho chat instead of the call button", async () => {
   const [floatingActions, consentManager] = await Promise.all([
     readFile(new URL("../components/FloatingActions.tsx", import.meta.url), "utf8"),
