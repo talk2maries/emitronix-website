@@ -10,7 +10,7 @@ Branch: `seo/gsc-arabic-indexing-fixes`
 
 Base commit: `a6902f8`
 
-Planned commit message: `Fix GSC indexing and Arabic route duplication`
+Implementation commit: `9730065` (`Fix GSC indexing and Arabic route duplication`)
 
 ## Executive Summary
 
