@@ -1,0 +1,816 @@
+{
+  "discovered": {
+    "label": "Discovered - currently not indexed",
+    "detailUrl": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Femitronix.ae%2F&item_key=CAMYFiAC",
+    "affected": 148,
+    "rows": [
+      {
+        "url": "https://emitronix.ae/ar/blog/choose-best-building-contractor-dubai",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/ar/blog/complete-guide-civil-construction-dubai-2026",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/ar/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/cold-storage-warehouse-construction-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/cold-storage-warehouse-construction-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/cold-storage-warehouse-construction-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/cold-storage-warehouse-construction-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/cold-storage-warehouse-construction-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/factory-construction-uae-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/factory-construction-uae-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/factory-construction-uae-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/factory-construction-uae-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/factory-construction-uae-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-building-construction-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-building-construction-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-building-construction-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-building-construction-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-building-construction-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-warehouse-construction-uae-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-warehouse-construction-uae-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-warehouse-construction-uae-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-warehouse-construction-uae-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/industrial-warehouse-construction-uae-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/logistics-warehouse-construction-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/logistics-warehouse-construction-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/logistics-warehouse-construction-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/logistics-warehouse-construction-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/logistics-warehouse-construction-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/steel-warehouse-construction-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/steel-warehouse-construction-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/steel-warehouse-construction-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/steel-warehouse-construction-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-authority-approvals-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-authority-approvals-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-authority-approvals-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-authority-approvals-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-construction-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-construction-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-construction-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-construction-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-construction-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-contractors-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-contractors-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-contractors-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-contractors-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-cost-planning-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-cost-planning-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-cost-planning-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-cost-planning-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-cost-planning-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dcd-approvals-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dcd-approvals-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dcd-approvals-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dcd-approvals-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dcd-approvals-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-design-and-build-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-design-and-build-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-design-and-build-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-design-and-build-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dewa-approvals-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dewa-approvals-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dewa-approvals-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dewa-approvals-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dewa-approvals-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dubai-municipality-approvals-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dubai-municipality-approvals-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dubai-municipality-approvals-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dubai-municipality-approvals-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-dubai-municipality-approvals-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fire-fighting-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fire-fighting-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fire-fighting-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fire-fighting-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fire-fighting-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fit-out-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fit-out-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fit-out-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-fit-out-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-flooring-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-flooring-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-flooring-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-flooring-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-flooring-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-mep-coordination-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-mep-coordination-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-mep-coordination-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-mep-coordination-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-mep-coordination-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-project-management-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-project-management-dubai-contractor-selection",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-project-management-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-project-management-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-project-management-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-renovation-dubai-approval-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-renovation-dubai-cost-factors",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-renovation-dubai-planning-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/blog/warehouse-renovation-dubai-timeline-process",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/cold-storage-warehouse",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/distribution-centre-construction",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/factory-construction",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/industrial-building-construction",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/industrial-warehouse-construction",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/logistics-warehouse",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/steel-warehouse-construction",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-authority-approvals",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-builder-uae",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-civil-contractor",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-civil-works",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-completion",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-compliance-uae",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-concrete-works",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-construction-dubai",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-construction-timeline",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-consultant",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-contractor-checklist",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-contractors-dubai",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-cost-guide",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-dcd-approvals",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-design-build",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-design-standards-uae",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-dewa-approvals",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-dm-approvals",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-engineering",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-epc-contractor",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-expansion",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-extension",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-fire-alarm",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-fire-fighting",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-fit-out",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-flooring",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-foundations",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-infrastructure",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-landscaping",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-loading-dock-construction",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-maintenance",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-mep",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-office-construction",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-parking-construction",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-planning",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-project-management",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-renovation",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-road-works",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-roofing",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-safety-standards",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-structural-steel",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-turnkey-contractor",
+        "lastCrawled": "N/A"
+      },
+      {
+        "url": "https://emitronix.ae/warehouse/warehouse-utility-services",
+        "lastCrawled": "N/A"
+      }
+    ]
+  },
+  "alternate": {
+    "label": "Alternate page with proper canonical tag",
+    "detailUrl": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Femitronix.ae%2F&item_key=CAMYGCAC",
+    "affected": 6,
+    "rows": [
+      {
+        "lastCrawled": "Jul 31, 2026",
+        "url": "https://emitronix.ae/contact?intent=site-visit"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/design-build"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/interior"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/industrial-buildings"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/project-management"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/commercial-buildings"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/building-renovation"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/interior-fit-out"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/villa-construction"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/civil-contracting"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/main-contracting"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/services/design-build"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/services/main-contracting"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/services/structural-works"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/structural-works"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/ar/services/warehouse-construction"
+      },
+      {
+        "lastCrawled": "Jul 6, 2026",
+        "url": "https://emitronix.ae/ar/contact?intent=site-visit"
+      },
+      {
+        "lastCrawled": "Jul 6, 2026",
+        "url": "https://emitronix.ae/ar/services/turnkey-construction"
+      },
+      {
+        "lastCrawled": "Jul 6, 2026",
+        "url": "https://emitronix.ae/services/building-renovation"
+      }
+    ]
+  },
+  "redirect": {
+    "label": "Page with redirect",
+    "detailUrl": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Femitronix.ae%2F&item_key=CAMYCyAC",
+    "affected": 14,
+    "rows": [
+      {
+        "lastCrawled": "Aug 7, 2026",
+        "url": "https://emitronix.ae/services/commercial-buildings"
+      },
+      {
+        "lastCrawled": "Aug 6, 2026",
+        "url": "https://emitronix.ae/services/villa-construction"
+      },
+      {
+        "lastCrawled": "Aug 5, 2026",
+        "url": "https://emitronix.ae/services/project-management"
+      },
+      {
+        "lastCrawled": "Aug 5, 2026",
+        "url": "https://emitronix.ae/approvals"
+      },
+      {
+        "lastCrawled": "Aug 5, 2026",
+        "url": "https://emitronix.ae/services/warehouse-construction"
+      },
+      {
+        "lastCrawled": "Aug 5, 2026",
+        "url": "https://emitronix.ae/services/turnkey-construction"
+      },
+      {
+        "lastCrawled": "Aug 1, 2026",
+        "url": "https://emitronix.ae/ar/approvals"
+      },
+      {
+        "lastCrawled": "Aug 1, 2026",
+        "url": "https://emitronix.ae/services/industrial-buildings"
+      },
+      {
+        "lastCrawled": "Jul 30, 2026",
+        "url": "https://emitronix.ae/ar/"
+      },
+      {
+        "lastCrawled": "Jul 29, 2026",
+        "url": "https://emitronix.ae/services/civil"
+      },
+      {
+        "lastCrawled": "Jul 29, 2026",
+        "url": "https://emitronix.ae/services/civil-contracting"
+      },
+      {
+        "lastCrawled": "Jul 27, 2026",
+        "url": "https://emitronix.ae/ar/services/civil"
+      },
+      {
+        "lastCrawled": "Jul 27, 2026",
+        "url": "https://emitronix.ae/services/interior"
+      },
+      {
+        "lastCrawled": "Jul 26, 2026",
+        "url": "https://emitronix.ae/services/interior-fit-out"
+      }
+    ]
+  },
+  "notFound": {
+    "label": "Not found (404)",
+    "detailUrl": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Femitronix.ae%2F&item_key=CAMYDSAC",
+    "affected": 6,
+    "rows": [
+      {
+        "lastCrawled": "Aug 7, 2026",
+        "url": "https://emitronix.ae/ar/blog/industrial-building-planning-guide-uae"
+      },
+      {
+        "lastCrawled": "Aug 7, 2026",
+        "url": "https://emitronix.ae/blog/warehouse-design-guide-uae"
+      },
+      {
+        "lastCrawled": "Aug 7, 2026",
+        "url": "https://emitronix.ae/blog/main-contractor-vs-general-contractor-dubai"
+      },
+      {
+        "lastCrawled": "Aug 7, 2026",
+        "url": "https://emitronix.ae/blog/construction-cost-saving-tips-dubai"
+      },
+      {
+        "lastCrawled": "Jul 28, 2026",
+        "url": "https://emitronix.ae/ar/blog/construction-cost-saving-tips-dubai"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/$"
+      },
+      {
+        "lastCrawled": "Jul 7, 2026",
+        "url": "https://emitronix.ae/&"
+      }
+    ]
+  },
+  "crawled": {
+    "label": "Crawled - currently not indexed",
+    "detailUrl": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Femitronix.ae%2F&item_key=CAMYFyAC",
+    "affected": 6,
+    "rows": [
+      {
+        "lastCrawled": "Aug 8, 2026",
+        "url": "https://emitronix.ae/blog/steel-warehouse-construction-dubai-planning-guide"
+      },
+      {
+        "lastCrawled": "Aug 8, 2026",
+        "url": "https://emitronix.ae/blog/warehouse-authority-approvals-dubai-planning-guide"
+      },
+      {
+        "lastCrawled": "Jul 28, 2026",
+        "url": "https://emitronix.ae/manifest.webmanifest"
+      },
+      {
+        "lastCrawled": "Jun 26, 2026",
+        "url": "https://emitronix.ae/_next/static/media/e4af272ccee01ff0-s.p.woff2"
+      }
+    ]
+  },
+  "noindex": {
+    "label": "Excluded by ‘noindex’ tag",
+    "detailUrl": "https://search.google.com/search-console/index/drilldown?resource_id=https%3A%2F%2Femitronix.ae%2F&item_key=CAMYCCAC",
+    "affected": 6,
+    "rows": [
+      {
+        "lastCrawled": "Jul 26, 2026",
+        "url": "https://emitronix.ae/search"
+      }
+    ]
+  }
+}

@@ -1,5 +1,3 @@
-import { warehouseBlogSlugs } from "@/data/warehouseRoutes";
-
 const servicePaths = [
   "/civil",
   "/main-contracting",
@@ -48,7 +46,6 @@ const blogArticlePaths = [
   "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
   "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
   "/blog/choose-best-building-contractor-dubai",
-  ...warehouseBlogSlugs.map((slug) => `/blog/${slug}`),
 ];
 
 const translatedBlogArticlePaths = [

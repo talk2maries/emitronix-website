@@ -1,6 +1,5 @@
 import { absoluteUrl, site } from "@/data/site";
 import type { GeneratedImageKey } from "@/data/generatedImages";
-import { warehouseBlogPosts } from "@/data/warehouseSeo";
 
 export const blogCategories = [
   "Civil Construction",
@@ -1296,7 +1295,7 @@ export const draftStrategicBlogPosts: DraftBlogPost[] = [
   }),
 ];
 
-export const blogPosts: BlogPost[] = [...coreBlogPosts, ...warehouseBlogPosts];
+export const blogPosts: BlogPost[] = coreBlogPosts;
 
 export const getBlogPost = (slug: string) => blogPosts.find((post) => post.slug === slug);
 

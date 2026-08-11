@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { serviceAliasPaths, services } from "./data/site";
+import { warehouseBlogRedirects } from "./data/warehouseRoutes";
 
 const configuredDistDir = process.env.NEXT_DIST_DIR?.trim();
 const isDevelopment = process.env.NODE_ENV === "development";
@@ -22,6 +23,41 @@ const serviceRedirects = services.flatMap((service) =>
     },
   ]),
 );
+
+const retiredArticleRedirects = [
+  {
+    source: "/blog/warehouse-design-guide-uae",
+    destination: "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
+  },
+  {
+    source: "/blog/main-contractor-vs-general-contractor-dubai",
+    destination: "/blog/choose-best-building-contractor-dubai",
+  },
+  {
+    source: "/blog/construction-cost-saving-tips-dubai",
+    destination: "/blog/complete-guide-civil-construction-dubai-2026",
+  },
+  {
+    source: "/blog/industrial-building-planning-guide-uae",
+    destination: "/industrial-buildings",
+  },
+  {
+    source: "/ar/blog/warehouse-design-guide-uae",
+    destination: "/ar/blog/warehouse-construction-dubai-planning-design-authority-approvals",
+  },
+  {
+    source: "/ar/blog/main-contractor-vs-general-contractor-dubai",
+    destination: "/ar/blog/choose-best-building-contractor-dubai",
+  },
+  {
+    source: "/ar/blog/construction-cost-saving-tips-dubai",
+    destination: "/ar/blog/complete-guide-civil-construction-dubai-2026",
+  },
+  {
+    source: "/ar/blog/industrial-building-planning-guide-uae",
+    destination: "/ar/industrial-buildings",
+  },
+];
 
 const securityHeaders = [
   {
@@ -113,6 +149,14 @@ const nextConfig: NextConfig = {
         destination: "/ar/approval",
         permanent: true,
       },
+      ...warehouseBlogRedirects.map((redirect) => ({
+        ...redirect,
+        statusCode: 301,
+      })),
+      ...retiredArticleRedirects.map((redirect) => ({
+        ...redirect,
+        statusCode: 301,
+      })),
       ...serviceRedirects,
     ];
   },

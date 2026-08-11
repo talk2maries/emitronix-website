@@ -6,7 +6,7 @@ import {
   getGeneratedImage,
 } from "@/data/generatedImages";
 import { portfolioProjects } from "@/data/projects";
-import { absoluteUrl, allServiceAliasPaths, getServiceByRoutePath, navItems, services, site } from "@/data/site";
+import { absoluteUrl, getServiceByRoutePath, navItems, services, site } from "@/data/site";
 import { toArabicPath, toEnglishPath } from "@/lib/i18n";
 
 export const arabicFooterLabels = {
@@ -1199,7 +1199,6 @@ export const englishBaseRoutes = [
   "/about",
   "/services",
   "/approval",
-  "/approvals",
   "/projects",
   "/industries",
   "/careers",
@@ -1212,7 +1211,6 @@ export const englishBaseRoutes = [
   "/privacy-policy",
   "/terms-and-conditions",
   ...services.map((service) => service.href),
-  ...allServiceAliasPaths(),
   ...translatedBlogPosts().map((post) => `/blog/${post.slug}`),
   ...approvalServices.map((service) => service.href),
 ];
@@ -1250,10 +1248,59 @@ export function arabicPathLabel(arabicPath: string) {
   return englishPath.replace("/", "").replace(/-/g, " ");
 }
 
+const arabicKnowledgeSlugsByPath: Record<string, string[]> = {
+  "/civil": ["complete-guide-civil-construction-dubai-2026"],
+  "/main-contracting": ["choose-best-building-contractor-dubai"],
+  "/warehouse-construction": ["warehouse-construction-dubai-planning-design-authority-approvals"],
+  "/industrial-buildings": ["warehouse-construction-dubai-planning-design-authority-approvals"],
+  "/design-build": [
+    "complete-guide-civil-construction-dubai-2026",
+    "warehouse-construction-dubai-planning-design-authority-approvals",
+  ],
+  "/project-management": ["complete-guide-civil-construction-dubai-2026"],
+  "/approval": ["dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees"],
+};
+
+function arabicKnowledgeSections(path: string): ArabicSection[] {
+  const slugs =
+    arabicKnowledgeSlugsByPath[path] ??
+    (arabicApprovalTitles[path]
+      ? ["dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees"]
+      : []);
+  const articles = slugs
+    .map((slug) => translatedBlogPosts().find((post) => post.slug === slug))
+    .filter((post): post is BlogPost => Boolean(post));
+
+  if (!articles.length) return [];
+
+  return [
+    {
+      eyebrow: "قراءة مرتبطة",
+      title: "أدلة عملية لفهم القرارات التي تسبق التنفيذ.",
+      body: [
+        "تشرح هذه المقالات كيفية ربط النطاق والرسومات ومسؤوليات الجهات وبرنامج المشروع قبل بدء الأعمال أو تثبيت العرض التجاري.",
+      ],
+      links: articles.map((post) => ({
+        label: arabicBlogTitle(post),
+        href: `/ar/blog/${post.slug}`,
+      })),
+    },
+  ];
+}
+
 export function getArabicPageByEnglishPath(path: string): ArabicPageData | null {
   const cleanPath = path === "" ? "/" : path;
   const canonicalPath = cleanPath === "/approvals" ? "/approval" : cleanPath;
-  if (commonPages[canonicalPath]) return { ...commonPages[canonicalPath], kind: "generic" };
+  if (commonPages[canonicalPath]) {
+    return {
+      ...commonPages[canonicalPath],
+      kind: "generic",
+      sections: [
+        ...commonPages[canonicalPath].sections,
+        ...arabicKnowledgeSections(canonicalPath),
+      ],
+    };
+  }
 
   const service = getServiceByRoutePath(canonicalPath);
   if (service) {
@@ -1269,7 +1316,10 @@ export function getArabicPageByEnglishPath(path: string): ArabicPageData | null 
       imageAlt: `مشهد ${title} في دبي`,
       primaryCta: { label: "اطلب عرض سعر", href: "/ar/contact" },
       secondaryCta: { label: "مكتبة تخطيط النطاق", href: "/ar/projects" },
-      sections: arabicServiceSections[service.href],
+      sections: [
+        ...arabicServiceSections[service.href],
+        ...arabicKnowledgeSections(service.href),
+      ],
     };
   }
 
@@ -1287,7 +1337,10 @@ export function getArabicPageByEnglishPath(path: string): ArabicPageData | null 
       imageAlt: `مراجعة مستندات ورسومات تنسيق ${title} في دبي`,
       primaryCta: { label: "اطلب دعم الموافقات", href: "/ar/contact" },
       secondaryCta: { label: "كل الموافقات", href: "/ar/approval" },
-      sections: arabicApprovalSections[approval.href],
+      sections: [
+        ...arabicApprovalSections[approval.href],
+        ...arabicKnowledgeSections(approval.href),
+      ],
     };
   }
 
@@ -1368,6 +1421,7 @@ export function getArabicMetadata(page: ArabicPageData): Metadata {
 function arabicBlogPage(post: BlogPost): ArabicPageData {
   const title = arabicBlogTitle(post);
   const image = getGeneratedImage(post.generatedImage);
+  const relatedArticles = translatedBlogPosts().filter((item) => item.slug !== post.slug);
   return {
     path: `/blog/${post.slug}`,
     kind: "blog-post",
@@ -1378,7 +1432,20 @@ function arabicBlogPage(post: BlogPost): ArabicPageData {
     imageAlt: `صورة مرافقة لمقال «${title}»`,
     primaryCta: { label: "ناقش مشروعك", href: "/ar/contact" },
     secondaryCta: { label: "عودة إلى المدونة", href: "/ar/blog" },
-    sections: arabicBlogSections[post.slug],
+    sections: [
+      ...(arabicBlogSections[post.slug] ?? []),
+      {
+        eyebrow: "مقالات عربية ذات صلة",
+        title: "تابع قرارات التخطيط والموافقات والتنفيذ من الأدلة المرتبطة.",
+        body: [
+          "تربط هذه الأدلة بين نطاق المقاولات، اختيار المقاول، تنسيق الجهات، وتسلسل أعمال المستودعات حتى يتمكن القارئ من الانتقال إلى السؤال التالي دون الاعتماد على صفحة معزولة.",
+        ],
+        links: relatedArticles.map((item) => ({
+          label: arabicBlogTitle(item),
+          href: `/ar/blog/${item.slug}`,
+        })),
+      },
+    ],
   };
 }
 

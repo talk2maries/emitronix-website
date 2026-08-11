@@ -161,3 +161,8 @@ export const warehouseBlogTopics = warehouseBlogClusterSeeds.flatMap((keyword, c
 );
 
 export const warehouseBlogSlugs = warehouseBlogTopics.map((topic) => topic.slug);
+
+export const warehouseBlogRedirects = warehouseBlogTopics.map((topic) => ({
+  source: `/blog/${topic.slug}`,
+  destination: `/warehouse/${warehouseBlogResourceSlugs[topic.keyword]}`,
+}));

@@ -2,7 +2,9 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import {
   warehouseBlogClusterSeeds,
+  warehouseBlogRedirects,
   warehouseBlogResourceSlugs,
+  warehouseBlogTopics,
   warehouseSiloTopics,
 } from "../data/warehouseRoutes.ts";
 
@@ -34,4 +36,18 @@ test("similar warehouse topics do not fall back to the generic construction reso
       costPlanning: "warehouse-cost-guide",
     },
   );
+});
+
+test("every retired warehouse article redirects directly to its matching resource", () => {
+  assert.equal(warehouseBlogRedirects.length, warehouseBlogTopics.length);
+
+  for (const topic of warehouseBlogTopics) {
+    const redirect = warehouseBlogRedirects.find(
+      (item) => item.source === `/blog/${topic.slug}`,
+    );
+    assert.deepEqual(redirect, {
+      source: `/blog/${topic.slug}`,
+      destination: `/warehouse/${warehouseBlogResourceSlugs[topic.keyword]}`,
+    });
+  }
 });

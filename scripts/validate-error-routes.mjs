@@ -82,16 +82,7 @@ const translatedBlogPagePaths = [
   "/blog/choose-best-building-contractor-dubai",
 ];
 
-const generatedBlogPagePaths = [
-  "/blog/warehouse-construction-dubai-planning-guide",
-  "/blog/warehouse-authority-approvals-dubai-approval-checklist",
-  "/blog/warehouse-cost-planning-dubai-cost-factors",
-];
-
-const blogPagePaths = [
-  ...translatedBlogPagePaths,
-  ...generatedBlogPagePaths,
-];
+const blogPagePaths = translatedBlogPagePaths;
 
 const warehouseSiloPagePaths = [
   "/warehouse/warehouse-construction-dubai",
@@ -165,6 +156,13 @@ const permanentRedirects = [
   ["/services/civil-contracting", "/civil"],
   ["/ar/approvals", "/ar/approval"],
   ["/ar/services/civil-contracting", "/ar/civil"],
+  ["/blog/warehouse-construction-dubai-planning-guide", "/warehouse/warehouse-construction-dubai"],
+  ["/blog/warehouse-authority-approvals-dubai-approval-checklist", "/warehouse/warehouse-authority-approvals"],
+  ["/blog/warehouse-cost-planning-dubai-cost-factors", "/warehouse/warehouse-cost-guide"],
+  ["/blog/warehouse-design-guide-uae", "/blog/warehouse-construction-dubai-planning-design-authority-approvals"],
+  ["/blog/main-contractor-vs-general-contractor-dubai", "/blog/choose-best-building-contractor-dubai"],
+  ["/ar/blog/construction-cost-saving-tips-dubai", "/ar/blog/complete-guide-civil-construction-dubai-2026"],
+  ["/ar/blog/industrial-building-planning-guide-uae", "/ar/industrial-buildings"],
 ];
 
 const apiChecks = [
