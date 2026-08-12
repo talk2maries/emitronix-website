@@ -585,7 +585,16 @@ function clearSalesIqState() {
     .querySelectorAll(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`)
     .forEach((script) => script.remove());
 
-  expireCookies([/^zsiq/i, /^zab/i, /^salesiq/i, /^zoho/i, /^ls_csr/i, /^LS_CSRF_TOKEN$/]);
+  expireCookies([
+    /^zsiq/i,
+    /^zab/i,
+    /^salesiq/i,
+    /^zoho/i,
+    /^ls_csr/i,
+    /^LS_CSRF_TOKEN$/,
+    /^gdpr_.*_(?:donottrack|trackingconfig)$/i,
+    /^(?:.*-)?_(?:zldp|zldt|siqid|uuid)$/i,
+  ]);
   clearStorageByPatterns(window.localStorage, [/zoho/i, /salesiq/i, /zsiq/i, /zab/i]);
   clearStorageByPatterns(window.sessionStorage, [/zoho/i, /salesiq/i, /zsiq/i, /zab/i, /^emitronix_salesiq/i]);
 

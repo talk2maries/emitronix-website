@@ -274,6 +274,8 @@ test("SalesIQ keeps chat functional while respecting live visitor tracking conse
     consentManager,
     /else if \(revoked\.analytics \|\| revoked\.performance\) \{[\s\S]*?syncSalesIqPrivacyState\(\);/,
   );
+  assert.match(consentManager, /\^gdpr_\.\*_\(\?:donottrack\|trackingconfig\)\$\/i/);
+  assert.match(consentManager, /\(\?:zldp\|zldt\|siqid\|uuid\)/);
   assert.doesNotMatch(
     consentManager,
     /if \(revoked\.functional \|\| revoked\.analytics \|\| revoked\.performance\)/,
