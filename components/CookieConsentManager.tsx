@@ -42,6 +42,13 @@ type QueuedTrackingFunction = ((...args: unknown[]) => void) & {
 
 type SalesIqVisibilityState = "show" | "hide";
 type SalesIqCookieCategory = "analytics" | "performance";
+type SalesIqSystemMessage =
+  | "waiting"
+  | "offlinecomplete"
+  | "busy"
+  | "busycomplete"
+  | "engaged"
+  | "engagedcomplete";
 
 type ZohoSalesIqApi = {
   ready?: () => void;
@@ -55,6 +62,9 @@ type ZohoSalesIqApi = {
   };
   chatwindow?: {
     visible?: (state: SalesIqVisibilityState) => void;
+  };
+  chat?: {
+    systemmessages?: (messages: Partial<Record<SalesIqSystemMessage, string>>) => void;
   };
   visitor?: {
     info?: (details: Record<string, string>) => void;
@@ -131,6 +141,19 @@ const SALESIQ_EXCLUDED_PATHS = ["/admin", "/api", "/dashboard", "/preview", "/_n
 const SALESIQ_PROACTIVE_ACTION = "emitronix_proactive";
 const SALESIQ_PROACTIVE_DELAY_MS = 10000;
 const SALESIQ_PROACTIVE_KEY = "emitronix_salesiq_proactive_v1";
+const SALESIQ_SYSTEM_MESSAGES: Partial<Record<SalesIqSystemMessage, string>> = {
+  waiting: "Please wait while I connect you with our team.",
+  offlinecomplete:
+    "Our team is currently offline. Please leave your name, mobile number and enquiry, and we will contact you shortly.",
+  busy:
+    "Our team could not accept the chat in time. Please leave your name, mobile number and enquiry, and we will contact you shortly.",
+  busycomplete:
+    "Thank you. Our team will review your enquiry and contact you shortly.",
+  engaged:
+    "Our team is currently assisting other visitors. Please leave your name, mobile number and enquiry, and we will contact you shortly.",
+  engagedcomplete:
+    "Thank you. Our team will review your enquiry and contact you shortly.",
+};
 let salesIqProactiveFiredInMemory = false;
 let salesIqOpenRequested = false;
 let salesIqReadyHandlerInstalled = false;
@@ -252,7 +275,12 @@ function updateGoogleConsent(categories: ConsentCategoryMap) {
   });
 }
 
-function injectScript(id: string, src: string, onLoad?: () => void) {
+function injectScript(
+  id: string,
+  src: string,
+  onLoad?: () => void,
+  onError?: () => void,
+) {
   if (document.getElementById(id)) {
     onLoad?.();
     return;
@@ -263,6 +291,7 @@ function injectScript(id: string, src: string, onLoad?: () => void) {
   script.async = true;
   script.src = src;
   if (onLoad) script.onload = onLoad;
+  if (onError) script.onerror = onError;
   document.head.appendChild(script);
 }
 
@@ -429,6 +458,9 @@ function syncSalesIqTracking() {
   if (!api || !categories) return;
 
   try {
+    // Live View is an analytics feature. Keep it behind both the Functional
+    // and Analytics choices while leaving the chat widget usable with only
+    // Functional consent.
     if (categories.functional && categories.analytics) {
       api.tracking?.on?.();
     } else {
@@ -437,6 +469,31 @@ function syncSalesIqTracking() {
   } catch {
     // Tracking consent must not affect the visitor's ability to use the website.
   }
+}
+
+function syncSalesIqPrivacyState() {
+  // Zoho applies cookie preferences asynchronously. Always write the privacy
+  // state before reconciling Live View so an approved session stays enabled.
+  if (salesIqAfterReadyFired) syncSalesIqCookieConsent();
+  if (salesIqReadyFired) syncSalesIqTracking();
+}
+
+function syncSalesIqSystemMessages() {
+  try {
+    getSalesIqApi()?.chat?.systemmessages?.(SALESIQ_SYSTEM_MESSAGES);
+  } catch {
+    // The published Zobot fallback remains authoritative if this optional API is unavailable.
+  }
+}
+
+function handleSalesIqScriptError() {
+  document.getElementById(SALESIQ_SCRIPT_ID)?.remove();
+  salesIqReadyFired = false;
+  salesIqAfterReadyFired = false;
+
+  // Keep the public launcher available. A later click can retry the provider
+  // script instead of being trapped behind a stale failed script element.
+  salesIqOpenRequested = false;
 }
 
 function loadSalesIqWidget(categories: ConsentCategoryMap) {
@@ -467,6 +524,7 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
     salesiq.ready = () => {
       if (typeof previousReady === "function") previousReady();
       salesIqReadyFired = true;
+      syncSalesIqSystemMessages();
       syncSalesIqTracking();
       syncSalesIqPageContext();
       if (salesIqOpenRequested) openSalesIqWindow();
@@ -476,6 +534,11 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
       if (typeof previousAfterReady === "function") previousAfterReady(...args);
       salesIqAfterReadyFired = true;
       syncSalesIqCookieConsent();
+      // Zoho applies its privacy state during afterReady. Reconcile tracking
+      // afterwards so an approved Live View session is not left disabled by
+      // the provider's initialization order.
+      syncSalesIqTracking();
+      syncSalesIqPageContext();
     };
     salesIqReadyHandlerInstalled = true;
   }
@@ -484,13 +547,17 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
     document.getElementById(SALESIQ_SCRIPT_ID) ||
     document.querySelector(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`)
   ) {
-    if (salesIqReadyFired) syncSalesIqTracking();
-    if (salesIqAfterReadyFired) syncSalesIqCookieConsent();
+    syncSalesIqPrivacyState();
     syncSalesIqPageContext();
     return;
   }
 
-  injectScript(SALESIQ_SCRIPT_ID, SALESIQ_WIDGET_URL, syncSalesIqPageContext);
+  injectScript(
+    SALESIQ_SCRIPT_ID,
+    SALESIQ_WIDGET_URL,
+    syncSalesIqPageContext,
+    handleSalesIqScriptError,
+  );
 }
 
 function clearStorageByPatterns(storage: Storage, patterns: RegExp[]) {
@@ -661,11 +728,16 @@ function clearRevokedTrackingState(
     if (window._linkedin_data_partner_ids) window._linkedin_data_partner_ids.length = 0;
   }
 
-  if (revoked.functional || revoked.analytics || revoked.performance) {
+  if (revoked.functional) {
     salesIqConsentCategories = nextCategories;
-    if (salesIqReadyFired) syncSalesIqTracking();
-    if (salesIqAfterReadyFired) syncSalesIqCookieConsent();
+    syncSalesIqPrivacyState();
     clearSalesIqState();
+  } else if (revoked.analytics || revoked.performance) {
+    // Analytics and performance downgrades update SalesIQ in place. Removing
+    // the whole provider here also removes the still-consented live chat and
+    // can leave the custom launcher pointing at a dead widget until reload.
+    salesIqConsentCategories = nextCategories;
+    syncSalesIqPrivacyState();
   }
 
   if (revoked.analytics || revoked.performance) {

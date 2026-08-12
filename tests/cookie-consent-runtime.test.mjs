@@ -244,7 +244,7 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
   );
 });
 
-test("SalesIQ receives cookie consent and starts live visitor tracking only with analytics consent", async () => {
+test("SalesIQ keeps chat functional while respecting live visitor tracking consent", async () => {
   const consentManager = await readFile(
     new URL("../components/CookieConsentManager.tsx", import.meta.url),
     "utf8",
@@ -260,11 +260,61 @@ test("SalesIQ receives cookie consent and starts live visitor tracking only with
   );
   assert.match(
     consentManager,
-    /salesiq\.afterReady = \(\.\.\.args: unknown\[\]\) => \{[\s\S]*?syncSalesIqCookieConsent\(\);/,
+    /salesiq\.afterReady = \(\.\.\.args: unknown\[\]\) => \{[\s\S]*?syncSalesIqCookieConsent\(\);[\s\S]*?syncSalesIqTracking\(\);[\s\S]*?syncSalesIqPageContext\(\);/,
   );
   assert.match(
     consentManager,
-    /revoked\.functional \|\| revoked\.analytics \|\| revoked\.performance/,
+    /function syncSalesIqPrivacyState\(\) \{[\s\S]*?syncSalesIqCookieConsent\(\);[\s\S]*?syncSalesIqTracking\(\);[\s\S]*?\}/,
+  );
+  assert.match(
+    consentManager,
+    /if \(revoked\.functional\) \{[\s\S]*?clearSalesIqState\(\);/,
+  );
+  assert.match(
+    consentManager,
+    /else if \(revoked\.analytics \|\| revoked\.performance\) \{[\s\S]*?syncSalesIqPrivacyState\(\);/,
+  );
+  assert.doesNotMatch(
+    consentManager,
+    /if \(revoked\.functional \|\| revoked\.analytics \|\| revoked\.performance\)/,
+  );
+});
+
+test("SalesIQ configures operator waiting and unavailable fallback messages", async () => {
+  const consentManager = await readFile(
+    new URL("../components/CookieConsentManager.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(consentManager, /chat\?: \{[\s\S]*?systemmessages\?:/);
+  assert.match(
+    consentManager,
+    /waiting: "Please wait while I connect you with our team\."/,
+  );
+  assert.match(
+    consentManager,
+    /offlinecomplete:[\s\S]*?Our team is currently offline\./,
+  );
+  assert.match(
+    consentManager,
+    /salesiq\.ready = \(\) => \{[\s\S]*?syncSalesIqSystemMessages\(\);/,
+  );
+});
+
+test("SalesIQ loader removes a failed script so the launcher can retry", async () => {
+  const consentManager = await readFile(
+    new URL("../components/CookieConsentManager.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(consentManager, /script\.onerror = onError/);
+  assert.match(
+    consentManager,
+    /function handleSalesIqScriptError\(\) \{[\s\S]*?document\.getElementById\(SALESIQ_SCRIPT_ID\)\?\.remove\(\);[\s\S]*?salesIqOpenRequested = false;/,
+  );
+  assert.match(
+    consentManager,
+    /injectScript\([\s\S]*?SALESIQ_SCRIPT_ID,[\s\S]*?SALESIQ_WIDGET_URL,[\s\S]*?syncSalesIqPageContext,[\s\S]*?handleSalesIqScriptError,[\s\S]*?\);/,
   );
 });
 
