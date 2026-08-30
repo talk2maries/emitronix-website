@@ -8,7 +8,7 @@ import { HomeSignatureHero } from "@/components/HomeSignatureHero";
 import { CommandCenter, ImagePanel, PremiumLink, PremiumSectionHeading } from "@/components/Premium";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
 import { ServiceCard } from "@/components/ServiceCard";
-import { blogImageAlt, blogPosts } from "@/data/blog";
+import { blogImageAlt, indexableBlogPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import {
   absoluteUrl,
@@ -23,7 +23,7 @@ import {
 import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
-  title: "Construction Company Dubai | Building Contractor | Emitronix",
+  title: "Construction Company & Building Contractor Dubai | Emitronix",
   description:
     "Emitronix Contracting LLC provides civil contracting, building construction, warehouses, villas, interior fit-out and authority approval coordination in Dubai.",
   path: "/",
@@ -137,7 +137,7 @@ const ownerDecisionBriefs = [
   },
 ];
 
-const latestArticles = blogPosts.slice(0, 3);
+const latestArticles = indexableBlogPosts.slice(0, 3);
 const homepageVerifiedMetrics = verifiedMetrics.slice(1);
 
 export default function HomePage() {

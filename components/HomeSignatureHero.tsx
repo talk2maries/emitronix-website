@@ -116,8 +116,8 @@ export function HomeSignatureHero() {
       <div className="container-pad relative grid min-h-[760px] items-center pt-24 lg:min-h-[820px] lg:pt-28">
         <div className="max-w-5xl pb-24 lg:pb-32">
           <p className="premium-kicker">Building contractor in Dubai</p>
-          <h1 className="mt-6 text-balance text-6xl font-black leading-[0.91] tracking-tight text-charcoal sm:text-7xl lg:text-8xl xl:text-[7.8rem]">
-            Excellence in <span className="text-brand">Every Structure</span>
+          <h1 className="mt-6 text-balance text-5xl font-black leading-[0.94] tracking-tight text-charcoal sm:text-6xl lg:text-7xl xl:text-[6.4rem]">
+            Construction Company & <span className="text-brand">Building Contractor in Dubai</span>
           </h1>
           <p className="mt-7 max-w-2xl text-lg leading-8 text-graphite sm:text-xl sm:leading-9">
             Emitronix Contracting LLC delivers civil construction, building contracting, warehouse construction, villa construction, commercial fit-out and Dubai authority approval support. The first review separates confirmed scope from drawings, approvals, site constraints and handover responsibilities before pricing or mobilisation.

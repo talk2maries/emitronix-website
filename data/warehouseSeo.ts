@@ -31,6 +31,7 @@ export type WarehouseAuthorityPage = {
   related: Array<{ label: string; href: string }>;
   faqs: Array<{ question: string; answer: string }>;
   references: Array<{ title: string; href: string }>;
+  indexable: boolean;
 };
 
 const reviewedDate = "2026-08-02";
@@ -93,9 +94,28 @@ const blogImageAlts = {
   "blog.choosing-building-contractor-dubai": "Construction company Dubai team reviewing warehouse contractor scope",
 } as const satisfies Record<GeneratedImageKey & `blog.${string}`, string>;
 
+const warehouseConsolidationTargets: Record<string, string> = {
+  "/warehouse/warehouse-construction-dubai": "/warehouse-construction",
+  "/warehouse/warehouse-contractors-dubai": "/warehouse-construction",
+  "/warehouse/industrial-warehouse-construction": "/warehouse-construction",
+  "/warehouse/factory-construction": "/industrial-buildings",
+  "/warehouse/industrial-building-construction": "/industrial-buildings",
+  "/warehouse/warehouse-renovation": "/building-renovation",
+};
+
+function canonicalWarehouseHref(href: string) {
+  return warehouseConsolidationTargets[href] ?? href;
+}
+
 function clipped(value: string, max = 158) {
   if (value.length <= max) return value;
-  return `${value.slice(0, max - 1).replace(/\s+\S*$/, "")}.`;
+  const clippedValue = value
+    .slice(0, max - 1)
+    .replace(/\s+\S*$/, "")
+    .replace(/\b(?:a|an|and|for|in|of|or|the|to|with)$/i, "")
+    .replace(/[\s|,:;\-–—]+$/, "")
+    .trim();
+  return `${clippedValue}.`;
 }
 
 function topicIndex(topic: WarehouseSiloTopic) {
@@ -116,7 +136,9 @@ function relatedPages(topic: WarehouseSiloTopic): Array<{ label: string; href: s
     { label: "Industrial Buildings", href: "/industrial-buildings" },
     { label: "Authority Approvals Dubai", href: "/approval" },
     ...candidates.map((item) => ({ label: item.title, href: `/warehouse/${item.slug}` })),
-  ].filter((item, itemIndex, self) => self.findIndex((other) => other.href === item.href) === itemIndex);
+  ]
+    .map((item) => ({ ...item, href: canonicalWarehouseHref(item.href) }))
+    .filter((item, itemIndex, self) => self.findIndex((other) => other.href === item.href) === itemIndex);
 }
 
 function authoritySentence(authorities: string[]) {
@@ -371,10 +393,12 @@ function makePage(topic: WarehouseSiloTopic, index: number): WarehouseAuthorityP
       },
     ],
     references,
+    indexable: false,
   };
 }
 
 export const warehouseAuthorityPages: WarehouseAuthorityPage[] = warehouseSiloTopics.map(makePage);
+export const indexableWarehouseAuthorityPages = warehouseAuthorityPages.filter((page) => page.indexable);
 
 function matchingWarehousePage(keyword: string) {
   const normalized = keyword.toLowerCase();
@@ -724,6 +748,17 @@ function makeBlogPost(topic: (typeof warehouseBlogTopics)[number], index: number
   const imagePath = blogImagePaths[imageKey as keyof typeof blogImagePaths];
   const imageAlt = blogImageAlts[imageKey as keyof typeof blogImageAlts];
   const editorial = warehouseEditorialFrame(topic, relatedPage, index);
+  const internalLinks = [
+    { label: relatedPage.title, href: relatedPage.href },
+    { label: "Warehouse Construction", href: "/warehouse-construction" },
+    { label: "Civil Contracting", href: "/civil" },
+    { label: "Authority Approvals", href: "/approval" },
+    { label: "Design & Build", href: "/design-build" },
+    { label: "Project Management", href: "/project-management" },
+    { label: "Contact Emitronix", href: "/contact" },
+  ]
+    .map((item) => ({ ...item, href: canonicalWarehouseHref(item.href) }))
+    .filter((item, itemIndex, self) => self.findIndex((other) => other.href === item.href) === itemIndex);
 
   return {
     slug: topic.slug,
@@ -761,18 +796,11 @@ function makeBlogPost(topic: (typeof warehouseBlogTopics)[number], index: number
     intro: editorial.intro,
     sections: makeWarehouseBlogSections(topic, relatedPage),
     faqs: makeWarehouseBlogFaqs(topic, relatedPage),
-    internalLinks: [
-      { label: relatedPage.title, href: relatedPage.href },
-      { label: "Warehouse Construction", href: "/warehouse-construction" },
-      { label: "Civil Contracting", href: "/civil" },
-      { label: "Authority Approvals", href: "/approval" },
-      { label: "Design & Build", href: "/design-build" },
-      { label: "Project Management", href: "/project-management" },
-      { label: "Contact Emitronix", href: "/contact" },
-    ],
+    internalLinks,
     relatedSlugs: Array.from(
       new Set([previousSlug, nextSlug, clusterPeer, "warehouse-construction-dubai-planning-design-authority-approvals"].filter((value): value is string => Boolean(value))),
     ).filter((slug) => slug !== topic.slug),
+    indexable: false,
   };
 }
 

@@ -43,7 +43,8 @@ export function BlogKnowledgeHub({ posts, categories }: BlogKnowledgeHubProps) {
         .join(" ")
         .toLowerCase()
         .includes(normalizedQuery);
-    const alreadyVisibleInSpotlight = defaultLibraryView && spotlightSlugs.has(post.slug);
+    const alreadyVisibleInSpotlight =
+      posts.length > 4 && defaultLibraryView && spotlightSlugs.has(post.slug);
     return categoryMatch && queryMatch && !alreadyVisibleInSpotlight;
   });
 

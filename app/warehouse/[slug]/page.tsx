@@ -50,6 +50,10 @@ export async function generateMetadata({ params }: WarehousePageProps): Promise<
     imageAlt: image.alt,
   });
 
+  if (!page.indexable) {
+    metadata.robots = { index: false, follow: true };
+  }
+
   return applySeoOverrides(metadata, page.href);
 }
 

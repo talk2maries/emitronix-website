@@ -19,9 +19,54 @@ import {
   whatsappUrl,
 } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
-import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
+
+const serviceHeroTitles: Record<string, string> = {
+  "/civil": "Civil Contractor in Dubai",
+  "/warehouse-construction": "Warehouse Construction Company in Dubai",
+  "/industrial-buildings": "Factory & Industrial Building Contractor in Dubai",
+  "/building-renovation": "Building & Warehouse Renovation Contractor in Dubai",
+};
+
+const warehousePlanningLinks = [
+  {
+    title: "Industrial Buildings",
+    href: "/industrial-buildings",
+    category: "Factory and industrial scope",
+    metaDescription: "Plan factories, workshops and operational facilities around process flow, structure, utilities, fire safety and handover.",
+  },
+  {
+    title: "Civil Contracting",
+    href: "/civil",
+    category: "Civil delivery",
+    metaDescription: "Review civil, structural, drainage, utility and site interfaces under the core civil contracting scope.",
+  },
+  {
+    title: "Warehouse Renovation & Modification",
+    href: "/building-renovation",
+    category: "Existing assets",
+    metaDescription: "Plan surveys, demolition, structural or MEP changes, approvals and recommissioning for an existing warehouse.",
+  },
+  {
+    title: "Dubai Civil Defence Approvals",
+    href: "/dcd-approvals",
+    category: "Fire and life safety",
+    metaDescription: "Understand DCD document, system, inspection and completion-readiness considerations for warehouse projects.",
+  },
+  {
+    title: "DEWA Approval Coordination",
+    href: "/dewa-approvals",
+    category: "Utilities",
+    metaDescription: "Connect load, service-route, NOC, civil-readiness and inspection inputs to the warehouse programme.",
+  },
+  {
+    title: "Warehouse Planning Guide",
+    href: "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
+    category: "Owner guide",
+    metaDescription: "Use the editorial guide to brief operations, design, authority dependencies, contractor selection and handover.",
+  },
+];
 
 type ServiceDetailPageProps = {
   service: Service;
@@ -249,7 +294,7 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
           { label: service.title },
         ]}
         eyebrow={`Emitronix ${service.shortTitle}`}
-        title={`${service.title} Dubai`}
+        title={serviceHeroTitles[service.href] ?? `${service.title} Dubai`}
         description={service.details}
         imageAsset={serviceImage}
         primaryCta={{ label: "Request a Quote", href: "/contact" }}
@@ -777,16 +822,16 @@ export function ServiceDetailPage({ service }: ServiceDetailPageProps) {
       />
 
       {isWarehouseService ? (
-        <section id="warehouse-authority-silo" className="section-pad soft-section">
+        <section id="warehouse-planning-resources" className="section-pad soft-section">
           <div className="container-pad">
             <PremiumSectionHeading
-              eyebrow="Warehouse authority silo"
-              title="Warehouse construction pages for deeper Dubai project planning."
-              description="Use these supporting pages to explore warehouse construction, civil works, steel structures, authority approvals, fit-out, maintenance and handover topics with stronger internal context."
+              eyebrow="Warehouse planning paths"
+              title="Continue to a distinct service, approval or owner-guide intent."
+              description="These curated links keep commercial warehouse queries on this page while directing users to genuinely different civil, industrial, renovation, utility and fire-safety needs."
               align="center"
             />
             <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {warehouseAuthorityPages.map((page) => (
+              {warehousePlanningLinks.map((page) => (
                 <Link key={page.href} href={page.href} className="luxury-card rounded-[1.35rem] p-5">
                   <p className="premium-kicker">{page.category}</p>
                   <h2 className="mt-3 text-xl font-black leading-snug text-charcoal">{page.title}</h2>

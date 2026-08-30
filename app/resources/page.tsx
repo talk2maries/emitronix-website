@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FAQSection, ProcessRail } from "@/components/ContentBlocks";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
-import { blogPosts } from "@/data/blog";
+import { indexableBlogPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, services, stats } from "@/data/site";
@@ -231,7 +231,7 @@ export default function ResourcesPage() {
           <div>
             <PremiumSectionHeading eyebrow="Long-form learning" title="Construction articles." />
             <div className="mt-8 grid gap-3">
-              {blogPosts.slice(0, 6).map((post) => (
+              {indexableBlogPosts.slice(0, 6).map((post) => (
                 <Link key={post.slug} href={`/blog/${post.slug}`} className="rounded-2xl border border-brand/[0.12] bg-white/[0.82] p-4 transition hover:bg-white">
                   <h3 className="font-black text-charcoal">{post.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-steel">{post.excerpt}</p>

@@ -63,9 +63,9 @@ const dewaKeywords = [
 export async function generateMetadata(): Promise<Metadata> {
   return applySeoOverrides(
     createPageMetadata({
-      title: "DEWA Approval Coordination Guide Dubai",
+      title: "DEWA Approval Coordination Dubai | NOC & Inspection Support",
       description:
-        "A practical DEWA coordination guide for Dubai projects covering connections, load changes, documents, consultant roles, inspections and authority limitations.",
+        "Plan DEWA NOCs, load changes, connection documents, consultant roles, site readiness and inspection support for construction projects in Dubai.",
       path: pagePath,
       keywords: dewaKeywords,
       image: heroImageAsset.og!.src,
@@ -1729,7 +1729,7 @@ function JsonLd() {
         description:
           "Short visual overview of DEWA approval coordination, LV inspection preparation and HV/LV cable route planning for Dubai projects.",
         thumbnailUrl: absoluteUrl(heroImage),
-        uploadDate: "2026-07-06",
+        uploadDate: "2026-07-06T00:00:00+04:00",
         duration: "PT15S",
         contentUrl: absoluteUrl(videoUrl),
         publisher: {
@@ -1763,7 +1763,7 @@ export default function DewaApprovalsPage() {
               Dubai authority coordination guide
             </p>
             <h1 className="mt-6 text-5xl font-black leading-none text-white sm:text-6xl lg:text-7xl">
-              DEWA Approval Coordination Guide for Dubai Projects
+              DEWA Approval Coordination in Dubai
             </h1>
             <p id="dewa-direct-answer" className="mt-7 max-w-3xl text-lg font-medium leading-9 text-white/[0.88] sm:text-xl">
               A practical resource for defining the approval route, organizing project information, coordinating site readiness and confirming who is formally responsible for each submission.

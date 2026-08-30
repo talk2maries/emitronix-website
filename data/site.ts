@@ -798,8 +798,8 @@ export const localSeoBlocks = [
     title: "Villa renovation Dubai support",
     description:
       "Before demolition, verify existing structure and services, isolate live systems, confirm the approval route and agree finish samples. These early checks prevent hidden conditions from becoming informal variations.",
-    href: "/interior",
-    linkLabel: "Review fit-out support",
+    href: "/building-renovation",
+    linkLabel: "Review renovation support",
   },
   {
     title: "Warehouse fit-out Dubai delivery",

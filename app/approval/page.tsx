@@ -9,9 +9,9 @@ import { absoluteUrl, authorities, stats } from "@/data/site";
 import { createMetadataResolver } from "@/data/seo";
 
 export const generateMetadata = createMetadataResolver({
-  title: "Authority Approval Services in Dubai",
+  title: "Dubai Authority Approval Services | DM, DCD, DEWA & Trakhees",
   description:
-    "Dubai authority approval services for Dubai Municipality, DDA, DCD, DEWA, Trakhees, DIFC, Concordia-DMCC and RTA approvals.",
+    "Coordinate Dubai Municipality, DCD, DEWA, Trakhees, DDA, DIFC, Concordia-DMCC and RTA approval requirements for construction projects.",
   path: "/approval",
   keywords: ["approval services in Dubai", "authority approvals Dubai", "Dubai Municipality approval", "DEWA approval", "DCD approval", "RTA approval"],
   image: getGeneratedImage("approvals.dubai-authority-approvals-coordination").og!.src,
@@ -76,7 +76,7 @@ export default function ApprovalPage() {
       <PageHero
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Authority Approvals" }]}
         eyebrow="Authority approval services"
-        title="Dubai approval services for construction projects."
+        title="Dubai Authority Approval Services for Construction Projects"
         description="Start by confirming jurisdiction, the approved baseline, proposed work and formal submission responsibility; then control comments, drawing revisions and inspection evidence in one record."
         imageAsset={getGeneratedImage("approvals.dubai-authority-approvals-coordination")}
         primaryCta={{ label: "Request Approval Support", href: "/contact" }}

@@ -2,10 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { approvalServices } from "@/data/approvals";
-import { blogPosts } from "@/data/blog";
+import { indexableBlogPosts } from "@/data/blog";
 import { createPageMetadata } from "@/data/seo";
 import { navItems, services } from "@/data/site";
-import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 
 type SearchPageProps = {
   searchParams: Promise<{ q?: string }>;
@@ -87,21 +86,7 @@ const searchIndex: SearchResult[] = [
     category: "Approval",
     keywords: service.keywords,
   })),
-  ...warehouseAuthorityPages.map((page) => ({
-    title: page.title,
-    href: page.href,
-    description: page.metaDescription,
-    category: "Warehouse",
-    keywords: [
-      page.keyword,
-      page.category,
-      "Warehouse Construction Dubai",
-      "Warehouse Contractor Dubai",
-      "Industrial Contractor Dubai",
-      "Authority Approvals Dubai",
-    ],
-  })),
-  ...blogPosts.map((post) => ({
+  ...indexableBlogPosts.map((post) => ({
     title: post.title,
     href: `/blog/${post.slug}`,
     description: post.excerpt,

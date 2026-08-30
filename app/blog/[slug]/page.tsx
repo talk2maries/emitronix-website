@@ -4,7 +4,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogEnquiryPopup } from "@/components/BlogEnquiryPopup";
 import { ResponsiveIllustrativeImage } from "@/components/ResponsiveIllustrativeImage";
-import { blogImageAlt, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } from "@/data/blog";
+import {
+  blogImageAlt,
+  blogPostUrl,
+  blogPosts,
+  getBlogPost,
+  getRelatedPosts,
+  indexableBlogPosts,
+} from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { applySeoOverrides, resolveMetaTitle } from "@/data/seo";
 import { absoluteUrl, services, site } from "@/data/site";
@@ -75,7 +82,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
       languages,
     },
     robots: {
-      index: true,
+      index: post.indexable !== false,
       follow: true,
     },
     authors: [{ name: post.author }],
@@ -117,9 +124,12 @@ export default async function BlogArticlePage({ params }: BlogArticlePageProps) 
   if (!post) notFound();
 
   const relatedPosts = getRelatedPosts(post);
-  const currentIndex = blogPosts.findIndex((item) => item.slug === post.slug);
-  const previousPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null;
-  const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null;
+  const currentIndex = indexableBlogPosts.findIndex((item) => item.slug === post.slug);
+  const previousPost = currentIndex > 0 ? indexableBlogPosts[currentIndex - 1] : null;
+  const nextPost =
+    currentIndex >= 0 && currentIndex < indexableBlogPosts.length - 1
+      ? indexableBlogPosts[currentIndex + 1]
+      : null;
   const canonicalUrl = blogPostUrl(post);
   const imageAsset = getGeneratedImage(post.generatedImage);
   const encodedUrl = encodeURIComponent(canonicalUrl);

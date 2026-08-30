@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { approvalServices } from "@/data/approvals";
-import { blogPosts } from "@/data/blog";
+import { indexableBlogPosts } from "@/data/blog";
 import { absoluteUrl, services, site } from "@/data/site";
-import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 import {
   faqContentLastReviewedIso,
   trustContentLastReviewedIso,
@@ -143,12 +142,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
       lastModified: trustContentLastReviewedIso,
     })),
-    ...warehouseAuthorityPages.map((page) => ({
-      path: page.href,
-      priority: 0.78,
-      lastModified: trustContentLastReviewedIso,
-    })),
-    ...blogPosts.map((post) => ({
+    ...indexableBlogPosts.map((post) => ({
       path: `/blog/${post.slug}`,
       lastModified: post.modifiedDate,
       changeFrequency: "monthly" as const,

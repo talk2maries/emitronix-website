@@ -335,7 +335,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
   },
   "warehouse-construction": {
     primaryKeyword: "Warehouse Construction Dubai",
-    seoTitle: "Warehouse Construction Dubai | Logistics Warehouse Contractor",
+    seoTitle: "Warehouse Construction Company Dubai | Warehouse Contractor",
     metaDescription:
       "Warehouse construction in Dubai for logistics, storage and industrial facilities with civil works, DCD, DEWA, slab, loading and handover planning.",
     buyerPromise:
@@ -461,7 +461,7 @@ const serviceProfiles: Record<string, ServiceProfile> = {
   },
   "industrial-buildings": {
     primaryKeyword: "Industrial Building Contractor Dubai",
-    seoTitle: "Industrial Building Contractor Dubai | Factory & Workshop",
+    seoTitle: "Factory & Industrial Building Contractor Dubai",
     metaDescription:
       "Industrial building contractor in Dubai for factories, workshops, logistics assets and operational facilities with civil, structural, DEWA and DCD coordination.",
     buyerPromise:

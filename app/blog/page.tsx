@@ -2,7 +2,7 @@ import { BlogKnowledgeHub } from "@/components/BlogKnowledgeHub";
 import {
   blogCategories,
   blogPostUrl,
-  blogPosts,
+  indexableBlogPosts,
   toBlogPostSummary,
 } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
@@ -29,13 +29,19 @@ const itemListJsonLd = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   name: "Emitronix Dubai Construction Blog",
-  itemListElement: blogPosts.map((post, index) => ({
+  itemListElement: indexableBlogPosts.map((post, index) => ({
     "@type": "ListItem",
     position: index + 1,
     url: blogPostUrl(post),
     name: post.title,
   })),
 };
+
+const visibleBlogCategories = blogCategories.filter((category) =>
+  indexableBlogPosts.some(
+    (post) => post.category === category || post.categories.includes(category),
+  ),
+);
 
 const collectionPageJsonLd = {
   "@context": "https://schema.org",
@@ -60,11 +66,11 @@ const breadcrumbJsonLd = {
 };
 
 export default function BlogPage() {
-  const postSummaries = blogPosts.map(toBlogPostSummary);
+  const postSummaries = indexableBlogPosts.map(toBlogPostSummary);
 
   return (
     <>
-      <BlogKnowledgeHub posts={postSummaries} categories={blogCategories} />
+      <BlogKnowledgeHub posts={postSummaries} categories={visibleBlogCategories} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionPageJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />

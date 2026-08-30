@@ -2,11 +2,10 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { PageHero, PremiumSectionHeading } from "@/components/Premium";
 import { approvalServices } from "@/data/approvals";
-import { blogPosts } from "@/data/blog";
+import { indexableBlogPosts } from "@/data/blog";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { createMetadataResolver } from "@/data/seo";
 import { absoluteUrl, navItems, services, stats } from "@/data/site";
-import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 
 export const generateMetadata = createMetadataResolver({
   title: "HTML Sitemap",
@@ -57,14 +56,10 @@ const pageGroups = [
     ],
   },
   {
-    title: "Warehouse construction authority silo",
-    links: warehouseAuthorityPages.map((page) => ({ label: page.title, href: page.href })),
-  },
-  {
     title: "Construction knowledge center",
     links: [
       { label: "Blog", href: "/blog" },
-      ...blogPosts.map((post) => ({ label: post.title, href: `/blog/${post.slug}` })),
+      ...indexableBlogPosts.map((post) => ({ label: post.title, href: `/blog/${post.slug}` })),
     ],
   },
 ];

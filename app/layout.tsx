@@ -219,11 +219,6 @@ export default function RootLayout({
           "@id": organizationId,
         },
         inLanguage: ["en-AE", "ar-AE"],
-        potentialAction: {
-          "@type": "SearchAction",
-          target: `${site.url}/search?q={search_term_string}`,
-          "query-input": "required name=search_term_string",
-        },
       },
     ],
   };

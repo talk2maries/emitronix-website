@@ -1,7 +1,6 @@
 import { approvalServices } from "@/data/approvals";
 import { services, site, socialLinks } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
-import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 
 const publicAssetCrawlRules = [
   // Next/Image adds a `q` quality parameter to optimized image URLs. Keep this
@@ -59,9 +58,12 @@ const approvalDirectory = approvalServices
   .map((service) => `- [${service.menuLabel}](${site.url}${service.href})`)
   .join("\n");
 
-const warehouseSiloDirectory = warehouseAuthorityPages
-  .map((page) => `- [${page.title}](${site.url}${page.href}): ${page.metaDescription}`)
-  .join("\n");
+const warehousePlanningDirectory = [
+  `- [Warehouse Construction](${site.url}/warehouse-construction): planning, civil works, fire-safety visibility, utility coordination and handover.`,
+  `- [Industrial Buildings](${site.url}/industrial-buildings): factory, workshop and industrial-building scope.`,
+  `- [Building Renovation](${site.url}/building-renovation): warehouse modification, renovation and upgrade scope.`,
+  `- [Warehouse Planning Guide](${site.url}/blog/warehouse-construction-dubai-planning-design-authority-approvals): editorial planning guide for owners and consultants.`,
+].join("\n");
 
 const socialAuthorityDirectory = socialLinks
   .map((profile) => `- ${profile.label}: ${profile.href}`)
@@ -98,8 +100,8 @@ ${serviceDirectory}
 - [Dubai authority approval services](${site.url}/approval)
 ${approvalDirectory}
 
-## Warehouse construction topical silo
-${warehouseSiloDirectory}
+## Warehouse construction planning resources
+${warehousePlanningDirectory}
 
 ## Official social profiles
 ${socialAuthorityDirectory}
@@ -164,10 +166,10 @@ ${approvalDirectory}
 
 Authority requirements can change by jurisdiction, asset type, intended use, consultant appointment, landlord or master-developer rules, utility needs, submission comments and site condition. Treat each authority page as general service information, not an approval guarantee or a substitute for project-specific professional advice.
 
-## Warehouse construction topical authority
-The warehouse silo connects civil contracting, industrial buildings, steel structures, fit-out, external works, utilities, authority approvals, project management, cost planning, completion and safety topics for Dubai and UAE industrial projects.
+## Warehouse construction planning resources
+The curated warehouse resources connect the commercial service, industrial-building scope, renovation scope and editorial planning guide without publishing repetitive topic pages as separate search destinations.
 
-${warehouseSiloDirectory}
+${warehousePlanningDirectory}
 
 ## Official social profiles
 ${socialAuthorityDirectory}

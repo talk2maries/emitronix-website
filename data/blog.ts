@@ -58,6 +58,11 @@ export type BlogPost = {
   faqs: BlogFaq[];
   internalLinks: Array<{ label: string; href: string }>;
   relatedSlugs: string[];
+  /**
+   * False for editorial drafts that remain publicly reviewable but must not be
+   * promoted through search, sitemaps, internal search or article listings.
+   */
+  indexable?: boolean;
 };
 
 export type BlogPostSummary = Pick<
@@ -1298,10 +1303,14 @@ export const draftStrategicBlogPosts: DraftBlogPost[] = [
 
 export const blogPosts: BlogPost[] = [...coreBlogPosts, ...warehouseBlogPosts];
 
+export const indexableBlogPosts = blogPosts.filter((post) => post.indexable !== false);
+
 export const getBlogPost = (slug: string) => blogPosts.find((post) => post.slug === slug);
 
 export const getRelatedPosts = (post: BlogPost) =>
-  post.relatedSlugs.map((slug) => getBlogPost(slug)).filter((item): item is BlogPost => Boolean(item));
+  post.relatedSlugs
+    .map((slug) => getBlogPost(slug))
+    .filter((item): item is BlogPost => Boolean(item && item.indexable !== false));
 
 export const blogPostUrl = (post: BlogPost) => absoluteUrl(`/blog/${post.slug}`);
 
