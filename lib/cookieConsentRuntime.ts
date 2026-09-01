@@ -14,6 +14,14 @@ export type RevokedConsentCategories = {
   any: boolean;
 };
 
+export type SalesIqCookieCategory = "analytics" | "performance";
+
+export type SalesIqRuntimePrivacy = {
+  essentialChat: true;
+  visitorTracking: boolean;
+  cookieConsent: SalesIqCookieCategory[];
+};
+
 type ApplyConsentTransitionOptions<TCategories extends RuntimeConsentCategories> = {
   previousCategories: TCategories | null;
   nextCategories: TCategories;
@@ -53,6 +61,20 @@ export function getRevokedConsentCategories(
     functional,
     performance,
     any: analytics || marketing || functional || performance,
+  };
+}
+
+export function getSalesIqRuntimePrivacy(
+  categories: RuntimeConsentCategories,
+): SalesIqRuntimePrivacy {
+  const cookieConsent: SalesIqCookieCategory[] = [];
+  if (categories.analytics) cookieConsent.push("analytics");
+  if (categories.performance) cookieConsent.push("performance");
+
+  return {
+    essentialChat: true,
+    visitorTracking: categories.analytics,
+    cookieConsent,
   };
 }
 
@@ -202,13 +224,6 @@ export function shouldBlockRevokedTrackingRequest({
   if (
     (revoked.analytics || revoked.performance) &&
     ["clarity.ms", "hotjar.com", "hotjar.io"].some(hostnameMatches)
-  ) {
-    return true;
-  }
-
-  if (
-    revoked.functional &&
-    ["salesiq.zohopublic.com", "zohopublic.com", "zohostatic.com", "zohocdn.com"].some(hostnameMatches)
   ) {
     return true;
   }

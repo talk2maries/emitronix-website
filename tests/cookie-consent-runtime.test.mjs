@@ -3,9 +3,14 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   applyConsentTransition,
+  getSalesIqRuntimePrivacy,
   scheduleReloadAfterConsentUpdate,
   shouldBlockRevokedTrackingRequest,
 } from "../lib/cookieConsentRuntime.ts";
+import {
+  defaultCookieConsentConfig,
+  normalizeCookieConsentConfig,
+} from "../data/cookieConsentDefaults.ts";
 
 const accepted = {
   necessary: true,
@@ -184,7 +189,43 @@ test("Google collection is blocked for every Google-mapped consent downgrade", (
   );
 });
 
-test("Zoho SalesIQ requests are blocked when functional consent is revoked", () => {
+test("SalesIQ privacy mapping keeps chat essential and gates Live View on analytics", () => {
+  assert.deepEqual(getSalesIqRuntimePrivacy(rejected), {
+    essentialChat: true,
+    visitorTracking: false,
+    cookieConsent: [],
+  });
+  assert.deepEqual(getSalesIqRuntimePrivacy(accepted), {
+    essentialChat: true,
+    visitorTracking: true,
+    cookieConsent: ["analytics", "performance"],
+  });
+  assert.deepEqual(
+    getSalesIqRuntimePrivacy({
+      ...rejected,
+      functional: true,
+      performance: true,
+    }),
+    {
+      essentialChat: true,
+      visitorTracking: false,
+      cookieConsent: ["performance"],
+    },
+  );
+  assert.deepEqual(
+    getSalesIqRuntimePrivacy({
+      ...rejected,
+      analytics: true,
+    }),
+    {
+      essentialChat: true,
+      visitorTracking: true,
+      cookieConsent: ["analytics"],
+    },
+  );
+});
+
+test("essential SalesIQ requests are not blocked when optional functional consent is revoked", () => {
   const pageUrl = "https://www.emitronix.ae/";
   const revoked = {
     analytics: false,
@@ -200,7 +241,7 @@ test("Zoho SalesIQ requests are blocked when functional consent is revoked", () 
       pageUrl,
       revoked,
     }),
-    true,
+    false,
   );
   assert.equal(
     shouldBlockRevokedTrackingRequest({
@@ -227,7 +268,11 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
   assert.equal(layout.match(/salesiq\.zohopublic\.com\/widget/g)?.length || 0, 0);
   assert.equal(consentManager.match(/siq1f4b2e5df11f8540e8c42cce8cfbf087ee91508d4eaaccfbcd68dc760569131fdba231f665cae37d10855c73a0668462/g)?.length || 0, 1);
   assert.match(consentManager, /function loadSalesIqWidget\(categories: ConsentCategoryMap\)/);
-  assert.match(consentManager, /loadSalesIqWidget\(categories\)/);
+  assert.equal(consentManager.match(/\n  loadSalesIqWidget\(categories\);/g)?.length, 1);
+  assert.match(
+    consentManager,
+    /const initialCategories = getDefaultConsentCategories\(\);[\s\S]*?loadSalesIqWidget\(initialCategories\);/,
+  );
   for (const field of [
     "ad_storage",
     "analytics_storage",
@@ -244,14 +289,14 @@ test("standard GTM bootstrap and noscript exist once without a consent-loader du
   );
 });
 
-test("SalesIQ keeps chat functional while respecting live visitor tracking consent", async () => {
+test("SalesIQ initializes essential chat while respecting live visitor tracking consent", async () => {
   const consentManager = await readFile(
     new URL("../components/CookieConsentManager.tsx", import.meta.url),
     "utf8",
   );
 
   assert.match(consentManager, /api\.privacy\?\.updateCookieConsent\?\.\(cookieConsent\)/);
-  assert.match(consentManager, /categories\.functional && categories\.analytics/);
+  assert.match(consentManager, /getSalesIqRuntimePrivacy\(categories\)\.visitorTracking/);
   assert.match(consentManager, /api\.tracking\?\.on\?\.\(\)/);
   assert.match(consentManager, /api\.tracking\?\.off\?\.\(\)/);
   assert.match(
@@ -268,17 +313,18 @@ test("SalesIQ keeps chat functional while respecting live visitor tracking conse
   );
   assert.match(
     consentManager,
-    /if \(revoked\.functional\) \{[\s\S]*?clearSalesIqState\(\);/,
+    /if \(revoked\.analytics \|\| revoked\.performance\) \{[\s\S]*?syncSalesIqPrivacyState\(\);/,
   );
+  assert.doesNotMatch(consentManager, /function clearSalesIqState\(\)/);
+  assert.doesNotMatch(consentManager, /if \(revoked\.functional\) \{/);
   assert.match(
     consentManager,
-    /else if \(revoked\.analytics \|\| revoked\.performance\) \{[\s\S]*?syncSalesIqPrivacyState\(\);/,
+    /if \(!privacy\?\.visitorTracking && !salesIqOpenRequested\) return;/,
   );
-  assert.match(consentManager, /\^gdpr_\.\*_\(\?:donottrack\|trackingconfig\)\$\/i/);
-  assert.match(consentManager, /\(\?:zldp\|zldt\|siqid\|uuid\)/);
-  assert.doesNotMatch(
+  assert.match(consentManager, /if \(opened\) salesIqOpenRequested = false;/);
+  assert.match(
     consentManager,
-    /if \(revoked\.functional \|\| revoked\.analytics \|\| revoked\.performance\)/,
+    /if \(salesIqOpenRequested\) \{[\s\S]*?window\.EmitronixJyothika\?\.open\(\);/,
   );
 });
 
@@ -333,5 +379,58 @@ test("floating action opens Zoho chat instead of the call button", async () => {
   assert.equal(/href=\{`tel:/.test(floatingActions), false);
   assert.match(consentManager, /SALESIQ_DEVELOPMENT_HOSTS = \["localhost", "127\.0\.0\.1", "::1"\]/);
   assert.match(consentManager, /window\.addEventListener\(CHAT_REQUEST_EVENT, requestChat\)/);
-  assert.match(consentManager, /consent\.categories\.functional && salesIqOpenRequested/);
+  assert.match(
+    consentManager,
+    /const categories = appliedCategoriesRef\.current \|\| getDefaultConsentCategories\(\);[\s\S]*?loadSalesIqWidget\(categories\);[\s\S]*?window\.EmitronixJyothika\?\.open\(\);/,
+  );
+  assert.doesNotMatch(consentManager, /requestChat[\s\S]*?openSettings\(\);/);
+});
+
+test("cookie notice discloses essential chat and analytics-gated Live View", async () => {
+  const defaults = await readFile(
+    new URL("../data/cookieConsentDefaults.ts", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(defaults, /version: 3/);
+  assert.match(defaults, /on-demand Zoho SalesIQ live-chat channel/);
+  assert.match(defaults, /SalesIQ visitor analytics remain disabled unless Analytics is allowed/);
+  assert.match(defaults, /Live View tracking, page context and proactive chat actions are enabled only when Analytics is allowed/);
+});
+
+test("stored version 2 configuration migrates the SalesIQ privacy disclosure", () => {
+  const legacyConfig = structuredClone(defaultCookieConsentConfig);
+  legacyConfig.version = 2;
+  legacyConfig.banner.description.en = "Legacy custom banner";
+  legacyConfig.categories.find((category) => category.id === "necessary").description.en =
+    "Legacy necessary description";
+  legacyConfig.categories.find((category) => category.id === "analytics").title.en =
+    "Usage Insights";
+  legacyConfig.policyPages.cookiePolicy.en.sections =
+    legacyConfig.policyPages.cookiePolicy.en.sections.filter(
+      (section) => section.heading !== "Live chat and visitor visibility",
+    );
+
+  const migrated = normalizeCookieConsentConfig(legacyConfig);
+
+  assert.equal(migrated.version, 3);
+  assert.equal(migrated.updatedAt, defaultCookieConsentConfig.updatedAt);
+  assert.equal(
+    migrated.banner.description.en,
+    defaultCookieConsentConfig.banner.description.en,
+  );
+  assert.equal(
+    migrated.categories.find((category) => category.id === "necessary").description.en,
+    defaultCookieConsentConfig.categories.find((category) => category.id === "necessary").description.en,
+  );
+  assert.equal(
+    migrated.categories.find((category) => category.id === "analytics").title.en,
+    "Usage Insights",
+  );
+  assert.equal(
+    migrated.policyPages.cookiePolicy.en.sections.filter(
+      (section) => section.heading === "Live chat and visitor visibility",
+    ).length,
+    1,
+  );
 });

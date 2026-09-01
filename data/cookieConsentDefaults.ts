@@ -64,11 +64,11 @@ export const cookieCategoryIds: CookieCategoryId[] = ["necessary", "analytics", 
 
 export const cookieLanguages: CookieLanguage[] = ["en", "ar"];
 
-const updatedAt = "2026-08-03T00:00:00.000Z";
+const updatedAt = "2026-08-12T00:00:00.000Z";
 
 export const defaultCookieConsentConfig: CookieConsentConfig = {
   enabled: true,
-  version: 2,
+  version: 3,
   consentExpiryDays: 180,
   updatedAt,
   banner: {
@@ -77,8 +77,8 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
       ar: "تفضيلات ملفات تعريف الارتباط",
     },
     description: {
-      en: "We use cookies to keep this website secure, understand performance, improve enquiries and support marketing only when you allow it. You can accept all cookies, reject non-essential cookies or customize your choices.",
-      ar: "نستخدم ملفات تعريف الارتباط للحفاظ على أمان الموقع وفهم الأداء وتحسين تجربة التواصل ودعم التسويق فقط عند موافقتك. يمكنك قبول جميع الملفات أو رفض غير الضرورية أو تخصيص اختياراتك.",
+      en: "Essential website and live-chat functions remain available without optional cookies. Analytics, performance and marketing tools run only when you allow them. You can accept all cookies, reject non-essential cookies or customize your choices.",
+      ar: "تظل وظائف الموقع الأساسية والدردشة المباشرة متاحة دون ملفات الارتباط الاختيارية. لا تعمل أدوات التحليلات والأداء والتسويق إلا عند موافقتك. يمكنك قبول جميع الملفات أو رفض غير الضرورية أو تخصيص اختياراتك.",
     },
     acceptAllLabel: {
       en: "Accept All Cookies",
@@ -139,8 +139,8 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
         ar: "ضرورية للغاية",
       },
       description: {
-        en: "Required for security, forms, consent storage, navigation and core website functions. These cookies cannot be switched off.",
-        ar: "مطلوبة للأمان والنماذج وتخزين الموافقة والتنقل ووظائف الموقع الأساسية. لا يمكن إيقاف هذه الملفات.",
+        en: "Required for security, forms, consent storage, navigation and the on-demand Zoho SalesIQ live-chat channel. These functions cannot be switched off, but SalesIQ visitor analytics remain disabled unless Analytics is allowed.",
+        ar: "مطلوبة للأمان والنماذج وتخزين الموافقة والتنقل وقناة الدردشة المباشرة عند الطلب عبر Zoho SalesIQ. لا يمكن إيقاف هذه الوظائف، لكن تحليلات زوار SalesIQ تبقى معطلة ما لم تتم الموافقة على التحليلات.",
       },
     },
     {
@@ -180,7 +180,7 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
         ar: "وظيفية",
       },
       description: {
-        en: "Remembers optional preferences such as language, display choices and enhanced website features, including the Zoho SalesIQ live chat widget when you allow it.",
+        en: "Remembers optional preferences such as language, display choices and enhanced website features.",
         ar: "تتذكر التفضيلات الاختيارية مثل اللغة وخيارات العرض والميزات المحسنة للموقع.",
       },
     },
@@ -211,7 +211,11 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
           },
           {
             heading: "Cookie categories",
-            body: "Strictly necessary cookies are always enabled. Analytics, marketing, functional and performance cookies are optional and can be changed from Cookie Settings in the footer.",
+            body: "Strictly necessary technologies are always enabled. Analytics, marketing, functional and performance cookies are optional and can be changed from Cookie Settings in the footer.",
+          },
+          {
+            heading: "Live chat and visitor visibility",
+            body: "The Zoho SalesIQ chat channel loads so a visitor can request assistance without accepting optional cookies. SalesIQ receives an empty optional-cookie preference and website visitor tracking is switched off by default. Live View tracking, page context and proactive chat actions are enabled only when Analytics is allowed. Starting a chat sends the information needed to provide that requested conversation.",
           },
           {
             heading: "Consent record and duration",
@@ -238,7 +242,11 @@ export const defaultCookieConsentConfig: CookieConsentConfig = {
           },
           {
             heading: "فئات ملفات الارتباط",
-            body: "ملفات الارتباط الضرورية مفعلة دائماً. ملفات التحليلات والتسويق والوظائف والأداء اختيارية ويمكن تغييرها من إعدادات ملفات الارتباط في تذييل الموقع.",
+            body: "التقنيات الضرورية مفعلة دائماً. ملفات التحليلات والتسويق والوظائف والأداء اختيارية ويمكن تغييرها من إعدادات ملفات الارتباط في تذييل الموقع.",
+          },
+          {
+            heading: "الدردشة المباشرة وظهور الزائر",
+            body: "يتم تحميل قناة الدردشة عبر Zoho SalesIQ حتى يتمكن الزائر من طلب المساعدة دون قبول ملفات الارتباط الاختيارية. يتلقى SalesIQ تفضيلاً فارغاً لملفات الارتباط الاختيارية ويكون تتبع زوار الموقع معطلاً افتراضياً. لا يتم تفعيل Live View وسياق الصفحة وإجراءات الدردشة الاستباقية إلا عند السماح بالتحليلات. عند بدء الدردشة، ترسل المعلومات اللازمة لتقديم المحادثة المطلوبة.",
           },
           {
             heading: "سجل الموافقة ومدته",
@@ -418,11 +426,44 @@ export function getRejectedConsentCategories(): ConsentCategoryMap {
   return getDefaultConsentCategories();
 }
 
+function addRequiredPolicySection(
+  page: LocalizedPolicyPage[CookieLanguage] | undefined,
+  fallback: LocalizedPolicyPage[CookieLanguage],
+  requiredHeading: string,
+  insertAfterHeading: string,
+): LocalizedPolicyPage[CookieLanguage] {
+  const source = page || fallback;
+  const requiredSection = fallback.sections.find(
+    (section) => section.heading === requiredHeading,
+  );
+  if (!requiredSection) return source;
+
+  const sections = source.sections.filter(
+    (section) => section.heading !== requiredHeading,
+  );
+  const insertAfterIndex = sections.findIndex(
+    (section) => section.heading === insertAfterHeading,
+  );
+  sections.splice(insertAfterIndex >= 0 ? insertAfterIndex + 1 : sections.length, 0, requiredSection);
+
+  return {
+    ...fallback,
+    ...source,
+    sections,
+  };
+}
+
 export function normalizeCookieConsentConfig(config: Partial<CookieConsentConfig> | null | undefined): CookieConsentConfig {
   const defaults = defaultCookieConsentConfig;
+  const incomingVersion = Number.isFinite(config?.version)
+    ? Number(config?.version)
+    : defaults.version;
+  const requiresSalesIqPrivacyMigration = incomingVersion < defaults.version;
   const mergedCategories = cookieCategoryIds.map((id) => {
     const fallback = defaults.categories.find((category) => category.id === id)!;
     const incoming = config?.categories?.find((category) => category.id === id);
+    const useUpdatedDisclosure =
+      requiresSalesIqPrivacyMigration && (id === "necessary" || id === "functional");
     return {
       ...fallback,
       ...incoming,
@@ -434,17 +475,40 @@ export function normalizeCookieConsentConfig(config: Partial<CookieConsentConfig
         ar: incoming?.title?.ar || fallback.title.ar,
       },
       description: {
-        en: incoming?.description?.en || fallback.description.en,
-        ar: incoming?.description?.ar || fallback.description.ar,
+        en: useUpdatedDisclosure
+          ? fallback.description.en
+          : incoming?.description?.en || fallback.description.en,
+        ar: useUpdatedDisclosure
+          ? fallback.description.ar
+          : incoming?.description?.ar || fallback.description.ar,
       },
     };
   });
 
+  const cookiePolicy = requiresSalesIqPrivacyMigration
+    ? {
+        en: addRequiredPolicySection(
+          config?.policyPages?.cookiePolicy?.en,
+          defaults.policyPages.cookiePolicy.en,
+          "Live chat and visitor visibility",
+          "Cookie categories",
+        ),
+        ar: addRequiredPolicySection(
+          config?.policyPages?.cookiePolicy?.ar,
+          defaults.policyPages.cookiePolicy.ar,
+          "الدردشة المباشرة وظهور الزائر",
+          "فئات ملفات الارتباط",
+        ),
+      }
+    : config?.policyPages?.cookiePolicy || defaults.policyPages.cookiePolicy;
+
   return {
     enabled: config?.enabled ?? defaults.enabled,
-    version: Number.isFinite(config?.version) ? Number(config?.version) : defaults.version,
+    version: Math.max(defaults.version, incomingVersion),
     consentExpiryDays: Math.max(1, Math.min(730, Number(config?.consentExpiryDays || defaults.consentExpiryDays))),
-    updatedAt: config?.updatedAt || defaults.updatedAt,
+    updatedAt: requiresSalesIqPrivacyMigration
+      ? defaults.updatedAt
+      : config?.updatedAt || defaults.updatedAt,
     banner: {
       ...defaults.banner,
       ...config?.banner,
@@ -452,15 +516,21 @@ export function normalizeCookieConsentConfig(config: Partial<CookieConsentConfig
         Object.entries(defaults.banner).map(([key, value]) => [
           key,
           {
-            en: config?.banner?.[key as keyof CookieBannerContent]?.en || value.en,
-            ar: config?.banner?.[key as keyof CookieBannerContent]?.ar || value.ar,
+            en:
+              requiresSalesIqPrivacyMigration && key === "description"
+                ? value.en
+                : config?.banner?.[key as keyof CookieBannerContent]?.en || value.en,
+            ar:
+              requiresSalesIqPrivacyMigration && key === "description"
+                ? value.ar
+                : config?.banner?.[key as keyof CookieBannerContent]?.ar || value.ar,
           },
         ]),
       ) as CookieBannerContent,
     },
     categories: mergedCategories,
     policyPages: {
-      cookiePolicy: config?.policyPages?.cookiePolicy || defaults.policyPages.cookiePolicy,
+      cookiePolicy,
       privacyPolicy: config?.policyPages?.privacyPolicy || defaults.policyPages.privacyPolicy,
       terms: config?.policyPages?.terms || defaults.policyPages.terms,
     },

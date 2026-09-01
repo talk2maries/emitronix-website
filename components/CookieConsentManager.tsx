@@ -3,6 +3,7 @@
 import { Check, ChevronRight, Cookie, Settings2, ShieldCheck, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   cookieCategoryIds,
   defaultCookieConsentConfig,
@@ -17,9 +18,11 @@ import {
 } from "@/data/cookieConsentDefaults";
 import {
   applyConsentTransition,
+  getSalesIqRuntimePrivacy,
   scheduleReloadAfterConsentUpdate,
   shouldBlockRevokedTrackingRequest,
   type RevokedConsentCategories,
+  type SalesIqCookieCategory,
 } from "@/lib/cookieConsentRuntime";
 
 type StoredConsent = {
@@ -41,7 +44,6 @@ type QueuedTrackingFunction = ((...args: unknown[]) => void) & {
 };
 
 type SalesIqVisibilityState = "show" | "hide";
-type SalesIqCookieCategory = "analytics" | "performance";
 type SalesIqSystemMessage =
   | "waiting"
   | "offlinecomplete"
@@ -352,6 +354,11 @@ function syncSalesIqPageContext() {
   setSalesIqFloatButtonVisibility("hide");
   if (!salesIqLocationIsAllowed()) return;
 
+  const privacy = salesIqConsentCategories
+    ? getSalesIqRuntimePrivacy(salesIqConsentCategories)
+    : null;
+  if (!privacy?.visitorTracking && !salesIqOpenRequested) return;
+
   try {
     api.visitor?.info?.({
       "Page URL": salesIqPublicPageUrl(),
@@ -395,6 +402,7 @@ function openSalesIqWindow() {
     // Keep using the visible window APIs when click is unavailable.
   }
   setSalesIqFloatButtonVisibility("hide");
+  if (opened) salesIqOpenRequested = false;
   return opened;
 }
 
@@ -414,7 +422,15 @@ function hideSalesIqWidget() {
 
 function fireSalesIqProactiveActionOnce() {
   const api = getSalesIqApi();
-  if (!salesIqLocationIsAllowed() || !api?.visitor?.customaction) return;
+  const categories = salesIqConsentCategories;
+  if (
+    !salesIqLocationIsAllowed() ||
+    !categories ||
+    !getSalesIqRuntimePrivacy(categories).visitorTracking ||
+    !api?.visitor?.customaction
+  ) {
+    return;
+  }
 
   try {
     if (window.sessionStorage.getItem(SALESIQ_PROACTIVE_KEY) === "1") return;
@@ -441,9 +457,7 @@ function syncSalesIqCookieConsent() {
   const categories = salesIqConsentCategories;
   if (!api || !categories) return;
 
-  const cookieConsent: SalesIqCookieCategory[] = [];
-  if (categories.analytics) cookieConsent.push("analytics");
-  if (categories.performance) cookieConsent.push("performance");
+  const { cookieConsent } = getSalesIqRuntimePrivacy(categories);
 
   try {
     api.privacy?.updateCookieConsent?.(cookieConsent);
@@ -458,10 +472,9 @@ function syncSalesIqTracking() {
   if (!api || !categories) return;
 
   try {
-    // Live View is an analytics feature. Keep it behind both the Functional
-    // and Analytics choices while leaving the chat widget usable with only
-    // Functional consent.
-    if (categories.functional && categories.analytics) {
+    // Live View records visitor activity, so it remains behind Analytics
+    // consent. The live-chat transport is initialized independently below.
+    if (getSalesIqRuntimePrivacy(categories).visitorTracking) {
       api.tracking?.on?.();
     } else {
       api.tracking?.off?.();
@@ -560,50 +573,6 @@ function loadSalesIqWidget(categories: ConsentCategoryMap) {
   );
 }
 
-function clearStorageByPatterns(storage: Storage, patterns: RegExp[]) {
-  try {
-    for (let index = storage.length - 1; index >= 0; index -= 1) {
-      const key = storage.key(index);
-      if (key && patterns.some((pattern) => pattern.test(key))) storage.removeItem(key);
-    }
-  } catch {
-    // Browser privacy settings can block storage access.
-  }
-}
-
-function clearSalesIqState() {
-  hideSalesIqWidget();
-  salesIqOpenRequested = false;
-  salesIqReadyHandlerInstalled = false;
-  salesIqProactiveFiredInMemory = false;
-  salesIqConsentCategories = null;
-  salesIqReadyFired = false;
-  salesIqAfterReadyFired = false;
-
-  document.getElementById(SALESIQ_SCRIPT_ID)?.remove();
-  document
-    .querySelectorAll(`script[src^="${SALESIQ_WIDGET_URL.split("?")[0]}"]`)
-    .forEach((script) => script.remove());
-
-  expireCookies([
-    /^zsiq/i,
-    /^zab/i,
-    /^salesiq/i,
-    /^zoho/i,
-    /^ls_csr/i,
-    /^LS_CSRF_TOKEN$/,
-    /^gdpr_.*_(?:donottrack|trackingconfig)$/i,
-    /^(?:.*-)?_(?:zldp|zldt|siqid|uuid)$/i,
-  ]);
-  clearStorageByPatterns(window.localStorage, [/zoho/i, /salesiq/i, /zsiq/i, /zab/i]);
-  clearStorageByPatterns(window.sessionStorage, [/zoho/i, /salesiq/i, /zsiq/i, /zab/i, /^emitronix_salesiq/i]);
-
-  if (window.$zoho?.salesiq) {
-    window.$zoho.salesiq = {};
-  }
-  window.EmitronixJyothika = undefined;
-}
-
 function loadGrantedIntegrationScripts(categories: ConsentCategoryMap) {
   // This is normally a no-op because a successful downgrade reloads the page.
   // If navigation was blocked, a later grant must restore the old document's
@@ -676,8 +645,10 @@ function loadGrantedIntegrationScripts(categories: ConsentCategoryMap) {
   if (categories.marketing) loadExtraScripts("emitronix-extra-marketing", extraScripts.marketing);
   if (categories.functional) {
     loadExtraScripts("emitronix-extra-functional", extraScripts.functional);
-    loadSalesIqWidget(categories);
   }
+  // On-demand chat is a core contact channel. SalesIQ receives an empty
+  // optional-cookie preference and tracking.off() until Analytics is granted.
+  loadSalesIqWidget(categories);
   if (categories.performance) loadExtraScripts("emitronix-extra-performance", extraScripts.performance);
 }
 
@@ -737,14 +708,9 @@ function clearRevokedTrackingState(
     if (window._linkedin_data_partner_ids) window._linkedin_data_partner_ids.length = 0;
   }
 
-  if (revoked.functional) {
-    salesIqConsentCategories = nextCategories;
-    syncSalesIqPrivacyState();
-    clearSalesIqState();
-  } else if (revoked.analytics || revoked.performance) {
-    // Analytics and performance downgrades update SalesIQ in place. Removing
-    // the whole provider here also removes the still-consented live chat and
-    // can leave the custom launcher pointing at a dead widget until reload.
+  if (revoked.analytics || revoked.performance) {
+    // Apply the provider's privacy APIs in place. The essential chat channel
+    // remains available, while Live View and optional cookies are disabled.
     salesIqConsentCategories = nextCategories;
     syncSalesIqPrivacyState();
   }
@@ -985,6 +951,7 @@ function policyHref(key: "cookie" | "privacy" | "terms", language: CookieLanguag
 }
 
 export function CookieConsentManager() {
+  const pathname = usePathname();
   const bannerTitleId = useId();
   const bannerDescriptionId = useId();
   const preferencesTitleId = useId();
@@ -1010,6 +977,13 @@ export function CookieConsentManager() {
   useEffect(() => {
     const initialLanguage = detectLanguage();
     setLanguage(initialLanguage);
+
+    // Initialize the contact channel immediately with every optional category
+    // denied. A stored, valid choice may upgrade the provider after config is
+    // loaded, but stale consent can never enable tracking during this window.
+    const initialCategories = getDefaultConsentCategories();
+    appliedCategoriesRef.current = initialCategories;
+    loadSalesIqWidget(initialCategories);
 
     let cancelled = false;
     fetch("/api/cookie-consent/config", { cache: "no-store" })
@@ -1061,6 +1035,11 @@ export function CookieConsentManager() {
   }, []);
 
   useEffect(() => {
+    const syncTimer = window.setTimeout(syncSalesIqPageContext, 0);
+    return () => window.clearTimeout(syncTimer);
+  }, [pathname]);
+
+  useEffect(() => {
     const openSettings = () => {
       returnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       setReturnToBannerOnClose(false);
@@ -1070,14 +1049,9 @@ export function CookieConsentManager() {
 
     const requestChat = () => {
       salesIqOpenRequested = true;
-
-      if (appliedCategoriesRef.current?.functional) {
-        loadSalesIqWidget(appliedCategoriesRef.current);
-        window.EmitronixJyothika?.open();
-        return;
-      }
-
-      openSettings();
+      const categories = appliedCategoriesRef.current || getDefaultConsentCategories();
+      loadSalesIqWidget(categories);
+      window.EmitronixJyothika?.open();
     };
 
     window.addEventListener(SETTINGS_EVENT, openSettings);
@@ -1167,10 +1141,8 @@ export function CookieConsentManager() {
       scheduleReload: scheduleConsentAwareReload,
     });
 
-    if (consent.categories.functional && salesIqOpenRequested) {
+    if (salesIqOpenRequested) {
       window.EmitronixJyothika?.open();
-    } else if (!consent.categories.functional) {
-      salesIqOpenRequested = false;
     }
 
     if (transition.reloadScheduled) return;

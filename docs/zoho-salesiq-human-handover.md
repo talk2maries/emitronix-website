@@ -52,9 +52,9 @@ Use a fresh private browser session for each case so an old conversation cannot 
 6. In SalesIQ **Zobot > Jyothika > Logs**, confirm each Forward card and fallback card reports Success.
 7. In **Chats > Show details**, confirm the expected department and available-operator count were used.
 
-Live View appears only when the visitor grants both Functional and Analytics consent. Functional consent loads the chat; Analytics consent permits SalesIQ visitor tracking.
+The SalesIQ chat channel loads with optional categories denied so visitors can request support without accepting analytics or marketing cookies. Live View, page context and proactive SalesIQ actions remain disabled until the visitor grants Analytics consent; Functional consent is not required for the on-demand chat channel.
 
-If the widget opens but Live View stays empty after both categories are granted, verify the deployed JavaScript contains both `$zoho.salesiq.privacy.updateCookieConsent(...)` and `$zoho.salesiq.tracking.on()`. The privacy update runs in `afterReady`; tracking must be reconciled after that call because provider initialization can otherwise leave the session disabled.
+If the widget opens but Live View stays empty after Analytics is granted, verify the deployed JavaScript contains both `$zoho.salesiq.privacy.updateCookieConsent(...)` and `$zoho.salesiq.tracking.on()`. The privacy update runs in `afterReady`; tracking must be reconciled after that call because provider initialization can otherwise leave the session disabled. Do not force Live View for a rejected or untouched Analytics choice: SalesIQ's visitor identifiers and tracking are optional processing, not a prerequisite for a visitor-initiated chat.
 
 Also check **Settings > Controls > Spammers > Do not track**. SalesIQ auto-picks operator IP addresses, and an enabled entry suppresses those visits from Live View while leaving the chat widget fully usable. Disable only the test IP that is meant to appear; retain intentional exclusions.
 
