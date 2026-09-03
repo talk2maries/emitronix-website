@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl, services, site } from "@/data/site";
+import { buildCanonicalUrl } from "@/lib/seoRouting";
 
 export const trustContentLastReviewedIso = "2026-07-24";
 export const trustContentLastReviewedLabel = "24 July 2026";
@@ -749,7 +750,7 @@ type MetadataInput = {
 };
 
 export function createTrustMetadata({ path, title, description }: MetadataInput): Metadata {
-  const url = absoluteUrl(path);
+  const url = buildCanonicalUrl(path);
   const imageUrl = absoluteUrl("/images/generated/social/emitronix-construction-dubai-og.webp");
 
   return {
@@ -757,11 +758,6 @@ export function createTrustMetadata({ path, title, description }: MetadataInput)
     description,
     alternates: {
       canonical: url,
-      languages: {
-        en: url,
-        "en-AE": url,
-        "x-default": url,
-      },
     },
     robots: { index: true, follow: true },
     openGraph: {

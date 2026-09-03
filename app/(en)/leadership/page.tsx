@@ -29,8 +29,9 @@ import {
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
+import { buildCanonicalUrl } from "@/lib/seoRouting";
 
-const pageUrl = absoluteUrl("/leadership");
+const pageUrl = buildCanonicalUrl("/leadership");
 const pageDescription =
   "Review the named founder profile and the role-based construction delivery functions presented by Emitronix Contracting LLC.";
 const leadershipImage = getGeneratedImage("team.engineering-leadership-site-review");
@@ -42,11 +43,6 @@ export const metadata: Metadata = {
   description: pageDescription,
   alternates: {
     canonical: pageUrl,
-    languages: {
-      en: pageUrl,
-      "en-AE": pageUrl,
-      "x-default": pageUrl,
-    },
   },
   robots: {
     index: true,

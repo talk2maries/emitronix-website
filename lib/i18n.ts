@@ -1,3 +1,5 @@
+import { getTranslationPair } from "@/lib/multilingualRoutes";
+
 export type Locale = "en" | "ar";
 
 export function isArabicPath(pathname: string) {
@@ -16,40 +18,12 @@ export function toArabicPath(pathname: string) {
   return cleanPath === "/" ? "/ar" : `/ar${cleanPath}`;
 }
 
-const englishOnlyPaths = [
-  "/accessibility",
-  "/company-information",
-  "/corrections-policy",
-  "/disclaimer",
-  "/editorial-policy",
-  "/faqs",
-  "/founder",
-  "/leadership",
-  "/locations",
-  "/search",
-  "/technical-review-policy",
-  "/warehouse",
-];
-
-const translatedBlogPaths = new Set([
-  "/blog/complete-guide-civil-construction-dubai-2026",
-  "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
-  "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
-  "/blog/choose-best-building-contractor-dubai",
-]);
-
-function pathnameOnly(value: string) {
-  return value.split(/[?#]/, 1)[0] || "/";
-}
-
 export function hasArabicPage(pathname: string) {
-  const englishPath = toEnglishPath(pathnameOnly(pathname));
-  if (englishPath.startsWith("/blog/")) return translatedBlogPaths.has(englishPath);
-  return !englishOnlyPaths.some((path) => englishPath === path || englishPath.startsWith(`${path}/`));
+  return getTranslationPair(pathname) !== null;
 }
 
 export function toAvailableArabicPath(pathname: string) {
-  return hasArabicPage(pathname) ? toArabicPath(pathname) : "/ar";
+  return getTranslationPair(pathname)?.arabic ?? "/ar";
 }
 
 export function localizedPath(href: string, locale: Locale) {
@@ -67,5 +41,7 @@ export function localizedPath(href: string, locale: Locale) {
 }
 
 export function alternateLocalePath(pathname: string) {
-  return isArabicPath(pathname) ? toEnglishPath(pathname) : toAvailableArabicPath(pathname);
+  const pair = getTranslationPair(pathname);
+  if (!pair) return isArabicPath(pathname) ? "/" : "/ar";
+  return isArabicPath(pathname) ? pair.english : pair.arabic;
 }

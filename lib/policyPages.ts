@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { type CookieLanguage, type CookiePolicyPageKey } from "@/data/cookieConsentDefaults";
 import { absoluteUrl, site } from "@/data/site";
 import { getCookieConsentConfig } from "@/lib/cookieConsentStore";
+import { buildCanonicalUrl, getLanguageAlternates } from "@/lib/seoRouting";
 
 export const policyPageRoutes: Record<CookiePolicyPageKey, Record<CookieLanguage, string>> = {
   cookiePolicy: {
@@ -31,7 +32,11 @@ export async function createPolicyPageMetadata(key: CookiePolicyPageKey, languag
   const { page, route } = await getPolicyPage(key, language);
   const alternateLanguage = language === "ar" ? "en" : "ar";
   const title = `${page.title} | ${site.name}`;
-  const url = absoluteUrl(route);
+  const url = buildCanonicalUrl(route);
+  const languages = getLanguageAlternates(route);
+  if (!languages) {
+    throw new Error(`Policy route is missing from the verified translation map: ${route}`);
+  }
   const image = absoluteUrl("/images/dubai-building-contracting-company.webp");
 
   return {
@@ -41,13 +46,7 @@ export async function createPolicyPageMetadata(key: CookiePolicyPageKey, languag
     description: page.description,
     alternates: {
       canonical: url,
-      languages: {
-        en: absoluteUrl(policyPageRoutes[key].en),
-        ar: absoluteUrl(policyPageRoutes[key].ar),
-        "en-AE": absoluteUrl(policyPageRoutes[key].en),
-        "ar-AE": absoluteUrl(policyPageRoutes[key].ar),
-        "x-default": absoluteUrl(policyPageRoutes[key].en),
-      },
+      languages,
     },
     robots: {
       index: true,
@@ -56,6 +55,7 @@ export async function createPolicyPageMetadata(key: CookiePolicyPageKey, languag
     openGraph: {
       type: "website",
       locale: language === "ar" ? "ar_AE" : "en_AE",
+      alternateLocale: [language === "ar" ? "en_AE" : "ar_AE"],
       url,
       siteName: site.name,
       title,

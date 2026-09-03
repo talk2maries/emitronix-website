@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { approvalServices } from "@/data/approvals";
 import { blogPosts } from "@/data/blog";
-import { absoluteUrl, services, site } from "@/data/site";
+import { services, site } from "@/data/site";
 import { warehouseAuthorityPages } from "@/data/warehouseSeo";
 import {
   faqContentLastReviewedIso,
@@ -9,6 +9,11 @@ import {
 } from "@/data/trustCenter";
 import { readSiteFiles } from "@/lib/adminStore";
 import { hasArabicPage, toArabicPath, toEnglishPath } from "@/lib/i18n";
+import {
+  buildCanonicalUrl,
+  getLanguageAlternates,
+  normalizePath,
+} from "@/lib/seoRouting";
 
 export const dynamic = "force-dynamic";
 
@@ -19,18 +24,8 @@ type RouteRecord = {
   priority?: number;
 };
 
-const sitemapTranslatedBlogPaths = new Set([
-  "/blog/complete-guide-civil-construction-dubai-2026",
-  "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
-  "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
-  "/blog/choose-best-building-contractor-dubai",
-]);
-
 function hasSitemapArabicPage(path: string) {
-  const englishPath = toEnglishPath(path);
-  if (englishPath.startsWith("/warehouse/")) return false;
-  if (englishPath.startsWith("/blog/")) return sitemapTranslatedBlogPaths.has(englishPath);
-  return hasArabicPage(englishPath);
+  return hasArabicPage(toEnglishPath(path));
 }
 const coreRoutes: RouteRecord[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
@@ -64,36 +59,14 @@ const coreRoutes: RouteRecord[] = [
   { path: "/terms-and-conditions", changeFrequency: "yearly", priority: 0.4 },
 ];
 
-function languageAlternates(path: string) {
-  const englishPath = toEnglishPath(path);
-  const englishUrl = absoluteUrl(englishPath);
-  if (!hasSitemapArabicPage(englishPath)) {
-    return {
-      en: englishUrl,
-      "en-AE": englishUrl,
-      "x-default": englishUrl,
-    };
-  }
-
-  const arabicUrl = absoluteUrl(toArabicPath(englishPath));
-  return {
-    en: englishUrl,
-    ar: arabicUrl,
-    "en-AE": englishUrl,
-    "ar-AE": arabicUrl,
-    "x-default": englishUrl,
-  };
-}
-
 function sitemapEntry(record: RouteRecord): MetadataRoute.Sitemap[number] {
+  const languages = getLanguageAlternates(record.path);
   return {
-    url: absoluteUrl(record.path),
+    url: buildCanonicalUrl(record.path),
     ...(record.lastModified ? { lastModified: record.lastModified } : {}),
     changeFrequency: record.changeFrequency ?? "monthly",
     priority: record.priority ?? 0.7,
-    alternates: {
-      languages: languageAlternates(record.path),
-    },
+    ...(languages ? { alternates: { languages } } : {}),
   };
 }
 
@@ -102,7 +75,7 @@ function normalizeSameOriginExtra(value: string) {
     const url = new URL(value, site.url);
     if (url.origin !== new URL(site.url).origin) return null;
     if (url.search || url.hash) return null;
-    return url.pathname.replace(/\/+$/, "") || "/";
+    return normalizePath(url.pathname);
   } catch {
     return null;
   }

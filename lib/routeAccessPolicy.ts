@@ -1,19 +1,8 @@
 import { warehouseBlogSlugs } from "@/data/warehouseRoutes";
-
-const servicePaths = [
-  "/civil",
-  "/main-contracting",
-  "/warehouse-construction",
-  "/industrial-buildings",
-  "/commercial-buildings",
-  "/villa-construction",
-  "/interior",
-  "/building-renovation",
-  "/structural-works",
-  "/design-build",
-  "/turnkey-construction",
-  "/project-management",
-] as const;
+import {
+  getTranslatedArabicPaths,
+  translatedBlogSlugs,
+} from "@/lib/multilingualRoutes";
 
 const serviceAliasPaths = [
   "/services/civil-contracting",
@@ -32,58 +21,17 @@ const serviceAliasPaths = [
   "/services/project-management",
 ] as const;
 
-const approvalPaths = [
-  "/dubai-municipality-approval",
-  "/dda-approvals",
-  "/dcd-approvals",
-  "/dewa-approvals",
-  "/trakhees-approvals",
-  "/difc-approvals",
-  "/concordia-dmcc-approvals",
-  "/rta-approval",
-] as const;
-
 const blogArticlePaths = [
-  "/blog/complete-guide-civil-construction-dubai-2026",
-  "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
-  "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
-  "/blog/choose-best-building-contractor-dubai",
+  ...translatedBlogSlugs.map((slug) => `/blog/${slug}`),
   ...warehouseBlogSlugs.map((slug) => `/blog/${slug}`),
 ];
-
-const translatedBlogArticlePaths = [
-  "/blog/complete-guide-civil-construction-dubai-2026",
-  "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
-  "/blog/warehouse-construction-dubai-planning-design-authority-approvals",
-  "/blog/choose-best-building-contractor-dubai",
-] as const;
-
-const arabicCommonPaths = [
-  "/ar/about",
-  "/ar/services",
-  "/ar/approval",
-  "/ar/approvals",
-  "/ar/projects",
-  "/ar/industries",
-  "/ar/careers",
-  "/ar/blog",
-  "/ar/resources",
-  "/ar/html-sitemap",
-  "/ar/contact",
-  "/ar/guest-post",
-  "/ar/cookie-policy",
-  "/ar/privacy-policy",
-  "/ar/terms-and-conditions",
-] as const;
 
 const knownServiceAliases = new Set<string>(serviceAliasPaths);
 const knownBlogArticles = new Set<string>(blogArticlePaths);
 const knownArabicPaths = new Set<string>([
-  ...arabicCommonPaths,
-  ...servicePaths.map((path) => `/ar${path}`),
+  ...getTranslatedArabicPaths(),
+  "/ar/approvals",
   ...serviceAliasPaths.map((path) => `/ar${path}`),
-  ...approvalPaths.map((path) => `/ar${path}`),
-  ...translatedBlogArticlePaths.map((path) => `/ar${path}`),
 ]);
 
 /**

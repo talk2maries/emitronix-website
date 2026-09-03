@@ -1,8 +1,6 @@
-import type { Metadata } from "next";
+/* eslint-disable @next/next/no-head-element -- This shared component is rendered only by App Router root layouts. */
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { CookieConsentManager } from "@/components/CookieConsentManager";
-import { DocumentLocaleSync } from "@/components/DocumentLocaleSync";
 import { FloatingActions } from "@/components/FloatingActions";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -19,10 +17,6 @@ import { googleTagManagerId } from "@/lib/googleTagManager";
 
 const cityServiceAreas = new Set(["Dubai", "Abu Dhabi", "Sharjah"]);
 
-// Refresh statically generated pages every 5 minutes so administrator SEO
-// overrides take effect without a rebuild.
-export const revalidate = 300;
-
 const inter = Inter({
   subsets: ["latin"],
   display: "optional",
@@ -37,85 +31,14 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer',${JSON.stringify(googleTagManagerId)});
 `;
 
-export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
-  title: {
-    default: site.title,
-    template: `%s | ${site.name}`,
-  },
-  description: site.description,
-  applicationName: site.name,
-  keywords: [
-    "Emitronix Contracting LLC",
-    "Dubai civil contracting",
-    "building contractor Dubai",
-    "civil contractor Dubai",
-    "warehouse contractor UAE",
-    "renovation contractor Dubai",
-    "authority approvals Dubai",
-    "interior fit-out Dubai",
-  ],
-  authors: [{ name: site.name }],
-  creator: site.name,
-  publisher: site.name,
-  alternates: {
-    canonical: absoluteUrl("/"),
-    languages: {
-      en: absoluteUrl("/"),
-      ar: absoluteUrl("/ar"),
-      "en-AE": absoluteUrl("/"),
-      "ar-AE": absoluteUrl("/ar"),
-      "x-default": absoluteUrl("/"),
-    },
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_AE",
-    url: absoluteUrl("/"),
-    siteName: site.name,
-    title: site.title,
-    description: site.description,
-    images: [
-      {
-        url: absoluteUrl(brandAssets.socialCard),
-        width: 1200,
-        height: 630,
-        alt: "Dubai commercial building and warehouse construction scene",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: site.title,
-    description: site.description,
-    images: [absoluteUrl(brandAssets.socialCard)],
-  },
-  icons: {
-    icon: [
-      { url: brandAssets.markSvg, type: "image/svg+xml" },
-      { url: brandAssets.faviconPng, type: "image/png", sizes: "32x32" },
-    ],
-    shortcut: brandAssets.markSvg,
-    apple: [
-      {
-        url: brandAssets.appleTouchIcon,
-        type: "image/png",
-        sizes: "180x180",
-      },
-    ],
-  },
-  manifest: "/manifest.webmanifest",
-};
-
-export default function RootLayout({
+export function SiteRootLayout({
   children,
+  locale,
 }: Readonly<{
   children: React.ReactNode;
+  locale: "en" | "ar";
 }>) {
+  const isArabic = locale === "ar";
   const organizationId = absoluteUrl("/#organization");
   const officeContactId = absoluteUrl("/#office-contact");
   const mobileContactId = absoluteUrl("/#mobile-contact");
@@ -227,20 +150,12 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en-AE" dir="ltr" className={inter.variable} suppressHydrationWarning>
+    <html
+      lang={isArabic ? "ar-AE" : "en-AE"}
+      dir={isArabic ? "rtl" : "ltr"}
+      className={inter.variable}
+    >
       <head>
-        <script
-          id="emitronix-document-language"
-          dangerouslySetInnerHTML={{
-            __html: `
-(function(){
-  var isArabic = window.location.pathname === '/ar' || window.location.pathname.indexOf('/ar/') === 0;
-  document.documentElement.lang = isArabic ? 'ar-AE' : 'en-AE';
-  document.documentElement.dir = isArabic ? 'rtl' : 'ltr';
-})();
-`,
-          }}
-        />
         <script
           id="emitronix-organization-schema"
           type="application/ld+json"
@@ -290,7 +205,6 @@ gtag('consent', 'default', {
           <span className="skip-link-label-en" lang="en-AE">Skip to main content</span>
           <span className="skip-link-label-ar" lang="ar-AE" dir="rtl">تخطي إلى المحتوى الرئيسي</span>
         </a>
-        <DocumentLocaleSync />
         <Header />
         <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>
         <Footer />

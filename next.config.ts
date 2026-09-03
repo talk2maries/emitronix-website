@@ -82,6 +82,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   compress: true,
+  experimental: {
+    globalNotFound: true,
+  },
   // Keep metadata in <head> for search, social, answer-engine and audit
   // crawlers without disabling metadata streaming for every human browser.
   htmlLimitedBots:
@@ -95,6 +98,7 @@ const nextConfig: NextConfig = {
   },
   poweredByHeader: false,
   reactStrictMode: true,
+  skipTrailingSlashRedirect: true,
   async redirects() {
     return [
       {
