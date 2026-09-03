@@ -7,8 +7,23 @@ type RedirectEntry = { from: string; to: string; permanent: boolean };
 const CACHE_TTL_MS = 30 * 1000;
 const ARABIC_NOT_FOUND_ROUTE = "/ar/emitronix-route-not-found";
 const INTERNAL_NOT_FOUND_HEADER = "x-emitronix-internal-not-found";
+const PUBLIC_ORIGIN = "https://emitronix.ae";
 
 let cache: { at: number; map: Map<string, RedirectEntry> } | null = null;
+
+function preferredPublicPath(pathname: string) {
+  let preferred = pathname.replace(/\/{2,}/g, "/");
+
+  if (preferred === "/en") preferred = "/";
+  else if (preferred.startsWith("/en/")) preferred = preferred.slice(3) || "/";
+
+  while (preferred === "/ar/ar" || preferred.startsWith("/ar/ar/")) {
+    preferred = `/ar${preferred.slice(6)}`;
+  }
+
+  preferred = preferred.toLowerCase().replace(/\/+$/, "") || "/";
+  return preferred;
+}
 
 function nextWithLocaleHeaders(request: NextRequest, status?: number) {
   const response = NextResponse.next(status ? { status } : undefined);
@@ -63,7 +78,14 @@ async function loadRedirects(request: NextRequest): Promise<Map<string, Redirect
 }
 
 export async function middleware(request: NextRequest) {
-  const pathname = request.nextUrl.pathname.replace(/\/+$/, "") || "/";
+  const pathname = preferredPublicPath(request.nextUrl.pathname);
+
+  if (pathname !== request.nextUrl.pathname) {
+    // NextURL can reapply the incoming slash. Build against the canonical
+    // origin so proxy host details cannot leak into public redirects.
+    const destination = new URL(`${pathname}${request.nextUrl.search}`, PUBLIC_ORIGIN);
+    return NextResponse.redirect(destination, 308);
+  }
 
   // A same-origin rewrite passes through middleware again in production.
   // Render the private Arabic destination once while preserving the outer 404.

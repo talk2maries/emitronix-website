@@ -19,8 +19,9 @@ import { founderProfile } from "@/data/authority";
 import { getGeneratedImage } from "@/data/generatedImages";
 import { absoluteUrl, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
+import { buildCanonicalUrl } from "@/lib/seoRouting";
 
-const pageUrl = absoluteUrl(founderProfile.profilePath);
+const pageUrl = buildCanonicalUrl(founderProfile.profilePath);
 const pageDescription =
   "Meet Marieswaran Sadaiappan, Founder & Managing Director of Emitronix Contracting LLC, and review the professional themes published for this profile.";
 const founderContextImage = getGeneratedImage("team.engineering-leadership-site-review");
@@ -32,11 +33,6 @@ export const metadata: Metadata = {
   description: pageDescription,
   alternates: {
     canonical: pageUrl,
-    languages: {
-      en: pageUrl,
-      "en-AE": pageUrl,
-      "x-default": pageUrl,
-    },
   },
   robots: {
     index: true,

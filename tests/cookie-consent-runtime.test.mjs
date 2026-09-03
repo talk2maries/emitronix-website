@@ -254,11 +254,15 @@ test("essential SalesIQ requests are not blocked when optional functional consen
 });
 
 test("standard GTM bootstrap and noscript exist once without a consent-loader duplicate", async () => {
-  const [layout, consentManager] = await Promise.all([
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+  const [layout, englishRoot, arabicRoot, consentManager] = await Promise.all([
+    readFile(new URL("../components/SiteRootLayout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/(en)/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/ar/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../components/CookieConsentManager.tsx", import.meta.url), "utf8"),
   ]);
 
+  assert.match(englishRoot, /<SiteRootLayout locale="en">/);
+  assert.match(arabicRoot, /<SiteRootLayout locale="ar">/);
   assert.equal(layout.match(/id="emitronix-google-tag-manager"/g)?.length, 1);
   assert.equal(layout.match(/id="emitronix-google-consent-default"/g)?.length, 1);
   assert.equal(layout.match(/googletagmanager\.com\/gtm\.js/g)?.length, 1);

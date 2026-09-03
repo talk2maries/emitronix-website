@@ -8,8 +8,12 @@ import { blogImageAlt, blogPostUrl, blogPosts, getBlogPost, getRelatedPosts } fr
 import { getGeneratedImage } from "@/data/generatedImages";
 import { applySeoOverrides, resolveMetaTitle } from "@/data/seo";
 import { absoluteUrl, services, site } from "@/data/site";
-import { hasArabicPage, toArabicPath } from "@/lib/i18n";
 import { isUnknownClosedSetPath } from "@/lib/routeAccessPolicy";
+import {
+  buildCanonicalUrl,
+  getLanguageAlternates,
+  getOpenGraphLocales,
+} from "@/lib/seoRouting";
 
 type BlogArticlePageProps = {
   params: Promise<{ slug: string }>;
@@ -44,25 +48,13 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
   const post = getBlogPost(slug);
   if (!post) return {};
 
-  const url = blogPostUrl(post);
+  const url = buildCanonicalUrl(`/blog/${post.slug}`);
   const title = resolveMetaTitle(post.seoTitle);
   const imageAsset = getGeneratedImage(post.generatedImage);
   const socialImage = imageAsset.og ?? imageAsset.desktop;
   const imageUrl = absoluteUrl(socialImage.src);
   const path = `/blog/${post.slug}`;
-  const languages = hasArabicPage(path)
-    ? {
-        en: url,
-        ar: absoluteUrl(toArabicPath(path)),
-        "en-AE": url,
-        "ar-AE": absoluteUrl(toArabicPath(path)),
-        "x-default": url,
-      }
-    : {
-        en: url,
-        "en-AE": url,
-        "x-default": url,
-      };
+  const languages = getLanguageAlternates(path);
 
   const base: Metadata = {
     title: {
@@ -72,7 +64,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
     keywords: post.targetKeywords,
     alternates: {
       canonical: url,
-      languages,
+      ...(languages ? { languages } : {}),
     },
     robots: {
       index: true,
@@ -81,7 +73,7 @@ export async function generateMetadata({ params }: BlogArticlePageProps): Promis
     authors: [{ name: post.author }],
     openGraph: {
       type: "article",
-      locale: "en_AE",
+      ...getOpenGraphLocales(path),
       url,
       siteName: site.name,
       title,

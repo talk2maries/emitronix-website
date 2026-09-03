@@ -19,8 +19,9 @@ import { PremiumSectionHeading } from "@/components/Premium";
 import { companyFacts } from "@/data/authority";
 import { absoluteUrl, brandAssets, site } from "@/data/site";
 import { trustContentLastReviewedIso } from "@/data/trustCenter";
+import { buildCanonicalUrl } from "@/lib/seoRouting";
 
-const pageUrl = absoluteUrl("/company-information");
+const pageUrl = buildCanonicalUrl("/company-information");
 const pageDescription =
   "Review the published legal name, website, contact details, Dubai location, business hours and service areas for Emitronix Contracting LLC.";
 
@@ -31,11 +32,6 @@ export const metadata: Metadata = {
   description: pageDescription,
   alternates: {
     canonical: pageUrl,
-    languages: {
-      en: pageUrl,
-      "en-AE": pageUrl,
-      "x-default": pageUrl,
-    },
   },
   robots: {
     index: true,

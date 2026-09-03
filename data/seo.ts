@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import { getSeoOverride } from "@/lib/adminStore";
 import { absoluteUrl, brandAssets, site } from "@/data/site";
-import { hasArabicPage, toArabicPath } from "@/lib/i18n";
+import {
+  buildCanonicalUrl,
+  buildLanguageAlternates,
+  getLanguageAlternates,
+  getOpenGraphLocales,
+} from "@/lib/seoRouting";
 
 type PageMetadataInput = {
   title: string;
@@ -54,22 +59,14 @@ export function createPageMetadata({
   imageAlt = defaultImageAlt,
 }: PageMetadataInput): Metadata {
   const resolvedTitle = resolveMetaTitle(title);
-  const url = absoluteUrl(path);
-  const resolvedArabicPath =
-    arabicPath === undefined && hasArabicPage(path) ? toArabicPath(path) : (arabicPath ?? null);
-  const languages = resolvedArabicPath
-    ? {
-        en: url,
-        ar: absoluteUrl(resolvedArabicPath),
-        "en-AE": url,
-        "ar-AE": absoluteUrl(resolvedArabicPath),
-        "x-default": url,
-      }
-    : {
-        en: url,
-        "en-AE": url,
-        "x-default": url,
-      };
+  const url = buildCanonicalUrl(path);
+  const languages =
+    arabicPath === null
+      ? undefined
+      : arabicPath
+        ? buildLanguageAlternates(path, arabicPath)
+        : getLanguageAlternates(path);
+  const openGraphLocales = getOpenGraphLocales(path);
   const socialImage =
     image.startsWith("/images/generated/") && image.endsWith("-desktop.webp")
       ? image.replace(/-desktop\.webp$/, "-og.webp")
@@ -88,7 +85,7 @@ export function createPageMetadata({
     keywords: normalizeMetaKeywords(keywords),
     alternates: {
       canonical: url,
-      languages,
+      ...(languages ? { languages } : {}),
     },
     robots: {
       index: true,
@@ -96,7 +93,7 @@ export function createPageMetadata({
     },
     openGraph: {
       type: "website",
-      locale: "en_AE",
+      ...openGraphLocales,
       url,
       siteName: site.name,
       title: resolvedTitle,

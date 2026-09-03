@@ -6,8 +6,14 @@ import {
   getGeneratedImage,
 } from "@/data/generatedImages";
 import { portfolioProjects } from "@/data/projects";
-import { absoluteUrl, allServiceAliasPaths, getServiceByRoutePath, navItems, services, site } from "@/data/site";
+import { absoluteUrl, getServiceByRoutePath, navItems, services, site } from "@/data/site";
 import { toArabicPath, toEnglishPath } from "@/lib/i18n";
+import {
+  getTranslatedArabicPaths,
+  getTranslatedEnglishPaths,
+  translatedBlogSlugs,
+} from "@/lib/multilingualRoutes";
+import { getLanguageAlternates } from "@/lib/seoRouting";
 
 export const arabicFooterLabels = {
   navigation: "التنقل",
@@ -112,7 +118,8 @@ export const arabicBlogTitles: Record<string, string> = {
 };
 
 function translatedBlogPosts() {
-  return blogPosts.filter((post) => post.slug in arabicBlogTitles);
+  const translatedSlugs = new Set<string>(translatedBlogSlugs);
+  return blogPosts.filter((post) => translatedSlugs.has(post.slug));
 }
 
 const commonPages: Record<string, ArabicPageData> = {
@@ -1194,31 +1201,10 @@ const arabicBlogSections: Record<string, ArabicSection[]> = {
   ],
 };
 
-export const englishBaseRoutes = [
-  "/",
-  "/about",
-  "/services",
-  "/approval",
-  "/approvals",
-  "/projects",
-  "/industries",
-  "/careers",
-  "/blog",
-  "/resources",
-  "/html-sitemap",
-  "/contact",
-  "/guest-post",
-  "/cookie-policy",
-  "/privacy-policy",
-  "/terms-and-conditions",
-  ...services.map((service) => service.href),
-  ...allServiceAliasPaths(),
-  ...translatedBlogPosts().map((post) => `/blog/${post.slug}`),
-  ...approvalServices.map((service) => service.href),
-];
+export const englishBaseRoutes = getTranslatedEnglishPaths();
 
 export function arabicSitemapPaths() {
-  return Array.from(new Set(englishBaseRoutes.map((route) => toArabicPath(route))));
+  return getTranslatedArabicPaths();
 }
 
 export function arabicServiceTitle(href: string) {
@@ -1298,9 +1284,11 @@ export function getArabicPageByEnglishPath(path: string): ArabicPageData | null 
 }
 
 export function getArabicMetadata(page: ArabicPageData): Metadata {
-  const path = toArabicPath(page.path);
-  const canonical = absoluteUrl(path);
-  const english = absoluteUrl(page.path);
+  const languages = getLanguageAlternates(page.path);
+  if (!languages) {
+    throw new Error(`Arabic metadata route is missing from the verified translation map: ${page.path}`);
+  }
+  const canonical = languages["ar-AE"];
   const title = `${page.title} | ${site.name}`;
   const generatedImage = findGeneratedImageBySrc(page.image);
   const socialImage = generatedImage?.og ?? generatedImage?.desktop;
@@ -1317,13 +1305,7 @@ export function getArabicMetadata(page: ArabicPageData): Metadata {
     description: page.description,
     alternates: {
       canonical,
-      languages: {
-        ar: canonical,
-        en: english,
-        "ar-AE": canonical,
-        "en-AE": english,
-        "x-default": english,
-      },
+      languages,
     },
     robots: {
       index: true,
@@ -1333,6 +1315,7 @@ export function getArabicMetadata(page: ArabicPageData): Metadata {
       ? {
           type: "article",
           locale: "ar_AE",
+          alternateLocale: ["en_AE"],
           url: canonical,
           siteName: site.name,
           title,
@@ -1347,6 +1330,7 @@ export function getArabicMetadata(page: ArabicPageData): Metadata {
       : {
           type: "website",
           locale: "ar_AE",
+          alternateLocale: ["en_AE"],
           url: canonical,
           siteName: site.name,
           title,

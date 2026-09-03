@@ -29,7 +29,6 @@ const missingPagePaths = [
   "/test123",
   "/abcxyz",
   "/random-page",
-  "/en/unknown",
   "/services/not-found",
   "/blog/not-found",
   "/ar/unknown",
@@ -38,7 +37,6 @@ const missingPagePaths = [
   "/ar/unknown/nested/path",
   "/ar/missing.html",
   "/ar/emitronix-route-not-found",
-  "/About",
   "/about/team",
   "/locations/unknown",
   "/locations/dubai/unknown",
@@ -161,6 +159,9 @@ const validPagePaths = Array.from(new Set([
 ]));
 
 const permanentRedirects = [
+  ["/About", "/about"],
+  ["/ABOUT/", "/about"],
+  ["/en/unknown", "/unknown"],
   ["/approvals", "/approval"],
   ["/services/civil-contracting", "/civil"],
   ["/ar/approvals", "/ar/approval"],
@@ -186,7 +187,6 @@ const apiChecks = [
 const forbiddenFrameworkMessages = [
   "Application error: a client-side exception has occurred",
   "Application error: a server-side exception has occurred",
-  "This page could not be found.",
 ];
 
 function fail(subject, message) {

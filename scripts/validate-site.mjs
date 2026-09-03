@@ -40,6 +40,8 @@ const warnings = [];
 const crawledPaths = new Set();
 const internalLinkPaths = new Set();
 const sitemapPaths = new Set();
+const sitemapCanonicalByPath = new Map();
+const sitemapAlternatesByPath = new Map();
 const hreflangTargetsByPath = new Map();
 const schemaTypesSeen = new Set();
 const titlePaths = new Map();
@@ -343,6 +345,7 @@ function validateNoBodyMetadata(pathname, body) {
 
 function validateHtmlPage(pathname, html, canonicalOrigin) {
   const { head, body } = splitDocument(pathname, html);
+  const isArabicRoute = pathname === "/ar" || pathname.startsWith("/ar/");
   validateNoBodyMetadata(pathname, body);
 
   const titleMatches = [...head.matchAll(/<title\b[^>]*>([\s\S]*?)<\/title>/gi)].map((match) => textContent(match[1]));
@@ -350,6 +353,11 @@ function validateHtmlPage(pathname, html, canonicalOrigin) {
     report(errors, pathname, `Expected one non-empty <title>; found ${titleMatches.length}.`);
   } else if (titleMatches[0].length > 70) {
     report(warnings, pathname, `Title is ${titleMatches[0].length} characters; review for truncation.`);
+  }
+  if (titleMatches[0]) {
+    const containsArabic = /[\u0600-\u06ff]/.test(titleMatches[0]);
+    if (isArabicRoute && !containsArabic) report(errors, pathname, "Arabic title does not contain Arabic text.");
+    if (!isArabicRoute && containsArabic) report(errors, pathname, "English title contains Arabic text.");
   }
   recordUniqueValue(titlePaths, titleMatches[0], pathname);
 
@@ -359,6 +367,11 @@ function validateHtmlPage(pathname, html, canonicalOrigin) {
     report(errors, pathname, `Expected one meta description; found ${descriptions.length}.`);
   } else if (descriptions[0].length < 50 || descriptions[0].length > 180) {
     report(warnings, pathname, `Meta description is ${descriptions[0].length} characters.`);
+  }
+  if (descriptions[0]) {
+    const containsArabic = /[\u0600-\u06ff]/.test(descriptions[0]);
+    if (isArabicRoute && !containsArabic) report(errors, pathname, "Arabic meta description does not contain Arabic text.");
+    if (!isArabicRoute && containsArabic) report(errors, pathname, "English meta description contains Arabic text.");
   }
   recordUniqueValue(descriptionPaths, descriptions[0], pathname);
 
@@ -387,10 +400,14 @@ function validateHtmlPage(pathname, html, canonicalOrigin) {
         report(errors, pathname, `Canonical origin ${canonical.origin} differs from sitemap origin ${canonicalOrigin.origin}.`);
       }
       if (canonical.search || canonical.hash) {
-        report(warnings, pathname, "Canonical URL contains a query string or fragment.");
+        report(errors, pathname, "Canonical URL contains a query string or fragment.");
       }
       if (canonicalPath(canonical) !== canonicalPath(canonicalOrigin)) {
         report(errors, pathname, `Canonical path ${canonical.pathname} differs from sitemap path ${canonicalOrigin.pathname}.`);
+      }
+      const expectedCanonicalHref = sitemapCanonicalByPath.get(pathname);
+      if (expectedCanonicalHref && canonicals[0].href !== expectedCanonicalHref) {
+        report(errors, pathname, `Canonical ${canonicals[0].href} differs from sitemap URL ${expectedCanonicalHref}.`);
       }
     } catch {
       report(errors, pathname, `Canonical is not an absolute URL: ${canonicals[0].href}`);
@@ -398,8 +415,17 @@ function validateHtmlPage(pathname, html, canonicalOrigin) {
   }
 
   const htmlTags = tags(html, "html").map(attributes);
-  if (htmlTags.length !== 1 || !htmlTags[0].lang) {
-    report(errors, pathname, "Document is missing an html lang attribute.");
+  const expectedHtmlLang = isArabicRoute ? "ar-AE" : "en-AE";
+  const expectedDirection = isArabicRoute ? "rtl" : "ltr";
+  if (htmlTags.length !== 1) {
+    report(errors, pathname, `Expected one html element; found ${htmlTags.length}.`);
+  } else {
+    if (htmlTags[0].lang !== expectedHtmlLang) {
+      report(errors, pathname, `Expected html lang=${expectedHtmlLang}; received ${htmlTags[0].lang || "none"}.`);
+    }
+    if (htmlTags[0].dir?.toLowerCase() !== expectedDirection) {
+      report(errors, pathname, `Expected html dir=${expectedDirection}; received ${htmlTags[0].dir || "none"}.`);
+    }
   }
 
   const h1Matches = html.match(/<h1\b[^>]*>[\s\S]*?<\/h1>/gi) ?? [];
@@ -411,6 +437,28 @@ function validateHtmlPage(pathname, html, canonicalOrigin) {
     if (!metaTags.some((item) => item.property?.toLowerCase() === property && item.content)) {
       report(warnings, pathname, `Missing ${property}.`);
     }
+  }
+
+  const expectedOgUrl = sitemapCanonicalByPath.get(pathname) ?? canonicalOrigin.href;
+  const expectedOgLocale = isArabicRoute ? "ar_AE" : "en_AE";
+  const expectedOgAlternateLocale = isArabicRoute ? "en_AE" : "ar_AE";
+  const ogUrls = metaTags
+    .filter((item) => item.property?.toLowerCase() === "og:url")
+    .map((item) => item.content)
+    .filter(Boolean);
+  const ogLocales = metaTags
+    .filter((item) => item.property?.toLowerCase() === "og:locale")
+    .map((item) => item.content)
+    .filter(Boolean);
+  const ogAlternateLocales = metaTags
+    .filter((item) => item.property?.toLowerCase() === "og:locale:alternate")
+    .map((item) => item.content)
+    .filter(Boolean);
+  if (ogUrls.length !== 1 || ogUrls[0] !== expectedOgUrl) {
+    report(errors, pathname, `Expected one og:url equal to ${expectedOgUrl}; received ${ogUrls.join(", ") || "none"}.`);
+  }
+  if (ogLocales.length !== 1 || ogLocales[0] !== expectedOgLocale) {
+    report(errors, pathname, `Expected one og:locale ${expectedOgLocale}; received ${ogLocales.join(", ") || "none"}.`);
   }
 
   metaTags
@@ -436,20 +484,24 @@ function validateHtmlPage(pathname, html, canonicalOrigin) {
   });
 
   const hreflangLinks = linkTags.filter((item) => item.hreflang);
-  const hreflangCodes = new Set(hreflangLinks.map((item) => item.hreflang.toLowerCase()));
-  ["en", "en-ae", "x-default"].forEach((code) => {
-    if (!hreflangCodes.has(code)) {
-      report(errors, pathname, `Missing required hreflang ${code}.`);
-    }
-  });
-  if ((pathname === "/ar" || pathname.startsWith("/ar/")) && !hreflangCodes.has("ar")) {
-    report(errors, pathname, "Arabic route is missing hreflang ar.");
-  }
-  if (hreflangCodes.has("ar") !== hreflangCodes.has("ar-ae")) {
-    report(errors, pathname, "Arabic hreflang variants ar and ar-AE must be emitted together.");
+  const expectedHreflangs = sitemapAlternatesByPath.get(pathname) ?? new Map();
+  const hreflangCodes = new Set();
+  if (hreflangLinks.length !== expectedHreflangs.size) {
+    report(errors, pathname, `Expected ${expectedHreflangs.size} hreflang links; found ${hreflangLinks.length}.`);
   }
   const hreflangTargets = new Set();
   hreflangLinks.forEach((item) => {
+    const code = item.hreflang.toLowerCase();
+    if (hreflangCodes.has(code)) {
+      report(errors, pathname, `Duplicate hreflang ${item.hreflang}.`);
+    }
+    hreflangCodes.add(code);
+    const expectedHref = expectedHreflangs.get(code);
+    if (!expectedHref) {
+      report(errors, pathname, `Unexpected hreflang ${item.hreflang}.`);
+    } else if (item.href !== expectedHref) {
+      report(errors, pathname, `hreflang ${item.hreflang} expected ${expectedHref}; received ${item.href || "none"}.`);
+    }
     try {
       const target = new URL(item.href);
       if (target.origin === canonicalOrigin.origin) {
@@ -463,6 +515,20 @@ function validateHtmlPage(pathname, html, canonicalOrigin) {
       report(errors, pathname, `hreflang ${item.hreflang} has an invalid URL.`);
     }
   });
+  for (const code of expectedHreflangs.keys()) {
+    if (!hreflangCodes.has(code)) report(errors, pathname, `Missing required hreflang ${code}.`);
+  }
+  if (expectedHreflangs.size > 0) {
+    if (ogAlternateLocales.length !== 1 || ogAlternateLocales[0] !== expectedOgAlternateLocale) {
+      report(
+        errors,
+        pathname,
+        `Expected one og:locale:alternate ${expectedOgAlternateLocale}; received ${ogAlternateLocales.join(", ") || "none"}.`,
+      );
+    }
+  } else if (ogAlternateLocales.length > 0) {
+    report(errors, pathname, `Untranslated page emits og:locale:alternate ${ogAlternateLocales.join(", ")}.`);
+  }
   hreflangTargetsByPath.set(pathname, hreflangTargets);
 
   validateJsonLd(pathname, html);
@@ -790,11 +856,99 @@ async function main() {
 
       sitemapUrls.forEach((value) => {
         try {
-          sitemapPaths.add(canonicalPath(new URL(value)));
+          const url = new URL(value);
+          const pathname = canonicalPath(url);
+          sitemapPaths.add(pathname);
+          sitemapCanonicalByPath.set(pathname, value);
+          if (url.protocol !== "https:" || url.hostname !== "emitronix.ae") {
+            report(errors, "/sitemap.xml", `Non-preferred sitemap URL ${value}.`);
+          }
+          if (url.search || url.hash) {
+            report(errors, "/sitemap.xml", `Sitemap URL contains a query string or fragment: ${value}.`);
+          }
+          if (url.pathname !== "/" && url.pathname.endsWith("/")) {
+            report(errors, "/sitemap.xml", `Sitemap URL violates the no-trailing-slash policy: ${value}.`);
+          }
         } catch {
           // The absolute-URL check below reports the parse error.
         }
       });
+
+      for (const blockMatch of body.matchAll(/<url>([\s\S]*?)<\/url>/gi)) {
+        const block = blockMatch[1];
+        const location = block.match(/<loc>([\s\S]*?)<\/loc>/i)?.[1]?.trim();
+        if (!location) continue;
+
+        let pathname;
+        try {
+          pathname = canonicalPath(new URL(decodeEntities(location)));
+        } catch {
+          continue;
+        }
+
+        const alternates = new Map();
+        for (const linkMatch of block.matchAll(/<xhtml:link\b[^>]*>/gi)) {
+          const item = attributes(linkMatch[0]);
+          const code = item.hreflang?.toLowerCase();
+          if (!code || !item.href) continue;
+          if (alternates.has(code)) {
+            report(errors, pathname, `Duplicate sitemap hreflang ${item.hreflang}.`);
+          }
+          alternates.set(code, item.href);
+        }
+        sitemapAlternatesByPath.set(pathname, alternates);
+      }
+
+      for (const [pathname, alternates] of sitemapAlternatesByPath.entries()) {
+        if (alternates.size === 0) continue;
+        const requiredCodes = ["en", "en-ae", "ar", "ar-ae", "x-default"];
+        if (alternates.size !== requiredCodes.length) {
+          report(errors, pathname, `Expected ${requiredCodes.length} sitemap hreflang entries; found ${alternates.size}.`);
+        }
+        requiredCodes.forEach((code) => {
+          if (!alternates.has(code)) report(errors, pathname, `Missing sitemap hreflang ${code}.`);
+        });
+        if (alternates.get("en") !== alternates.get("en-ae")) {
+          report(errors, pathname, "Sitemap hreflang en and en-AE must use the same URL.");
+        }
+        if (alternates.get("ar") !== alternates.get("ar-ae")) {
+          report(errors, pathname, "Sitemap hreflang ar and ar-AE must use the same URL.");
+        }
+        if (alternates.get("x-default") !== alternates.get("en")) {
+          report(errors, pathname, "Sitemap x-default must use the English URL.");
+        }
+        for (const [code, href] of alternates.entries()) {
+          try {
+            const target = new URL(href);
+            if (target.protocol !== "https:" || target.hostname !== "emitronix.ae") {
+              report(errors, pathname, `Sitemap hreflang ${code} uses non-preferred URL ${href}.`);
+            }
+            if (!sitemapPaths.has(canonicalPath(target))) {
+              report(errors, pathname, `Sitemap hreflang ${code} targets non-sitemap URL ${href}.`);
+            }
+          } catch {
+            report(errors, pathname, `Sitemap hreflang ${code} is not an absolute URL: ${href}.`);
+          }
+        }
+      }
+
+      for (const [pathname, alternates] of sitemapAlternatesByPath.entries()) {
+        if (alternates.size === 0) continue;
+        for (const href of new Set(alternates.values())) {
+          let targetPath;
+          try {
+            targetPath = canonicalPath(new URL(href));
+          } catch {
+            continue;
+          }
+          const reciprocal = sitemapAlternatesByPath.get(targetPath);
+          for (const [code, expectedHref] of alternates.entries()) {
+            if (reciprocal?.get(code) !== expectedHref) {
+              report(errors, pathname, `Sitemap hreflang cluster is not reciprocal with ${targetPath} for ${code}.`);
+            }
+          }
+        }
+      }
 
       const requiredSitemapPaths = [
         "/",
@@ -875,6 +1029,16 @@ async function main() {
       return;
     }
 
+    const expectedContentLanguage =
+      pathname === "/ar" || pathname.startsWith("/ar/") ? "ar-AE" : "en-AE";
+    if (response.headers.get("content-language") !== expectedContentLanguage) {
+      report(
+        errors,
+        pathname,
+        `Expected Content-Language ${expectedContentLanguage}; received ${response.headers.get("content-language") || "none"}.`,
+      );
+    }
+
     crawledPaths.add(pathname);
     validateHtmlPage(pathname, body, canonicalUrl);
   });
@@ -930,6 +1094,10 @@ async function main() {
   const aliases = [
     ["/approvals", "/approval"],
     ["/ar/approvals", "/ar/approval"],
+    ["/ABOUT/", "/about"],
+    ["/en/services", "/services"],
+    ["/ar/ar/services", "/ar/services"],
+    ["/AR/SERVICES/", "/ar/services"],
     ...(await serviceAliasesFromSource()),
   ];
   await mapLimit(aliases, concurrency, ([source, destination]) => validateRedirect(source, destination));
