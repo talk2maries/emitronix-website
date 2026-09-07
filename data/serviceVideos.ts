@@ -36,7 +36,7 @@ export const serviceVideos = {
     width: 720,
     height: 1280,
     duration: "PT23.8S",
-    uploadDate: "2026-07-28",
+    uploadDate: "2026-07-28T09:00:00+04:00",
     highlights: [
       {
         title: "Steel frame coordination",

@@ -166,6 +166,29 @@ const permanentRedirects = [
   ["/services/civil-contracting", "/civil"],
   ["/ar/approvals", "/ar/approval"],
   ["/ar/services/civil-contracting", "/ar/civil"],
+  ["/cdn-cgi/l/email-protection", "/contact"],
+  ["/blog/warehouse-construction-cost-dubai", "/warehouse/warehouse-cost-guide"],
+  ["/blog/main-contractor-vs-general-contractor-dubai", "/main-contracting"],
+  ["/blog/warehouse-design-guide-uae", "/warehouse/warehouse-design-build"],
+  ["/blog/commercial-building-construction-guide-dubai", "/commercial-buildings"],
+  ["/blog/villa-construction-process-dubai", "/villa-construction"],
+  [
+    "/blog/construction-approvals-explained-dubai",
+    "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
+  ],
+  ["/blog/industrial-building-planning-guide-uae", "/industrial-buildings"],
+  ["/blog/construction-cost-saving-tips-dubai", "/project-management"],
+  ["/ar/blog/warehouse-construction-cost-dubai", "/ar/warehouse-construction"],
+  ["/ar/blog/main-contractor-vs-general-contractor-dubai", "/ar/main-contracting"],
+  ["/ar/blog/warehouse-design-guide-uae", "/ar/warehouse-construction"],
+  ["/ar/blog/commercial-building-construction-guide-dubai", "/ar/commercial-buildings"],
+  ["/ar/blog/villa-construction-process-dubai", "/ar/villa-construction"],
+  [
+    "/ar/blog/construction-approvals-explained-dubai",
+    "/ar/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
+  ],
+  ["/ar/blog/industrial-building-planning-guide-uae", "/ar/industrial-buildings"],
+  ["/ar/blog/construction-cost-saving-tips-dubai", "/ar/project-management"],
 ];
 
 const apiChecks = [

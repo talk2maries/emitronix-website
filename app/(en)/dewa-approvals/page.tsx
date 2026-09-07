@@ -1729,7 +1729,7 @@ function JsonLd() {
         description:
           "Short visual overview of DEWA approval coordination, LV inspection preparation and HV/LV cable route planning for Dubai projects.",
         thumbnailUrl: absoluteUrl(heroImage),
-        uploadDate: "2026-07-06",
+        uploadDate: "2026-07-06T09:00:00+04:00",
         duration: "PT15S",
         contentUrl: absoluteUrl(videoUrl),
         publisher: {

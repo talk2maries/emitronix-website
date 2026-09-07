@@ -18,6 +18,7 @@
     "validate:arabic-seo": "node scripts/validate-arabic-seo.mjs",
     "validate:routes": "node scripts/validate-error-routes.mjs",
     "audit:content": "node scripts/audit-content-quality.mjs",
+    "report:gsc-inventory": "node scripts/create-gsc-url-inventory.mjs",
     "generate:images": "node scripts/build-generated-image-variants.mjs",
     "validate:images": "node scripts/validate-image-assets.mjs",
     "validate:images:partial": "node scripts/validate-image-assets.mjs --allow-incomplete"

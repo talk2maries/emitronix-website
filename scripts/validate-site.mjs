@@ -236,6 +236,21 @@ function validateJsonLd(pathname, html) {
           report(errors, pathname, `${label} has an invalid VideoObject.embedUrl.`);
         }
       }
+      if (types.includes("VideoObject")) {
+        const timezoneQualifiedDateTime =
+          /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/;
+        if (
+          typeof node.uploadDate !== "string" ||
+          !timezoneQualifiedDateTime.test(node.uploadDate) ||
+          Number.isNaN(Date.parse(node.uploadDate))
+        ) {
+          report(
+            errors,
+            pathname,
+            `${label} must use a timezone-qualified ISO 8601 VideoObject.uploadDate.`,
+          );
+        }
+      }
 
       Object.entries(node).forEach(([key, value]) => {
         if (key === "@context") return;

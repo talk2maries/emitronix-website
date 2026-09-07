@@ -1,0 +1,190 @@
+{
+  "property": "https://emitronix.ae/",
+  "capturedAt": "2026-09-07",
+  "reportLastUpdated": "2026-09-04",
+  "groups": [
+    {
+      "reason": "Page with redirect",
+      "defaults": {
+        "intendedIndexability": "Exclude: canonical redirect",
+        "rootCause": "Legacy alias or normalized locale URL points to the preferred canonical route.",
+        "correction": "Keep one permanent redirect; sitemap and internal links use the destination.",
+        "remainingAction": "Expected exclusion; monitor only."
+      },
+      "entries": [
+        "/services/project-management",
+        "/services/turnkey-construction",
+        "/services/villa-construction",
+        "/services/design-build",
+        "/services/building-renovation",
+        "/services/interior",
+        "/services/interior-fit-out",
+        "/services/commercial-buildings",
+        "/services/main-contracting",
+        "/services/industrial-buildings",
+        "/approvals",
+        "/services/warehouse-construction",
+        "/services/civil",
+        "/ar/",
+        "/services/civil-contracting",
+        "/ar/approvals",
+        "/ar/services/civil"
+      ]
+    },
+    {
+      "reason": "Alternate page with proper canonical tag",
+      "defaults": {
+        "intendedIndexability": "Exclude: alternate URL",
+        "rootCause": "Query-state URL or historical service alias consolidates to a canonical page.",
+        "correction": "Preserve useful query behavior and canonical consolidation; aliases permanently redirect.",
+        "remainingAction": "Expected exclusion; monitor only."
+      },
+      "entries": [
+        "/contact?intent=site-visit",
+        "/contact?service=dewa-approval",
+        "/ar/services/design-build",
+        "/ar/services/interior",
+        "/ar/services/industrial-buildings",
+        "/ar/services/project-management",
+        "/ar/services/commercial-buildings",
+        "/ar/services/interior-fit-out",
+        "/ar/services/villa-construction",
+        "/ar/services/civil-contracting",
+        "/ar/services/main-contracting",
+        "/services/structural-works",
+        "/ar/services/structural-works",
+        "/ar/services/warehouse-construction",
+        "/ar/contact?intent=site-visit",
+        "/ar/services/turnkey-construction"
+      ]
+    },
+    {
+      "reason": "Not found (404)",
+      "defaults": {
+        "intendedIndexability": "Exclude: retired URL",
+        "rootCause": "A former templated article was withdrawn because it did not meet the current editorial differentiation standard.",
+        "correction": "Added a permanent redirect to the closest current canonical resource.",
+        "remainingAction": "Verify production redirect, then allow Google to recrawl."
+      },
+      "entries": [
+        "/ar/blog/villa-construction-process-dubai",
+        "/ar/blog/warehouse-construction-cost-dubai",
+        "/blog/villa-construction-process-dubai",
+        "/blog/warehouse-construction-cost-dubai",
+        "/ar/blog/industrial-building-planning-guide-uae",
+        "/blog/warehouse-design-guide-uae",
+        "/blog/main-contractor-vs-general-contractor-dubai",
+        "/blog/construction-cost-saving-tips-dubai",
+        "/ar/blog/main-contractor-vs-general-contractor-dubai",
+        "/ar/blog/construction-cost-saving-tips-dubai"
+      ]
+    },
+    {
+      "reason": "Not found (404)",
+      "defaults": {
+        "intendedIndexability": "Exclude: CDN utility URL",
+        "rootCause": "Cloudflare Email Address Obfuscation rewrote a mail link to its decoding endpoint, which Google crawled as a URL.",
+        "correction": "Added a permanent fallback redirect to the contact page.",
+        "remainingAction": "Verify the edge passes the direct URL to the application redirect."
+      },
+      "entries": ["/cdn-cgi/l/email-protection"]
+    },
+    {
+      "reason": "Not found (404)",
+      "defaults": {
+        "intendedIndexability": "Exclude: malformed URL",
+        "rootCause": "Malformed one-character URL discovered historically; no relevant replacement exists.",
+        "correction": "Keep a genuine 404 with noindex; do not redirect unrelated URLs.",
+        "remainingAction": "Expected exclusion; no validation request."
+      },
+      "entries": ["/$", "/&"]
+    },
+    {
+      "reason": "Crawled - currently not indexed",
+      "defaults": {
+        "intendedIndexability": "Index",
+        "rootCause": "Aggregate report is stale; live URL Inspection now reports the canonical content URL as indexed.",
+        "correction": "No code change required after direct inspection.",
+        "verification": "URL Inspection reported indexed on 2026-09-07; crawl allowed, fetch successful, indexing allowed and Google-selected canonical matched.",
+        "remainingAction": "Wait for aggregate report refresh."
+      },
+      "entries": [
+        "/warehouse/warehouse-safety-standards",
+        "/blog/warehouse-dubai-municipality-approvals-planning-guide",
+        "/warehouse/warehouse-structural-steel",
+        "/warehouse/warehouse-planning",
+        "/blog/factory-construction-uae-approval-checklist",
+        "/warehouse/warehouse-dewa-approvals",
+        "/warehouse/warehouse-construction-timeline"
+      ]
+    },
+    {
+      "reason": "Crawled - currently not indexed",
+      "defaults": {
+        "intendedIndexability": "Exclude: non-HTML resource",
+        "rootCause": "Manifest and font files are supporting resources, not standalone search documents.",
+        "correction": "No change; these resources must remain crawlable for rendering.",
+        "remainingAction": "Expected non-page status."
+      },
+      "entries": [
+        "/manifest.webmanifest",
+        "/_next/static/media/e4af272ccee01ff0-s.p.woff2"
+      ]
+    },
+    {
+      "reason": "Excluded by noindex tag",
+      "defaults": {
+        "intendedIndexability": "Exclude: utility page",
+        "robotsNoindex": "meta robots: noindex, follow",
+        "rootCause": "Utility route is intentionally available to users but not intended as a search landing page.",
+        "correction": "No change; retain noindex.",
+        "remainingAction": "Expected exclusion."
+      },
+      "entries": ["/guest-post", "/search"]
+    },
+    {
+      "reason": "Blocked by robots.txt",
+      "defaults": {
+        "intendedIndexability": "Exclude: internal search result",
+        "robotsNoindex": "robots.txt blocks /search?q=; page metadata is noindex",
+        "rootCause": "WebSite SearchAction advertised an internal search URL that is intentionally blocked and noindexed.",
+        "correction": "Removed the obsolete SearchAction from WebSite JSON-LD; retained crawl-trap protection.",
+        "remainingAction": "Allow the aggregate report to age out; do not request validation because blocking is intentional."
+      },
+      "entries": ["/search?q={search_term_string}"]
+    },
+    {
+      "reason": "Discovered - currently not indexed",
+      "defaults": {
+        "intendedIndexability": "Index",
+        "rootCause": "Canonical URL is in the sitemap and linked from its hub, but Google had not crawled it when the report was generated.",
+        "correction": "No blanket submission or artificial freshness; prioritize differentiation and crawl demand at cluster level.",
+        "remainingAction": "Recheck after sitemap processing; consolidate overlapping warehouse pages only after business approval."
+      },
+      "entries": [
+        "/blog/cold-storage-warehouse-construction-approval-checklist",
+        "/blog/cold-storage-warehouse-construction-timeline-process",
+        "/blog/industrial-building-construction-dubai-approval-checklist",
+        "/blog/industrial-warehouse-construction-uae-contractor-selection",
+        "/blog/industrial-warehouse-construction-uae-planning-guide",
+        "/blog/logistics-warehouse-construction-planning-guide",
+        "/blog/warehouse-authority-approvals-dubai-contractor-selection",
+        "/blog/warehouse-dcd-approvals-cost-factors",
+        "/blog/warehouse-flooring-dubai-cost-factors",
+        "/warehouse/distribution-centre-construction",
+        "/warehouse/factory-construction",
+        "/warehouse/warehouse-concrete-works",
+        "/warehouse/warehouse-construction-dubai",
+        "/warehouse/warehouse-design-build",
+        "/warehouse/warehouse-fire-fighting",
+        "/warehouse/warehouse-fit-out",
+        "/warehouse/warehouse-flooring",
+        "/warehouse/warehouse-foundations",
+        "/warehouse/warehouse-infrastructure",
+        "/warehouse/warehouse-loading-dock-construction",
+        "/warehouse/warehouse-maintenance",
+        "/warehouse/warehouse-turnkey-contractor"
+      ]
+    }
+  ]
+}

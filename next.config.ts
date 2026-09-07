@@ -23,6 +23,54 @@ const serviceRedirects = services.flatMap((service) =>
   ]),
 );
 
+const retiredContentRedirects = [
+  {
+    source: "/blog/warehouse-construction-cost-dubai",
+    destination: "/warehouse/warehouse-cost-guide",
+  },
+  {
+    source: "/blog/main-contractor-vs-general-contractor-dubai",
+    destination: "/main-contracting",
+  },
+  {
+    source: "/blog/warehouse-design-guide-uae",
+    destination: "/warehouse/warehouse-design-build",
+  },
+  {
+    source: "/blog/commercial-building-construction-guide-dubai",
+    destination: "/commercial-buildings",
+  },
+  {
+    source: "/blog/villa-construction-process-dubai",
+    destination: "/villa-construction",
+  },
+  {
+    source: "/blog/construction-approvals-explained-dubai",
+    destination: "/blog/dubai-authority-approvals-dewa-dubai-municipality-dcd-trakhees",
+  },
+  {
+    source: "/blog/industrial-building-planning-guide-uae",
+    destination: "/industrial-buildings",
+  },
+  {
+    source: "/blog/construction-cost-saving-tips-dubai",
+    destination: "/project-management",
+  },
+] as const;
+
+const localizedRetiredContentRedirects = retiredContentRedirects.flatMap(
+  ({ source, destination }) => [
+    { source, destination, permanent: true },
+    {
+      source: `/ar${source}`,
+      destination: destination.startsWith("/warehouse/")
+        ? "/ar/warehouse-construction"
+        : `/ar${destination}`,
+      permanent: true,
+    },
+  ],
+);
+
 const securityHeaders = [
   {
     key: "Content-Security-Policy",
@@ -117,6 +165,12 @@ const nextConfig: NextConfig = {
         destination: "/ar/approval",
         permanent: true,
       },
+      {
+        source: "/cdn-cgi/l/email-protection",
+        destination: "/contact",
+        permanent: true,
+      },
+      ...localizedRetiredContentRedirects,
       ...serviceRedirects,
     ];
   },
